@@ -696,8 +696,9 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
     <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular — sem precisar abrir o navegador</div>
 
     <div class="instalar-tabs">
-      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone (iOS)</button>
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone</button>
       <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('atualizar',this)">🔄 Atualizar</button>
     </div>
 
     <div class="instalar-painel ativo" id="instalar-ios">
@@ -767,6 +768,41 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
       </div>
       <div class="instalar-dica">💡 <strong>Dica:</strong> O Chrome pode exibir uma notificação automática na parte de baixo da tela — é só tocar nela!</div>
     </div>
+
+    <!-- ABA ATUALIZAR -->
+    <div class="instalar-painel" id="instalar-atualizar">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Quando seu nutri enviar um plano novo</div>
+          <div class="instalar-passo-desc">Você receberá um aviso pelo WhatsApp. Só então vale atualizar — fora disso não há nada novo.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Feche o app completamente</div>
+          <div class="instalar-passo-desc">No iPhone, deslize o app para cima no gerenciador de apps. No Android, toque em "Fechar" ou deslize para o lado.</div>
+          <div class="instalar-passo-destaque">✕ Fechar o app</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra novamente pelo ícone na tela inicial</div>
+          <div class="instalar-passo-desc">Ao reabrir, o app busca automaticamente a versão mais recente do seu plano.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Ainda vendo o plano antigo?</div>
+          <div class="instalar-passo-desc">Abra o link no Safari ou Chrome normalmente (não pelo ícone), carregue a página e feche. Depois abra pelo ícone novamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> Se o nutri avisou que atualizou mas o app ainda mostra o plano antigo, o passo 4 resolve na maioria dos casos.</div>
+    </div>
+
   </div>
 </div>
 
