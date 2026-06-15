@@ -24,7 +24,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
 .nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
 .nav-sticky{position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(39,37,32,.15)}
-.conteudo{max-width:680px;margin:0 auto;padding:24px 16px}
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
 .aba{display:none}.aba.ativa{display:block}
 .btn-plano{display:block;width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:12px;padding:14px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;cursor:pointer;margin-bottom:20px;text-align:left;transition:background .15s}
 .btn-plano:hover{background:#3d4a34}
@@ -139,7 +139,34 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .historico-titulo{font-size:14px;color:var(--verde);font-weight:500}
 .historico-desc{font-size:12px;color:var(--cinza);margin-top:2px}
 .badge-atual{font-size:10px;background:#EAF3DE;color:#3B6D11;padding:4px 10px;border-radius:20px;font-weight:600}
-@media print{.nav-sticky,.btn-imprimir,.banner-especial,.btn-plano{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+/* ── BANNER INSTALAR ── */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
+.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
+.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* ── MODAL INSTALAR ── */
+.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
+.modal-instalar.aberto{display:flex}
+.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
+.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
+.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
+.instalar-passo:last-child{border-bottom:none}
+.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.instalar-passo-texto{flex:1}
+.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
+.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-dica strong{color:var(--verde)}
+@media print{.nav-sticky,.btn-imprimir,.banner-especial,.btn-plano,.banner-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
 @media(max-width:400px){.macros{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -995,6 +1022,103 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
 </div><!-- fim conteudo -->
 
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-instalar-texto">
+    <strong>Salve no celular como app</strong>
+    Acesse seu plano sem abrir o navegador
+  </div>
+  <div class="banner-instalar-acoes">
+    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
+    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
+  <div class="modal-instalar-box">
+    <div class="modal-instalar-handle"></div>
+    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
+    <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular — sem precisar abrir o navegador</div>
+
+    <div class="instalar-tabs">
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone (iOS)</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+    </div>
+
+    <!-- iOS -->
+    <div class="instalar-painel ativo" id="instalar-ios">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Safari</div>
+          <div class="instalar-passo-desc">Essa função só funciona no navegador <strong>Safari</strong>. Se estiver no Chrome ou outro app, copie o link e cole no Safari.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque no botão Compartilhar</div>
+          <div class="instalar-passo-desc">Na barra inferior do Safari, toque no ícone de compartilhar.</div>
+          <div class="instalar-passo-destaque">⬆ Compartilhar</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Escolha "Adicionar à Tela de Início"</div>
+          <div class="instalar-passo-desc">Role o menu para baixo e toque nessa opção.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à Tela de Início</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme o nome e toque em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone vai aparecer na sua tela inicial como um app. Toque nele para abrir seu plano diretamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço — parece um app de verdade.</div>
+    </div>
+
+    <!-- Android -->
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Chrome</div>
+          <div class="instalar-passo-desc">Use o <strong>Google Chrome</strong> para garantir que a opção apareça.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque nos três pontinhos (⋮)</div>
+          <div class="instalar-passo-desc">No canto superior direito da tela, toque no menu do Chrome.</div>
+          <div class="instalar-passo-destaque">⋮ Menu</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque em "Adicionar à tela inicial"</div>
+          <div class="instalar-passo-desc">Essa opção aparece no menu. Em alguns Androids pode aparecer como <em>"Instalar app"</em> ou <em>"Adicionar atalho"</em>.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à tela inicial</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme tocando em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone do seu plano vai aparecer na tela inicial. Toque nele para acessar seu plano diretamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> No Android o Chrome pode exibir uma notificação automática na parte de baixo da tela com a opção de instalar — é só tocar nela!</div>
+    </div>
+
+  </div>
+</div>
+
 <!-- MODAIS -->
 <div class="modal-overlay" id="modal-receita" onclick="fecharModalFora(event)">
   <div class="modal" style="position:relative">
@@ -1133,6 +1257,36 @@ function imprimirCarta(idConteudo) {
     @media print{body{padding:0}.carta-wrapper{border:none;border-radius:0}}
   </style></head><body>${conteudo.outerHTML}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close()}}<\/script></body></html>`);
   janela.document.close();
+}
+
+function abrirModalInstalar() {
+  document.getElementById('modal-instalar').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModalInstalar() {
+  document.getElementById('modal-instalar').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+function fecharModalInstalarFora(e) {
+  if(e.target===document.getElementById('modal-instalar')) fecharModalInstalar();
+}
+
+function fecharBannerInstalar() {
+  document.getElementById('banner-instalar').style.display='none';
+  sessionStorage.setItem('banner-instalar-fechado','1');
+}
+
+function trocarTabInstalar(id, btn) {
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+
+if(sessionStorage.getItem('banner-instalar-fechado')) {
+  document.getElementById('banner-instalar').style.display='none';
 }
 
 function toggleRefeicao(id) {
