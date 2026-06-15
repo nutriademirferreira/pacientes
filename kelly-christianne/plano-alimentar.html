@@ -1275,7 +1275,7 @@ function fecharModalInstalarFora(e) {
 
 function fecharBannerInstalar() {
   document.getElementById('banner-instalar').style.display='none';
-  sessionStorage.setItem('banner-instalar-fechado','1');
+  localStorage.setItem('banner-instalar-fechado','1');
 }
 
 function trocarTabInstalar(id, btn) {
@@ -1285,9 +1285,11 @@ function trocarTabInstalar(id, btn) {
   document.getElementById('instalar-'+id).classList.add('ativo');
 }
 
-if(sessionStorage.getItem('banner-instalar-fechado')) {
-  document.getElementById('banner-instalar').style.display='none';
-}
+const jaInstalado =
+  localStorage.getItem('banner-instalar-fechado') ||
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+if(jaInstalado) document.getElementById('banner-instalar').style.display='none';
 
 function toggleRefeicao(id) {
   document.getElementById(id).classList.toggle('aberta');
