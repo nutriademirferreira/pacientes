@@ -1,0 +1,22 @@
+{
+  "name": "Nutri Ademir Ferreira",
+  "short_name": "Nutri Ademir",
+  "description": "Seu protocolo nutricional personalizado",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F4EFE4",
+  "theme_color": "#536147",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192/536147/B8956A?text=A",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512/536147/B8956A?text=A",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

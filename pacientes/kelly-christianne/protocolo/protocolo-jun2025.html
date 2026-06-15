@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo Alimentar — Kelly Christianne</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#EBE4D5;font-family:'Jost',sans-serif;font-weight:400;color:#272520;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.doc{max-width:900px;margin:32px auto;background:#FDFAF5;box-shadow:0 4px 40px rgba(39,37,32,.12)}
+
+/* HEADER */
+.header{background:#536147;padding:28px 48px 24px;display:flex;align-items:center;justify-content:space-between}
+.header-nome{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#FDFAF5;letter-spacing:.02em}
+.header-crn{font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:#B8956A;letter-spacing:.22em;text-transform:uppercase;margin-top:4px}
+.header-contato{text-align:right;font-size:12px;color:rgba(253,250,245,.7);line-height:1.7}
+.header-linha{height:3px;background:#B8956A}
+
+/* CAPA */
+.capa{padding:48px 48px 32px;border-bottom:1px solid #EBE4D5}
+.capa-titulo{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#536147;line-height:1.1;margin-bottom:8px}
+.capa-paciente{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#B8956A;margin-bottom:10px}
+.capa-meta{font-size:12px;color:#706B63;letter-spacing:.04em}
+
+/* SEÇÕES */
+.secao{padding:40px 48px 32px;border-bottom:1px solid #EBE4D5}
+.label-secao{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#706B63;padding-left:12px;border-left:3px solid #B8956A;margin-bottom:10px}
+.titulo-secao{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#536147;margin-bottom:20px;line-height:1.15}
+.corpo{font-size:13.5px;line-height:1.75;color:#272520;margin-bottom:14px;text-align:justify}
+.corpo strong{color:#536147;font-weight:600}
+
+/* CARDS MACROS */
+.cards-macros{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:8px}
+.card-macro{background:#FDFAF5;border:1px solid #EBE4D5;border-bottom:3px solid #B8956A;border-radius:8px;padding:18px 12px 16px;text-align:center}
+.card-macro.destaque{background:#536147;border-color:#536147;border-bottom-color:#B8956A}
+.card-macro-label{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#706B63;margin-bottom:8px}
+.destaque .card-macro-label{color:#B8956A}
+.card-macro-valor{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#B8956A;line-height:1;margin-bottom:4px}
+.destaque .card-macro-valor{color:#FDFAF5}
+.card-macro-unidade{font-size:11px;color:#706B63}
+.destaque .card-macro-unidade{color:rgba(253,250,245,.7)}
+
+/* TABELAS */
+.tabela-wrap{overflow-x:auto;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:#536147}
+thead th{color:#FDFAF5;font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;text-align:left;border:none}
+thead th:not(:first-child):not(:nth-child(2)){text-align:center}
+tbody tr:nth-child(odd){background:#FDFAF5}
+tbody tr:nth-child(even){background:#F4EFE4}
+tbody td{padding:10px 14px;border-bottom:1px solid #EBE4D5;vertical-align:middle}
+tbody td:not(:first-child):not(:nth-child(2)){text-align:center}
+.td-nome{font-weight:600;color:#536147;border-left:3px solid #B8956A}
+.td-sub{font-size:11.5px;color:#706B63;line-height:1.5}
+.total-row{background:#F4EFE4 !important;border-top:2px solid #B8956A}
+.total-row td{font-weight:700;color:#536147;font-size:13px}
+.treino-row td{background:#536147 !important;color:#FDFAF5;font-weight:600;text-align:center !important;letter-spacing:.1em;font-size:11px}
+
+/* PROJEÇÃO */
+.proj-semanas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.proj-card{border:1px solid #EBE4D5;border-top:3px solid #8A9B78;border-radius:8px;padding:16px 14px;background:#FDFAF5}
+.proj-card.evento{border-top-color:#B8956A;background:#F4EFE4}
+.proj-semana-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#706B63;margin-bottom:4px}
+.proj-periodo{font-size:11px;color:#706B63;margin-bottom:10px}
+.proj-peso{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#536147;line-height:1;margin-bottom:2px}
+.evento .proj-peso{color:#B8956A}
+.proj-gordura{font-size:11.5px;color:#C2785A;font-weight:600;margin-bottom:8px}
+.proj-obs{font-size:11px;color:#706B63;line-height:1.5;border-top:1px solid #EBE4D5;padding-top:8px;margin-top:4px}
+
+/* ALERTAS */
+.alerta-box{background:#FDF6F3;border-left:4px solid #C2785A;border-radius:0 8px 8px 0;padding:18px 20px;margin:24px 0 8px}
+.alerta-titulo{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C2785A;margin-bottom:8px}
+.alerta-texto{font-size:13px;color:#5A2E1A;line-height:1.7}
+.alerta-texto strong{color:#C2785A}
+.alerta-verde{background:#F0F4EE;border-left-color:#536147}
+.alerta-verde .alerta-titulo{color:#536147}
+.alerta-verde .alerta-texto{color:#272520}
+.alerta-verde .alerta-texto strong{color:#536147}
+
+/* SUPLEMENTAÇÃO */
+.supl-wrap{border:1px solid #EBE4D5;border-radius:8px;overflow:hidden;margin-bottom:8px}
+.supl-header{display:grid;grid-template-columns:190px 95px 140px 1fr;background:#536147;border-bottom:2px solid #B8956A}
+.supl-th{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#FDFAF5;padding:10px 14px}
+.supl-item{display:grid;grid-template-columns:190px 95px 140px 1fr;border-bottom:1px solid #EBE4D5;align-items:start}
+.supl-item:nth-child(odd){background:#FDFAF5}
+.supl-item:nth-child(even){background:#F4EFE4}
+.supl-item:last-child{border-bottom:none}
+.supl-cel{padding:12px 14px;font-size:12.5px;line-height:1.5;color:#272520;border-right:1px solid #EBE4D5}
+.supl-cel:last-child{border-right:none}
+.supl-nome{font-weight:600;color:#536147;border-left:3px solid #B8956A;font-size:12px}
+.supl-just{font-size:11.5px;color:#706B63;line-height:1.6}
+
+/* BULLETS */
+.bullet-lista{list-style:none;padding:0;margin:0 0 16px}
+.bullet-lista li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #EBE4D5;font-size:13px;line-height:1.65;color:#272520}
+.bullet-lista li:last-child{border-bottom:none}
+.diamond{color:#B8956A;font-size:10px;margin-top:4px;flex-shrink:0}
+.bullet-lista strong{color:#536147;font-weight:600}
+
+/* FOOTER */
+.footer-doc{background:#536147;padding:24px 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#FDFAF5}
+.footer-crn{font-size:11px;color:#B8956A;letter-spacing:.12em;margin-top:2px}
+.footer-site{font-size:11px;color:rgba(253,250,245,.6);text-align:right}
+
+/* BTN */
+.btn-print{position:fixed;bottom:28px;right:28px;background:#536147;color:#FDFAF5;border:none;border-radius:50px;padding:13px 26px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;cursor:pointer;box-shadow:0 4px 16px rgba(83,97,71,.35);z-index:100;transition:background .15s}
+.btn-print:hover{background:#3d4a34}
+
+@media print{
+  body{background:white}
+  .doc{box-shadow:none;max-width:100%;margin:0}
+  .btn-print{display:none}
+  .secao{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-nome">Ademir Ferreira Junior</div>
+      <div class="header-crn">Nutricionista · CRN-3 72295</div>
+    </div>
+    <div class="header-contato">
+      contato@nutriademirferreira.com.br<br>
+      São Paulo, SP · Junho 2025
+    </div>
+  </div>
+  <div class="header-linha"></div>
+
+  <!-- CAPA -->
+  <div class="capa">
+    <div class="capa-titulo">Protocolo Alimentar<br>Pós-Gestacional</div>
+    <div class="capa-paciente">Kelly Christianne Dos Santos Oliveira</div>
+    <div class="capa-meta">Prescrito em: 13/06/2025 · 44 anos · 90 kg / 163 cm · 3 meses pós-parto · Amamentando · Evento: 11/07/2025</div>
+  </div>
+
+  <!-- CARDS MACROS -->
+  <div class="secao">
+    <div class="label-secao">Resumo Nutricional</div>
+    <div class="titulo-secao">Macro distribuição diária</div>
+    <div class="cards-macros">
+      <div class="card-macro destaque">
+        <div class="card-macro-label">Calorias</div>
+        <div class="card-macro-valor">1.200</div>
+        <div class="card-macro-unidade">kcal/dia</div>
+      </div>
+      <div class="card-macro">
+        <div class="card-macro-label">Proteínas</div>
+        <div class="card-macro-valor">169g</div>
+        <div class="card-macro-unidade">56% das kcal</div>
+      </div>
+      <div class="card-macro">
+        <div class="card-macro-label">Carboidratos</div>
+        <div class="card-macro-valor">134g</div>
+        <div class="card-macro-unidade">37% das kcal</div>
+      </div>
+      <div class="card-macro">
+        <div class="card-macro-label">Lipídios</div>
+        <div class="card-macro-valor">25g</div>
+        <div class="card-macro-unidade">7% das kcal</div>
+      </div>
+      <div class="card-macro">
+        <div class="card-macro-label">Fibras</div>
+        <div class="card-macro-valor">≥35g</div>
+        <div class="card-macro-unidade">meta diária</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JUSTIFICATIVA -->
+  <div class="secao">
+    <div class="label-secao">Fundamentação Clínica</div>
+    <div class="titulo-secao">Por que 1.200 kcal é o mínimo viável neste caso</div>
+    <p class="corpo">Kelly encontra-se num período fisiológico de alta demanda: <strong>pós-parto de 3 meses com aleitamento materno ativo.</strong> A OMS e a SBP recomendam aleitamento exclusivo até os 6 meses, e a produção de leite consome entre <strong>400 a 500 kcal adicionais por dia</strong> do metabolismo materno. Isso reconfigura completamente o piso calórico seguro.</p>
+    <p class="corpo">O Gasto Energético Total (GET) foi estimado pelo método Mifflin-St Jeor ajustado: <strong>TMB ≈ 1.718 kcal/dia</strong> (90 kg, 163 cm, 44 anos) × fator de atividade leve (1,375) = <strong>GET ≈ 2.362 kcal/dia.</strong> Acrescidos os 450 kcal da lactação, o gasto real está em torno de <strong>2.800 kcal/dia.</strong></p>
+    <p class="corpo">Um protocolo de <strong>1.200 kcal gera déficit real de aproximadamente 1.600 kcal/dia</strong> — equivalente a <strong>≈ 1,1–1,3 kg de gordura por semana.</strong> Valores abaixo comprometem: (1) produção e qualidade do leite; (2) síntese proteica e preservação de massa magra; (3) recuperação hormonal pós-parto; (4) aporte de micronutrientes essenciais para mãe e lactente.</p>
+    <p class="corpo">A escolha de <strong>1.200 kcal representa o equilíbrio clinicamente responsável</strong> entre resultado estético para o evento e segurança para mãe e filho.</p>
+  </div>
+
+  <!-- PROJEÇÃO -->
+  <div class="secao">
+    <div class="label-secao">Projeção de Resultado</div>
+    <div class="titulo-secao">Emagrecimento esperado em 28 dias</div>
+    <p class="corpo" style="margin-bottom:24px">Projeção considera perda <strong>real de gordura</strong> — descontando retenção hídrica variável da amamentação.</p>
+    <div class="proj-semanas">
+      <div class="proj-card">
+        <div class="proj-semana-label">Semana 1</div>
+        <div class="proj-periodo">14/06 – 20/06</div>
+        <div class="proj-peso">88,5–89,0 kg</div>
+        <div class="proj-gordura">−0,5 a 1,0 kg gordura</div>
+        <div class="proj-obs">Adaptação + perda hídrica inicial. Maior queda na balança.</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-semana-label">Semana 2</div>
+        <div class="proj-periodo">21/06 – 27/06</div>
+        <div class="proj-peso">87,5–88,0 kg</div>
+        <div class="proj-gordura">−0,8 a 1,0 kg gordura</div>
+        <div class="proj-obs">Déficit estabelecido. Metabolismo ajusta ao novo padrão.</div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-semana-label">Semana 3</div>
+        <div class="proj-periodo">28/06 – 04/07</div>
+        <div class="proj-peso">86,5–87,0 kg</div>
+        <div class="proj-gordura">−0,8 a 1,0 kg gordura</div>
+        <div class="proj-obs">Janela de melhor resultado. Suplementação plena em ação.</div>
+      </div>
+      <div class="proj-card evento">
+        <div class="proj-semana-label">Semana 4 · Evento</div>
+        <div class="proj-periodo">05/07 – 11/07</div>
+        <div class="proj-peso">85,5–86,5 kg</div>
+        <div class="proj-gordura">−0,8 a 1,0 kg gordura</div>
+        <div class="proj-obs">Casamento 11/07. Meta: −3,5 a 4,5 kg gordura real + deflação.</div>
+      </div>
+    </div>
+    <div class="alerta-box alerta-verde">
+      <div class="alerta-titulo">⚠ Nota sobre a balança</div>
+      <div class="alerta-texto">A retenção hídrica da amamentação pode mascarar a perda real de gordura. <strong>Circunferências e dobras cutâneas</strong> serão mais fidedignas para acompanhar o progresso real.</div>
+    </div>
+  </div>
+
+  <!-- PROTOCOLO ALIMENTAR -->
+  <div class="secao">
+    <div class="label-secao">Protocolo Alimentar</div>
+    <div class="titulo-secao">Distribuição das refeições — 28 dias</div>
+    <p class="corpo"><strong>6 refeições</strong> com alta densidade proteica (≥1,8g/kg), volume alimentar elevado via vegetais livres, carboidratos concentrados no peri-treino e gorduras essenciais preservadas para saúde hormonal e qualidade do leite.</p>
+    <div class="tabela-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Refeição</th>
+            <th>Composição</th>
+            <th>PTN (g)</th>
+            <th>CHO (g)</th>
+            <th>LIP (g)</th>
+            <th>Kcal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-nome">08:30<br><span style="font-weight:400;font-size:11px;color:#706B63">Café da manhã</span></td>
+            <td class="td-sub">2 ovos mexidos + queijo minas 30g<br>mamão 180g + chia 10g + tapioca 40g</td>
+            <td>18</td><td>18</td><td>10</td><td><strong>234</strong></td>
+          </tr>
+          <tr>
+            <td class="td-nome">10:30<br><span style="font-weight:400;font-size:11px;color:#706B63">Lanche manhã</span></td>
+            <td class="td-sub">Iogurte grego 0% 170g + whey 20g<br>frutas vermelhas 100g + chia 10g</td>
+            <td>28</td><td>18</td><td>1</td><td><strong>193</strong></td>
+          </tr>
+          <tr>
+            <td class="td-nome">13:00<br><span style="font-weight:400;font-size:11px;color:#706B63">Almoço</span></td>
+            <td class="td-sub">Frango grelhado 140g + arroz integral 80g<br>feijão 80g + salada à vontade + azeite 5ml</td>
+            <td>42</td><td>38</td><td>6</td><td><strong>378</strong></td>
+          </tr>
+          <tr>
+            <td class="td-nome">16:00<br><span style="font-weight:400;font-size:11px;color:#706B63">Pré-treino</span></td>
+            <td class="td-sub">Whey 25g + banana 80g</td>
+            <td>20</td><td>22</td><td>2</td><td><strong>186</strong></td>
+          </tr>
+          <tr class="treino-row">
+            <td colspan="6">18:00 · TREINO</td>
+          </tr>
+          <tr>
+            <td class="td-nome">20:00<br><span style="font-weight:400;font-size:11px;color:#706B63">Jantar pós-treino</span></td>
+            <td class="td-sub">Frango/tilápia 140g + batata-doce 100g<br>salada à vontade + azeite 5ml</td>
+            <td>38</td><td>26</td><td>6</td><td><strong>314</strong></td>
+          </tr>
+          <tr>
+            <td class="td-nome">22:00<br><span style="font-weight:400;font-size:11px;color:#706B63">Ceia</span></td>
+            <td class="td-sub">Iogurte grego 0% 170g + whey 10g<br>1 col. chá mel</td>
+            <td>23</td><td>12</td><td>0</td><td><strong>140</strong></td>
+          </tr>
+          <tr class="total-row">
+            <td class="td-nome">TOTAL DO DIA</td>
+            <td></td>
+            <td>169g</td><td>134g</td><td>25g</td><td>1.200 kcal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SACIEDADE -->
+  <div class="secao">
+    <div class="label-secao">Estratégia de Saciedade</div>
+    <div class="titulo-secao">Volume alimentar e controle de fome</div>
+    <ul class="bullet-lista">
+      <li><span class="diamond">◆</span><span><strong>Proteína ≥ 1,8g/kg/dia:</strong> Macronutriente com maior poder saciante — índice 40% superior ao CHO. 169g/dia suprimem apetite entre refeições e preservam MLG no déficit.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Fibras ≥ 35g/dia:</strong> Vegetais grupo A e B à vontade. Fibras solúveis formam gel gástrico que retarda esvaziamento e prolonga saciedade em 30–40%.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Chia em 2 momentos:</strong> 10g no café + 10g na ceia. Expande 10× seu volume com líquido — efeito mecânico de saciedade sem adição calórica relevante.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Iogurte grego 0% como base:</strong> Alta proteína (10–12g/100g), textura densa e palatabilidade elevada. Substitui opções mais calóricas sem perda de volume.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Whey em refeições líquidas:</strong> Leucina ≥ 2,5g por dose nas refeições de menor volume — estímulo máximo à síntese proteica.</span></li>
+    </ul>
+  </div>
+
+  <!-- SUPLEMENTAÇÃO -->
+  <div class="secao">
+    <div class="label-secao">Protocolo de Suplementação</div>
+    <div class="titulo-secao">Suplementação estratégica — pós-parto, sono e emagrecimento</div>
+    <p class="corpo">Três eixos: <strong>(1)</strong> garantir aporte proteico e nutricional seguro na amamentação; <strong>(2)</strong> modular cortisol elevado pelo sono fragmentado; <strong>(3)</strong> corrigir déficits previsíveis do pós-parto.</p>
+    <div class="supl-wrap">
+      <div class="supl-header">
+        <div class="supl-th">Suplemento</div>
+        <div class="supl-th">Dose</div>
+        <div class="supl-th">Timing</div>
+        <div class="supl-th">Justificativa clínica</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Whey Protein<br>Concentrado</div>
+        <div class="supl-cel">55g/dia<br>(2 doses)</div>
+        <div class="supl-cel">10:30 manhã<br>16:00 pré-treino</div>
+        <div class="supl-cel supl-just">Manutenção de MLG no déficit. Leucina ≥ 2,5g/dose garante estímulo máximo à síntese proteica pós-parto.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Magnésio<br>Bisglicinato</div>
+        <div class="supl-cel">300–400mg</div>
+        <div class="supl-cel">22:00 ceia<br>com alimento</div>
+        <div class="supl-cel supl-just">Sono fragmentado → déficit de Mg frequente. Alta biodisponibilidade, efeito relaxante muscular e neurológico comprovado.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Vitamina D3<br>+ K2</div>
+        <div class="supl-cel">5.000 UI D3<br>100mcg K2</div>
+        <div class="supl-cel">Almoço<br>com gordura</div>
+        <div class="supl-cel supl-just">Pós-parto depleta D3. Baixa vit D associada a fadiga e ganho de peso. K2 direciona cálcio para ossos — essencial na lactação.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Ômega-3<br>(EPA + DHA)</div>
+        <div class="supl-cel">2g/dia<br>(2 cápsulas)</div>
+        <div class="supl-cel">Almoço +<br>jantar</div>
+        <div class="supl-cel supl-just">Gestação drena reservas de DHA. EPA reduz cortisol e inflamação. DHA é crítico para desenvolvimento neurológico do lactente.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Ferro<br>Bisglicinato*</div>
+        <div class="supl-cel">30–60mg</div>
+        <div class="supl-cel">Café manhã<br>em jejum</div>
+        <div class="supl-cel supl-just">*Dosar ferritina antes. Bisglicinato tem menor irritação GI. Perda sanguínea + lactação aumentam demanda de ferro.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Vitamina B12<br>(sublingual)</div>
+        <div class="supl-cel">1.000mcg</div>
+        <div class="supl-cel">Manhã</div>
+        <div class="supl-cel supl-just">Sono ruim + pós-parto aumentam demanda. Via sublingual tem biodisponibilidade superior à oral.</div>
+      </div>
+      <div class="supl-item">
+        <div class="supl-cel supl-nome">Ashwagandha<br>KSM-66</div>
+        <div class="supl-cel">300mg</div>
+        <div class="supl-cel">22:00 ceia</div>
+        <div class="supl-cel supl-just">Sono fragmentado → cortisol cronicamente elevado → sabota emagrecimento. KSM-66 é o extrato com maior evidência para redução de cortisol e melhora do sono.</div>
+      </div>
+    </div>
+    <div class="alerta-box">
+      <div class="alerta-titulo">⚠ Alerta Clínico — Sono Fragmentado</div>
+      <div class="alerta-texto">O sono fragmentado pelo bebê reduz a <strong>leptina (saciedade) em 18%</strong> e eleva a <strong>grelina (fome) em 28%</strong>, além de elevar o cortisol basal — favorecendo lipogênese visceral e catabolismo muscular. <strong>Magnésio bisglicinato + Ashwagandha KSM-66 na ceia</strong> são as ferramentas nutricionais mais embasadas para atenuar esse impacto.</div>
+    </div>
+  </div>
+
+  <!-- ORIENTAÇÕES -->
+  <div class="secao">
+    <div class="label-secao">Orientações Gerais</div>
+    <div class="titulo-secao">Conduta comportamental e hidratação</div>
+    <ul class="bullet-lista">
+      <li><span class="diamond">◆</span><span><strong>Hidratação:</strong> Mínimo 2,5L/dia. A lactação aumenta a demanda hídrica. Chás sem açúcar e água com limão contam na meta.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Vegetais à vontade:</strong> Grupos A e B sem restrição. Quanto mais volume de vegetais, maior a saciedade sem impacto calórico.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Finais de semana:</strong> Uma refeição livre por fim de semana é permitida e estratégica para adesão. Sem culpa, sem compensação.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Amamentação e fome:</strong> Dias de maior produção de leite aumentam a fome. Adicionar vegetais + 1 ovo cozido sem sair do protocolo.</span></li>
+      <li><span class="diamond">◆</span><span><strong>Treino:</strong> Manter intensidade moderada. Não aumentar volume nas primeiras 2 semanas — o déficit já é significativo.</span></li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-doc">
+    <div>
+      <div class="footer-nome">Ademir Ferreira Junior</div>
+      <div class="footer-crn">Nutricionista · CRN-3 72295</div>
+    </div>
+    <div class="footer-site">
+      nutriademirferreira.com.br<br>
+      contato@nutriademirferreira.com.br
+    </div>
+  </div>
+
+</div>
+
+<button class="btn-print" onclick="window.print()">⎙ Salvar como PDF</button>
+
+</body>
+</html>
