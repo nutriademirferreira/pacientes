@@ -245,6 +245,9 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
     </div>
     <div class="header-paciente">[NOME_PACIENTE]</div>
     <div class="header-meta">[META_PACIENTE] · Atualizado em [DATA_ATUALIZACAO]</div>
+    <div id="link-atualizar" style="display:none;text-align:center;padding-bottom:10px">
+      <button onclick="abrirModalInstalarAba('atualizar')" style="background:none;border:none;color:var(--ouro);font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;text-decoration:underline;text-underline-offset:3px">🔄 Como atualizar o plano?</button>
+    </div>
   </div>
   <nav class="nav" id="nav">
     <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
@@ -949,6 +952,12 @@ function fecharBannerInstalar() {
   localStorage.setItem('banner-instalar-fechado','1');
 }
 
+function abrirModalInstalarAba(id) {
+  abrirModalInstalar();
+  const btn = document.querySelector(`.instalar-tab[onclick*="'${id}'"]`);
+  if(btn) trocarTabInstalar(id, btn);
+}
+
 function trocarTabInstalar(id, btn) {
   document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
   document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
@@ -957,11 +966,12 @@ function trocarTabInstalar(id, btn) {
 }
 
 /* Oculta o banner se: já estava instalado como app (standalone) ou usuário já fechou antes */
-const jaInstalado =
-  localStorage.getItem('banner-instalar-fechado') ||
+const emStandalone =
   window.matchMedia('(display-mode: standalone)').matches ||
   window.navigator.standalone === true;
+const jaInstalado = localStorage.getItem('banner-instalar-fechado') || emStandalone;
 if(jaInstalado) document.getElementById('banner-instalar').style.display='none';
+if(emStandalone) document.getElementById('link-atualizar').style.display='block';
 </script>
 </body>
 </html>
