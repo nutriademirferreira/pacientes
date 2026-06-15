@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francisco Venicios — Nutri Ademir Ferreira</title>
+<meta property="og:title" content="Protocolo de Suplementação · Francisco Venicios">
+<meta property="og:description" content="Seu protocolo personalizado — Nutri Ademir Ferreira">
+<meta property="og:image" content="https://nutriademirferreira.github.io/pacientes/_assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+}
+body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);min-height:100vh}
+.header{background:var(--verde);padding:20px 20px 0}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.header-nutri{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme-suv)}
+.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv);text-align:center;margin-bottom:4px}
+.header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
+.nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(39,37,32,.15)}
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
+.aba{display:none}.aba.ativa{display:block}
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-bottom:3px solid var(--ouro);border-radius:10px;padding:14px 8px;text-align:center}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde);border-bottom-color:var(--ouro)}
+.macro-label{font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
+.macro-card.destaque .macro-label{color:var(--ouro)}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ouro);line-height:1;margin-bottom:2px}
+.macro-card.destaque .macro-valor{color:var(--creme-suv)}
+.macro-unidade{font-size:10px;color:var(--cinza)}
+.macro-card.destaque .macro-unidade{color:rgba(253,250,245,.65)}
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin-bottom:16px}
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza)}
+.supl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.supl-campo{font-size:11px}
+.supl-campo-label{color:var(--cinza);margin-bottom:2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.supl-campo-valor{color:var(--carvao);font-weight:500}
+.supl-just{font-size:12px;color:var(--cinza);margin-top:8px;line-height:1.6;padding-top:8px;border-top:1px solid var(--bege)}
+.evolucao-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:10px;color:var(--cinza);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--verde)}
+.evolucao-delta{font-size:12px;margin-top:2px;color:var(--cinza)}
+.semanas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.semana-card{border:1px solid var(--bege);border-top:3px solid var(--sage);border-radius:10px;padding:14px;background:var(--creme-suv)}
+.semana-card.meta{border-top-color:var(--ouro);background:var(--creme)}
+.semana-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.semana-periodo{font-size:11px;color:var(--cinza);margin-bottom:8px}
+.semana-peso{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--verde)}
+.semana-card.meta .semana-peso{color:var(--ouro)}
+.semana-gordura{font-size:11px;color:var(--alerta);font-weight:600;margin-bottom:6px}
+.semana-obs{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
+.carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
+.historico-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;text-decoration:none}
+.historico-data{font-size:11px;color:var(--ouro);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.historico-titulo{font-size:14px;color:var(--verde);font-weight:500}
+.historico-desc{font-size:12px;color:var(--cinza);margin-top:2px}
+.badge-atual{font-size:10px;background:#EAF3DE;color:#3B6D11;padding:4px 10px;border-radius:20px;font-weight:600}
+/* ── DOBRAS TABLE ── */
+.dobras-table{width:100%;border-collapse:collapse;font-size:13px}
+.dobras-table thead tr{background:var(--verde)}
+.dobras-table th{padding:10px 14px;text-align:left;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.dobras-table th:not(:first-child){text-align:center}
+.dobras-table td{padding:9px 14px;border-bottom:1px solid var(--bege)}
+.dobras-table td:not(:first-child){text-align:center}
+.dobras-table .dobra-nome{color:var(--verde);font-weight:500}
+.dobras-table .dobra-total td{font-weight:700;color:var(--verde)}
+.dobras-table tr:nth-child(even){background:var(--creme)}
+.dobras-table tr:nth-child(odd){background:var(--creme-suv)}
+.dobras-table .dobra-total{background:var(--creme)!important}
+.dobras-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:24px}
+/* ── BANNER INSTALAR ── */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
+.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
+.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* ── MODAL INSTALAR ── */
+.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
+.modal-instalar.aberto{display:flex}
+.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
+.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
+.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
+.instalar-passo:last-child{border-bottom:none}
+.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.instalar-passo-texto{flex:1}
+.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
+.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-dica strong{color:var(--verde)}
+@media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}.supl-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-nutri">Ademir Ferreira Junior</div>
+        <div class="header-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+    </div>
+    <div class="header-paciente">Francisco Venicios</div>
+    <div class="header-meta">Perda de Gordura · Protocolo de 15/04/2026</div>
+    <div id="link-atualizar" style="display:none;text-align:center;padding-bottom:10px">
+      <button onclick="abrirModalInstalarAba('atualizar')" style="background:none;border:none;color:var(--ouro);font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;cursor:pointer;text-decoration:underline;text-underline-offset:3px">🔄 Como atualizar o plano?</button>
+    </div>
+  </div>
+  <nav class="nav" id="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao Personal</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ═══ SUPLEMENTOS ═══ -->
+  <div class="aba ativa" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:16px">Protocolo de suplementação</div>
+
+    <!-- MACROS RESUMO -->
+    <div class="macros">
+      <div class="macro-card destaque">
+        <div class="macro-label">Calorias</div>
+        <div class="macro-valor">2.229</div>
+        <div class="macro-unidade">kcal/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Proteínas</div>
+        <div class="macro-valor">180g</div>
+        <div class="macro-unidade">dieta</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Peso atual</div>
+        <div class="macro-valor">79,2</div>
+        <div class="macro-unidade">kg</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">% Gordura</div>
+        <div class="macro-valor">15,8</div>
+        <div class="macro-unidade">Alta I</div>
+      </div>
+    </div>
+
+    <!-- ÔMEGA-3 -->
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Ômega-3 Ultra DHA (EPA + DHA)</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">2 cápsulas/dia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">1 no almoço · 1 no jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Com a refeição</div></div>
+      </div>
+      <div class="supl-just">Sua dieta tem quase zero EPA/DHA real — frango é a proteína principal e tilápia aparece raramente. Cada cápsula fornece 1.000 mg DHA + 200 mg EPA. Dois benefícios diretos para você: recuperação muscular mais rápida após o treino noturno e redução da gordura abdominal visceral (sua dobra suprailíaca está em 36,5 mm — a mais alta entre todas as dobras). O EPA também reduz cortisol, que se acumula com o cansaço do trabalho.</div>
+    </div>
+
+    <!-- VIT D3 + K2 -->
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D3 + K2 (MK-7)</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">4.000 UI D3 · 100 mcg K2</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeição com gordura</div></div>
+      </div>
+      <div class="supl-just">Seu plano alimentar fornece apenas ~80 UI de vitamina D por dia — menos de 2% do que o corpo precisa. Sobrepeso reduz ainda mais a biodisponibilidade porque o tecido adiposo sequestra a vitamina D da circulação. Deficit de D3 está diretamente associado a fadiga muscular, dificuldade de emagrecimento e imunidade baixa. O K2 (MK-7) direciona o cálcio absorvido para os ossos, evitando depósito em artérias. Tomar junto ao almoço — a gordura da refeição é essencial para absorção.</div>
+    </div>
+
+    <!-- CREATINA -->
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Creatina Monohidratada</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5g/dia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Qualquer horário</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água, suco ou ceia</div></div>
+      </div>
+      <div class="supl-just">Você treina depois do trabalho — ou seja, já chega no treino com cansaço acumulado. A creatina aumenta a ressíntese de ATP entre séries, o que significa mais força e menos fadiga no treino noturno. Não afeta a perda de gordura — pelo contrário, preserva a massa muscular em déficit calórico. O que importa é a consistência diária; o horário é secundário. Sem fase de saturação necessária — 5g/dia contínuo já é suficiente.</div>
+    </div>
+
+    <!-- MAGNÉSIO -->
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Magnésio Bisglicinato</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">300–400 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">21:00 — Ceia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Com alimento</div></div>
+      </div>
+      <div class="supl-just">Treino noturno + sudorese aumentam a perda de magnésio, mesmo com a dieta fornecendo ~354 mg/dia. Baixo magnésio = contração muscular prejudicada, cansaço aumentado e qualidade de sono reduzida. A forma bisglicinato tem alta absorção e não causa desconforto intestinal — ao contrário do óxido de magnésio comum. Tomar na ceia potencializa o relaxamento muscular pós-treino e melhora o sono.</div>
+    </div>
+
+    <!-- MULTIVITAMÍNICO -->
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Multivitamínico</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">1 dose/dia (bula)</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeição principal</div></div>
+      </div>
+      <div class="supl-just">O Growth Multi que você pesquisou é uma opção válida para cobrir lacunas pontuais — especialmente vitamina E (sua dieta fornece 7,7 mg vs. 15 mg recomendado) e vitaminas do complexo B. Atenção: a dose de vitamina D3 nos multivitamínicos genéricos é geralmente 400 UI, insuficiente para o seu caso. Por isso o D3 separado em dose terapêutica é insubstituível. Se precisar escolher por orçamento: priorize Ômega-3 → D3+K2 → Creatina. O multi entra depois.</div>
+    </div>
+
+  </div>
+
+  <!-- ═══ EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="secao-label" style="margin-bottom:16px">Ponto de partida — 17/04/2026</div>
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso atual</div>
+        <div class="evolucao-valor">79,2 kg</div>
+        <div class="evolucao-delta">Início do protocolo</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">26,8</div>
+        <div class="evolucao-delta">Sobrepeso</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Gordura corporal</div>
+        <div class="evolucao-valor">15,8%</div>
+        <div class="evolucao-delta">Alta I · 12,5 kg de gordura</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa livre de gordura</div>
+        <div class="evolucao-valor">66,7 kg</div>
+        <div class="evolucao-delta">Meta: preservar esta massa</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">85 cm</div>
+        <div class="evolucao-delta">RCQ 0,85 — risco moderado</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Quadril</div>
+        <div class="evolucao-valor">100 cm</div>
+        <div class="evolucao-delta">Referência para evolução</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Projeção de resultado — 12 semanas</div>
+    <div class="semanas-grid">
+      <div class="semana-card">
+        <div class="semana-label">Semana 4</div>
+        <div class="semana-periodo">Mai/2026</div>
+        <div class="semana-peso">~77,5 kg</div>
+        <div class="semana-gordura">−1,5 a 2 kg de gordura</div>
+        <div class="semana-obs">Adaptação ao protocolo. Suplementação plena em ação. Creatina atingindo saturação.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 8</div>
+        <div class="semana-periodo">Jun/2026</div>
+        <div class="semana-peso">~75,5 kg</div>
+        <div class="semana-gordura">−3 a 4 kg de gordura</div>
+        <div class="semana-obs">Déficit consolidado. Efeito anti-inflamatório do ômega-3 já visível na recuperação pós-treino.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 12</div>
+        <div class="semana-periodo">Jul/2026</div>
+        <div class="semana-peso">~73,5 kg</div>
+        <div class="semana-gordura">−5 a 6 kg de gordura</div>
+        <div class="semana-obs">Resultado consolidado. Meta: gordura abaixo de 12% com massa muscular preservada.</div>
+      </div>
+      <div class="semana-card meta">
+        <div class="semana-label">Meta final</div>
+        <div class="semana-periodo">Próxima consulta</div>
+        <div class="semana-peso">&lt; 12%</div>
+        <div class="semana-gordura">Gordura corporal alvo</div>
+        <div class="semana-obs">IMC alvo: 24–25 · Cintura: &lt; 80 cm · RCQ: &lt; 0,80</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px;margin-top:8px">Histórico de avaliações</div>
+    <a class="historico-item" href="#">
+      <div>
+        <div class="historico-data">Abril 2026</div>
+        <div class="historico-titulo">Avaliação inicial — Perda de gordura</div>
+        <div class="historico-desc">79,2 kg · 15,8% gordura · IMC 26,8 · RCQ 0,85</div>
+      </div>
+      <span class="badge-atual">Atual</span>
+    </a>
+  </div>
+
+  <!-- ═══ PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+    <div class="secao-label" style="margin-bottom:16px">Avaliação física — 17/04/2026</div>
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso</div>
+        <div class="evolucao-valor">79,2 kg</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">26,8</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">% Gordura</div>
+        <div class="evolucao-valor">15,8%</div>
+        <div class="evolucao-delta">Alta I</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa gorda</div>
+        <div class="evolucao-valor">12,5 kg</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa magra</div>
+        <div class="evolucao-valor">66,7 kg</div>
+        <div class="evolucao-delta">Adequada (CMB ok)</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">85 cm</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Quadril</div>
+        <div class="evolucao-valor">100 cm</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Abdômen</div>
+        <div class="evolucao-valor">91 cm</div>
+        <div class="evolucao-delta">— início</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Dobras cutâneas</div>
+    <div class="dobras-wrapper">
+      <table class="dobras-table">
+        <thead>
+          <tr>
+            <th>Dobra</th>
+            <th>17/abr</th>
+            <th>Anterior</th>
+            <th>Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="dobra-nome">Tricipital</td><td>6,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Abdominal</td><td>18,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Subescapular</td><td>16,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Axilar média</td><td>13 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Torácica</td><td>9 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Suprailíaca</td><td>36,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Coxa</td><td>14,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr class="dobra-total"><td>Somatório total</td><td>114,5 mm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Circunferências</div>
+    <div class="dobras-wrapper">
+      <table class="dobras-table">
+        <thead>
+          <tr>
+            <th>Medida</th>
+            <th>17/abr</th>
+            <th>Anterior</th>
+            <th>Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="dobra-nome">Pescoço</td><td>36,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Tórax</td><td>93,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Ombro</td><td>115,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Cintura</td><td>85 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Abdômen</td><td>91 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Quadril</td><td>100 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Braço Esq. relaxado</td><td>29,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Braço Dir. relaxado</td><td>30,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Braço Esq. contraído</td><td>33,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Braço Dir. contraído</td><td>35 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Coxa Esq. medial</td><td>58,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Coxa Dir. medial</td><td>59,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Panturrilha Esq.</td><td>39 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+          <tr><td class="dobra-nome">Panturrilha Dir.</td><td>39,5 cm</td><td style="color:var(--cinza)">—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ CARTA AO MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+  <!-- ═══ CARTA AO PERSONAL ═══ -->
+  <div class="aba" id="aba-carta-personal">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao Personal</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu personal.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+</div><!-- fim conteudo -->
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-instalar-texto">
+    <strong>Salve no celular como app</strong>
+    Acesse seu protocolo sem abrir o navegador
+  </div>
+  <div class="banner-instalar-acoes">
+    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
+    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
+  <div class="modal-instalar-box">
+    <div class="modal-instalar-handle"></div>
+    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
+    <div class="modal-instalar-sub">Seu protocolo vira um atalho direto no celular — sem precisar abrir o navegador</div>
+
+    <div class="instalar-tabs">
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('atualizar',this)">🔄 Atualizar</button>
+    </div>
+
+    <div class="instalar-painel ativo" id="instalar-ios">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Safari</div>
+          <div class="instalar-passo-desc">Essa função só funciona no navegador <strong>Safari</strong>. Se estiver no Chrome ou outro app, copie o link e cole no Safari.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque no botão Compartilhar</div>
+          <div class="instalar-passo-desc">Na barra inferior do Safari, toque no ícone de compartilhar.</div>
+          <div class="instalar-passo-destaque">⬆ Compartilhar</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Escolha "Adicionar à Tela de Início"</div>
+          <div class="instalar-passo-desc">Role o menu para baixo e toque nessa opção.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à Tela de Início</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme e toque em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone vai aparecer na sua tela inicial como um app.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço — parece um app de verdade.</div>
+    </div>
+
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Chrome</div>
+          <div class="instalar-passo-desc">Use o <strong>Google Chrome</strong> para garantir que a opção apareça.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque nos três pontinhos (⋮)</div>
+          <div class="instalar-passo-desc">No canto superior direito da tela, toque no menu do Chrome.</div>
+          <div class="instalar-passo-destaque">⋮ Menu</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque em "Adicionar à tela inicial"</div>
+          <div class="instalar-passo-desc">Em alguns Androids pode aparecer como <em>"Instalar app"</em> ou <em>"Adicionar atalho"</em>.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à tela inicial</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme tocando em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone vai aparecer na tela inicial. Toque nele para acessar diretamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> No Android o Chrome pode exibir uma notificação automática na parte de baixo da tela com a opção de instalar.</div>
+    </div>
+
+    <div class="instalar-painel" id="instalar-atualizar">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Quando seu nutri enviar um protocolo novo</div>
+          <div class="instalar-passo-desc">Você receberá um aviso pelo WhatsApp. Só então vale atualizar.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Feche o app completamente</div>
+          <div class="instalar-passo-desc">No iPhone, deslize o app para cima no gerenciador. No Android, toque em "Fechar" ou deslize para o lado.</div>
+          <div class="instalar-passo-destaque">✕ Fechar o app</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra novamente pelo ícone na tela inicial</div>
+          <div class="instalar-passo-desc">Ao reabrir, o app busca automaticamente a versão mais recente.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Ainda vendo a versão antiga?</div>
+          <div class="instalar-passo-desc">Abra o link no Safari ou Chrome normalmente (não pelo ícone), carregue a página e feche. Depois abra pelo ícone novamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> Se o nutri avisou que atualizou mas o app ainda mostra a versão antiga, o passo 4 resolve na maioria dos casos.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function mudarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function abrirModalInstalar() {
+  document.getElementById('modal-instalar').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModalInstalar() {
+  document.getElementById('modal-instalar').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+function fecharModalInstalarFora(e) {
+  if(e.target===document.getElementById('modal-instalar')) fecharModalInstalar();
+}
+
+function fecharBannerInstalar() {
+  document.getElementById('banner-instalar').style.display='none';
+  localStorage.setItem('banner-instalar-fechado-francisco','1');
+}
+
+function abrirModalInstalarAba(id) {
+  abrirModalInstalar();
+  const btn = document.querySelector(`.instalar-tab[onclick*="'${id}'"]`);
+  if(btn) trocarTabInstalar(id, btn);
+}
+
+function trocarTabInstalar(id, btn) {
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+
+const emStandalone =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+const jaInstalado = localStorage.getItem('banner-instalar-fechado-francisco') || emStandalone;
+if(jaInstalado) document.getElementById('banner-instalar').style.display='none';
+if(emStandalone) document.getElementById('link-atualizar').style.display='block';
+</script>
+</body>
+</html>
