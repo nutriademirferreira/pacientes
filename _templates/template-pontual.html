@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[NOME_PACIENTE] — Nutri Ademir Ferreira</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+}
+body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);min-height:100vh}
+
+/* ── HEADER ── */
+.header{background:var(--verde);padding:20px 20px 0}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.header-nutri{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme-suv)}
+.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv);text-align:center;margin-bottom:4px}
+.header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
+
+/* ── NAVBAR ABAS ── */
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);padding-bottom:0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
+.nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
+.nav-sticky{position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(39,37,32,.15)}
+
+/* ── CONTEÚDO ── */
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px}
+
+/* ── ABAS ── */
+.aba{display:none}.aba.ativa{display:block}
+
+/* ── CARDS MACROS ── */
+.macros{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-bottom:3px solid var(--ouro);border-radius:10px;padding:14px 8px;text-align:center}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde);border-bottom-color:var(--ouro)}
+.macro-label{font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
+.macro-card.destaque .macro-label{color:var(--ouro)}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ouro);line-height:1;margin-bottom:2px}
+.macro-card.destaque .macro-valor{color:var(--creme-suv)}
+.macro-unidade{font-size:10px;color:var(--cinza)}
+.macro-card.destaque .macro-unidade{color:rgba(253,250,245,.65)}
+
+/* ── SEÇÃO LABEL ── */
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin-bottom:16px}
+
+/* ── REFEIÇÃO COLAPSÁVEL ── */
+.refeicao{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.refeicao-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s}
+.refeicao-header:hover{background:var(--creme)}
+.refeicao-hora{font-size:11px;font-weight:600;color:var(--ouro);letter-spacing:.1em;margin-bottom:2px}
+.refeicao-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde)}
+.refeicao-kcal{font-size:11px;color:var(--cinza);margin-top:2px}
+.refeicao-chevron{font-size:18px;color:var(--cinza);transition:transform .25s;flex-shrink:0}
+.refeicao.aberta .refeicao-chevron{transform:rotate(180deg)}
+.refeicao-corpo{display:none;padding:0 16px 16px}
+.refeicao.aberta .refeicao-corpo{display:block}
+
+/* ── ITEM ALIMENTAR ── */
+.alimento{border-bottom:1px solid var(--bege);padding:12px 0}
+.alimento:last-child{border-bottom:none}
+.alimento-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.alimento-nome{font-size:14px;font-weight:500;color:var(--carvao)}
+.alimento-qtd{font-size:13px;color:var(--verde);font-weight:600;white-space:nowrap}
+.alimento-macros{font-size:11px;color:var(--cinza);margin-top:2px}
+
+/* ── SUBSTITUIÇÕES ── */
+.subs-toggle{font-size:11px;color:var(--ouro);cursor:pointer;margin-top:8px;display:inline-flex;align-items:center;gap:4px;font-weight:500;background:none;border:none;padding:0}
+.subs-lista{display:none;margin-top:8px;background:var(--creme);border-radius:8px;padding:10px 12px}
+.subs-lista.aberta{display:block}
+.subs-titulo{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:8px}
+.sub-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bege);font-size:13px}
+.sub-item:last-child{border-bottom:none}
+.sub-nome{color:var(--carvao)}
+.sub-qtd{color:var(--verde);font-weight:500;font-size:12px}
+
+/* ── BTN RECEITA ── */
+.btn-receita{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--verde);color:var(--creme-suv);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
+.btn-receita:hover{background:#3d4a34}
+
+/* ── TREINO ── */
+.treino-bar{background:var(--verde);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-align:center;color:var(--creme-suv);font-weight:600;font-size:13px;letter-spacing:.08em}
+
+/* ── MODAL RECEITA ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(39,37,32,.55);z-index:1000;align-items:flex-end;justify-content:center}
+.modal-overlay.aberto{display:flex}
+.modal{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:680px;max-height:85vh;overflow-y:auto}
+.modal-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-fechar{position:absolute;top:16px;right:20px;background:var(--bege);border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:var(--cinza);display:flex;align-items:center;justify-content:center}
+.modal-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-subtitulo{font-size:12px;color:var(--cinza);margin-bottom:20px}
+.receita-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px}
+.receita-macro{background:var(--creme);border-radius:8px;padding:10px;text-align:center}
+.receita-macro-label{font-size:9px;color:var(--cinza);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.receita-macro-valor{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ouro)}
+.receita-secao{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin:16px 0 10px}
+.ingrediente{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bege);font-size:13px}
+.ingrediente:last-child{border-bottom:none}
+.passo{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bege);font-size:13px;line-height:1.6}
+.passo:last-child{border-bottom:none}
+.passo-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* ── SUPLEMENTOS ── */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza)}
+.supl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.supl-campo{font-size:11px}
+.supl-campo-label{color:var(--cinza);margin-bottom:2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.supl-campo-valor{color:var(--carvao);font-weight:500}
+.supl-just{font-size:12px;color:var(--cinza);margin-top:8px;line-height:1.6;padding-top:8px;border-top:1px solid var(--bege)}
+
+/* ── EVOLUÇÃO ── */
+.evolucao-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:10px;color:var(--cinza);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--verde)}
+.evolucao-delta{font-size:12px;margin-top:2px}
+.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
+.semanas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.semana-card{border:1px solid var(--bege);border-top:3px solid var(--sage);border-radius:10px;padding:14px;background:var(--creme-suv)}
+.semana-card.evento{border-top-color:var(--ouro);background:var(--creme)}
+.semana-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.semana-periodo{font-size:11px;color:var(--cinza);margin-bottom:8px}
+.semana-peso{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--verde)}
+.semana-card.evento .semana-peso{color:var(--ouro)}
+.semana-gordura{font-size:11px;color:var(--alerta);font-weight:600;margin-bottom:6px}
+.semana-obs{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
+
+/* ── CARTA ── */
+.carta-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden}
+.carta-header{background:var(--verde);padding:20px 24px}
+.carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--creme-suv)}
+.carta-nutri-crn{font-size:10px;color:var(--ouro);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+.carta-linha-ouro{height:2px;background:var(--ouro)}
+.carta-corpo{padding:24px}
+.carta-data{font-size:12px;color:var(--cinza);text-align:right;margin-bottom:20px}
+.carta-dest{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}
+.carta-dest-linha{font-size:13px;color:var(--carvao);margin-bottom:4px}
+.carta-dest-linha strong{color:var(--verde)}
+.carta-p{font-size:13px;line-height:1.8;color:var(--carvao);margin-bottom:14px;text-align:justify}
+.carta-p strong{color:var(--verde);font-weight:600}
+.carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin:20px 0 8px}
+.carta-assinatura{margin-top:24px;padding-top:16px;border-top:1px solid var(--bege)}
+.carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--verde)}
+.carta-ass-crn{font-size:12px;color:var(--cinza);margin-top:2px}
+.carta-ass-marca{font-size:12px;color:var(--ouro);margin-top:2px}
+.carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
+.btn-imprimir{display:flex;align-items:center;gap:8px;margin:16px auto 0;background:var(--verde);color:var(--creme-suv);border:none;border-radius:8px;padding:10px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+
+/* ── PROGRESSO ── */
+.checkin-form{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:20px;margin-bottom:24px}
+.checkin-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:16px}
+.campo-grupo{margin-bottom:16px}
+.campo-label{font-size:12px;font-weight:500;color:var(--cinza);margin-bottom:6px;display:block}
+.campo-input{width:100%;border:1px solid var(--bege);border-radius:8px;padding:10px 12px;font-family:'Jost',sans-serif;font-size:13px;color:var(--carvao);background:var(--creme);outline:none}
+.campo-input:focus{border-color:var(--ouro)}
+.campo-radio-grupo{display:flex;gap:8px;flex-wrap:wrap}
+.campo-radio{display:none}
+.campo-radio-label{padding:6px 14px;border:1px solid var(--bege);border-radius:20px;font-size:12px;cursor:pointer;color:var(--cinza);transition:all .15s}
+.campo-radio:checked+.campo-radio-label{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+.btn-enviar{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
+
+.historico-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;text-decoration:none}
+.historico-data{font-size:11px;color:var(--ouro);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.historico-titulo{font-size:14px;color:var(--verde);font-weight:500}
+.historico-desc{font-size:12px;color:var(--cinza);margin-top:2px}
+.badge-atual{font-size:10px;background:#EAF3DE;color:#3B6D11;padding:4px 10px;border-radius:20px;font-weight:600}
+.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
+
+.banner-pontual{display:none;background:var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:12px}
+.banner-pontual.visivel{display:flex}
+.banner-pontual-texto{font-size:13px;color:#fff;font-weight:500;line-height:1.4}
+.banner-pontual-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px}
+.banner-pontual-btn{flex-shrink:0;background:#fff;color:var(--ouro);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.banner-habitual{background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--verde);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.banner-habitual-texto{font-size:12px;color:var(--cinza);line-height:1.6}
+.banner-habitual-btn{flex-shrink:0;background:var(--verde);color:var(--creme-suv);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.badge-tipo{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.badge-tipo-pontual{background:rgba(184,149,106,.15);color:var(--ouro)}
+.badge-tipo-fixo{background:rgba(83,97,71,.1);color:var(--verde)}
+@media print{.nav-sticky,.btn-imprimir,.banner-pontual,.banner-habitual{display:none}.aba{display:block!important}}
+@media(max-width:400px){.macros{grid-template-columns:repeat(3,1fr)}.macro-card:nth-child(4),.macro-card:nth-child(5){grid-column:span 1}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-nutri">Ademir Ferreira Junior</div>
+        <div class="header-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+    </div>
+    <div class="header-paciente">[NOME_PACIENTE]</div>
+    <div class="header-meta">[META_PACIENTE] · Atualizado em [DATA_ATUALIZACAO]</div>
+  </div>
+
+  <!-- ABAS -->
+  <nav class="nav" id="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta personal</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ═══ ABA: MEU PLANO ═══ -->
+  <div class="aba ativa" id="aba-meu-plano">
+
+    <!-- BADGE TIPO: "Plano habitual" ou "Protocolo especial" -->
+    <!-- Para plano fixo: usar badge-tipo-fixo / Para pontual: usar badge-tipo-pontual -->
+    <span class="badge-tipo badge-tipo-pontual" id="badge-tipo">Protocolo especial · [PONTUAL_LABEL]</span>
+
+    <!-- BANNER DIETA HABITUAL -->
+    <div class="banner-habitual">
+      <div class="banner-habitual-texto">Este é um protocolo especial.<br>Sua dieta habitual continua disponível.</div>
+      <a class="banner-habitual-btn" href="../plano-alimentar.html">Ver minha dieta habitual</a>
+    </div>
+
+    <div class="macros">
+      <div class="macro-card destaque">
+        <div class="macro-label">Calorias</div>
+        <div class="macro-valor">[KCAL]</div>
+        <div class="macro-unidade">kcal/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Proteínas</div>
+        <div class="macro-valor">[PTN_G]</div>
+        <div class="macro-unidade">[PTN_PCT]% das kcal</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Carboidratos</div>
+        <div class="macro-valor">[CHO_G]</div>
+        <div class="macro-unidade">[CHO_PCT]% das kcal</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Lipídios</div>
+        <div class="macro-valor">[LIP_G]</div>
+        <div class="macro-unidade">[LIP_PCT]% das kcal</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Fibras</div>
+        <div class="macro-valor">[FIB_G]</div>
+        <div class="macro-unidade">meta diária</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Refeições do dia</div>
+
+    <!-- REFEIÇÃO 1: CAFÉ DA MANHÃ -->
+    <div class="refeicao" id="ref-1">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-1')">
+        <div>
+          <div class="refeicao-hora">[HORA_1]</div>
+          <div class="refeicao-nome">[NOME_REF_1]</div>
+          <div class="refeicao-kcal">[KCAL_REF_1] kcal · [PTN_REF_1]g PTN · [CHO_REF_1]g CHO · [LIP_REF_1]g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <!-- ALIMENTO 1 -->
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">[ALIMENTO_1_1]</div>
+              <div class="alimento-macros">[MACROS_1_1]</div>
+            </div>
+            <div class="alimento-qtd">[QTD_1_1]</div>
+          </div>
+          <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
+          <div class="subs-lista">
+            <div class="subs-titulo">Pode substituir por:</div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+          </div>
+        </div>
+        <!-- ALIMENTO 2 -->
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">[ALIMENTO_1_2]</div>
+              <div class="alimento-macros">[MACROS_1_2]</div>
+            </div>
+            <div class="alimento-qtd">[QTD_1_2]</div>
+          </div>
+          <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
+          <div class="subs-lista">
+            <div class="subs-titulo">Pode substituir por:</div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+          </div>
+        </div>
+        <button class="btn-receita" onclick="abrirReceita('receita-cafe')">Sugestão de receita</button>
+      </div>
+    </div>
+
+    <!-- TREINO (quando houver) -->
+    <div class="treino-bar">[HORA_TREINO] · TREINO</div>
+
+    <!-- REFEIÇÃO 2: EXEMPLO PÓS-TREINO -->
+    <div class="refeicao" id="ref-2">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-2')">
+        <div>
+          <div class="refeicao-hora">[HORA_2]</div>
+          <div class="refeicao-nome">[NOME_REF_2]</div>
+          <div class="refeicao-kcal">[KCAL_REF_2] kcal · [PTN_REF_2]g PTN · [CHO_REF_2]g CHO · [LIP_REF_2]g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">[ALIMENTO_2_1]</div>
+              <div class="alimento-macros">[MACROS_2_1]</div>
+            </div>
+            <div class="alimento-qtd">[QTD_2_1]</div>
+          </div>
+          <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
+          <div class="subs-lista">
+            <div class="subs-titulo">Pode substituir por:</div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+          </div>
+        </div>
+        <button class="btn-receita" onclick="abrirReceita('receita-pos')">Sugestão de receita</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ ABA: SUPLEMENTOS ═══ -->
+  <div class="aba" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:16px">Protocolo de suplementação</div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">[SUPL_1_NOME]</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">[SUPL_1_DOSE]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">[SUPL_1_HORA]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">[SUPL_1_COM]</div></div>
+      </div>
+      <div class="supl-just">[SUPL_1_OBJ]</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">[SUPL_2_NOME]</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">[SUPL_2_DOSE]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">[SUPL_2_HORA]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">[SUPL_2_COM]</div></div>
+      </div>
+      <div class="supl-just">[SUPL_2_OBJ]</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">[SUPL_3_NOME]</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">[SUPL_3_DOSE]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">[SUPL_3_HORA]</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">[SUPL_3_COM]</div></div>
+      </div>
+      <div class="supl-just">[SUPL_3_OBJ]</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="secao-label" style="margin-bottom:16px">Sua evolução</div>
+
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso atual</div>
+        <div class="evolucao-valor">[PESO_ATUAL] kg</div>
+        <div class="evolucao-delta delta-pos">[DELTA_PESO] desde o início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Gordura corporal</div>
+        <div class="evolucao-valor">[GORDURA_PCT]%</div>
+        <div class="evolucao-delta delta-pos">[DELTA_GORDURA] desde o início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa magra</div>
+        <div class="evolucao-valor">[MLG] kg</div>
+        <div class="evolucao-delta delta-pos">[DELTA_MLG] desde o início</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">[CINTURA] cm</div>
+        <div class="evolucao-delta delta-pos">[DELTA_CINTURA] desde o início</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Projeção do resultado</div>
+    <div class="semanas-grid">
+      <div class="semana-card">
+        <div class="semana-label">Semana 1</div>
+        <div class="semana-periodo">[PERIODO_S1]</div>
+        <div class="semana-peso">[PESO_S1]</div>
+        <div class="semana-gordura">[GORDURA_S1]</div>
+        <div class="semana-obs">[OBS_S1]</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 2</div>
+        <div class="semana-periodo">[PERIODO_S2]</div>
+        <div class="semana-peso">[PESO_S2]</div>
+        <div class="semana-gordura">[GORDURA_S2]</div>
+        <div class="semana-obs">[OBS_S2]</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 3</div>
+        <div class="semana-periodo">[PERIODO_S3]</div>
+        <div class="semana-peso">[PESO_S3]</div>
+        <div class="semana-gordura">[GORDURA_S3]</div>
+        <div class="semana-obs">[OBS_S3]</div>
+      </div>
+      <div class="semana-card evento">
+        <div class="semana-label">[LABEL_EVENTO]</div>
+        <div class="semana-periodo">[PERIODO_S4]</div>
+        <div class="semana-peso">[PESO_S4]</div>
+        <div class="semana-gordura">[GORDURA_S4]</div>
+        <div class="semana-obs">[OBS_S4]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico">
+    <div class="secao-label" style="margin-bottom:16px">Orientações ao médico</div>
+
+    <!-- ESTADO VAZIO (padrão) — remover este bloco quando houver carta -->
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+
+    <!-- ESTADO COM CARTA — descomentar e preencher quando houver
+    <div class="carta-wrapper">
+      <div class="carta-header">
+        <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
+        <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+      <div class="carta-linha-ouro"></div>
+      <div class="carta-corpo">
+        <div class="carta-data">[CIDADE], [DATA_CARTA]</div>
+        <div class="carta-dest">
+          <div class="carta-dest-linha">Ao(À) <strong>Dr(a). [NOME_MEDICO]</strong></div>
+          <div class="carta-dest-linha">Especialidade: [ESPECIALIDADE]</div>
+          <div class="carta-dest-linha">Ref.: Paciente <strong>[NOME_PACIENTE]</strong></div>
+        </div>
+        <p class="carta-p">Prezado(a) Doutor(a),</p>
+        <p class="carta-p">[CORPO_CARTA_MEDICO]</p>
+        <div class="carta-assinatura">
+          <div class="carta-ass-nome">Ademir Ferreira Junior</div>
+          <div class="carta-ass-crn">Nutricionista · CRN-3 72295</div>
+          <div class="carta-ass-marca">◆ Nutri Ademir Ferreira</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-imprimir" onclick="window.print()">Imprimir / Salvar PDF</button>
+    -->
+  </div>
+
+  <!-- ═══ ABA: CARTA PERSONAL ═══ -->
+  <div class="aba" id="aba-carta-personal">
+    <div class="secao-label" style="margin-bottom:16px">Orientações ao personal trainer</div>
+
+    <!-- ESTADO VAZIO (padrão) — remover este bloco quando houver carta -->
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu personal.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+
+    <!-- ESTADO COM CARTA — descomentar e preencher quando houver
+    <div class="carta-wrapper">
+      ... mesma estrutura da carta médico ...
+    </div>
+    <button class="btn-imprimir" onclick="window.print()">Imprimir / Salvar PDF</button>
+    -->
+  </div>
+
+  <!-- ═══ ABA: PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+
+    <div class="secao-label" style="margin-bottom:16px">Avaliação física — consulta atual</div>
+
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso</div>
+        <div class="evolucao-valor">[PESO_ATUAL] kg</div>
+        <div class="evolucao-delta [DELTA_PESO_CLS]">[DELTA_PESO] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">[IMC]</div>
+        <div class="evolucao-delta [DELTA_IMC_CLS]">[DELTA_IMC] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">% Gordura</div>
+        <div class="evolucao-valor">[GORDURA_PCT]%</div>
+        <div class="evolucao-delta [DELTA_GORD_CLS]">[DELTA_GORDURA] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa magra</div>
+        <div class="evolucao-valor">[MLG] kg</div>
+        <div class="evolucao-delta [DELTA_MLG_CLS]">[DELTA_MLG] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa gorda</div>
+        <div class="evolucao-valor">[MASSA_GORDA] kg</div>
+        <div class="evolucao-delta [DELTA_MG_CLS]">[DELTA_MG] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">[CINTURA] cm</div>
+        <div class="evolucao-delta [DELTA_CIN_CLS]">[DELTA_CINTURA] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Quadril</div>
+        <div class="evolucao-valor">[QUADRIL] cm</div>
+        <div class="evolucao-delta [DELTA_QUAD_CLS]">[DELTA_QUADRIL] vs consulta anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">CMB</div>
+        <div class="evolucao-valor">[CMB] cm</div>
+        <div class="evolucao-delta [DELTA_CMB_CLS]">[DELTA_CMB] vs consulta anterior</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px;margin-top:24px">Dobras cutâneas</div>
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:24px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="background:var(--verde)">
+            <th style="padding:10px 14px;text-align:left;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Dobra</th>
+            <th style="padding:10px 14px;text-align:center;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Atual (mm)</th>
+            <th style="padding:10px 14px;text-align:center;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Anterior</th>
+            <th style="padding:10px 14px;text-align:center;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--creme-suv)">
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Tricipital</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_TRI]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_TRI_ANT]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_TRI_CLS]">[D_TRI_DELTA]</td>
+          </tr>
+          <tr style="background:var(--creme)">
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Abdominal</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_ABD]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_ABD_ANT]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_ABD_CLS]">[D_ABD_DELTA]</td>
+          </tr>
+          <tr style="background:var(--creme-suv)">
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Subescapular</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUB]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUB_ANT]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUB_CLS]">[D_SUB_DELTA]</td>
+          </tr>
+          <tr style="background:var(--creme)">
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Suprailíaca</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUP]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUP_ANT]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUP_CLS]">[D_SUP_DELTA]</td>
+          </tr>
+          <tr style="background:var(--creme-suv)">
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Coxa</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_COXA]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_COXA_ANT]</td>
+            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_COXA_CLS]">[D_COXA_DELTA]</td>
+          </tr>
+          <tr style="background:var(--creme)">
+            <td style="padding:9px 14px;color:var(--verde);font-weight:600">Somatório total</td>
+            <td style="padding:9px 14px;text-align:center;font-weight:700;color:var(--verde)">[D_SOM] mm</td>
+            <td style="padding:9px 14px;text-align:center;color:var(--cinza)">[D_SOM_ANT]</td>
+            <td style="padding:9px 14px;text-align:center;font-weight:600" class="[D_SOM_CLS]">[D_SOM_DELTA]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Histórico de avaliações</div>
+    <a class="historico-item" href="protocolo-jun2025.html">
+      <div>
+        <div class="historico-data">[DATA_AVAL_1]</div>
+        <div class="historico-titulo">[TITULO_AVAL_1]</div>
+        <div class="historico-desc">[DESC_AVAL_1]</div>
+      </div>
+      <span class="badge-atual">Atual</span>
+    </a>
+    <!-- avaliações anteriores aparecem abaixo, sem o badge -->
+  </div>
+
+</div>
+
+<!-- ═══ MODAIS DE RECEITAS ═══ -->
+<div class="modal-overlay" id="modal-receita" onclick="fecharModalFora(event)">
+  <div class="modal" style="position:relative">
+    <div class="modal-handle"></div>
+    <button class="modal-fechar" onclick="fecharModal()">×</button>
+    <div id="modal-conteudo"></div>
+  </div>
+</div>
+
+<!-- DADOS DAS RECEITAS (JSON) -->
+<script>
+const receitas = {
+  'receita-cafe': {
+    titulo: '[RECEITA_1_TITULO]',
+    subtitulo: '[RECEITA_1_SUB]',
+    macros: { kcal:'[R1_KCAL]', ptn:'[R1_PTN]g', cho:'[R1_CHO]g', lip:'[R1_LIP]g' },
+    ingredientes: [
+      { nome:'[ING_1]', qtd:'[ING_QTD_1]' },
+      { nome:'[ING_2]', qtd:'[ING_QTD_2]' },
+      { nome:'[ING_3]', qtd:'[ING_QTD_3]' },
+    ],
+    passos: [
+      '[PASSO_1]',
+      '[PASSO_2]',
+      '[PASSO_3]',
+    ]
+  },
+  'receita-pos': {
+    titulo: '[RECEITA_2_TITULO]',
+    subtitulo: '[RECEITA_2_SUB]',
+    macros: { kcal:'[R2_KCAL]', ptn:'[R2_PTN]g', cho:'[R2_CHO]g', lip:'[R2_LIP]g' },
+    ingredientes: [
+      { nome:'[ING_1]', qtd:'[ING_QTD_1]' },
+      { nome:'[ING_2]', qtd:'[ING_QTD_2]' },
+    ],
+    passos: [
+      '[PASSO_1]',
+      '[PASSO_2]',
+    ]
+  }
+};
+
+function abrirReceita(id) {
+  const r = receitas[id]; if(!r) return;
+  document.getElementById('modal-conteudo').innerHTML = `
+    <div class="modal-titulo">${r.titulo}</div>
+    <div class="modal-subtitulo">${r.subtitulo}</div>
+    <div class="receita-macros">
+      <div class="receita-macro"><div class="receita-macro-label">Kcal</div><div class="receita-macro-valor">${r.macros.kcal}</div></div>
+      <div class="receita-macro"><div class="receita-macro-label">Proteínas</div><div class="receita-macro-valor">${r.macros.ptn}</div></div>
+      <div class="receita-macro"><div class="receita-macro-label">Carboidratos</div><div class="receita-macro-valor">${r.macros.cho}</div></div>
+      <div class="receita-macro"><div class="receita-macro-label">Lipídios</div><div class="receita-macro-valor">${r.macros.lip}</div></div>
+    </div>
+    <div class="receita-secao">Ingredientes</div>
+    ${r.ingredientes.map(i=>`<div class="ingrediente"><span>${i.nome}</span><span style="color:var(--verde);font-weight:500">${i.qtd}</span></div>`).join('')}
+    <div class="receita-secao">Modo de preparo</div>
+    ${r.passos.map((p,i)=>`<div class="passo"><span class="passo-num">${i+1}</span><span>${p}</span></div>`).join('')}
+  `;
+  document.getElementById('modal-receita').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModal() {
+  document.getElementById('modal-receita').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+function fecharModalFora(e) {
+  if(e.target === document.getElementById('modal-receita')) fecharModal();
+}
+
+function mudarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function toggleRefeicao(id) {
+  document.getElementById(id).classList.toggle('aberta');
+}
+
+function toggleSubs(btn) {
+  const lista = btn.nextElementSibling;
+  const aberta = lista.classList.toggle('aberta');
+  btn.textContent = aberta ? '↑ Fechar substituições' : '↕ Ver substituições';
+}
+</script>
+</body>
+</html>
