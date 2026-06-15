@@ -378,14 +378,16 @@ O template tem 2 refeições de exemplo (`_1` e `_2`). Replique o bloco HTML par
 
 | Placeholder | O que é | Fonte |
 |---|---|---|
-| `[ALIMENTO_1_1]` | Nome do 1º alimento da refeição 1 | Protocolo alimentar |
-| `[QTD_1_1]` | Quantidade (ex: "2 unidades (100g)") | Protocolo alimentar |
-| `[MACROS_1_1]` | Macros resumidos (ex: "14g PTN · 0g CHO · 10g LIP") | Calcular |
+| `[ALIMENTO_1_1]` | Nome do 1º alimento da refeição 1 **com forma de preparo** (ex: "Frango grelhado", "Ovos mexidos") | Protocolo alimentar — **nunca referenciar o alimento cru** |
+| `[QTD_1_1]` | Quantidade do alimento **já preparado** (ex: "2 unidades", "140g") | Protocolo alimentar prescrito pelo Nutri |
+| `[MACROS_1_1]` | Macros do alimento **no estado preparado** (ex: "32g PTN · 0g CHO · 3g LIP · 163 kcal") | Tabela TACO/TBCA ou software do Nutri — **nunca estimar** |
 | `[ALIMENTO_1_2]` | Nome do 2º alimento da refeição 1 | Protocolo alimentar |
 | `[QTD_1_2]` | Quantidade | Protocolo alimentar |
-| `[MACROS_1_2]` | Macros resumidos | Calcular |
+| `[MACROS_1_2]` | Macros resumidos | Tabela nutricional — **nunca estimar** |
 
 Repetir `[ALIMENTO_X_Y]`, `[QTD_X_Y]`, `[MACROS_X_Y]` para cada alimento de cada refeição.
+
+> ⚠️ **Se o Nutri não fornecer os macros por alimento, deixar o placeholder e avisar. Nunca inventar.**
 
 ### 11.5 Substituições (mínimo 5 por alimento)
 
@@ -508,18 +510,82 @@ A carta deve sempre incluir: contexto clínico, achados relevantes, hipóteses, 
 
 ---
 
-## 12. CHECKLIST ANTES DE SALVAR QUALQUER HTML
+## 12. INTEGRIDADE DE DADOS NUTRICIONAIS — REGRAS INVIOLÁVEIS
 
-Antes de salvar o arquivo gerado, verifique:
+> **Este consultório trabalha com saúde humana. Dados nutricionais incorretos podem causar dano real a pessoas reais. Nenhuma conveniência, velocidade ou preenchimento de template justifica números inventados ou não verificados.**
 
+### 12.1 Proibições absolutas
+
+❌ **NUNCA** inserir valores de kcal, macronutrientes ou quantidades de alimentos estimados "a olho" sem base em tabela nutricional ou protocolo prescrito pelo Nutri  
+❌ **NUNCA** preencher macros de alimentos crus quando o protocolo usa alimentos preparados — os valores são diferentes  
+❌ **NUNCA** deixar a soma das kcal das refeições divergir das kcal totais declaradas no card de macros  
+❌ **NUNCA** inventar um plano alimentar completo — o Nutri prescreve, o Claude estrutura e apresenta  
+❌ **NUNCA** "ajustar" quantidades para fechar a conta sem avisar o Nutri  
+
+### 12.2 Obrigações antes de preencher qualquer dado nutricional
+
+Antes de preencher kcal, macros ou quantidades de alimentos em qualquer HTML:
+
+1. **Perguntar ao Nutri** quais são os valores corretos — ou ler o protocolo já prescrito nos arquivos do paciente
+2. **Se o Nutri fornecer os valores:** usar exatamente o que foi informado, sem ajustes não autorizados
+3. **Se os valores não forem fornecidos:** deixar os placeholders `[KCAL_REF_X]`, `[MACROS_X_Y]`, `[QTD_X_Y]` no arquivo e **avisar explicitamente** que os dados nutricionais precisam ser preenchidos pelo Nutri antes da entrega ao paciente
+4. **Nunca publicar** um arquivo com dados nutricionais que o Nutri não revisou e aprovou
+
+### 12.3 Verificação obrigatória de consistência
+
+Sempre que dados nutricionais estiverem presentes no arquivo, verificar:
+
+| Verificação | Como fazer |
+|---|---|
+| **Soma das refeições = meta diária** | Somar kcal de todas as refeições e comparar com `[KCAL]` do card de macros. Diferença > 50 kcal = bloquear e reportar |
+| **Macros batem com as kcal** | PTN × 4 + CHO × 4 + LIP × 9 = KCAL total (tolerância ±5%) |
+| **Alimento preparado ≠ alimento cru** | Sempre referenciar e calcular com base no alimento no estado em que será consumido (grelhado, cozido, mexido etc.) |
+| **Substituições são isocalóricas e isoproteicas** | Verificar que cada substituto entrega kcal e PTN equivalentes ao alimento original |
+| **Quantidades são realistas** | Conferir se as porções fazem sentido clínico (ex: 40g de goma de tapioca = tapioca média, não mini) |
+
+### 12.4 O que fazer quando encontrar inconsistência
+
+Se ao revisar um arquivo (próprio ou existente) encontrar inconsistência nutricional:
+
+1. **Parar** — não salvar, não publicar
+2. **Reportar ao Nutri** com clareza: "A soma das refeições totaliza X kcal, mas o card de macros mostra Y kcal. Preciso dos valores corretos antes de continuar."
+3. **Aguardar confirmação** antes de qualquer alteração nos dados
+4. **Registrar no LEIAME.md** se a inconsistência foi corrigida e qual era o erro
+
+### 12.5 Caso do arquivo da Kelly — lição registrada
+
+Em junho de 2025, ao gerar o `plano-alimentar.html` da Kelly Christianne, foram inseridos macros e quantidades estimados sem verificação. A soma real das refeições atingiu ~1.637 kcal contra uma meta declarada de 1.200 kcal — divergência de 437 kcal (36%). O arquivo foi publicado e entregue à paciente com dados incorretos.
+
+**O que falhou:** o Claude preencheu valores nutricionais sem protocolo prescrito, sem verificar a consistência e sem avisar o Nutri.  
+**A partir de agora:** nenhum dado nutricional entra em arquivo de paciente sem origem rastreável (protocolo do Nutri) e verificação de consistência.
+
+---
+
+## 13. CHECKLIST ANTES DE SALVAR QUALQUER HTML
+
+Antes de salvar o arquivo gerado, verifique **cada item**. Não pular nenhum.
+
+**🔴 DADOS NUTRICIONAIS — bloquear se falhar**
+- [ ] Todos os valores de kcal e macros têm origem rastreável (protocolo do Nutri ou tabela nutricional)
+- [ ] Soma das kcal de todas as refeições = meta diária declarada no card (tolerância ±50 kcal)
+- [ ] PTN × 4 + CHO × 4 + LIP × 9 ≈ KCAL total (tolerância ±5%)
+- [ ] Todos os alimentos estão referenciados na forma preparada (grelhado, cozido, mexido — nunca cru)
+- [ ] Substituições são isocalóricas e isoproteicas em relação ao alimento original
+- [ ] Nenhum dado nutricional foi estimado sem base — se há dúvida, há placeholder
+
+**🟡 ESTRUTURA E CONTEÚDO — corrigir antes de salvar**
 - [ ] Nenhum `[PLACEHOLDER]` restante no arquivo
-- [ ] Cards de macros com valores calculados e coerentes (PTN + CHO + LIP = KCAL total)
 - [ ] Deltas calculados corretamente vs consulta anterior do LEIAME.md
 - [ ] Classes `delta-pos` / `delta-neg` aplicadas corretamente
 - [ ] Mínimo de 5 substituições por alimento
 - [ ] Receitas com ingredientes baseados nos alimentos do protocolo
 - [ ] Suplementos com badges de prioridade corretos
-- [ ] Cartas com estado vazio (mensagem padrão) a não ser que o Nutri tenha solicitado
+- [ ] Cartas com estado vazio (mensagem padrão) a não ser que o Nutri tenha solicitado explicitamente
+
+**🟢 IDENTIDADE VISUAL — obrigatório**
 - [ ] Fontes Cormorant Garamond + Jost carregadas do Google Fonts
 - [ ] Fundo `#F4EFE4` em todo o documento — nunca `#FFFFFF`
 - [ ] Header verde `#536147` com linha dourada `#B8956A`
+- [ ] `.nav-sticky` com `background:var(--verde)` para não vazar conteúdo
+
+> Se qualquer item 🔴 falhar: **não salvar, não publicar, reportar ao Nutri imediatamente.**
