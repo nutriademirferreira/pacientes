@@ -36,8 +36,8 @@ nutri-consultorio/
 ├── _scripts/
 │   ├── novo-paciente.sh               ← cria pasta + subpastas de novo paciente
 │   └── publicar.sh                    ← git add + commit + push
-└── pacientes/
-    └── [nome-sobrenome]/
+├── pacientes/                         ← pasta vazia — mantida apenas para referência
+└── [nome-sobrenome]/                  ← pasta do paciente fica na RAIZ do repo
         ├── LEIAME.md                  ← ficha clínica + histórico de consultas
         ├── index.html                 ← redireciona para plano fixo ou pontual ativo
         ├── plano-alimentar.html       ← PLANO FIXO (sempre atualizado)
@@ -55,12 +55,12 @@ nutri-consultorio/
 
 Quando o Nutri mencionar qualquer paciente por nome:
 
-1. **Leia imediatamente** `pacientes/[nome-sobrenome]/LEIAME.md`
+1. **Leia imediatamente** `[nome-sobrenome]/LEIAME.md` (pasta na raiz do repo)
 2. **Verifique** se há `plano-alimentar.html` — leia os placeholders preenchidos para entender o protocolo ativo
 3. **Verifique** a pasta `exames/` e `avaliacao-fisica/` — leia os arquivos mais recentes
 4. **Só então responda** — com contexto completo, sem pedir que o Nutri repita o que já está nos arquivos
 
-Se o paciente não existir na pasta `pacientes/`, diga imediatamente e ofereça criar a estrutura com `novo-paciente.sh`.
+Se o paciente não existir na raiz do repo, diga imediatamente e ofereça criar a estrutura com `novo-paciente.sh`.
 
 ---
 
@@ -181,13 +181,13 @@ Ao receber um plano alimentar, avalie:
 
 ### 5.1 Plano alimentar fixo (HTML)
 **Quando:** nova consulta com ajuste de protocolo  
-**Arquivo:** `pacientes/[nome]/plano-alimentar.html`  
+**Arquivo:** `[nome]/plano-alimentar.html`  
 **Template:** `_templates/template-plano-fixo.html`  
 **Após gerar:** atualizar `LEIAME.md` com data e notas da consulta  
 
 ### 5.2 Protocolo pontual (HTML)
 **Quando:** evento, viagem, período especial  
-**Arquivo:** `pacientes/[nome]/pontuais/[descricao-mes-ano].html`  
+**Arquivo:** `[nome]/pontuais/[descricao-mes-ano].html`  
 **Template:** `_templates/template-pontual.html`  
 **Após gerar:** atualizar `index.html` do paciente ativando PONTUAL_ATIVO = true  
 
