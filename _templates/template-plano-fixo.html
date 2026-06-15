@@ -23,17 +23,36 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
 
 /* ── NAVBAR ABAS ── */
-.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);padding-bottom:0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
 .nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
 .nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
-.nav-sticky{position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(39,37,32,.15)}
+/* background obrigatório para tapar conteúdo que rola por baixo */
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(39,37,32,.15)}
 
 /* ── CONTEÚDO ── */
-.conteudo{max-width:680px;margin:0 auto;padding:24px 16px}
+/* padding-bottom:100px reserva espaço para o banner fixo de instalar */
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
 
 /* ── ABAS ── */
 .aba{display:none}.aba.ativa{display:block}
+
+/* ── BOTÃO PLANO HABITUAL ── */
+.btn-plano{display:block;width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:12px;padding:14px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;cursor:pointer;margin-bottom:20px;text-align:left;transition:background .15s}
+.btn-plano:hover{background:#3d4a34}
+.btn-plano-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px}
+.btn-plano-texto{color:var(--creme-suv)}
+
+/* ── BANNER PROTOCOLO ESPECIAL ── */
+.banner-pontual{display:none;background:var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:12px}
+.banner-pontual.visivel{display:flex}
+.banner-pontual-texto{font-size:13px;color:#fff;font-weight:500;line-height:1.4}
+.banner-pontual-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px}
+.banner-pontual-btn{flex-shrink:0;background:#fff;color:var(--ouro);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.banner-especial{background:var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.banner-especial-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px}
+.banner-especial-nome{font-size:14px;font-weight:600;color:#fff}
+.banner-especial-btn{flex-shrink:0;background:#fff;color:var(--ouro);border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
 
 /* ── CARDS MACROS ── */
 .macros{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
@@ -62,14 +81,18 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .refeicao.aberta .refeicao-corpo{display:block}
 
 /* ── ITEM ALIMENTAR ── */
+/* REGRA: [ALIMENTO_X_Y] deve sempre indicar forma de preparo
+   Ex: "Frango grelhado", "Ovos mexidos", "Salmão grelhado", "Arroz integral cozido"
+   NUNCA referenciar o alimento cru. Os macros também devem refletir o alimento preparado. */
 .alimento{border-bottom:1px solid var(--bege);padding:12px 0}
-.alimento:last-child{border-bottom:none}
+.alimento:last-of-type{border-bottom:none}
 .alimento-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .alimento-nome{font-size:14px;font-weight:500;color:var(--carvao)}
 .alimento-qtd{font-size:13px;color:var(--verde);font-weight:600;white-space:nowrap}
 .alimento-macros{font-size:11px;color:var(--cinza);margin-top:2px}
 
 /* ── SUBSTITUIÇÕES ── */
+/* REGRA: substituições também devem indicar forma de preparo */
 .subs-toggle{font-size:11px;color:var(--ouro);cursor:pointer;margin-top:8px;display:inline-flex;align-items:center;gap:4px;font-weight:500;background:none;border:none;padding:0}
 .subs-lista{display:none;margin-top:8px;background:var(--creme);border-radius:8px;padding:10px 12px}
 .subs-lista.aberta{display:block}
@@ -80,7 +103,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .sub-qtd{color:var(--verde);font-weight:500;font-size:12px}
 
 /* ── BTN RECEITA ── */
-.btn-receita{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--verde);color:var(--creme-suv);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
+.btn-receita{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--verde);color:var(--creme-suv);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
 .btn-receita:hover{background:#3d4a34}
 
 /* ── TREINO ── */
@@ -124,20 +147,20 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
 .evolucao-label{font-size:10px;color:var(--cinza);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--verde)}
-.evolucao-delta{font-size:12px;margin-top:2px}
+.evolucao-delta{font-size:12px;margin-top:2px;color:var(--cinza)}
 .delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
 .semanas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .semana-card{border:1px solid var(--bege);border-top:3px solid var(--sage);border-radius:10px;padding:14px;background:var(--creme-suv)}
 .semana-card.evento{border-top-color:var(--ouro);background:var(--creme)}
 .semana-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
 .semana-periodo{font-size:11px;color:var(--cinza);margin-bottom:8px}
-.semana-peso{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--verde)}
+.semana-peso{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--verde)}
 .semana-card.evento .semana-peso{color:var(--ouro)}
 .semana-gordura{font-size:11px;color:var(--alerta);font-weight:600;margin-bottom:6px}
 .semana-obs{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
 
 /* ── CARTA ── */
-.carta-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden}
+.carta-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:16px}
 .carta-header{background:var(--verde);padding:20px 24px}
 .carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--creme-suv)}
 .carta-nutri-crn{font-size:10px;color:var(--ouro);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
@@ -147,7 +170,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .carta-dest{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}
 .carta-dest-linha{font-size:13px;color:var(--carvao);margin-bottom:4px}
 .carta-dest-linha strong{color:var(--verde)}
-.carta-p{font-size:13px;line-height:1.8;color:var(--carvao);margin-bottom:14px;text-align:justify}
+.carta-p{font-size:13px;line-height:1.85;color:var(--carvao);margin-bottom:14px;text-align:justify}
 .carta-p strong{color:var(--verde);font-weight:600}
 .carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin:20px 0 8px}
 .carta-assinatura{margin-top:24px;padding-top:16px;border-top:1px solid var(--bege)}
@@ -156,7 +179,8 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .carta-ass-marca{font-size:12px;color:var(--ouro);margin-top:2px}
 .carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
 .carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
-.btn-imprimir{display:flex;align-items:center;gap:8px;margin:16px auto 0;background:var(--verde);color:var(--creme-suv);border:none;border-radius:8px;padding:10px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+.btn-imprimir{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em}
+.btn-imprimir:hover{background:#3d4a34}
 
 /* ── PROGRESSO ── */
 .checkin-form{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:20px;margin-bottom:24px}
@@ -170,33 +194,48 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .campo-radio-label{padding:6px 14px;border:1px solid var(--bege);border-radius:20px;font-size:12px;cursor:pointer;color:var(--cinza);transition:all .15s}
 .campo-radio:checked+.campo-radio-label{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
 .btn-enviar{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
-
 .historico-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;text-decoration:none}
 .historico-data{font-size:11px;color:var(--ouro);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .historico-titulo{font-size:14px;color:var(--verde);font-weight:500}
 .historico-desc{font-size:12px;color:var(--cinza);margin-top:2px}
 .badge-atual{font-size:10px;background:#EAF3DE;color:#3B6D11;padding:4px 10px;border-radius:20px;font-weight:600}
-.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
 
-.banner-pontual{display:none;background:var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:20px;align-items:center;justify-content:space-between;gap:12px}
-.banner-pontual.visivel{display:flex}
-.banner-pontual-texto{font-size:13px;color:#fff;font-weight:500;line-height:1.4}
-.banner-pontual-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:3px}
-.banner-pontual-btn{flex-shrink:0;background:#fff;color:var(--ouro);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.banner-habitual{background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--verde);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.banner-habitual-texto{font-size:12px;color:var(--cinza);line-height:1.6}
-.banner-habitual-btn{flex-shrink:0;background:var(--verde);color:var(--creme-suv);border:none;border-radius:20px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
-.badge-tipo{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:12px}
-.badge-tipo-pontual{background:rgba(184,149,106,.15);color:var(--ouro)}
-.badge-tipo-fixo{background:rgba(83,97,71,.1);color:var(--verde)}
-@media print{.nav-sticky,.btn-imprimir,.banner-pontual,.banner-habitual{display:none}.aba{display:block!important}}
-@media(max-width:400px){.macros{grid-template-columns:repeat(3,1fr)}.macro-card:nth-child(4),.macro-card:nth-child(5){grid-column:span 1}}
+/* ── BANNER INSTALAR APP ── */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
+.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
+.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── MODAL INSTALAR APP ── */
+.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
+.modal-instalar.aberto{display:flex}
+.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
+.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
+.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
+.instalar-passo:last-child{border-bottom:none}
+.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.instalar-passo-texto{flex:1}
+.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
+.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-dica strong{color:var(--verde)}
+
+@media print{.nav-sticky,.btn-imprimir,.banner-pontual,.banner-especial,.btn-plano,.banner-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+@media(max-width:400px){.macros{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 
 <div class="nav-sticky">
-  <!-- HEADER -->
   <div class="header">
     <div class="header-top">
       <div>
@@ -207,14 +246,12 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
     <div class="header-paciente">[NOME_PACIENTE]</div>
     <div class="header-meta">[META_PACIENTE] · Atualizado em [DATA_ATUALIZACAO]</div>
   </div>
-
-  <!-- ABAS -->
   <nav class="nav" id="nav">
     <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
     <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
     <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
-    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta médico</button>
-    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta personal</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao Personal</button>
     <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
   </nav>
 </div>
@@ -224,19 +261,21 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
   <!-- ═══ ABA: MEU PLANO ═══ -->
   <div class="aba ativa" id="aba-meu-plano">
 
-    <!-- BANNER PLANO FIXO: aparece quando há protocolo pontual ativo -->
-    <!-- Ativar: adicionar class="banner-pontual visivel" e preencher PONTUAL_LINK e PONTUAL_LABEL -->
-    <div class="banner-pontual" id="banner-pontual">
-      <div>
-        <div class="banner-pontual-label">Protocolo especial ativo</div>
-        <div class="banner-pontual-texto" id="banner-pontual-label">[PONTUAL_LABEL]</div>
-      </div>
-      <a class="banner-pontual-btn" id="banner-pontual-link" href="[PONTUAL_LINK]">Ver protocolo</a>
-    </div>
+    <!-- Botão para navegar até o plano habitual (usado dentro de planos pontuais) -->
+    <button class="btn-plano" onclick="mudarAbaBtn('meu-plano')">
+      <div class="btn-plano-label">Plano habitual</div>
+      <div class="btn-plano-texto">Clique para ver seu Plano Habitual →</div>
+    </button>
 
-    <!-- BADGE TIPO: "Plano habitual" ou "Protocolo especial" -->
-    <!-- Para plano fixo: usar badge-tipo-fixo / Para pontual: usar badge-tipo-pontual -->
-    <span class="badge-tipo badge-tipo-fixo" id="badge-tipo">Plano habitual</span>
+    <!-- Banner de protocolo especial — exibir quando for plano pontual
+    <div class="banner-especial">
+      <div>
+        <div class="banner-especial-label">Protocolo especial</div>
+        <div class="banner-especial-nome">[NOME_PROTOCOLO_ESPECIAL]</div>
+      </div>
+      <a class="banner-especial-btn" href="#">Ver detalhes</a>
+    </div>
+    -->
 
     <div class="macros">
       <div class="macro-card destaque">
@@ -268,7 +307,10 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
     <div class="secao-label" style="margin-bottom:16px">Refeições do dia</div>
 
-    <!-- REFEIÇÃO 1: CAFÉ DA MANHÃ -->
+    <!-- ──────────────────────────────────────────────
+         REFEIÇÃO 1
+         Macros da refeição = soma dos alimentos preparados
+    ────────────────────────────────────────────── -->
     <div class="refeicao" id="ref-1">
       <div class="refeicao-header" onclick="toggleRefeicao('ref-1')">
         <div>
@@ -279,7 +321,13 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
         <span class="refeicao-chevron">⌄</span>
       </div>
       <div class="refeicao-corpo">
-        <!-- ALIMENTO 1 -->
+
+        <!-- ALIMENTO 1
+             [ALIMENTO_1_1] = nome COM forma de preparo
+             Ex: "Ovos mexidos", "Frango grelhado", "Arroz integral cozido"
+             [MACROS_1_1]   = macros do alimento já preparado (não cru)
+             [QTD_1_1]      = quantidade do alimento pronto (g, unidades, colheres)
+             Substituições: também sempre na forma preparada -->
         <div class="alimento">
           <div class="alimento-top">
             <div>
@@ -291,14 +339,15 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
           <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
           <div class="subs-lista">
             <div class="subs-titulo">Pode substituir por:</div>
-            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_1]</span><span class="sub-qtd">[SUB_QTD_1_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_2]</span><span class="sub-qtd">[SUB_QTD_1_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_3]</span><span class="sub-qtd">[SUB_QTD_1_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_4]</span><span class="sub-qtd">[SUB_QTD_1_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_5]</span><span class="sub-qtd">[SUB_QTD_1_5]</span></div>
           </div>
         </div>
-        <!-- ALIMENTO 2 -->
+
+        <!-- ALIMENTO 2 — repetir o bloco acima para cada alimento da refeição -->
         <div class="alimento">
           <div class="alimento-top">
             <div>
@@ -310,21 +359,24 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
           <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
           <div class="subs-lista">
             <div class="subs-titulo">Pode substituir por:</div>
-            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2_1]</span><span class="sub-qtd">[SUB_QTD_2_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2_2]</span><span class="sub-qtd">[SUB_QTD_2_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2_3]</span><span class="sub-qtd">[SUB_QTD_2_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2_4]</span><span class="sub-qtd">[SUB_QTD_2_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_2_5]</span><span class="sub-qtd">[SUB_QTD_2_5]</span></div>
           </div>
         </div>
+
         <button class="btn-receita" onclick="abrirReceita('receita-cafe')">Sugestão de receita</button>
       </div>
     </div>
 
-    <!-- TREINO (quando houver) -->
+    <!-- BARRA DE TREINO — posicionar entre a refeição pré e pós-treino -->
     <div class="treino-bar">[HORA_TREINO] · TREINO</div>
 
-    <!-- REFEIÇÃO 2: EXEMPLO PÓS-TREINO -->
+    <!-- ──────────────────────────────────────────────
+         REFEIÇÃO 2
+    ────────────────────────────────────────────── -->
     <div class="refeicao" id="ref-2">
       <div class="refeicao-header" onclick="toggleRefeicao('ref-2')">
         <div>
@@ -346,18 +398,20 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
           <button class="subs-toggle" onclick="toggleSubs(this)">↕ Ver substituições</button>
           <div class="subs-lista">
             <div class="subs-titulo">Pode substituir por:</div>
-            <div class="sub-item"><span class="sub-nome">[SUB_1]</span><span class="sub-qtd">[SUB_QTD_1]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_2]</span><span class="sub-qtd">[SUB_QTD_2]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_3]</span><span class="sub-qtd">[SUB_QTD_3]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_4]</span><span class="sub-qtd">[SUB_QTD_4]</span></div>
-            <div class="sub-item"><span class="sub-nome">[SUB_5]</span><span class="sub-qtd">[SUB_QTD_5]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_1]</span><span class="sub-qtd">[SUB_QTD_1_1]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_2]</span><span class="sub-qtd">[SUB_QTD_1_2]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_3]</span><span class="sub-qtd">[SUB_QTD_1_3]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_4]</span><span class="sub-qtd">[SUB_QTD_1_4]</span></div>
+            <div class="sub-item"><span class="sub-nome">[SUB_1_5]</span><span class="sub-qtd">[SUB_QTD_1_5]</span></div>
           </div>
         </div>
         <button class="btn-receita" onclick="abrirReceita('receita-pos')">Sugestão de receita</button>
       </div>
     </div>
 
-  </div>
+    <!-- Adicionar mais refeições copiando o bloco .refeicao acima -->
+
+  </div><!-- fim aba meu-plano -->
 
   <!-- ═══ ABA: SUPLEMENTOS ═══ -->
   <div class="aba" id="aba-suplementos">
@@ -405,7 +459,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
   <!-- ═══ ABA: EVOLUÇÃO ═══ -->
   <div class="aba" id="aba-evolucao">
-    <div class="secao-label" style="margin-bottom:16px">Sua evolução</div>
+    <div class="secao-label" style="margin-bottom:16px">Ponto de partida</div>
 
     <div class="evolucao-grid">
       <div class="evolucao-card">
@@ -430,6 +484,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
       </div>
     </div>
 
+    <!-- Peso projetado: usar um único valor por semana, nunca faixa -->
     <div class="secao-label" style="margin-bottom:16px">Projeção do resultado</div>
     <div class="semanas-grid">
       <div class="semana-card">
@@ -463,25 +518,25 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
     </div>
   </div>
 
-  <!-- ═══ ABA: CARTA MÉDICO ═══ -->
+  <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
   <div class="aba" id="aba-carta-medico">
-    <div class="secao-label" style="margin-bottom:16px">Orientações ao médico</div>
+    <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
 
-    <!-- ESTADO VAZIO (padrão) — remover este bloco quando houver carta -->
+    <!-- ESTADO VAZIO (padrão) — remover quando houver carta -->
     <div class="carta-vazia">
       <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
       <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
     </div>
 
     <!-- ESTADO COM CARTA — descomentar e preencher quando houver
-    <div class="carta-wrapper">
+    <div class="carta-wrapper" id="carta-medico-conteudo">
       <div class="carta-header">
         <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
         <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
       </div>
       <div class="carta-linha-ouro"></div>
       <div class="carta-corpo">
-        <div class="carta-data">[CIDADE], [DATA_CARTA]</div>
+        <div class="carta-data">São Paulo, [DATA_CARTA]</div>
         <div class="carta-dest">
           <div class="carta-dest-linha">Ao(À) <strong>Dr(a). [NOME_MEDICO]</strong></div>
           <div class="carta-dest-linha">Especialidade: [ESPECIALIDADE]</div>
@@ -496,25 +551,43 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
         </div>
       </div>
     </div>
-    <button class="btn-imprimir" onclick="window.print()">Imprimir / Salvar PDF</button>
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-medico-conteudo')">⬇ Baixar em PDF</button>
     -->
   </div>
 
-  <!-- ═══ ABA: CARTA PERSONAL ═══ -->
+  <!-- ═══ ABA: CARTA AO PERSONAL ═══ -->
   <div class="aba" id="aba-carta-personal">
-    <div class="secao-label" style="margin-bottom:16px">Orientações ao personal trainer</div>
+    <div class="secao-label" style="margin-bottom:16px">Carta ao Personal</div>
 
-    <!-- ESTADO VAZIO (padrão) — remover este bloco quando houver carta -->
+    <!-- ESTADO VAZIO (padrão) — remover quando houver carta -->
     <div class="carta-vazia">
       <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
       <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu personal.<br>Solicite no seu canal de suporte caso você necessite.</p>
     </div>
 
     <!-- ESTADO COM CARTA — descomentar e preencher quando houver
-    <div class="carta-wrapper">
-      ... mesma estrutura da carta médico ...
+    <div class="carta-wrapper" id="carta-personal-conteudo">
+      <div class="carta-header">
+        <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
+        <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+      <div class="carta-linha-ouro"></div>
+      <div class="carta-corpo">
+        <div class="carta-data">São Paulo, [DATA_CARTA]</div>
+        <div class="carta-dest">
+          <div class="carta-dest-linha">Ao(À) <strong>[NOME_PERSONAL]</strong></div>
+          <div class="carta-dest-linha">Ref.: Paciente <strong>[NOME_PACIENTE]</strong></div>
+        </div>
+        <p class="carta-p">Prezado(a) [NOME_PERSONAL],</p>
+        <p class="carta-p">[CORPO_CARTA_PERSONAL]</p>
+        <div class="carta-assinatura">
+          <div class="carta-ass-nome">Ademir Ferreira Junior</div>
+          <div class="carta-ass-crn">Nutricionista · CRN-3 72295</div>
+          <div class="carta-ass-marca">◆ Nutri Ademir Ferreira</div>
+        </div>
+      </div>
     </div>
-    <button class="btn-imprimir" onclick="window.print()">Imprimir / Salvar PDF</button>
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-personal-conteudo')">⬇ Baixar em PDF</button>
     -->
   </div>
 
@@ -566,7 +639,7 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
       </div>
     </div>
 
-    <div class="secao-label" style="margin-bottom:16px;margin-top:24px">Dobras cutâneas</div>
+    <div class="secao-label" style="margin-bottom:16px;margin-top:8px">Dobras cutâneas</div>
     <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:24px">
       <table style="width:100%;border-collapse:collapse;font-size:13px">
         <thead>
@@ -578,48 +651,18 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
           </tr>
         </thead>
         <tbody>
-          <tr style="background:var(--creme-suv)">
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Tricipital</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_TRI]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_TRI_ANT]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_TRI_CLS]">[D_TRI_DELTA]</td>
-          </tr>
-          <tr style="background:var(--creme)">
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Abdominal</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_ABD]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_ABD_ANT]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_ABD_CLS]">[D_ABD_DELTA]</td>
-          </tr>
-          <tr style="background:var(--creme-suv)">
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Subescapular</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUB]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUB_ANT]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUB_CLS]">[D_SUB_DELTA]</td>
-          </tr>
-          <tr style="background:var(--creme)">
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Suprailíaca</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUP]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUP_ANT]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUP_CLS]">[D_SUP_DELTA]</td>
-          </tr>
-          <tr style="background:var(--creme-suv)">
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Coxa</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_COXA]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_COXA_ANT]</td>
-            <td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_COXA_CLS]">[D_COXA_DELTA]</td>
-          </tr>
-          <tr style="background:var(--creme)">
-            <td style="padding:9px 14px;color:var(--verde);font-weight:600">Somatório total</td>
-            <td style="padding:9px 14px;text-align:center;font-weight:700;color:var(--verde)">[D_SOM] mm</td>
-            <td style="padding:9px 14px;text-align:center;color:var(--cinza)">[D_SOM_ANT]</td>
-            <td style="padding:9px 14px;text-align:center;font-weight:600" class="[D_SOM_CLS]">[D_SOM_DELTA]</td>
-          </tr>
+          <tr style="background:var(--creme-suv)"><td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Tricipital</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_TRI]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_TRI_ANT]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_TRI_CLS]">[D_TRI_DELTA]</td></tr>
+          <tr style="background:var(--creme)"><td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Abdominal</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_ABD]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_ABD_ANT]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_ABD_CLS]">[D_ABD_DELTA]</td></tr>
+          <tr style="background:var(--creme-suv)"><td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Subescapular</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUB]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUB_ANT]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUB_CLS]">[D_SUB_DELTA]</td></tr>
+          <tr style="background:var(--creme)"><td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Suprailíaca</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_SUP]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_SUP_ANT]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_SUP_CLS]">[D_SUP_DELTA]</td></tr>
+          <tr style="background:var(--creme-suv)"><td style="padding:9px 14px;border-bottom:1px solid var(--bege);color:var(--verde);font-weight:500">Coxa</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center">[D_COXA]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center;color:var(--cinza)">[D_COXA_ANT]</td><td style="padding:9px 14px;border-bottom:1px solid var(--bege);text-align:center" class="[D_COXA_CLS]">[D_COXA_DELTA]</td></tr>
+          <tr style="background:var(--creme)"><td style="padding:9px 14px;color:var(--verde);font-weight:600">Somatório total</td><td style="padding:9px 14px;text-align:center;font-weight:700;color:var(--verde)">[D_SOM] mm</td><td style="padding:9px 14px;text-align:center;color:var(--cinza)">[D_SOM_ANT]</td><td style="padding:9px 14px;text-align:center;font-weight:600" class="[D_SOM_CLS]">[D_SOM_DELTA]</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="secao-label" style="margin-bottom:16px">Histórico de avaliações</div>
-    <a class="historico-item" href="protocolo-jun2025.html">
+    <a class="historico-item" href="protocolo/[SLUG_AVAL_1].html">
       <div>
         <div class="historico-data">[DATA_AVAL_1]</div>
         <div class="historico-titulo">[TITULO_AVAL_1]</div>
@@ -627,12 +670,107 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
       </div>
       <span class="badge-atual">Atual</span>
     </a>
-    <!-- avaliações anteriores aparecem abaixo, sem o badge -->
-  </div>
+    <!-- avaliações anteriores: copiar o bloco acima sem o badge-atual -->
 
+  </div><!-- fim aba progresso -->
+
+</div><!-- fim conteudo -->
+
+<!-- ═══ BANNER INSTALAR APP ═══ -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-instalar-texto">
+    <strong>Salve no celular como app</strong>
+    Acesse seu plano sem abrir o navegador
+  </div>
+  <div class="banner-instalar-acoes">
+    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
+    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  </div>
 </div>
 
-<!-- ═══ MODAIS DE RECEITAS ═══ -->
+<!-- ═══ MODAL INSTALAR APP ═══ -->
+<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
+  <div class="modal-instalar-box">
+    <div class="modal-instalar-handle"></div>
+    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
+    <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular — sem precisar abrir o navegador</div>
+
+    <div class="instalar-tabs">
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone (iOS)</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+    </div>
+
+    <div class="instalar-painel ativo" id="instalar-ios">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Safari</div>
+          <div class="instalar-passo-desc">Essa função só funciona no <strong>Safari</strong>. Se estiver em outro navegador, copie o link e cole no Safari.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque no botão Compartilhar</div>
+          <div class="instalar-passo-desc">Na barra inferior do Safari, toque no ícone de compartilhar.</div>
+          <div class="instalar-passo-destaque">⬆ Compartilhar</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Escolha "Adicionar à Tela de Início"</div>
+          <div class="instalar-passo-desc">Role o menu para baixo e toque nessa opção.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à Tela de Início</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme o nome e toque em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone vai aparecer na sua tela inicial. Toque nele para abrir seu plano diretamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço — parece um app de verdade.</div>
+    </div>
+
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Chrome</div>
+          <div class="instalar-passo-desc">Use o <strong>Google Chrome</strong> para garantir que a opção apareça.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque nos três pontinhos (⋮)</div>
+          <div class="instalar-passo-desc">No canto superior direito da tela, toque no menu do Chrome.</div>
+          <div class="instalar-passo-destaque">⋮ Menu</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque em "Adicionar à tela inicial"</div>
+          <div class="instalar-passo-desc">Em alguns Androids pode aparecer como <em>"Instalar app"</em> ou <em>"Adicionar atalho"</em>.</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à tela inicial</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">4</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Confirme tocando em "Adicionar"</div>
+          <div class="instalar-passo-desc">O ícone do seu plano vai aparecer na tela inicial. Toque nele para acessar diretamente.</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O Chrome pode exibir uma notificação automática na parte de baixo da tela — é só tocar nela!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL RECEITAS ═══ -->
 <div class="modal-overlay" id="modal-receita" onclick="fecharModalFora(event)">
   <div class="modal" style="position:relative">
     <div class="modal-handle"></div>
@@ -641,8 +779,8 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
   </div>
 </div>
 
-<!-- DADOS DAS RECEITAS (JSON) -->
 <script>
+/* ── RECEITAS ── */
 const receitas = {
   'receita-cafe': {
     titulo: '[RECEITA_1_TITULO]',
@@ -653,11 +791,7 @@ const receitas = {
       { nome:'[ING_2]', qtd:'[ING_QTD_2]' },
       { nome:'[ING_3]', qtd:'[ING_QTD_3]' },
     ],
-    passos: [
-      '[PASSO_1]',
-      '[PASSO_2]',
-      '[PASSO_3]',
-    ]
+    passos: ['[PASSO_1]','[PASSO_2]','[PASSO_3]']
   },
   'receita-pos': {
     titulo: '[RECEITA_2_TITULO]',
@@ -667,10 +801,7 @@ const receitas = {
       { nome:'[ING_1]', qtd:'[ING_QTD_1]' },
       { nome:'[ING_2]', qtd:'[ING_QTD_2]' },
     ],
-    passos: [
-      '[PASSO_1]',
-      '[PASSO_2]',
-    ]
+    passos: ['[PASSO_1]','[PASSO_2]']
   }
 };
 
@@ -700,17 +831,58 @@ function fecharModal() {
 }
 
 function fecharModalFora(e) {
-  if(e.target === document.getElementById('modal-receita')) fecharModal();
+  if(e.target===document.getElementById('modal-receita')) fecharModal();
 }
 
+/* ── ABAS ── */
 function mudarAba(id, btn) {
   document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
   document.getElementById('aba-'+id).classList.add('ativa');
   btn.classList.add('ativo');
   btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function mudarAbaBtn(id) {
+  const btn = document.querySelector(`.nav-btn[onclick*="'${id}'"]`);
+  if(btn) mudarAba(id, btn);
+}
+
+/* ── CARTA PDF ── */
+function imprimirCarta(idConteudo) {
+  const conteudo = document.getElementById(idConteudo);
+  if(!conteudo) return;
+  const janela = window.open('','_blank','width=800,height=900');
+  janela.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Carta — Nutri Ademir Ferreira</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Jost',sans-serif;color:#272520;background:#fff;padding:32px}
+    .carta-wrapper{border:1px solid #EBE4D5;border-radius:12px;overflow:hidden;max-width:700px;margin:0 auto}
+    .carta-header{background:#536147;padding:20px 24px}
+    .carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#FDFAF5}
+    .carta-nutri-crn{font-size:10px;color:#B8956A;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+    .carta-linha-ouro{height:2px;background:#B8956A}
+    .carta-corpo{padding:28px}
+    .carta-data{font-size:12px;color:#706B63;text-align:right;margin-bottom:20px}
+    .carta-dest{background:#F4EFE4;border-left:3px solid #B8956A;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}
+    .carta-dest-linha{font-size:13px;color:#272520;margin-bottom:4px}
+    .carta-dest-linha strong{color:#536147}
+    .carta-p{font-size:13px;line-height:1.85;color:#272520;margin-bottom:14px;text-align:justify}
+    .carta-p strong{color:#536147;font-weight:600}
+    .carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#536147;margin:20px 0 8px}
+    .carta-assinatura{margin-top:28px;padding-top:16px;border-top:1px solid #EBE4D5}
+    .carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#536147}
+    .carta-ass-crn{font-size:12px;color:#706B63;margin-top:2px}
+    .carta-ass-marca{font-size:12px;color:#B8956A;margin-top:2px}
+    @media print{body{padding:0}.carta-wrapper{border:none;border-radius:0}}
+  </style></head><body>${conteudo.outerHTML}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close()}}<\/script></body></html>`);
+  janela.document.close();
+}
+
+/* ── REFEIÇÕES ── */
 function toggleRefeicao(id) {
   document.getElementById(id).classList.toggle('aberta');
 }
@@ -720,6 +892,40 @@ function toggleSubs(btn) {
   const aberta = lista.classList.toggle('aberta');
   btn.textContent = aberta ? '↑ Fechar substituições' : '↕ Ver substituições';
 }
+
+/* ── BANNER INSTALAR APP ── */
+function abrirModalInstalar() {
+  document.getElementById('modal-instalar').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModalInstalar() {
+  document.getElementById('modal-instalar').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+function fecharModalInstalarFora(e) {
+  if(e.target===document.getElementById('modal-instalar')) fecharModalInstalar();
+}
+
+function fecharBannerInstalar() {
+  document.getElementById('banner-instalar').style.display='none';
+  localStorage.setItem('banner-instalar-fechado','1');
+}
+
+function trocarTabInstalar(id, btn) {
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+
+/* Oculta o banner se: já estava instalado como app (standalone) ou usuário já fechou antes */
+const jaInstalado =
+  localStorage.getItem('banner-instalar-fechado') ||
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+if(jaInstalado) document.getElementById('banner-instalar').style.display='none';
 </script>
 </body>
 </html>
