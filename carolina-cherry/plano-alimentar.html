@@ -189,6 +189,21 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
 @media print{.nav-sticky,.banner-instalar,.modal-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
 @media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}.supl-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){
+  .carta-corpo{padding:16px}
+  .carta-header{padding:16px}
+  .carta-p{font-size:12px;line-height:1.75;text-align:left}
+  .carta-dest{padding:10px 12px}
+  .carta-dest-linha{font-size:12px}
+  .carta-tabela{display:none}
+  .carta-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+  .carta-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;overflow:hidden}
+  .carta-card-exame{background:var(--verde);padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--creme-suv);letter-spacing:.02em}
+  .carta-card-just{padding:10px 14px;font-size:12px;line-height:1.65;color:var(--carvao)}
+}
+@media(min-width:601px){
+  .carta-cards{display:none}
+}
 </style>
 </head>
 <body>
@@ -1014,6 +1029,14 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
           </tbody>
         </table>
 
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">25-OH Vitamina D</div><div class="carta-card-just">O plano fornece 0,0 mcg de vitamina D. O óleo mineral sequestra vitaminas lipossolúveis no intestino e o tabagismo reduz ainda mais a absorção. Deficiência provável, com impacto em imunidade, humor, força muscular e ossos.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Ferritina + Ferro sérico + TIBC + Saturação de transferrina</div><div class="carta-card-just">Mulher em idade fértil com CMB em Desnutrição Grau I nas 3 últimas avaliações e ingestão de apenas 10 mg de ferro por dia. Estoque de ferro precisa ser investigado antes de qualquer intervenção sobre a massa magra.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Magnésio eritrocitário</div><div class="carta-card-just">Plano fornece 159 mg vs. RDA de 310 mg. Constipação crônica é sinal clínico frequente de deficiência de magnésio. O exame eritrocitário avalia o estoque intracelular real, superior ao sérico.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Selênio sérico</div><div class="carta-card-just">0,8 mcg no plano vs. RDA de 55 mcg. Déficit expressivo. Fumantes têm maior demanda antioxidante e o selênio é cofator da glutationa peroxidase. Deficiência compromete imunidade e função tireoidiana.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Ácido fólico sérico + Homocisteína plasmática</div><div class="carta-card-just">151 mcg no plano vs. RDA de 400 mcg. Tabagismo aumenta o consumo de folato e eleva a homocisteína, marcador independente de risco cardiovascular, já elevado pelo colesterol total de 209 mg/dL.</div></div>
+        </div>
+
         <div class="carta-secao-titulo">Exames complementares — rastreamento recomendado</div>
 
         <table class="carta-tabela">
@@ -1058,6 +1081,17 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
             </tr>
           </tbody>
         </table>
+
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">PCR ultrassensível</div><div class="carta-card-just">Tabagismo ativo gera inflamação sistêmica crônica de baixo grau. O uso prolongado de óleo mineral compromete a barreira intestinal, podendo agravar esse quadro. A PCR-us quantifica esse estado inflamatório de forma sensível.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Insulina de jejum + HOMA-IR</div><div class="carta-card-just">Glicemia e HbA1c normais, mas não excluem resistência à insulina compensada. Jejuns irregulares e tabagismo comprometem a sensibilidade insulínica. O HOMA-IR oferece avaliação mais sensível do que a glicemia isolada.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Cortisol basal (coleta às 8h)</div><div class="carta-card-just">Rotina desregulada, tabagismo, cafeína intensa e supressão alimentar são estressores crônicos do eixo HPA. Cortisol elevado contribui para acúmulo de gordura visceral e perda de massa magra, compatíveis com o quadro atual.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">FSH, LH e Estradiol (D2 ou D3 do ciclo)</div><div class="carta-card-just">38 anos com tabagismo ativo. O tabagismo antecipa a menopausa em 1 a 4 anos por efeito tóxico direto sobre os folículos. Investigação pertinente para avaliar perimenopausa precoce e impacto sobre composição corporal.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Anti-TPO e Anti-tireoglobulina</div><div class="carta-card-just">TSH 1,4 mUI/L exclui disfunção tireoidiana atual, mas não afasta autoimunidade subclínica. Tabagismo está associado a maior prevalência de Hashimoto. Rastreamento indicado pelo contexto clínico.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Vitamina A (Retinol sérico) e Vitamina E (Alfa-tocoferol)</div><div class="carta-card-just">Vitaminas lipossolúveis com absorção comprometida pelo óleo mineral. O tabagismo aumenta o consumo de vitamina E como antioxidante. Avaliar em conjunto com a vitamina D, que também está comprometida.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Calprotectina fecal</div><div class="carta-card-just">Marcador de inflamação intestinal ativa. Constipação crônica, tabagismo e microbiota empobrecida pelo óleo mineral justificam a investigação antes de iniciar a retirada do Humectol e o protocolo de probióticos.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Zinco sérico</div><div class="carta-card-just">26 mcg no plano, abaixo do recomendado. Zinco é essencial para imunidade, reparo da mucosa intestinal e síntese proteica, todos relevantes no contexto de CMB em Desnutrição Grau I.</div></div>
+        </div>
 
         <p class="carta-p">
           Do ponto de vista nutricional, o foco atual do tratamento é a regularização da frequência intestinal
