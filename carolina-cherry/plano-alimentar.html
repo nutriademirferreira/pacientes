@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carolina Cherry — Nutri Ademir Ferreira</title>
+<meta property="og:title" content="Plano Alimentar · Carolina Cherry">
+<meta property="og:description" content="Seu plano alimentar personalizado — Nutri Ademir Ferreira">
+<meta property="og:image" content="https://nutriademirferreira.github.io/pacientes/_assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+}
+body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);min-height:100vh}
+.header{background:var(--verde);padding:20px 20px 0}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.header-nutri{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme-suv)}
+.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv);text-align:center;margin-bottom:4px}
+.header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
+.nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(39,37,32,.15)}
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
+.aba{display:none}.aba.ativa{display:block}
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin-bottom:16px}
+
+/* MACROS */
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-bottom:3px solid var(--ouro);border-radius:10px;padding:14px 8px;text-align:center}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde);border-bottom-color:var(--ouro)}
+.macro-label{font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
+.macro-card.destaque .macro-label{color:var(--ouro)}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--ouro);line-height:1;margin-bottom:2px}
+.macro-card.destaque .macro-valor{color:var(--creme-suv)}
+.macro-unidade{font-size:10px;color:var(--cinza)}
+.macro-card.destaque .macro-unidade{color:rgba(253,250,245,.65)}
+
+/* REFEIÇÃO */
+.refeicao{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.refeicao-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s}
+.refeicao-header:hover{background:var(--creme)}
+.refeicao-hora{font-size:11px;font-weight:600;color:var(--ouro);letter-spacing:.1em;margin-bottom:2px}
+.refeicao-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde)}
+.refeicao-kcal{font-size:11px;color:var(--cinza);margin-top:2px}
+.refeicao-chevron{font-size:18px;color:var(--cinza);transition:transform .25s;flex-shrink:0}
+.refeicao.aberta .refeicao-chevron{transform:rotate(180deg)}
+.refeicao-corpo{display:none;padding:0 16px 16px}
+.refeicao.aberta .refeicao-corpo{display:block}
+.alimento{border-bottom:1px solid var(--bege);padding:12px 0}
+.alimento:last-of-type{border-bottom:none}
+.alimento-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.alimento-nome{font-size:14px;font-weight:500;color:var(--carvao)}
+.alimento-qtd{font-size:13px;color:var(--verde);font-weight:600;white-space:nowrap}
+.alimento-macros{font-size:11px;color:var(--cinza);margin-top:2px}
+.treino-bar{background:var(--verde);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-align:center;color:var(--creme-suv);font-weight:600;font-size:13px;letter-spacing:.08em}
+
+/* SUPLEMENTOS */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza)}
+.supl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.supl-campo{font-size:11px}
+.supl-campo-label{color:var(--cinza);margin-bottom:2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.supl-campo-valor{color:var(--carvao);font-weight:500}
+.supl-just{font-size:12px;color:var(--cinza);margin-top:8px;line-height:1.6;padding-top:8px;border-top:1px solid var(--bege)}
+.fase-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro);background:var(--verde);border-radius:8px;padding:8px 14px;margin:20px 0 12px;display:block}
+
+/* EVOLUÇÃO */
+.evolucao-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:10px;color:var(--cinza);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--verde)}
+.evolucao-delta{font-size:12px;margin-top:2px}
+.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}.delta-neutro{color:var(--cinza)}
+.semanas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.semana-card{border:1px solid var(--bege);border-top:3px solid var(--sage);border-radius:10px;padding:14px;background:var(--creme-suv)}
+.semana-card.evento{border-top-color:var(--ouro);background:var(--creme)}
+.semana-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.semana-periodo{font-size:11px;color:var(--cinza);margin-bottom:8px}
+.semana-peso{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--verde)}
+.semana-card.evento .semana-peso{color:var(--ouro)}
+.semana-gordura{font-size:11px;color:var(--alerta);font-weight:600;margin-bottom:6px}
+.semana-obs{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
+
+/* EXAMES */
+.exame-bloco{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.exame-bloco-titulo{background:var(--verde);padding:10px 16px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro)}
+.exame-linha{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--bege);gap:12px}
+.exame-linha:last-child{border-bottom:none}
+.exame-nome{font-size:13px;color:var(--carvao);font-weight:500;flex:1}
+.exame-valor{font-size:13px;font-weight:700;flex-shrink:0}
+.exame-valor.ok{color:var(--verde)}
+.exame-valor.atencao{color:#854F0B}
+.exame-valor.alerta{color:#993C1D}
+.exame-ref{font-size:10px;color:var(--cinza);margin-top:2px}
+.exame-pendente{background:rgba(184,149,106,.08);border:1px dashed var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.exame-pendente-titulo{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px}
+.exame-pendente-item{font-size:13px;color:var(--cinza);padding:5px 0;border-bottom:1px solid var(--bege);display:flex;align-items:center;gap:8px}
+.exame-pendente-item:last-child{border-bottom:none}
+.exame-alerta-box{background:#FAE8E4;border:1px solid #E8C4B4;border-left:4px solid #993C1D;border-radius:10px;padding:14px 16px;margin-bottom:20px}
+.exame-alerta-box-titulo{font-size:12px;font-weight:700;color:#993C1D;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
+.exame-alerta-box-texto{font-size:13px;color:var(--carvao);line-height:1.6}
+
+/* CARTA */
+.carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
+
+/* PROGRESSO TABELAS */
+.tabela-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.tabela-wrapper table{width:100%;border-collapse:collapse;font-size:12px}
+.tabela-wrapper thead tr{background:var(--verde)}
+.tabela-wrapper thead th{padding:9px 12px;text-align:center;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.tabela-wrapper thead th:first-child{text-align:left}
+.tabela-wrapper tbody tr:nth-child(odd){background:var(--creme-suv)}
+.tabela-wrapper tbody tr:nth-child(even){background:var(--creme)}
+.tabela-wrapper tbody td{padding:9px 12px;border-bottom:1px solid var(--bege);color:var(--carvao)}
+.tabela-wrapper tbody td:first-child{color:var(--verde);font-weight:500}
+.tabela-wrapper tbody td:not(:first-child){text-align:center}
+.tabela-wrapper tbody tr:last-child td{border-bottom:none;font-weight:700}
+.td-pos{color:#3B6D11;font-weight:600}.td-neg{color:var(--alerta);font-weight:600}.td-neut{color:var(--cinza)}
+
+/* BANNER */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
+.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
+.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
+.modal-instalar.aberto{display:flex}
+.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
+.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
+.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
+.instalar-passo:last-child{border-bottom:none}
+.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.instalar-passo-texto{flex:1}
+.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
+.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-dica strong{color:var(--verde)}
+
+@media print{.nav-sticky,.banner-instalar,.modal-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+@media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}.supl-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-nutri">Ademir Ferreira Junior</div>
+        <div class="header-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+    </div>
+    <div class="header-paciente">Carolina Cherry</div>
+    <div class="header-meta">Recomposição corporal · Atualizado em 24/03/2026</div>
+  </div>
+  <nav class="nav" id="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao Personal</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ═══ ABA: MEU PLANO ═══ -->
+  <div class="aba ativa" id="aba-meu-plano">
+    <div class="macros">
+      <div class="macro-card destaque">
+        <div class="macro-label">Calorias</div>
+        <div class="macro-valor">1.095</div>
+        <div class="macro-unidade">kcal/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Proteínas</div>
+        <div class="macro-valor">142</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Carboidratos</div>
+        <div class="macro-valor">62</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Lipídios</div>
+        <div class="macro-valor">33</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Refeições do dia</div>
+
+    <div class="refeicao" id="ref-1">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-1')">
+        <div>
+          <div class="refeicao-hora">10:00</div>
+          <div class="refeicao-nome">Fruta da manhã</div>
+          <div class="refeicao-kcal">87 kcal · 1g PTN · 21g CHO · 0g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Banana</div>
+              <div class="alimento-macros">Sub: Uva 150g · Maçã 150g · Melancia 300g · Manga 150g · Morango 150g · Mamão 200g · Pera 150g</div>
+            </div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-2">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-2')">
+        <div>
+          <div class="refeicao-hora">12:00</div>
+          <div class="refeicao-nome">Almoço</div>
+          <div class="refeicao-kcal">478 kcal · 58g PTN · 27g CHO · 16g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Arroz branco cozido</div>
+              <div class="alimento-macros">Sub: Macarrão cozido 80g · Batata cozida (qualquer tipo) 150g</div>
+            </div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Patinho cozido</div>
+              <div class="alimento-macros">Sub: Tilápia grelhada 281g · Lombo assado 150g · Frango grelhado 188g · Filé mignon 150g · Coxão duro 150g</div>
+            </div>
+            <div class="alimento-qtd">150g (180g cru)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Salada de legumes, verduras e folhas</div>
+              <div class="alimento-macros">Grupos A e B à vontade, mínimo 200g</div>
+            </div>
+            <div class="alimento-qtd">200g+</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Azeite de oliva</div></div>
+            <div class="alimento-qtd">5g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-3">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-3')">
+        <div>
+          <div class="refeicao-hora">17:00</div>
+          <div class="refeicao-nome">Lanche da tarde</div>
+          <div class="refeicao-kcal">2 opções, ver detalhes</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção A: Iogurte com Whey (138 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Whey protein concentrado</div></div>
+            <div class="alimento-qtd">30g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Café coado</div></div>
+            <div class="alimento-qtd">240ml</div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--bege);margin:12px 0"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção B: Lanche natural (320 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Pão de forma integral</div>
+              <div class="alimento-macros">Sub: Pão francês 1 un. · Rap10 · Tapioca 50g</div>
+            </div>
+            <div class="alimento-qtd">2 fatias (50g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Patê de frango desfiado</div>
+              <div class="alimento-macros">Sub: Atum 80g · Ovo cozido 0,8 un.</div>
+            </div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Queijo mussarela</div></div>
+            <div class="alimento-qtd">1 fatia (20g)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="treino-bar">21:00 · TREINO</div>
+
+    <div class="refeicao" id="ref-4">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-4')">
+        <div>
+          <div class="refeicao-hora">22:30</div>
+          <div class="refeicao-nome">Jantar</div>
+          <div class="refeicao-kcal">2 opções, ver detalhes</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção A: Comida (478 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Arroz branco cozido</div></div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Patinho cozido</div></div>
+            <div class="alimento-qtd">150g (180g cru)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Salada de legumes, verduras e folhas</div></div>
+            <div class="alimento-qtd">200g+</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Azeite de oliva</div></div>
+            <div class="alimento-qtd">5g</div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--bege);margin:12px 0"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção B: Lanche (432 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Pão francês</div>
+              <div class="alimento-macros">Sub: Pão hambúrguer 50g · Rap10 · Pão integral 2 fatias</div>
+            </div>
+            <div class="alimento-qtd">1 un. (50g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div>
+              <div class="alimento-nome">Frango grelhado ou desfiado</div>
+              <div class="alimento-macros">Sub: Patinho moído grelhado (pesar cru 130g)</div>
+            </div>
+            <div class="alimento-qtd">100g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Queijo mussarela</div></div>
+            <div class="alimento-qtd">13,5g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Requeijão light</div></div>
+            <div class="alimento-qtd">15g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Óleo ou azeite (para untar)</div></div>
+            <div class="alimento-qtd">5g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: SUPLEMENTOS ═══ -->
+  <div class="aba" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:4px">Protocolo de transição do Humectol</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">O protocolo é feito em 3 fases. Não retirar o óleo mineral abruptamente. A hidratação de pelo menos 2L/dia é obrigatória para que qualquer suplemento intestinal funcione.</div>
+
+    <span class="fase-label">Fase 1 — Semanas 1 a 4: preparar o terreno</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Magnésio Bisglicinato</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">300 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">21h</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água</div></div>
+      </div>
+      <div class="supl-just">Relaxamento neuromuscular do cólon, melhora do trânsito intestinal e do sono. Deficiência confirmada pelo plano (159 mg vs. RDA de 310 mg). Exame de magnésio eritrocitário ainda pendente.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Psyllium (fibra solúvel)</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">10h (longe do café)</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">300ml de água</div></div>
+      </div>
+      <div class="supl-just">Gel que lubrifica o cólon sem óleo mineral. Substituição gradual do Humectol. Nunca tomar junto ao café: reduz absorção de nutrientes. O plano tem apenas 10g de fibras, o psyllium complementa sem alterar a dieta.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Probiótico Multiestirpe</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">10 bilhões UFC</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Jejum pela manhã</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água, antes do café</div></div>
+      </div>
+      <div class="supl-just">Repopulação de microbiota. Cepas: Lactobacillus acidophilus, Bifidobacterium longum, Lactobacillus rhamnosus. O tabagismo e o uso crônico de óleo mineral deterioram o ambiente luminal, o que exige reparo ativo.</div>
+    </div>
+
+    <div style="background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--verde);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);margin-bottom:6px">Humectol nesta fase</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.7">Manter o uso atual (dia sim, dia não). Não cortar ainda. O intestino precisa do suporte enquanto o psyllium, magnésio e probiótico constroem funcionalidade própria.</div>
+    </div>
+
+    <span class="fase-label">Fase 2 — Semanas 5 a 8: retirada gradual</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Glutamina</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Jejum pela manhã</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água</div></div>
+      </div>
+      <div class="supl-just">Reparo da mucosa intestinal comprometida pelo uso crônico do óleo mineral e pelo tabagismo (que gera inflamação sistêmica e compromete a barreira epitelial).</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Prebiótico FOS/Inulina</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">3g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Comida</div></div>
+      </div>
+      <div class="supl-just">Alimenta as bactérias introduzidas pelo probiótico na fase 1. Alternativa alimentar: banana verde (biomassa), cebola crua, alho, alho-poró.</div>
+    </div>
+
+    <div style="background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--alerta);border-radius:0 10px 10px 0;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--alerta);margin-bottom:6px">Retirada do Humectol</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.7">Semana 5: reduzir para a cada 3 dias. Semana 7 ou 8: retirar completamente, conforme resposta intestinal. Se houver desconforto, recuar uma etapa e manter mais 2 semanas antes de tentar novamente.</div>
+    </div>
+
+    <span class="fase-label">Fase 3 — Após 8 semanas: manutenção e correções</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Ômega-3 EPA+DHA</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">2g/dia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço + jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Comida</div></div>
+      </div>
+      <div class="supl-just">Indicado pelos exames: Colesterol total 209 mg/dL (acima do desejável de 190) e Não-HDL 138 mg/dL. O tabagismo agrava o risco cardiovascular. Ômega-3 age na redução de triglicérides (já ótimos, ajuda a manter), na mucosa intestinal e na inflamação sistêmica do tabagismo.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D3 + K2</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">4.000 UI D3 + 100 mcg K2</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeição com gordura</div></div>
+      </div>
+      <div class="supl-just">Vitamina D zerada no plano alimentar. O óleo mineral sequestrou D ao longo do tempo. Fumante tem absorção reduzida. Aguardar resultado do exame de 25-OH Vitamina D para ajustar a dose. K2 direciona o cálcio para os ossos, evitando calcificação arterial.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Selênio</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">100 a 200 mcg/dia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Comida</div></div>
+      </div>
+      <div class="supl-just">0,8 mcg no plano vs. RDA de 55 mcg: provável deficiência severa. Aguardar exame de selênio sérico para confirmar a dose. O selênio é antioxidante essencial, ainda mais em fumantes com carga oxidativa alta.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Ácido Fólico (Metilfolato)</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">400 a 800 mcg/dia</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Manhã</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água</div></div>
+      </div>
+      <div class="supl-just">151 mcg no plano vs. RDA de 400 mcg. Tabagismo aumenta o consumo de folato e eleva homocisteína. Aguardar exame de ácido fólico e homocisteína para confirmar necessidade e dose.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EXAMES ═══ -->
+  <div class="aba" id="aba-exames">
+    <div class="secao-label" style="margin-bottom:16px">Resultados — coleta 10/01/2026</div>
+
+    <div class="exame-alerta-box">
+      <div class="exame-alerta-box-titulo">Atenção: Hepatite B sem proteção</div>
+      <div class="exame-alerta-box-texto">Anti-HBs não reagente indica ausência de imunidade contra hepatite B. Informe ao seu médico para iniciar ou repetir o esquema de vacinação (3 doses).</div>
+    </div>
+
+    <div class="exame-bloco">
+      <div class="exame-bloco-titulo">Hemograma</div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Hemoglobina</div>
+          <div class="exame-ref">Ref: 11,7 a 14,9 g/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">13,9 g/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Leucócitos</div>
+          <div class="exame-ref">Ref: 3.470 a 8.290/mm3</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">4.970/mm3</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Plaquetas</div>
+          <div class="exame-ref">Ref: 163.000 a 343.000/mm3</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">267.000/mm3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exame-bloco">
+      <div class="exame-bloco-titulo">Glicemia e Diabetes</div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Glicose em jejum</div>
+          <div class="exame-ref">Ref: 70 a 99 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">88 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Hemoglobina Glicada (HbA1c)</div>
+          <div class="exame-ref">Baixo risco: menor que 5,7%</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">5,0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exame-bloco">
+      <div class="exame-bloco-titulo">Perfil Lipídico</div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Colesterol Total</div>
+          <div class="exame-ref">Desejável: menor que 190 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor atencao">209 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">LDL</div>
+          <div class="exame-ref">Desejável: 100 a 129 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">122 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">HDL</div>
+          <div class="exame-ref">Desejável: maior que 40 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">71 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Triglicérides</div>
+          <div class="exame-ref">Desejável: menor que 150 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">69 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Não-HDL</div>
+          <div class="exame-ref">Ótimo: menor que 130 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor atencao">138 mg/dL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exame-bloco">
+      <div class="exame-bloco-titulo">Fígado e Rim</div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">AST (TGO)</div>
+          <div class="exame-ref">Ref: até 32 U/L</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">17 U/L</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">ALT (TGP)</div>
+          <div class="exame-ref">Ref: até 33 U/L</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">13 U/L</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Creatinina</div>
+          <div class="exame-ref">Ref: 0,60 a 1,10 mg/dL</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">0,63 mg/dL</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">TFG (CKD-EPI 2021)</div>
+          <div class="exame-ref">Ref: maior que 60 mL/min/1,73m2</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">116</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exame-bloco">
+      <div class="exame-bloco-titulo">Tireóide e Vitaminas</div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">TSH</div>
+          <div class="exame-ref">Ref: 0,45 a 4,5 mUI/L</div>
+        </div>
+        <div>
+          <div class="exame-valor ok">1,4 mUI/L</div>
+        </div>
+      </div>
+      <div class="exame-linha">
+        <div>
+          <div class="exame-nome">Vitamina B12</div>
+          <div class="exame-ref">Normal: maior que 300 ng/L</div>
+        </div>
+        <div>
+          <div class="exame-valor atencao">370 ng/L</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px;margin-top:8px">Exames ainda pendentes</div>
+
+    <div class="exame-pendente">
+      <div class="exame-pendente-titulo">Solicitar na próxima consulta médica</div>
+      <div class="exame-pendente-item"><span style="color:var(--alerta);font-weight:700">!</span> 25-OH Vitamina D (vitamina D zerada no plano, uso crônico de óleo mineral, tabagismo)</div>
+      <div class="exame-pendente-item"><span style="color:var(--alerta);font-weight:700">!</span> Ferritina, ferro sérico e TIBC (CMB em desnutrição grau I, mulher, baixa ingestão)</div>
+      <div class="exame-pendente-item"><span style="color:var(--alerta);font-weight:700">!</span> Magnésio eritrocitário (apenas 159 mg no plano vs. RDA 310 mg)</div>
+      <div class="exame-pendente-item"><span style="color:var(--alerta);font-weight:700">!</span> Selênio sérico (0,8 mcg no plano vs. RDA 55 mcg)</div>
+      <div class="exame-pendente-item"><span style="color:var(--alerta);font-weight:700">!</span> Ácido fólico + Homocisteína (fumante com B9 abaixo da RDA)</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> PCR ultrassensível (inflamação sistêmica, tabagismo)</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> Insulina de jejum + HOMA-IR</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> Cortisol basal (8h)</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> FSH, LH, Estradiol (39 anos, tabagismo antecipa perimenopausa)</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> Anti-TPO e Anti-tireoglobulina (descartar Hashimoto)</div>
+      <div class="exame-pendente-item"><span style="color:var(--cinza);font-weight:700">·</span> Calprotectina fecal (inflamação intestinal)</div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:14px 16px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);margin-bottom:6px">Vitamina B12 — atenção</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.7">O resultado de 370 ng/L está dentro do normal, mas próximo do limite inferior. Fumantes têm maior demanda de B12. Monitorar no próximo exame. Sem suplementação imediata necessária, mas vale acompanhar.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="secao-label" style="margin-bottom:16px">Composição corporal — 3 avaliações</div>
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso atual</div>
+        <div class="evolucao-valor">56,3 kg</div>
+        <div class="evolucao-delta delta-pos">-0,4 kg desde dez/25</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Gordura corporal</div>
+        <div class="evolucao-valor">24,6%</div>
+        <div class="evolucao-delta delta-pos">-1,4% desde dez/25</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa livre de gordura</div>
+        <div class="evolucao-valor">42,5 kg</div>
+        <div class="evolucao-delta delta-pos">+0,6 kg desde dez/25</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">68 cm</div>
+        <div class="evolucao-delta delta-pos">-0,5 cm desde dez/25</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Somatório de dobras</div>
+        <div class="evolucao-valor">127 mm</div>
+        <div class="evolucao-delta delta-pos">-10,5 mm desde dez/25</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">22,0</div>
+        <div class="evolucao-delta delta-neutro">Adequado</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Projeção</div>
+    <div class="semanas-grid">
+      <div class="semana-card">
+        <div class="semana-label">Semana 4</div>
+        <div class="semana-periodo">Fase 1 do protocolo intestinal</div>
+        <div class="semana-peso">56,0 kg</div>
+        <div class="semana-gordura">~24% gordura</div>
+        <div class="semana-obs">Adaptação ao psyllium, magnésio e probiótico. Foco em regularizar a hidratação e a frequência intestinal.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 8</div>
+        <div class="semana-periodo">Retirada do Humectol</div>
+        <div class="semana-peso">55,5 kg</div>
+        <div class="semana-gordura">~23% gordura</div>
+        <div class="semana-obs">Intestino funcionando de forma autônoma. Microbiota em recuperação. Composição corporal melhorando com o treino.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 12</div>
+        <div class="semana-periodo">Próxima reavaliação</div>
+        <div class="semana-peso">55,0 kg</div>
+        <div class="semana-gordura">~22% gordura</div>
+        <div class="semana-obs">Recomposição corporal consolidada. Ajuste do plano alimentar conforme evolução real.</div>
+      </div>
+      <div class="semana-card evento">
+        <div class="semana-label">Meta</div>
+        <div class="semana-periodo">A definir</div>
+        <div class="semana-peso">~54 kg</div>
+        <div class="semana-gordura">Meta: abaixo de 22% gordura</div>
+        <div class="semana-obs">CMB fora de desnutrição grau I. Intestino autônomo. Colesterol total abaixo de 190 mg/dL.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+    <div class="secao-label" style="margin-bottom:16px">Dobras cutâneas (mm)</div>
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Dobra</th>
+            <th>Dez/25</th>
+            <th>Fev/26</th>
+            <th>Mar/26</th>
+            <th>Delta total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tricipital</td><td>18,0</td><td>17,5</td><td>17,0</td><td class="td-pos">-1,0</td></tr>
+          <tr><td>Abdominal</td><td>17,0</td><td>14,0</td><td>14,0</td><td class="td-pos">-3,0</td></tr>
+          <tr><td>Subescapular</td><td>15,0</td><td>13,5</td><td>13,5</td><td class="td-pos">-1,5</td></tr>
+          <tr><td>Axilar média</td><td>12,5</td><td>11,0</td><td>10,5</td><td class="td-pos">-2,0</td></tr>
+          <tr><td>Coxa</td><td>30,0</td><td>29,0</td><td>30,0</td><td class="td-neut">0</td></tr>
+          <tr><td>Torácica</td><td>18,0</td><td>15,0</td><td>15,0</td><td class="td-pos">-3,0</td></tr>
+          <tr><td>Suprailíaca</td><td>27,0</td><td>25,5</td><td>27,0</td><td class="td-neut">0</td></tr>
+          <tr><td>Somatório total</td><td>137,5 mm</td><td>125,5 mm</td><td>127,0 mm</td><td class="td-pos">-10,5 mm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Circunferências principais (cm)</div>
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Medida</th>
+            <th>Dez/25</th>
+            <th>Fev/26</th>
+            <th>Mar/26</th>
+            <th>Delta total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cintura</td><td>68,5</td><td>68,0</td><td>68,0</td><td class="td-pos">-0,5</td></tr>
+          <tr><td>Quadril</td><td>100,0</td><td>101,5</td><td>101,0</td><td class="td-neg">+1,0</td></tr>
+          <tr><td>Abdômen</td><td>75,0</td><td>74,5</td><td>76,5</td><td class="td-neg">+1,5</td></tr>
+          <tr><td>Pescoço</td><td>29,5</td><td>28,5</td><td>28,5</td><td class="td-pos">-1,0</td></tr>
+          <tr><td>Tórax</td><td>81,5</td><td>80,5</td><td>80,5</td><td class="td-pos">-1,0</td></tr>
+          <tr><td>Coxa esq.</td><td>49,5</td><td>48,0</td><td>49,5</td><td class="td-neut">0</td></tr>
+          <tr><td>Panturrilha esq.</td><td>34,0</td><td>35,0</td><td>34,5</td><td class="td-pos">+0,5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO PERSONAL ═══ -->
+  <div class="aba" id="aba-carta-personal">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao Personal</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu personal.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-instalar-texto">
+    <strong>Salve no celular como app</strong>
+    Acesse seu plano sem abrir o navegador
+  </div>
+  <div class="banner-instalar-acoes">
+    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
+    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
+  <div class="modal-instalar-box">
+    <div class="modal-instalar-handle"></div>
+    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
+    <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular, sem precisar abrir o navegador</div>
+    <div class="instalar-tabs">
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+    </div>
+    <div class="instalar-painel ativo" id="instalar-ios">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Abra no Safari</div><div class="instalar-passo-desc">Essa função só funciona no Safari.</div></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Toque em Compartilhar</div><div class="instalar-passo-destaque">⬆ Compartilhar</div></div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Adicionar à Tela de Início</div><div class="instalar-passo-destaque">+ Adicionar à Tela de Início</div></div></div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço.</div>
+    </div>
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Abra no Chrome</div></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Toque nos três pontinhos</div><div class="instalar-passo-destaque">⋮ Menu</div></div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Adicionar à tela inicial</div><div class="instalar-passo-destaque">+ Adicionar à tela inicial</div></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function mudarAba(id,btn){
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleRefeicao(id){document.getElementById(id).classList.toggle('aberta')}
+function abrirModalInstalar(){document.getElementById('modal-instalar').classList.add('aberto');document.body.style.overflow='hidden'}
+function fecharModalInstalar(){document.getElementById('modal-instalar').classList.remove('aberto');document.body.style.overflow=''}
+function fecharModalInstalarFora(e){if(e.target===document.getElementById('modal-instalar'))fecharModalInstalar()}
+function fecharBannerInstalar(){document.getElementById('banner-instalar').style.display='none';localStorage.setItem('banner-instalar-fechado-carolina','1')}
+function trocarTabInstalar(id,btn){
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+const emStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+const jaFechou=localStorage.getItem('banner-instalar-fechado-carolina')||emStandalone;
+if(jaFechou)document.getElementById('banner-instalar').style.display='none';
+</script>
+</body>
+</html>
