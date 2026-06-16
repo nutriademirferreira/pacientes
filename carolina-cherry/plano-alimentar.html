@@ -118,6 +118,33 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 /* CARTA */
 .carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
 .carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
+.carta-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.carta-header{background:var(--verde);padding:20px 24px}
+.carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--creme-suv)}
+.carta-nutri-crn{font-size:10px;color:var(--ouro);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+.carta-linha-ouro{height:2px;background:var(--ouro)}
+.carta-corpo{padding:24px}
+.carta-data{font-size:12px;color:var(--cinza);text-align:right;margin-bottom:20px}
+.carta-dest{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}
+.carta-dest-linha{font-size:13px;color:var(--carvao);margin-bottom:4px}
+.carta-dest-linha strong{color:var(--verde)}
+.carta-p{font-size:13px;line-height:1.85;color:var(--carvao);margin-bottom:14px;text-align:justify}
+.carta-p strong{color:var(--verde);font-weight:600}
+.carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin:20px 0 8px}
+.carta-tabela{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:12px}
+.carta-tabela thead tr{background:var(--verde)}
+.carta-tabela thead th{padding:8px 12px;text-align:left;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.carta-tabela tbody tr:nth-child(odd){background:var(--creme-suv)}
+.carta-tabela tbody tr:nth-child(even){background:var(--creme)}
+.carta-tabela tbody td{padding:8px 12px;border-bottom:1px solid var(--bege);color:var(--carvao);vertical-align:top}
+.carta-tabela tbody td:first-child{font-weight:600;color:var(--verde);white-space:nowrap}
+.carta-tabela tbody tr:last-child td{border-bottom:none}
+.carta-assinatura{margin-top:24px;padding-top:16px;border-top:1px solid var(--bege)}
+.carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--verde)}
+.carta-ass-crn{font-size:12px;color:var(--cinza);margin-top:2px}
+.carta-ass-marca{font-size:12px;color:var(--ouro);margin-top:2px}
+.btn-imprimir{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em}
+.btn-imprimir:hover{background:#3d4a34}
 
 /* PROGRESSO TABELAS */
 .tabela-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:20px}
@@ -875,10 +902,155 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
   <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
   <div class="aba" id="aba-carta-medico">
     <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
-    <div class="carta-vazia">
-      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
-      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
+
+    <div class="carta-wrapper" id="carta-medico-conteudo">
+      <div class="carta-header">
+        <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
+        <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+      <div class="carta-linha-ouro"></div>
+      <div class="carta-corpo">
+        <div class="carta-data">São Paulo, 16 de junho de 2026</div>
+
+        <div class="carta-dest">
+          <div class="carta-dest-linha">Ao(À) <strong>Dr(a). responsável pelo acompanhamento clínico</strong></div>
+          <div class="carta-dest-linha">Ref.: Paciente <strong>Carolina Cherry De Souza De Marco</strong></div>
+          <div class="carta-dest-linha">Nascimento: <strong>20/09/1987 (38 anos)</strong></div>
+        </div>
+
+        <p class="carta-p">Prezado(a) Doutor(a),</p>
+
+        <p class="carta-p">
+          Venho por meio desta solicitar a avaliação e a solicitação de exames complementares para a paciente
+          <strong>Carolina Cherry De Souza De Marco</strong>, 38 anos, atualmente em acompanhamento nutricional
+          em meu consultório com objetivo de recomposição corporal. A paciente apresenta um conjunto de fatores
+          de risco que justificam investigação laboratorial ampliada: <strong>tabagismo ativo (aproximadamente
+          15 cigarros de tabaco por dia)</strong>, consumo hídrico muito baixo (relata ingestão quase nula em
+          alguns dias), uso crônico de óleo mineral (Humectol) em dias alternados para manejo de constipação
+          intestinal, baixa ingestão calórica habitual (1.095 kcal/dia prescritos, com relato de refeições
+          suprimidas), e Circunferência Muscular do Braço (CMB) classificada em <strong>Desnutrição Grau I</strong>
+          nas três avaliações realizadas entre dezembro de 2025 e março de 2026.
+        </p>
+
+        <p class="carta-p">
+          Exames realizados em 10/01/2026 evidenciaram <strong>colesterol total de 209 mg/dL</strong> (acima
+          do desejável de 190 mg/dL) e <strong>Não-HDL de 138 mg/dL</strong> (acima do ótimo de 130 mg/dL),
+          em contexto de tabagismo ativo, o que eleva o risco cardiovascular para além do que os números
+          isolados sugerem. A <strong>vitamina B12 encontra-se em 370 ng/L</strong>, tecnicamente dentro da
+          normalidade, porém no limite inferior, situação que merece monitoramento dado o histórico de
+          tabagismo e baixa ingestão proteica. O <strong>Anti-HBs resultou não reagente</strong>, indicando
+          ausência de imunidade contra hepatite B, sendo indicada a avaliação quanto à necessidade de
+          vacinação ou revacinação. TSH, hemograma, glicemia, HbA1c e função hepática e renal
+          apresentaram-se dentro dos valores de referência.
+        </p>
+
+        <p class="carta-p">
+          Os exames a seguir não constam do painel realizado em janeiro e são clinicamente relevantes
+          para o manejo nutricional desta paciente. Solicito a avaliação quanto à pertinência de
+          sua requisição:
+        </p>
+
+        <div class="carta-secao-titulo">Exames prioritários — alta relevância clínica</div>
+
+        <table class="carta-tabela">
+          <thead>
+            <tr>
+              <th>Exame</th>
+              <th>Justificativa clínica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25-OH Vitamina D</td>
+              <td>O plano alimentar da paciente fornece 0,0 mcg de vitamina D. O uso crônico de óleo mineral sequestra vitaminas lipossolúveis no lúmen intestinal, comprometendo a absorção de D, A, E e K. O tabagismo reduz adicionalmente os níveis séricos. Deficiência provável, com impacto em imunidade, humor, função muscular e metabolismo ósseo.</td>
+            </tr>
+            <tr>
+              <td>Ferritina + Ferro sérico + TIBC + Saturação de transferrina</td>
+              <td>Mulher em idade fértil com CMB em Desnutrição Grau I nas três últimas avaliações, baixa ingestão calórica e proteica habitual. O plano fornece apenas 10 mg de ferro, o que pode ser insuficiente mesmo sem sangramento. A investigação do estoque de ferro é fundamental antes de qualquer intervenção sobre a massa magra.</td>
+            </tr>
+            <tr>
+              <td>Magnésio eritrocitário</td>
+              <td>O plano alimentar fornece 159 mg de magnésio por dia, frente a uma RDA de 310 mg para mulheres adultas. A constipação crônica é um sinal clínico frequente na deficiência de magnésio. O magnésio eritrocitário é superior ao sérico para avaliação do estoque intracelular real.</td>
+            </tr>
+            <tr>
+              <td>Selênio sérico</td>
+              <td>O plano alimentar fornece apenas 0,8 mcg de selênio por dia, contra uma RDA de 55 mcg. O déficit é expressivo. Fumantes apresentam maior demanda antioxidante, e o selênio é cofator essencial da glutationa peroxidase. Deficiência pode comprometer imunidade, função tireoidiana e aumentar o risco oncológico associado ao tabagismo.</td>
+            </tr>
+            <tr>
+              <td>Ácido fólico sérico + Homocisteína plasmática</td>
+              <td>O plano fornece 151 mcg de folato, abaixo da RDA de 400 mcg. O tabagismo aumenta o catabolismo do folato e eleva a homocisteína, marcador independente de risco cardiovascular — especialmente relevante nesta paciente que já apresenta colesterol total e Não-HDL acima do ótimo.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="carta-secao-titulo">Exames complementares — rastreamento recomendado</div>
+
+        <table class="carta-tabela">
+          <thead>
+            <tr>
+              <th>Exame</th>
+              <th>Justificativa clínica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>PCR ultrassensível</td>
+              <td>Tabagismo ativo gera inflamação sistêmica de baixo grau crônica. O uso crônico de óleo mineral compromete a barreira intestinal, podendo contribuir para permeabilidade aumentada e inflamação adicional. A PCR-us quantifica esse estado inflamatório de forma sensível.</td>
+            </tr>
+            <tr>
+              <td>Insulina de jejum + HOMA-IR</td>
+              <td>A glicemia e HbA1c estão normais, porém não excluem resistência à insulina compensada. Ciclo alimentar irregular (jejuns prolongados seguidos de refeições) e tabagismo são fatores que comprometem a sensibilidade insulínica. O HOMA-IR oferece avaliação mais sensível.</td>
+            </tr>
+            <tr>
+              <td>Cortisol basal (coleta às 8h)</td>
+              <td>Padrão de vida com rotina desregulada, uso intenso de cafeína, tabagismo e histórico de supressão alimentar são estressores crônicos do eixo HPA. Cortisol cronicamente elevado contribui para acúmulo de gordura visceral e perda de massa magra, compatíveis com o quadro atual da paciente.</td>
+            </tr>
+            <tr>
+              <td>FSH, LH e Estradiol (D2 ou D3 do ciclo)</td>
+              <td>Paciente com 38 anos e tabagismo ativo. O tabagismo antecipa a menopausa em 1 a 4 anos por efeito tóxico direto sobre os folículos ovarianos. A investigação hormonal é pertinente para avaliar reserva ovariana e possível perimenopausa precoce, com impacto direto sobre composição corporal e metabolismo ósseo.</td>
+            </tr>
+            <tr>
+              <td>Anti-TPO e Anti-tireoglobulina</td>
+              <td>TSH normal (1,4 mUI/L) exclui disfunção tireoidiana atual, mas não afasta autoimunidade subclínica. O tabagismo está associado a maior prevalência de doença de Hashimoto. Rastreamento indicado dado o contexto clínico.</td>
+            </tr>
+            <tr>
+              <td>Vitamina A (Retinol sérico) e Vitamina E (Alfa-tocoferol)</td>
+              <td>Vitaminas lipossolúveis com absorção comprometida pelo uso crônico de óleo mineral. O tabagismo aumenta o consumo de vitamina E como antioxidante. Recomenda-se avaliação em conjunto com a vitamina D.</td>
+            </tr>
+            <tr>
+              <td>Calprotectina fecal</td>
+              <td>Marcador de inflamação intestinal ativa. A constipação crônica dependente de laxante, o tabagismo e o empobrecimento da microbiota por uso de óleo mineral justificam a investigação de processo inflamatório luminal, antes de iniciar o protocolo de reintrodução de probióticos e retirada do Humectol.</td>
+            </tr>
+            <tr>
+              <td>Zinco sérico</td>
+              <td>O plano alimentar fornece 26 mcg de zinco por dia, abaixo do recomendado. O zinco é essencial para imunidade, cicatrização da mucosa intestinal e síntese proteica, todos relevantes no contexto de recomposição corporal com CMB rebaixada.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="carta-p">
+          Do ponto de vista nutricional, o foco atual do tratamento é a regularização da frequência intestinal
+          por meio da substituição gradual do óleo mineral por probióticos, psyllium e magnésio, associada
+          ao aumento progressivo da ingestão hídrica. O protocolo de suplementação será ajustado conforme
+          os resultados dos exames acima, em especial vitamina D, selênio, folato e o perfil hormonal.
+        </p>
+
+        <p class="carta-p">
+          Coloco-me à disposição para qualquer esclarecimento e para discussão conjunta do caso,
+          visando a melhor conduta integrada para a paciente.
+        </p>
+
+        <p class="carta-p">Atenciosamente,</p>
+
+        <div class="carta-assinatura">
+          <div class="carta-ass-nome">Ademir Ferreira Junior</div>
+          <div class="carta-ass-crn">Nutricionista · CRN-3 72295</div>
+          <div class="carta-ass-marca">Nutri Ademir Ferreira · contato@nutriademirferreira.com.br</div>
+        </div>
+      </div>
     </div>
+
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-medico-conteudo')">Gerar PDF da carta</button>
   </div>
 
   <!-- ═══ ABA: CARTA AO PERSONAL ═══ -->
@@ -947,6 +1119,13 @@ function trocarTabInstalar(id,btn){
   document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
   btn.classList.add('ativo');
   document.getElementById('instalar-'+id).classList.add('ativo');
+}
+function imprimirCarta(idConteudo){
+  const conteudo=document.getElementById(idConteudo);
+  if(!conteudo)return;
+  const janela=window.open('','_blank','width=800,height=900');
+  janela.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Carta ao Médico</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Jost',sans-serif;background:#fff;color:#272520;padding:24px}.carta-wrapper{max-width:720px;margin:0 auto;border:1px solid #EBE4D5;border-radius:12px;overflow:hidden}.carta-header{background:#536147;padding:20px 24px}.carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#FDFAF5}.carta-nutri-crn{font-size:10px;color:#B8956A;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}.carta-linha-ouro{height:2px;background:#B8956A}.carta-corpo{padding:24px}.carta-data{font-size:12px;color:#706B63;text-align:right;margin-bottom:20px}.carta-dest{background:#F4EFE4;border-left:3px solid #B8956A;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}.carta-dest-linha{font-size:13px;color:#272520;margin-bottom:4px}.carta-dest-linha strong{color:#536147}.carta-p{font-size:13px;line-height:1.85;color:#272520;margin-bottom:14px;text-align:justify}.carta-p strong{color:#536147;font-weight:600}.carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#536147;margin:20px 0 8px}.carta-tabela{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:12px}.carta-tabela thead tr{background:#536147}.carta-tabela thead th{padding:8px 12px;text-align:left;color:#FDFAF5;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}.carta-tabela tbody tr:nth-child(odd){background:#FDFAF5}.carta-tabela tbody tr:nth-child(even){background:#F4EFE4}.carta-tabela tbody td{padding:8px 12px;border-bottom:1px solid #EBE4D5;color:#272520;vertical-align:top}.carta-tabela tbody td:first-child{font-weight:600;color:#536147;white-space:nowrap}.carta-assinatura{margin-top:24px;padding-top:16px;border-top:1px solid #EBE4D5}.carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#536147}.carta-ass-crn{font-size:12px;color:#706B63;margin-top:2px}.carta-ass-marca{font-size:12px;color:#B8956A;margin-top:2px}.btn-imprimir{display:none}</style></head><body>${conteudo.outerHTML}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close()}}<\/script></body></html>`);
+  janela.document.close();
 }
 const emStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
 const jaFechou=localStorage.getItem('banner-instalar-fechado-carolina')||emStandalone;
