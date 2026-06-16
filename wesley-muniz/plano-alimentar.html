@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wesley Muniz — Nutri Ademir Ferreira</title>
+<meta property="og:title" content="Plano Alimentar · Wesley Muniz">
+<meta property="og:description" content="Seu plano alimentar personalizado — Nutri Ademir Ferreira">
+<meta property="og:image" content="https://nutriademirferreira.github.io/pacientes/_assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+  --proib:#C2785A;--proib-bg:#FAF0EC;--proib-borda:#E8C4B4;
+}
+body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);min-height:100vh}
+
+/* HEADER */
+.header{background:var(--verde);padding:20px 20px 0}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.header-nutri{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme-suv)}
+.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv);text-align:center;margin-bottom:4px}
+.header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
+
+/* NAV */
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
+.nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(39,37,32,.15)}
+
+/* CONTEÚDO */
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
+.aba{display:none}.aba.ativa{display:block}
+
+/* SECAO LABEL */
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin-bottom:16px}
+
+/* ALERTA TOPO */
+.alerta-topo{background:var(--proib-bg);border:1px solid var(--proib-borda);border-left:4px solid var(--proib);border-radius:12px;padding:16px 18px;margin-bottom:24px}
+.alerta-topo-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--proib);margin-bottom:6px}
+.alerta-topo-texto{font-size:13px;line-height:1.7;color:var(--carvao)}
+.alerta-topo-texto strong{color:var(--proib)}
+
+/* CATEGORIA DE PROIBIDOS */
+.categoria{margin-bottom:20px}
+.categoria-titulo{display:flex;align-items:center;gap:10px;background:var(--carvao);border-radius:10px 10px 0 0;padding:12px 16px}
+.categoria-icone{font-size:18px;flex-shrink:0}
+.categoria-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--creme-suv)}
+.categoria-corpo{background:var(--creme-suv);border:1px solid var(--bege);border-top:none;border-radius:0 0 10px 10px;overflow:hidden}
+.proib-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-bottom:1px solid var(--bege)}
+.proib-item:last-child{border-bottom:none}
+.proib-x{width:20px;height:20px;background:var(--proib);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:11px;font-weight:700;color:#fff}
+.proib-info{}
+.proib-nome{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:2px}
+.proib-motivo{font-size:12px;color:var(--cinza);line-height:1.5}
+
+/* REGRA DE OURO */
+.regra-ouro{background:var(--verde);border-radius:12px;padding:20px;margin-bottom:24px;text-align:center}
+.regra-ouro-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px}
+.regra-ouro-texto{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--creme-suv);line-height:1.4}
+.regra-ouro-sub{font-size:12px;color:rgba(253,250,245,.7);margin-top:8px;line-height:1.6}
+
+/* COMPARATIVO */
+.comparativo{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:24px}
+.comp-header{background:var(--verde);padding:12px 16px}
+.comp-header-texto{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro)}
+.comp-linha{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bege)}
+.comp-linha:last-child{border-bottom:none}
+.comp-col{padding:12px 14px}
+.comp-col.ruim{background:rgba(194,120,90,.06)}
+.comp-col.bom{background:rgba(83,97,71,.04)}
+.comp-col-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.comp-col.ruim .comp-col-label{color:var(--proib)}
+.comp-col.bom .comp-col-label{color:var(--verde)}
+.comp-col-item{font-size:13px;color:var(--carvao);font-weight:500}
+.comp-col-detail{font-size:11px;color:var(--cinza);margin-top:2px}
+
+/* MACROS */
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-bottom:3px solid var(--ouro);border-radius:10px;padding:14px 8px;text-align:center}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde);border-bottom-color:var(--ouro)}
+.macro-label{font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:6px}
+.macro-card.destaque .macro-label{color:var(--ouro)}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--ouro);line-height:1;margin-bottom:2px}
+.macro-card.destaque .macro-valor{color:var(--creme-suv)}
+.macro-unidade{font-size:10px;color:var(--cinza)}
+.macro-card.destaque .macro-unidade{color:rgba(253,250,245,.65)}
+
+/* REFEIÇÃO */
+.refeicao{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.refeicao-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;user-select:none;transition:background .15s}
+.refeicao-header:hover{background:var(--creme)}
+.refeicao-hora{font-size:11px;font-weight:600;color:var(--ouro);letter-spacing:.1em;margin-bottom:2px}
+.refeicao-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde)}
+.refeicao-kcal{font-size:11px;color:var(--cinza);margin-top:2px}
+.refeicao-chevron{font-size:18px;color:var(--cinza);transition:transform .25s;flex-shrink:0}
+.refeicao.aberta .refeicao-chevron{transform:rotate(180deg)}
+.refeicao-corpo{display:none;padding:0 16px 16px}
+.refeicao.aberta .refeicao-corpo{display:block}
+.alimento{border-bottom:1px solid var(--bege);padding:12px 0}
+.alimento:last-of-type{border-bottom:none}
+.alimento-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.alimento-nome{font-size:14px;font-weight:500;color:var(--carvao)}
+.alimento-qtd{font-size:13px;color:var(--verde);font-weight:600;white-space:nowrap}
+.alimento-macros{font-size:11px;color:var(--cinza);margin-top:2px}
+.treino-bar{background:var(--verde);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-align:center;color:var(--creme-suv);font-weight:600;font-size:13px;letter-spacing:.08em}
+.felicidade-bar{background:var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:10px;text-align:center}
+.felicidade-bar-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:2px}
+.felicidade-bar-texto{font-size:14px;font-weight:600;color:#fff}
+
+/* SUPLEMENTOS */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza)}
+.supl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.supl-campo{font-size:11px}
+.supl-campo-label{color:var(--cinza);margin-bottom:2px;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.supl-campo-valor{color:var(--carvao);font-weight:500}
+.supl-just{font-size:12px;color:var(--cinza);margin-top:8px;line-height:1.6;padding-top:8px;border-top:1px solid var(--bege)}
+
+/* EVOLUÇÃO */
+.evolucao-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:10px;color:var(--cinza);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--verde)}
+.evolucao-delta{font-size:12px;margin-top:2px;color:var(--cinza)}
+.semanas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.semana-card{border:1px solid var(--bege);border-top:3px solid var(--sage);border-radius:10px;padding:14px;background:var(--creme-suv)}
+.semana-card.evento{border-top-color:var(--ouro);background:var(--creme)}
+.semana-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.semana-periodo{font-size:11px;color:var(--cinza);margin-bottom:8px}
+.semana-peso{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--verde)}
+.semana-card.evento .semana-peso{color:var(--ouro)}
+.semana-gordura{font-size:11px;color:var(--alerta);font-weight:600;margin-bottom:6px}
+.semana-obs{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
+
+/* CARTA */
+.carta-vazia{text-align:center;padding:48px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--verde);margin-bottom:8px}
+
+/* BANNER INSTALAR */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
+.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
+.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* MODAL INSTALAR */
+.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
+.modal-instalar.aberto{display:flex}
+.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
+.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
+.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
+.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
+.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
+.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
+.instalar-passo:last-child{border-bottom:none}
+.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.instalar-passo-texto{flex:1}
+.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
+.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
+.instalar-dica strong{color:var(--verde)}
+
+@media print{.nav-sticky,.banner-instalar,.modal-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+@media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-nutri">Ademir Ferreira Junior</div>
+        <div class="header-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+    </div>
+    <div class="header-paciente">Wesley Muniz Jacinto</div>
+    <div class="header-meta">Emagrecimento · Atualizado em 19/07/2025</div>
+  </div>
+  <nav class="nav" id="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('proibidos',this)">Proibidos</button>
+    <button class="nav-btn" onclick="mudarAba('meu-plano',this)">Meu plano</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao Personal</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ═══ ABA: PROIBIDOS ═══ -->
+  <div class="aba ativa" id="aba-proibidos">
+
+    <div class="alerta-topo">
+      <div class="alerta-topo-titulo">Atenção, Wesley</div>
+      <div class="alerta-topo-texto">
+        Você bate os macros — isso é ótimo. Mas <strong>a qualidade dos alimentos importa tanto quanto os números.</strong> Frango grelhado e salsicha podem ter proteínas parecidas no app, porém o impacto no seu corpo é completamente diferente: gordura saturada, sódio, aditivos e inflamação travam o seu resultado mesmo com a meta atingida.
+      </div>
+    </div>
+
+    <div class="regra-ouro">
+      <div class="regra-ouro-label">Regra de ouro</div>
+      <div class="regra-ouro-texto">"Se está na lista de proibidos, não entra no app — e não entra no prato."</div>
+      <div class="regra-ouro-sub">Bater os macros com alimentos limpos é o que separa quem emagrece de quem apenas registra.</div>
+    </div>
+
+    <!-- COMPARATIVO -->
+    <div class="secao-label" style="margin-bottom:16px">Por que não é só questão de caloria?</div>
+    <div class="comparativo" style="margin-bottom:24px">
+      <div class="comp-header"><div class="comp-header-texto">Mesmos macros — impactos opostos</div></div>
+      <div class="comp-linha">
+        <div class="comp-col ruim">
+          <div class="comp-col-label">Proibido</div>
+          <div class="comp-col-item">Salsicha grelhada (100g)</div>
+          <div class="comp-col-detail">~12g PTN · ~13g gordura saturada · 1.100mg sódio · aditivos nitratos</div>
+        </div>
+        <div class="comp-col bom">
+          <div class="comp-col-label">Liberado</div>
+          <div class="comp-col-item">Filé de frango grelhado (100g)</div>
+          <div class="comp-col-detail">~31g PTN · ~1g gordura saturada · 74mg sódio · sem aditivos</div>
+        </div>
+      </div>
+      <div class="comp-linha">
+        <div class="comp-col ruim">
+          <div class="comp-col-label">Proibido</div>
+          <div class="comp-col-item">Batata frita (150g)</div>
+          <div class="comp-col-detail">~18g CHO · ~12g gordura trans/saturada · inflamação alta</div>
+        </div>
+        <div class="comp-col bom">
+          <div class="comp-col-label">Liberado</div>
+          <div class="comp-col-item">Batata-doce assada (150g)</div>
+          <div class="comp-col-detail">~26g CHO · 0g gordura ruim · fibras + vitaminas</div>
+        </div>
+      </div>
+      <div class="comp-linha">
+        <div class="comp-col ruim">
+          <div class="comp-col-label">Proibido</div>
+          <div class="comp-col-item">Hambúrguer fast food (1 un.)</div>
+          <div class="comp-col-detail">Gordura oculta, sódio excessivo, sem controle de qualidade</div>
+        </div>
+        <div class="comp-col bom">
+          <div class="comp-col-label">Liberado</div>
+          <div class="comp-col-item">Hambúrguer caseiro (patinho)</div>
+          <div class="comp-col-detail">Pesar o patinho cru (180g), grelhar seco ou com 3g de azeite</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIAS -->
+    <div class="secao-label" style="margin-bottom:16px">Lista de proibidos por categoria</div>
+
+    <div class="categoria">
+      <div class="categoria-titulo">
+        <span class="categoria-icone">🥩</span>
+        <span class="categoria-nome">Carnes gordurosas e embutidos</span>
+      </div>
+      <div class="categoria-corpo">
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Linguiça (calabresa, toscana, defumada)</div>
+            <div class="proib-motivo">Excesso de gordura saturada + sódio + nitritos. Não existe versão "light" que valha.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Salsicha e mortadela</div>
+            <div class="proib-motivo">Ultraprocessados com gordura oculta, sódio absurdo e aditivos que inflamam.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Bacon e costelinha de porco</div>
+            <div class="proib-motivo">Gordura saturada em excesso, sódio elevado, contra indicados no seu protocolo de emagrecimento.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Frango com pele</div>
+            <div class="proib-motivo">A pele triplica a gordura da refeição. Sempre retirar antes de pesar e preparar.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Costela bovina e cortes muito gordurosos</div>
+            <div class="proib-motivo">Gordura intramuscular difícil de controlar. Substitua por patinho, coxão duro ou filé mignon — conforme o plano.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Presunto, salame, pepperoni e frios em geral</div>
+            <div class="proib-motivo">Embutidos curados = nitratos + gordura + sódio. Mesmo "light" não entra no protocolo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="categoria">
+      <div class="categoria-titulo">
+        <span class="categoria-icone">🍟</span>
+        <span class="categoria-nome">Frituras e ultraprocessados</span>
+      </div>
+      <div class="categoria-corpo">
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Batata frita (fast food e congelada pré-frita)</div>
+            <div class="proib-motivo">Gordura absorvida na fritura muda completamente o perfil calórico. Batata congelada para air fryer (sem óleo) é liberada conforme o plano.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Frango frito, à milanesa frito ou empanado frito</div>
+            <div class="proib-motivo">A fritura adiciona de 5g a 15g de gordura que não aparecem corretamente no app de rastreio.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Salgados fritos (coxinha, pastel, bolinha de queijo, quibe frito)</div>
+            <div class="proib-motivo">Farinha + fritura + recheio gordo = caloria densa e saciedade baixa. Não cabem no déficit.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Nuggets industriais e similares</div>
+            <div class="proib-motivo">Processados com proteína reconstituída, amido e fritura. Não confundir com frango real.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Batata chips e snacks de pacote</div>
+            <div class="proib-motivo">Alta densidade calórica (500kcal/100g), praticamente sem proteína, gordura ruim.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="categoria">
+      <div class="categoria-titulo">
+        <span class="categoria-icone">🍔</span>
+        <span class="categoria-nome">Fast food e restaurantes gordurosos</span>
+      </div>
+      <div class="categoria-corpo">
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Hambúrguer de fast food (McDonald's, Burger King, etc.)</div>
+            <div class="proib-motivo">Gordura oculta no pão, molho, queijo e carne. Impossível rastrear com precisão. Faça hambúrguer caseiro com patinho.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Massas com molho branco, 4 queijos ou carbonara</div>
+            <div class="proib-motivo">Creme de leite + queijo + manteiga = gordura saturada que não aparece visualmente, mas está lá.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Pratos gratinados com creme de leite</div>
+            <div class="proib-motivo">Mesma lógica: a gordura está escondida no molho. Prefira grelhados simples ao restaurante.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Feijoada, mocotó e caldos gordurosos</div>
+            <div class="proib-motivo">Gordura animal em suspensão — impossível quantificar no app. Reserve para ocasiões raras fora da dieta.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Pizza (exceto como refeição livre planejada)</div>
+            <div class="proib-motivo">Queijo + massa refinada + gordura do recheio = difícil de rastrear. Se rolar, planeje no dia antes reduzindo carboidratos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="categoria">
+      <div class="categoria-titulo">
+        <span class="categoria-icone">🍭</span>
+        <span class="categoria-nome">Doces e açúcares fora do plano</span>
+      </div>
+      <div class="categoria-corpo">
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Sorvete, açaí com granola e coberturas</div>
+            <div class="proib-motivo">Alta densidade calórica, gordura e açúcar combinados = pior combinação para emagrecimento.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Biscoitos recheados (Oreo, Passatempo, etc.)</div>
+            <div class="proib-motivo">Gordura trans + açúcar + sem saciedade. Não substituem os carboidratos do plano.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Bolos, tortas e doces industriais fora da "Felicidade"</div>
+            <div class="proib-motivo">Seu plano já tem 30g de doce de leite programado. Não acumule mais além disso.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Achocolatado e leite com chocolate</div>
+            <div class="proib-motivo">Açúcar disfarçado de "proteico". Use whey protein para bater proteína, não achocolatado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="categoria">
+      <div class="categoria-titulo">
+        <span class="categoria-icone">🥤</span>
+        <span class="categoria-nome">Bebidas calóricas</span>
+      </div>
+      <div class="categoria-corpo">
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Refrigerante normal (com açúcar)</div>
+            <div class="proib-motivo">Só versões zero. Coca-Cola normal tem 39g de açúcar por lata — são 156kcal sem nenhum nutriente.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Suco de caixinha, néctar e suco com açúcar adicionado</div>
+            <div class="proib-motivo">Mesmo o "100% fruta" industrializado tem açúcar livre alto e zero fibra. Faça suco natural conforme o guia de bebidas.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Cerveja e destilados frequentes</div>
+            <div class="proib-motivo">Álcool bloqueia a oxidação de gordura enquanto estiver circulando. Eventual e controlado: planeje no dia. Frequente: trava o resultado.</div>
+          </div>
+        </div>
+        <div class="proib-item">
+          <div class="proib-x">✕</div>
+          <div class="proib-info">
+            <div class="proib-nome">Energético com açúcar (Monster original, Red Bull original)</div>
+            <div class="proib-motivo">27g de açúcar por lata. Use versões sugar-free se precisar de cafeína.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICA FINAL -->
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--verde);border-radius:0 10px 10px 0;padding:16px;margin-top:8px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);margin-bottom:6px">No restaurante</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.7">Prefira pratos com <strong style="color:var(--verde)">grelhados simples + salada + arroz/batata</strong>. Evite pratos com molho à vista, gratinados ou frituras. Quando a dúvida aparecer, pergunte: <em>"foi preparado com muita gordura?"</em> — e se sim, troque.</div>
+    </div>
+
+  </div><!-- fim aba proibidos -->
+
+  <!-- ═══ ABA: MEU PLANO ═══ -->
+  <div class="aba" id="aba-meu-plano">
+
+    <div class="macros">
+      <div class="macro-card destaque">
+        <div class="macro-label">Calorias</div>
+        <div class="macro-valor">2.306</div>
+        <div class="macro-unidade">kcal/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Proteínas</div>
+        <div class="macro-valor">206</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Carboidratos</div>
+        <div class="macro-valor">264</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Lipídios</div>
+        <div class="macro-valor">52</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:16px">Refeições do dia</div>
+
+    <div class="treino-bar">07:00 · TREINO</div>
+
+    <div class="refeicao" id="ref-1">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-1')">
+        <div>
+          <div class="refeicao-hora">08:30</div>
+          <div class="refeicao-nome">Café da manhã</div>
+          <div class="refeicao-kcal">2 opções — ver detalhes</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção A — Iogurte com Whey (487 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Iogurte natural desnatado</div></div>
+            <div class="alimento-qtd">170g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Whey protein concentrado</div></div>
+            <div class="alimento-qtd">30g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Aveia em flocos / farelo</div><div class="alimento-macros">Sub: Chia 50g</div></div>
+            <div class="alimento-qtd">50g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Banana</div><div class="alimento-macros">Sub: Maçã 150g · Mamão 200g · Uva 150g · Melancia 300g · Manga 150g</div></div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+        <div style="height:12px;border-top:1px dashed var(--bege);margin:12px 0"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção B — Café tradicional (423 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Pão francês</div><div class="alimento-macros">Sub: Pão de milho 50g · Pão de forma 2 fatias</div></div>
+            <div class="alimento-qtd">1 unid. (50g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Ovo cozido ou mexido</div></div>
+            <div class="alimento-qtd">2 unid. (100g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Queijo prato ou mussarela</div></div>
+            <div class="alimento-qtd">1 fatia (20g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Requeijão light</div></div>
+            <div class="alimento-qtd">30g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-2">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-2')">
+        <div>
+          <div class="refeicao-hora">10:30</div>
+          <div class="refeicao-nome">Lanche da manhã (se sentir fome)</div>
+          <div class="refeicao-kcal">~84 kcal</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Melão</div><div class="alimento-macros">Sub: Melancia 300g · Mamão 200g · Abacaxi 180g · Maçã 150g · Banana 80g</div></div>
+            <div class="alimento-qtd">350g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-3">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-3')">
+        <div>
+          <div class="refeicao-hora">12:30</div>
+          <div class="refeicao-nome">Almoço</div>
+          <div class="refeicao-kcal">627 kcal · 73g PTN · 60g CHO · 12g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Arroz branco cozido</div><div class="alimento-macros">Sub: Macarrão cozido 150g · Batata para air fryer 150g</div></div>
+            <div class="alimento-qtd">150g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Feijão carioca cozido</div><div class="alimento-macros">Sem feijão: adicionar +50g de arroz</div></div>
+            <div class="alimento-qtd">100g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Filé de frango grelhado</div><div class="alimento-macros">Sub: Patinho/coxão duro cozido 160g · Tilápia grelhada 267g · Filé mignon 160g</div></div>
+            <div class="alimento-qtd">200g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Salada de legumes, verduras e folhas</div><div class="alimento-macros">Grupos A e B à vontade — mínimo 150g</div></div>
+            <div class="alimento-qtd">150g+</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Azeite de oliva</div></div>
+            <div class="alimento-qtd">5g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-4">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-4')">
+        <div>
+          <div class="refeicao-hora">17:00</div>
+          <div class="refeicao-nome">Lanche da tarde</div>
+          <div class="refeicao-kcal">2 opções — ver detalhes</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção A — Iogurte com Whey (373 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Iogurte natural desnatado</div></div>
+            <div class="alimento-qtd">170g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Whey protein concentrado</div></div>
+            <div class="alimento-qtd">30g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Aveia em flocos / farelo</div></div>
+            <div class="alimento-qtd">20g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Banana</div></div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+        <div style="height:12px;border-top:1px dashed var(--bege);margin:12px 0"></div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px">Opção B — Lanche natural (370 kcal)</div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Pão de forma integral</div><div class="alimento-macros">Sub: Pão francês 1 un. · Rap10 1 un.</div></div>
+            <div class="alimento-qtd">2 fatias (50g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Frango desfiado</div><div class="alimento-macros">Sub: Atum 100g · Ovo cozido 1 un.</div></div>
+            <div class="alimento-qtd">100g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Requeijão light</div></div>
+            <div class="alimento-qtd">30g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-5">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-5')">
+        <div>
+          <div class="refeicao-hora">18:00</div>
+          <div class="refeicao-nome">Hipercalórico</div>
+          <div class="refeicao-kcal">308 kcal · 10g PTN · 62g CHO</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Hipercalórico</div></div>
+            <div class="alimento-qtd">80g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refeicao" id="ref-6">
+      <div class="refeicao-header" onclick="toggleRefeicao('ref-6')">
+        <div>
+          <div class="refeicao-hora">21:30</div>
+          <div class="refeicao-nome">Jantar</div>
+          <div class="refeicao-kcal">418 kcal · 42g PTN · 32g CHO · 14g LIP</div>
+        </div>
+        <span class="refeicao-chevron">⌄</span>
+      </div>
+      <div class="refeicao-corpo">
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Pão francês</div><div class="alimento-macros">Sub: Pão hambúrguer 50g · Rap10 · Pão integral 2 fatias</div></div>
+            <div class="alimento-qtd">1 unid. (50g)</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Filé de frango grelhado ou desfiado</div><div class="alimento-macros">Sub: Patinho moído grelhado (pesar cru 180g)</div></div>
+            <div class="alimento-qtd">100g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Queijo mussarela</div></div>
+            <div class="alimento-qtd">13,5g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Requeijão light</div></div>
+            <div class="alimento-qtd">15g</div>
+          </div>
+        </div>
+        <div class="alimento">
+          <div class="alimento-top">
+            <div><div class="alimento-nome">Óleo ou azeite (só para untar)</div></div>
+            <div class="alimento-qtd">3g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="felicidade-bar">
+      <div class="felicidade-bar-label">Felicidade planejada</div>
+      <div class="felicidade-bar-texto">Doce de leite 30g — ou — Leite condensado 30g — ou — Chocolate ao leite 20g</div>
+    </div>
+
+  </div><!-- fim aba meu-plano -->
+
+  <!-- ═══ ABA: SUPLEMENTOS ═══ -->
+  <div class="aba" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:16px">Protocolo de suplementação</div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Whey Protein Concentrado</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">30g por uso</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Café + Lanche + Almoço (se necessário)</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Iogurte ou água</div></div>
+      </div>
+      <div class="supl-just">Principal estratégia para bater a meta de 206g de proteína/dia. Manter uma dose no trabalho para emergências no almoço. Marcas recomendadas: Growth, Max Titanium, Probiótica, Integralmédica — faixa R$100–R$150/kg.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Hipercalórico</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">80g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">18:00</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água ou leite desnatado</div></div>
+      </div>
+      <div class="supl-just">Refeição de transição entre o lanche e o jantar — garante o aporte calórico e de carboidratos sem depender de alimentos sólidos nesse horário.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="secao-label" style="margin-bottom:16px">Ponto de partida</div>
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso atual</div>
+        <div class="evolucao-valor">— kg</div>
+        <div class="evolucao-delta">1ª avaliação</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Meta calórica</div>
+        <div class="evolucao-valor">2.306</div>
+        <div class="evolucao-delta">kcal/dia</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Proteína alvo</div>
+        <div class="evolucao-valor">206g</div>
+        <div class="evolucao-delta">por dia</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Objetivo</div>
+        <div class="evolucao-valor" style="font-size:18px;margin-top:4px">Emagrecimento</div>
+        <div class="evolucao-delta">com preservação de massa</div>
+      </div>
+    </div>
+    <div class="secao-label" style="margin-bottom:16px">Projeção do resultado</div>
+    <div class="semanas-grid">
+      <div class="semana-card">
+        <div class="semana-label">Semana 4</div>
+        <div class="semana-periodo">Adaptação + consistência</div>
+        <div class="semana-peso">— kg</div>
+        <div class="semana-gordura">Primeiros resultados visíveis</div>
+        <div class="semana-obs">Foco em eliminar os proibidos e acertar os macros com alimentos limpos.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 8</div>
+        <div class="semana-periodo">Resultado consolidado</div>
+        <div class="semana-peso">— kg</div>
+        <div class="semana-gordura">Queda de gordura corporal</div>
+        <div class="semana-obs">Com aderência ao protocolo: perda progressiva de gordura sem perda de massa magra.</div>
+      </div>
+      <div class="semana-card">
+        <div class="semana-label">Semana 12</div>
+        <div class="semana-periodo">Reavaliação</div>
+        <div class="semana-peso">— kg</div>
+        <div class="semana-gordura">Recomposição corporal</div>
+        <div class="semana-obs">Nova avaliação física para ajustar o plano conforme evolução real.</div>
+      </div>
+      <div class="semana-card evento">
+        <div class="semana-label">Meta Final</div>
+        <div class="semana-periodo">A definir na consulta</div>
+        <div class="semana-peso">— kg</div>
+        <div class="semana-gordura">% gordura ideal</div>
+        <div class="semana-obs">Definida com base nos dados coletados nas primeiras avaliações.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu médico.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO PERSONAL ═══ -->
+  <div class="aba" id="aba-carta-personal">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao Personal</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
+      <p style="font-size:13px;line-height:1.7">O nutri ainda não escreveu nada ao seu personal.<br>Solicite no seu canal de suporte caso você necessite.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+    <div class="secao-label" style="margin-bottom:16px">Avaliação física</div>
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Aguardando primeira avaliação</div>
+      <p style="font-size:13px;line-height:1.7">Os dados de composição corporal serão inseridos após a primeira avaliação física.</p>
+    </div>
+  </div>
+
+</div><!-- fim conteudo -->
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-instalar-texto">
+    <strong>Salve no celular como app</strong>
+    Acesse seu plano sem abrir o navegador
+  </div>
+  <div class="banner-instalar-acoes">
+    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
+    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
+  <div class="modal-instalar-box">
+    <div class="modal-instalar-handle"></div>
+    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
+    <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular — sem precisar abrir o navegador</div>
+    <div class="instalar-tabs">
+      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone</button>
+      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+    </div>
+    <div class="instalar-painel ativo" id="instalar-ios">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Safari</div>
+          <div class="instalar-passo-desc">Essa função só funciona no <strong>Safari</strong>.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque no botão Compartilhar</div>
+          <div class="instalar-passo-destaque">⬆ Compartilhar</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Escolha "Adicionar à Tela de Início"</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à Tela de Início</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço.</div>
+    </div>
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo">
+        <div class="instalar-num">1</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Abra no Chrome</div>
+          <div class="instalar-passo-desc">Use o <strong>Google Chrome</strong>.</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">2</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque nos três pontinhos (⋮)</div>
+          <div class="instalar-passo-destaque">⋮ Menu</div>
+        </div>
+      </div>
+      <div class="instalar-passo">
+        <div class="instalar-num">3</div>
+        <div class="instalar-passo-texto">
+          <div class="instalar-passo-titulo">Toque em "Adicionar à tela inicial"</div>
+          <div class="instalar-passo-destaque">＋ Adicionar à tela inicial</div>
+        </div>
+      </div>
+      <div class="instalar-dica">💡 <strong>Dica:</strong> Pode aparecer como "Instalar app" em alguns Androids.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function mudarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+  btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleRefeicao(id) {
+  document.getElementById(id).classList.toggle('aberta');
+}
+
+function abrirModalInstalar() {
+  document.getElementById('modal-instalar').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModalInstalar() {
+  document.getElementById('modal-instalar').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+function fecharModalInstalarFora(e) {
+  if(e.target===document.getElementById('modal-instalar')) fecharModalInstalar();
+}
+
+function fecharBannerInstalar() {
+  document.getElementById('banner-instalar').style.display='none';
+  localStorage.setItem('banner-instalar-fechado-wesley','1');
+}
+
+function trocarTabInstalar(id, btn) {
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+
+const emStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+const jaFechou = localStorage.getItem('banner-instalar-fechado-wesley') || emStandalone;
+if(jaFechou) document.getElementById('banner-instalar').style.display='none';
+</script>
+</body>
+</html>
