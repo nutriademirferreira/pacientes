@@ -140,6 +140,21 @@ table.prog td:first-child{font-weight:600;color:var(--verde)}
 .instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
 .modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
 
+/* SUPLEMENTOS */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+.supl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:3px 9px;white-space:nowrap;flex-shrink:0}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza);border:1px solid var(--bege)}
+.supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.supl-campo{background:var(--creme);border-radius:8px;padding:8px 10px}
+.supl-campo-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
+.supl-campo-valor{font-size:13px;font-weight:600;color:var(--carvao)}
+.supl-just{font-size:12px;color:var(--cinza);line-height:1.65}
+.fase-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro);background:var(--verde);border-radius:8px;padding:8px 14px;margin:20px 0 12px;display:block}
+
 @media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
 @media(max-width:400px){.evolucao-grid{grid-template-columns:1fr 1fr}}
 </style>
@@ -156,12 +171,147 @@ table.prog td:first-child{font-weight:600;color:var(--verde)}
   <div class="linha-ouro"></div>
   <nav class="nav">
     <button class="nav-btn ativo" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
     <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
     <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
   </nav>
 </div>
 
 <div class="conteudo">
+
+  <!-- ═══ ABA: SUPLEMENTOS ═══ -->
+  <div class="aba" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:4px">Protocolo de suplementacao</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">Suplementacao estruturada para saciedade, sensibilidade insulinica e suporte ao emagrecimento. Doses dos itens condicionados serao ajustadas apos chegada dos exames laboratoriais.</div>
+
+    <span class="fase-label">Prioritario — iniciar agora</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Crea Chews — Creatina Mastigavel</div>
+        <span class="badge badge-urgente">Prioritario</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">1 tablete (3g)</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Apos o treino</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Mastigar, sem agua</div></div>
+      </div>
+      <div class="supl-just">Em deficit calorico, a creatina preserva e aumenta massa muscular (MLG), melhora performance no volume alto de treino e acelera recuperacao. Evidencia nivel A. Sabores disponiveis: Laranja, Limao, Coco, Peppermint, Uva ou Maracuja. Pode causar retencao hidrica intramuscular de 1 a 1,5kg nas primeiras semanas — nao e gordura.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D3 + K2</div>
+        <span class="badge badge-urgente">Prioritario</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">4.000 UI D3 + 100 mcg K2</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Almoco</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeicao com gordura</div></div>
+      </div>
+      <div class="supl-just">O plano fornece apenas 0,9 mcg de vitamina D (praticamente zero). Em pessoas com obesidade, o tecido adiposo sequestra a D3 reduzindo sua biodisponibilidade. Deficiencia esta associada a resistencia ao emagrecimento, piora da sensibilidade insulinica e aumento da fome. A K2 direciona o calcio para os ossos. Ajustar dose apos exame 25-OH Vitamina D.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Magnesio Bisglicinato</div>
+        <span class="badge badge-urgente">Prioritario</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">300 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">21h</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Agua</div></div>
+      </div>
+      <div class="supl-just">O plano fornece 185,7 mg vs. RDA de 310 mg — deficit real. Magnesio melhora qualidade do sono, reduz cortisol noturno e melhora sensibilidade insulinica. Deficit de magnesio esta diretamente associado a compulsao por doces e carboidratos, padrao ja identificado como gatilho de reganho. O bisglicinato tem melhor absorcao e nao causa desconforto intestinal.</div>
+    </div>
+
+    <span class="fase-label">Importante — iniciar na segunda semana</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Omega-3 EPA+DHA</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">2g EPA+DHA</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Almoco + jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Comida</div></div>
+      </div>
+      <div class="supl-just">Anti-inflamatorio e sensibilizador de insulina — dois pontos criticos dado o perfil de gordura visceral (cintura 86cm, RCQ moderado). Melhora composicao corporal em deficit e reduz inflamacao subclínica associada ao tecido adiposo. Dose terapeutica de 2g de EPA+DHA; verificar concentracao no rotulo do produto.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Psyllium (fibra solúvel)</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">15 min antes do jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">300ml de agua</div></div>
+      </div>
+      <div class="supl-just">Gel que expande no estomago, retarda esvaziamento gastrico e reduz glicemia pos-prandial do jantar. Estrategia de saciedade direta para o horario de maior risco de flexibilidade alimentar. Nao usar junto a suplementos de ferro ou medicamentos (pode reduzir absorcao).</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">5-HTP</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">100 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">30 min antes do jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Agua, longe de proteina</div></div>
+      </div>
+      <div class="supl-just">Precursor de serotonina — reduz compulsao por carboidratos e comer emocional, especialmente no periodo noturno. Evidencia boa para reducao de ingestao calorica em excesso e melhora de saciedade central. Nao usar com antidepressivos serotoninergicos (ISRS, IRSN). Iniciar com 50mg e avaliar tolerancia.</div>
+    </div>
+
+    <span class="fase-label">Complementar — aguardar exames</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Cafeina</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">200 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">30 min pre-treino</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Agua</div></div>
+      </div>
+      <div class="supl-just">Melhora performance, reduz percepcao de esforco e tem efeito termogenico leve. Somar ao cafe habitual e avaliar ingestao total de cafeina no dia antes de prescrever. Nao usar se houver ansiedade, taquicardia ou insonia. Evitar apos 14h para nao comprometer o sono.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Berberina</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">500 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Antes das refeicoes principais</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Condicao</div><div class="supl-campo-valor">HOMA-IR alterado</div></div>
+      </div>
+      <div class="supl-just">Ativa AMPK (mecanismo similar a metformina), melhora sensibilidade insulinica e reducao de gordura visceral. Indicada se HOMA-IR vier acima de 2,5 nos exames. Nao combinar com medicamentos para diabetes sem avaliacao medica. Pode causar desconforto gastrico no inicio — iniciar com 1 dose/dia e progredir.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Cromo Picolinato</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">200 mcg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Almoco</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Condicao</div><div class="supl-campo-valor">HOMA-IR alterado</div></div>
+      </div>
+      <div class="supl-just">Melhora sensibilidade insulinica e reduz craving por doces e carboidratos simples. Evidencia moderada; complementa a berberina quando ha resistencia insulinica confirmada. Aguardar resultado do HOMA-IR e lipidograma antes de incluir.</div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--alerta);border-radius:0 10px 10px 0;padding:14px 16px;margin-top:8px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--alerta);margin-bottom:8px">Importante — aguardando exames</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.75">Berberina e Cromo Picolinato serao ativados somente se o HOMA-IR vier alterado (acima de 2,5). Os exames solicitados na Carta ao Medico incluem Insulina de Jejum + HOMA-IR, Glicemia + HbA1c e Lipidograma — todos necessarios para ajuste fino do protocolo. Levar a carta na proxima consulta medica.</div>
+    </div>
+  </div>
 
   <!-- ═══ ABA: EVOLUÇÃO ═══ -->
   <div class="aba ativa" id="aba-evolucao">
