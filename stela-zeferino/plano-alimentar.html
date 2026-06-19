@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stela Zeferino — Nutri Ademir Ferreira</title>
+<meta property="og:title" content="Stela Zeferino — Nutri Ademir Ferreira">
+<meta property="og:description" content="Protocolo de emagrecimento e hipertrofia">
+<meta property="og:image" content="https://nutriademirferreira.github.io/pacientes/_assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A
+}
+body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);min-height:100vh;padding-bottom:80px}
+
+/* NAV */
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.header{padding:16px 20px 10px}
+.header-nutri{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--creme-suv)}
+.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase;margin-top:1px}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--creme-suv);margin-top:6px;line-height:1.2}
+.header-meta{font-size:11px;color:var(--ouro);margin-top:3px;letter-spacing:.04em}
+.linha-ouro{height:2px;background:var(--ouro)}
+.nav{display:flex;overflow-x:auto;gap:0;padding:0 4px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;background:none;border:none;color:rgba(253,250,245,.65);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.04em;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+/* CONTEUDO */
+.conteudo{max-width:520px;margin:0 auto;padding:20px 16px}
+.aba{display:none}.aba.ativa{display:block}
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+
+/* MACROS */
+.macros{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:20px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:10px 6px;text-align:center;border-bottom:3px solid var(--ouro)}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde)}
+.macro-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.macro-card.destaque .macro-label{color:rgba(253,250,245,.7)}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ouro);line-height:1}
+.macro-card.destaque .macro-valor{color:var(--creme-suv)}
+.macro-unidade{font-size:9px;color:var(--cinza);margin-top:2px}
+.macro-card.destaque .macro-unidade{color:rgba(253,250,245,.6)}
+
+/* SUPLEMENTOS */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.supl-nome{font-size:15px;font-weight:600;color:var(--verde)}
+.badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:3px 9px;white-space:nowrap;flex-shrink:0}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza);border:1px solid var(--bege)}
+.supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.supl-campo{background:var(--creme);border-radius:8px;padding:8px 10px}
+.supl-campo-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
+.supl-campo-valor{font-size:13px;font-weight:600;color:var(--carvao)}
+.supl-just{font-size:12px;color:var(--cinza);line-height:1.65}
+.fase-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro);background:var(--verde);border-radius:8px;padding:8px 14px;margin:20px 0 12px;display:block}
+
+/* EVOLUCAO */
+.evolucao-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza);margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--verde);line-height:1}
+.evolucao-delta{font-size:11px;font-weight:600;margin-top:4px}
+.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
+.hist-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.hist-header{background:var(--verde);padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.hist-data{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--creme-suv)}
+.hist-badge{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--ouro);color:var(--creme-suv);border-radius:20px;padding:2px 8px}
+.hist-body{padding:10px 14px}
+.hist-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--bege);font-size:12px}
+.hist-row:last-child{border-bottom:none}
+.hist-key{color:var(--cinza)}
+.hist-val{font-weight:600;color:var(--carvao)}
+.hist-val.pos{color:#3B6D11}.hist-val.neg{color:var(--alerta)}
+
+/* PROGRESSO */
+.tabela-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.tabela-titulo{background:var(--verde);padding:10px 14px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--creme-suv)}
+table.prog{width:100%;border-collapse:collapse;font-size:11px}
+table.prog th{background:var(--verde);color:var(--creme-suv);padding:6px 10px;text-align:left;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+table.prog td{padding:7px 10px;border-bottom:1px solid var(--bege);color:var(--carvao);vertical-align:middle}
+table.prog tr:nth-child(odd) td{background:var(--creme-suv)}
+table.prog tr:nth-child(even) td{background:var(--creme)}
+table.prog tr:last-child td{border-bottom:none}
+table.prog td:first-child{font-weight:600;color:var(--verde)}
+.delta-pos-sm{color:#3B6D11;font-weight:600}.delta-neg-sm{color:var(--alerta);font-weight:600}
+.melhor-badge{display:inline-block;background:#FFF3E0;color:#854F0B;font-size:9px;font-weight:600;border-radius:10px;padding:1px 7px;margin-left:4px;letter-spacing:.08em;text-transform:uppercase}
+
+/* CARTA */
+.carta-wrapper{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.carta-header{background:var(--verde);padding:20px 24px}
+.carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--creme-suv)}
+.carta-nutri-crn{font-size:10px;color:var(--ouro);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+.carta-linha-ouro{height:2px;background:var(--ouro)}
+.carta-corpo{padding:20px}
+.carta-data{font-size:12px;color:var(--cinza);text-align:right;margin-bottom:16px}
+.carta-dest{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:16px}
+.carta-dest-linha{font-size:13px;color:var(--carvao);margin-bottom:4px}
+.carta-dest-linha strong{color:var(--verde)}
+.carta-p{font-size:13px;line-height:1.85;color:var(--carvao);margin-bottom:12px;text-align:justify}
+.carta-p strong{color:var(--verde);font-weight:600}
+.carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin:18px 0 8px}
+.carta-tabela{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12px}
+.carta-tabela thead tr{background:var(--verde)}
+.carta-tabela thead th{padding:8px 12px;text-align:left;color:var(--creme-suv);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.carta-tabela tbody tr:nth-child(odd){background:var(--creme-suv)}
+.carta-tabela tbody tr:nth-child(even){background:var(--creme)}
+.carta-tabela tbody td{padding:8px 12px;border-bottom:1px solid var(--bege);color:var(--carvao);vertical-align:top}
+.carta-tabela tbody td:first-child{font-weight:600;color:var(--verde);white-space:nowrap}
+.carta-tabela tbody tr:last-child td{border-bottom:none}
+.carta-assinatura{margin-top:20px;padding-top:14px;border-top:1px solid var(--bege)}
+.carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--verde)}
+.carta-ass-crn{font-size:12px;color:var(--cinza);margin-top:2px}
+.carta-ass-marca{font-size:12px;color:var(--ouro);margin-top:2px}
+.btn-imprimir{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.04em}
+.btn-imprimir:hover{background:#3d4a34}
+
+/* CARTA MOBILE */
+@media(max-width:600px){
+  .carta-corpo{padding:14px}
+  .carta-header{padding:14px}
+  .carta-p{font-size:12px;text-align:left}
+  .carta-dest-linha{font-size:12px}
+  .carta-tabela{display:none}
+  .carta-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+  .carta-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;overflow:hidden}
+  .carta-card-exame{background:var(--verde);padding:8px 12px;font-size:12px;font-weight:600;color:var(--creme-suv)}
+  .carta-card-just{padding:10px 12px;font-size:12px;line-height:1.65;color:var(--carvao)}
+}
+@media(min-width:601px){.carta-cards{display:none}}
+
+/* BANNER INSTALAR */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+.banner-txt{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-txt strong{color:var(--ouro)}
+.banner-acao{display:flex;gap:8px;flex-shrink:0}
+.banner-btn{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.banner-fechar{background:none;border:1px solid rgba(253,250,245,.3);color:var(--creme-suv);border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer}
+
+/* MODAL INSTALAR */
+.modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.aberto{display:flex}
+.modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto}
+.modal-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--verde);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5}
+.instalar-tabs{display:flex;gap:4px;margin-bottom:16px}
+.instalar-tab{flex:1;background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--cinza)}
+.instalar-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.instalar-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px}
+.instalar-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+.instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
+.instalar-dica strong{color:var(--verde)}
+.modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
+
+@media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+@media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}.supl-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <div class="header">
+    <div class="header-nutri">Ademir Ferreira Junior</div>
+    <div class="header-crn">Nutricionista · CRN-3 72295</div>
+    <div class="header-paciente">Stela Zeferino</div>
+    <div class="header-meta">Emagrecimento e Hipertrofia · Atualizado em 24/04/2026</div>
+  </div>
+  <div class="linha-ouro"></div>
+  <nav class="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ═══ ABA: SUPLEMENTOS ═══ -->
+  <div class="aba ativa" id="aba-suplementos">
+    <div class="secao-label" style="margin-bottom:4px">Protocolo de suplementação</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">Suplementação estruturada para hipertrofia, saciedade e correção de deficiências do plano alimentar. Ajustar doses após chegada dos exames laboratoriais.</div>
+
+    <span class="fase-label">Prioritário — iniciar agora</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Creatina Monohidratada</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">3g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Após o treino</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Shake ou água</div></div>
+      </div>
+      <div class="supl-just">Aumenta força, volume de treino e síntese proteica muscular (evidência nível A). Com +4kg de MLG desde outubro, a creatina potencializa os ganhos já em curso. Atenção: causa retenção hídrica intramuscular de 1 a 1,5kg nas primeiras semanas. A balança pode subir, mas não é gordura.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D3 + K2</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">4.000 UI D3 + 100 mcg K2</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeição com gordura</div></div>
+      </div>
+      <div class="supl-just">O plano alimentar fornece apenas 1,1 mcg de vitamina D (praticamente zerado). Deficiência de D3 está associada a redução de força muscular, piora do humor, aumento da fome e resistência à perda de gordura. A K2 direciona o cálcio absorvido para os ossos, evitando deposição arterial. Ajustar dose após resultado do exame 25-OH Vitamina D.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Magnésio Bisglicinato</div>
+        <span class="badge badge-urgente">Prioritário</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">300 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">21h</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água</div></div>
+      </div>
+      <div class="supl-just">O plano fornece 235 mg vs. RDA de 310 mg. O bisglicinato tem a melhor absorção e não causa desconforto intestinal. Melhora qualidade do sono, reduz cortisol noturno e está inversamente associado a compulsão alimentar por doces, ponto crítico para quem tem histórico de obesidade.</div>
+    </div>
+
+    <span class="fase-label">Importante — iniciar na segunda semana</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Ômega-3 EPA+DHA</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">2g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">Almoço + jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Comida</div></div>
+      </div>
+      <div class="supl-just">O plano não tem fonte relevante de EPA/DHA. O ômega-3 melhora a sensibilidade insulínica (relevante no histórico de obesidade), reduz inflamação subclínica, apoia composição corporal em déficit e potencializa o ganho de MLG em conjunto com o treino de força.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Psyllium (fibra solúvel)</div>
+        <span class="badge badge-importante">Importante</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5g</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">15 min antes do jantar</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">300ml de água</div></div>
+      </div>
+      <div class="supl-just">Gel que retarda o esvaziamento gástrico e reduz a glicemia pós-prandial do jantar. Estratégia de saciedade especialmente útil nos dias em que a fome à noite é maior. Usar antes do jantar, nunca junto ao whey ou suplementos de ferro (reduz absorção).</div>
+    </div>
+
+    <span class="fase-label">Complementar — avaliar após exames</span>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Cafeína</div>
+        <span class="badge badge-complementar">Complementar</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">200 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horário</div><div class="supl-campo-valor">30 min antes do treino</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Água em jejum</div></div>
+      </div>
+      <div class="supl-just">Melhora performance, reduz percepção de esforço e tem efeito termogênico leve. Soma-se ao café habitual, por isso avaliar ingestão total de cafeína no dia antes de prescrever. Não usar se houver ansiedade, taquicardia ou insônia relatadas.</div>
+    </div>
+
+    <div style="background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--sage);border-radius:0 10px 10px 0;padding:14px 16px;margin-top:20px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:8px">Atenção sobre Konjac</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.7">Você relatou mais fome nos dias posteriores ao uso. Isso é um efeito paradoxal documentado: o gel de konjac pode acelerar o trânsito no dia seguinte, ativando grelina mais cedo. Estratégia: usar o konjac como acompanhamento (120g + 50g de arroz), nunca em substituição total da refeição. Se o efeito persistir, retirar o konjac.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="secao-label" style="margin-bottom:4px">Última avaliação — 24/04/2026</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:16px;line-height:1.6">Comparativo com avaliação anterior (27/02/2026). O peso subiu, mas a massa livre de gordura cresceu 2kg, reflexo direto da hipertrofia em curso.</div>
+
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso</div>
+        <div class="evolucao-valor">74,4<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-neg">+3,3 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">25,4</div>
+        <div class="evolucao-delta delta-neg">+1,1 vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">% Gordura</div>
+        <div class="evolucao-valor">19,1<span style="font-size:14px">%</span></div>
+        <div class="evolucao-delta delta-neg">+1,0% vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa Gordura</div>
+        <div class="evolucao-valor">14,2<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-neg">+1,3 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">MLG</div>
+        <div class="evolucao-valor">60,2<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-pos">+2,0 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">77<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta delta-neg">+2,5 cm vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Quadril</div>
+        <div class="evolucao-valor">106<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta delta-neg">+3,0 cm vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">CMB</div>
+        <div class="evolucao-valor">24,8<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta delta-pos">+0,2 cm vs. anterior</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin:20px 0 12px">Histórico completo</div>
+
+    <div class="hist-card">
+      <div class="hist-header"><div class="hist-data">Outubro / 2025</div><div class="hist-badge">1a consulta</div></div>
+      <div class="hist-body">
+        <div class="hist-row"><span class="hist-key">Peso</span><span class="hist-val">71,9 kg</span></div>
+        <div class="hist-row"><span class="hist-key">% Gordura</span><span class="hist-val">21,9%</span></div>
+        <div class="hist-row"><span class="hist-key">MLG</span><span class="hist-val">56,2 kg</span></div>
+        <div class="hist-row"><span class="hist-key">Soma Dobras</span><span class="hist-val">110 mm</span></div>
+        <div class="hist-row"><span class="hist-key">Cintura / Quadril</span><span class="hist-val">75 / 105 cm</span></div>
+      </div>
+    </div>
+
+    <div class="hist-card">
+      <div class="hist-header"><div class="hist-data">Novembro / 2025</div></div>
+      <div class="hist-body">
+        <div class="hist-row"><span class="hist-key">Peso</span><span class="hist-val neg">71,3 kg (−0,6)</span></div>
+        <div class="hist-row"><span class="hist-key">% Gordura</span><span class="hist-val pos">20,4% (−1,5%)</span></div>
+        <div class="hist-row"><span class="hist-key">MLG</span><span class="hist-val pos">56,7 kg (+0,5)</span></div>
+        <div class="hist-row"><span class="hist-key">Soma Dobras</span><span class="hist-val pos">100 mm (−10)</span></div>
+        <div class="hist-row"><span class="hist-key">Cintura / Quadril</span><span class="hist-val pos">73 / 104 cm</span></div>
+      </div>
+    </div>
+
+    <div class="hist-card">
+      <div class="hist-header"><div class="hist-data">Janeiro / 2026</div><div class="hist-badge" style="background:var(--alerta)">Melhor físico</div></div>
+      <div class="hist-body">
+        <div class="hist-row"><span class="hist-key">Peso</span><span class="hist-val pos">70,8 kg (−0,5)</span></div>
+        <div class="hist-row"><span class="hist-key">% Gordura</span><span class="hist-val pos">18,7% (−1,7%)</span></div>
+        <div class="hist-row"><span class="hist-key">MLG</span><span class="hist-val pos">57,6 kg (+0,9)</span></div>
+        <div class="hist-row"><span class="hist-key">Soma Dobras</span><span class="hist-val pos">88 mm (−12)</span></div>
+        <div class="hist-row"><span class="hist-key">Cintura / Quadril</span><span class="hist-val pos">72,5 / 104 cm</span></div>
+      </div>
+    </div>
+
+    <div class="hist-card">
+      <div class="hist-header"><div class="hist-data">Fevereiro / 2026</div></div>
+      <div class="hist-body">
+        <div class="hist-row"><span class="hist-key">Peso</span><span class="hist-val neg">71,1 kg (+0,3)</span></div>
+        <div class="hist-row"><span class="hist-key">% Gordura</span><span class="hist-val pos">18,1% (−0,6%)</span></div>
+        <div class="hist-row"><span class="hist-key">MLG</span><span class="hist-val pos">58,2 kg (+0,6)</span></div>
+        <div class="hist-row"><span class="hist-key">Soma Dobras</span><span class="hist-val pos">84,5 mm (−3,5)</span></div>
+        <div class="hist-row"><span class="hist-key">Cintura / Quadril</span><span class="hist-val neg">74,5 / 103 cm</span></div>
+      </div>
+    </div>
+
+    <div class="hist-card">
+      <div class="hist-header"><div class="hist-data">Abril / 2026</div><div class="hist-badge">Atual</div></div>
+      <div class="hist-body">
+        <div class="hist-row"><span class="hist-key">Peso</span><span class="hist-val neg">74,4 kg (+3,3)</span></div>
+        <div class="hist-row"><span class="hist-key">% Gordura</span><span class="hist-val neg">19,1% (+1,0%)</span></div>
+        <div class="hist-row"><span class="hist-key">MLG</span><span class="hist-val pos">60,2 kg (+2,0)</span></div>
+        <div class="hist-row"><span class="hist-key">Soma Dobras</span><span class="hist-val neg">91 mm (+6,5)</span></div>
+        <div class="hist-row"><span class="hist-key">Cintura / Quadril</span><span class="hist-val neg">77 / 106 cm</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+    <div class="secao-label" style="margin-bottom:16px">Composição corporal — evolução detalhada</div>
+
+    <div class="tabela-wrapper">
+      <div class="tabela-titulo">Dobras cutâneas (mm)</div>
+      <table class="prog">
+        <thead>
+          <tr>
+            <th>Dobra</th>
+            <th>Out/25</th>
+            <th>Nov/25</th>
+            <th>Jan/26</th>
+            <th>Fev/26</th>
+            <th>Abr/26</th>
+            <th>Delta total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tricipital</td><td>15,0</td><td>14,5</td><td>13,0</td><td>12,5</td><td>13,5</td><td class="delta-neg-sm">+1,0</td></tr>
+          <tr><td>Abdominal</td><td>20,0</td><td>18,0</td><td>16,0</td><td>16,0</td><td>17,5</td><td class="delta-neg-sm">+1,5</td></tr>
+          <tr><td>Subescapular</td><td>19,0</td><td>18,0</td><td>16,5</td><td>16,5</td><td>17,0</td><td class="delta-neg-sm">+0,5</td></tr>
+          <tr><td>Axilar Média</td><td>12,0</td><td>12,0</td><td>10,5</td><td>10,5</td><td>12,5</td><td class="delta-neg-sm">+2,0</td></tr>
+          <tr><td>Coxa</td><td>21,0</td><td>18,5</td><td>14,0</td><td>12,0</td><td>12,5</td><td class="delta-pos-sm">−8,5</td></tr>
+          <tr><td>Torácica</td><td>10,0</td><td>8,0</td><td>7,0</td><td>6,0</td><td>6,0</td><td class="delta-pos-sm">−4,0</td></tr>
+          <tr><td>Suprailíaca</td><td>13,0</td><td>11,0</td><td>11,0</td><td>11,0</td><td>12,0</td><td class="delta-neg-sm">+1,0</td></tr>
+          <tr><td style="font-weight:700;color:var(--carvao)">Somatório</td><td><strong>110</strong></td><td><strong>100</strong></td><td><strong>88</strong></td><td><strong>84,5</strong></td><td><strong>91</strong></td><td class="delta-pos-sm">−19 mm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tabela-wrapper">
+      <div class="tabela-titulo">Circunferências (cm)</div>
+      <table class="prog">
+        <thead>
+          <tr>
+            <th>Medida</th>
+            <th>Out/25</th>
+            <th>Nov/25</th>
+            <th>Jan/26</th>
+            <th>Fev/26</th>
+            <th>Abr/26</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cintura</td><td>75,0</td><td>73,0</td><td>72,5</td><td>74,5</td><td>77,0</td></tr>
+          <tr><td>Quadril</td><td>105,0</td><td>104,0</td><td>104,0</td><td>103,0</td><td>106,0</td></tr>
+          <tr><td>Abdômen</td><td>85,0</td><td>84,0</td><td>83,0</td><td>84,0</td><td>88,0</td></tr>
+          <tr><td>Tórax</td><td>90,0</td><td>88,5</td><td>89,0</td><td>88,5</td><td>93,0</td></tr>
+          <tr><td>Ombro</td><td>102,0</td><td>102,0</td><td>101,5</td><td>102,0</td><td>105,0</td></tr>
+          <tr><td>Braço Esq. Relax.</td><td>28,5</td><td>29,0</td><td>29,0</td><td>28,5</td><td>29,0</td></tr>
+          <tr><td>Braço Dir. Relax.</td><td>28,5</td><td>28,5</td><td>28,5</td><td>28,5</td><td>28,5</td></tr>
+          <tr><td>Braço Esq. Contra.</td><td>30,0</td><td>30,0</td><td>30,0</td><td>30,0</td><td>30,0</td></tr>
+          <tr><td>Braço Dir. Contra.</td><td>30,0</td><td>30,5</td><td>30,5</td><td>30,5</td><td>30,5</td></tr>
+          <tr><td>Coxa Esq. Medial</td><td>58,0</td><td>58,0</td><td>57,5</td><td>58,5</td><td>59,0</td></tr>
+          <tr><td>Coxa Dir. Medial</td><td>58,5</td><td>57,0</td><td>57,0</td><td>59,0</td><td>59,0</td></tr>
+          <tr><td>Panturrilha Esq.</td><td>39,0</td><td>39,0</td><td>38,0</td><td>39,5</td><td>39,5</td></tr>
+          <tr><td>Panturrilha Dir.</td><td>39,5</td><td>39,0</td><td>38,5</td><td>39,5</td><td>40,0</td></tr>
+          <tr><td>Pescoço</td><td>33,0</td><td>32,0</td><td>32,0</td><td>31,0</td><td>31,5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:14px 16px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px">Leitura dos dados — contexto importante</div>
+      <div style="font-size:13px;color:var(--carvao);line-height:1.75">O reganho de abril/26 coincide com a fase normocalórica e a maior flexibilidade nos finais de semana. A massa livre de gordura cresceu 4kg desde o início, o que é excelente. O somatório de dobras (91mm) ainda está 19mm abaixo do ponto de partida, mesmo com o reganho parcial. O objetivo agora é resgatar o deficit controlado com foco no comportamento alimentar nos finais de semana.</div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico">
+    <div class="secao-label" style="margin-bottom:16px">Carta ao médico</div>
+
+    <div class="carta-wrapper" id="carta-medico-conteudo">
+      <div class="carta-header">
+        <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
+        <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+      <div class="carta-linha-ouro"></div>
+      <div class="carta-corpo">
+        <div class="carta-data">São Paulo, 19 de junho de 2026</div>
+
+        <div class="carta-dest">
+          <div class="carta-dest-linha">Ao(À) <strong>Dr(a). responsável pelo acompanhamento clínico</strong></div>
+          <div class="carta-dest-linha">Ref.: Paciente <strong>Stela Maria Fernandes Zeferino</strong></div>
+          <div class="carta-dest-linha">Nascimento: <strong>02/09/1987 (38 anos)</strong></div>
+        </div>
+
+        <p class="carta-p">Prezado(a) Doutor(a),</p>
+
+        <p class="carta-p">Encaminho para avaliação clínica a paciente <strong>Stela Maria Fernandes Zeferino</strong>, 38 anos, em acompanhamento nutricional desde agosto de 2025, com protocolo de emagrecimento e hipertrofia. A paciente é ex-obesa (peso máximo de 88 kg, altura 171 cm, IMC máximo 30,1 kg/m²), com histórico de restrição calórica prolongada sob acompanhamento de nutricionista anterior, atingindo 70,5 kg em seu menor peso registrado.</p>
+
+        <p class="carta-p">Atualmente, a paciente realiza <strong>5 sessões semanais de musculação</strong> com 150 minutos de cardio semanal, evoluindo positivamente em composição corporal: ganho de 4 kg de massa livre de gordura desde outubro de 2025, redução de 19 mm no somatório de dobras no mesmo período. Apesar desses avanços, há relato de reganho de gordura recente (1,3 kg de massa gorda entre fevereiro e abril de 2026), compatível com excesso calórico nos finais de semana e possível fase de normocalórico prolongada.</p>
+
+        <p class="carta-p">Os últimos exames laboratoriais foram realizados há aproximadamente <strong>2 anos</strong>, sem monitoramento recente. Diante do contexto clínico atual (ex-obesa, histórico de restrição prolongada, protocolo de hipertrofia ativo, plano alimentar com lacunas de micronutrientes documentadas), solicito a avaliação laboratorial abaixo, a fim de fundamentar os ajustes do protocolo nutricional e identificar possíveis deficiências subclínicas.</p>
+
+        <div class="carta-secao-titulo">Exames prioritários</div>
+
+        <table class="carta-tabela">
+          <thead>
+            <tr><th>Exame</th><th>Justificativa clínica</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25-OH Vitamina D</td>
+              <td>O plano alimentar fornece apenas 1,1 mcg de vitamina D (praticamente zerado). Deficiência de D3 está associada a redução de força muscular, maior risco de fraturas por estresse, piora do humor e resistência ao emagrecimento. Relevante no contexto de treino intenso diário.</td>
+            </tr>
+            <tr>
+              <td>Ferritina + Ferro sérico + TIBC + Saturação de transferrina</td>
+              <td>Mulher em idade fértil com histórico de restrição calórica prolongada e plano alimentar que fornece 10,1 mg de ferro por dia. Déficit subclínico de ferro compromete performance aeróbica, síntese proteica e disposição para o treino, mesmo na ausência de anemia clínica.</td>
+            </tr>
+            <tr>
+              <td>Magnésio eritrocitário</td>
+              <td>O plano alimentar fornece 235 mg vs. RDA de 310 mg. O magnésio eritrocitário avalia o estoque intracelular real, superior ao sérico. Deficiência está associada a câimbras, pior qualidade do sono e maior percepção de fadiga no treino.</td>
+            </tr>
+            <tr>
+              <td>25-OH Vitamina D + PTH</td>
+              <td>A associação com o PTH permite distinguir deficiência real de resistência periférica à vitamina D, orientando a dose de reposição com mais precisão.</td>
+            </tr>
+            <tr>
+              <td>Hemograma completo + VCM + HCM</td>
+              <td>Rastreamento de anemia (ferropriva ou megaloblástica) e avaliação do leucograma no contexto de treino de alta intensidade e histórico de restrição alimentar.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">25-OH Vitamina D</div><div class="carta-card-just">O plano alimentar fornece 1,1 mcg de vitamina D, praticamente zerado. Deficiência afeta força muscular, humor e emagrecimento. Crítico no contexto de treino diário intenso.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Ferritina + Ferro + TIBC + Saturação de transferrina</div><div class="carta-card-just">Mulher em idade fértil com histórico de restrição prolongada. Plano fornece 10,1 mg de ferro por dia. Déficit subclínico compromete performance e disposição para treino, mesmo sem anemia clínica.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Magnésio eritrocitário</div><div class="carta-card-just">235 mg/dia no plano vs. RDA de 310 mg. O exame eritrocitário avalia o estoque real intracelular. Deficiência gera câimbras, sono ruim e fadiga no treino.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">25-OH Vitamina D + PTH</div><div class="carta-card-just">A associação com PTH distingue deficiência real de resistência periférica, orientando a dose de reposição com mais precisão.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Hemograma completo + VCM + HCM</div><div class="carta-card-just">Rastreamento de anemia ferropriva ou megaloblástica. Avaliação do leucograma no contexto de treino de alta intensidade e histórico de restrição alimentar.</div></div>
+        </div>
+
+        <div class="carta-secao-titulo">Eixo hormonal e metabólico</div>
+
+        <table class="carta-tabela">
+          <thead>
+            <tr><th>Exame</th><th>Justificativa clínica</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TSH, T3 Livre e T4 Livre</td>
+              <td>Histórico de restrição calórica prolongada (máximo 1.600 kcal com dieta anterior) pode comprometer o eixo tireoidiano por adaptação ao déficit crônico. A avaliação completa do painel tireoidiano é essencial antes de qualquer intervenção sobre o TDEE.</td>
+            </tr>
+            <tr>
+              <td>Cortisol basal (coleta às 8h)</td>
+              <td>Histórico de deficit prolongado, treino de alta intensidade diária e relato de maior fome e concessões alimentares nos finais de semana são compatíveis com elevação de cortisol. O hipercortisolismo funcional favorece acúmulo de gordura visceral e piora a composição corporal mesmo com treino adequado.</td>
+            </tr>
+            <tr>
+              <td>FSH, LH e Estradiol (D2 ou D3 do ciclo)</td>
+              <td>Paciente de 38 anos. Investigar possível perimenopausa precoce ou alteração do eixo gonadal, que pode contribuir para dificuldade de perda de gordura, retenção hídrica e reganho. O tabagismo (se presente) antecipa a menopausa em média 1 a 4 anos.</td>
+            </tr>
+            <tr>
+              <td>Insulina de jejum + HOMA-IR</td>
+              <td>Paciente ex-obesa. O histórico de obesidade deixa um legado de resistência insulínica que pode persistir mesmo após a perda de peso. A glicemia de jejum isolada não detecta resistência compensada. O HOMA-IR é o marcador mais adequado neste contexto.</td>
+            </tr>
+            <tr>
+              <td>Lipidograma completo (CT, HDL, LDL, VLDL, TG)</td>
+              <td>Rastreamento de risco cardiovascular em ex-obesa com possível resistência insulínica residual. Orienta também a indicação de ômega-3 e ajuste da fração lipídica do plano.</td>
+            </tr>
+            <tr>
+              <td>IGF-1</td>
+              <td>Marcador do estado anabólico geral. Relevante para avaliar se a resposta ao treinamento de força está sendo limitada por déficit do eixo GH-IGF-1, especialmente no contexto de histórico de restrição calórica prolongada.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">TSH, T3 Livre e T4 Livre</div><div class="carta-card-just">Restrição calórica prolongada pode comprometer o eixo tireoidiano por adaptação metabólica. Painel completo necessário antes de ajustar o deficit calórico.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Cortisol basal (8h)</div><div class="carta-card-just">Treino diário intenso, histórico de restrição e relato de maior fome nos FDS são compatíveis com hipercortisolismo funcional, que favorece acúmulo de gordura visceral.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">FSH, LH e Estradiol (D2 ou D3)</div><div class="carta-card-just">38 anos. Investigar perimenopausa precoce ou disfunção do eixo gonadal, que pode explicar dificuldade de perda de gordura e reganho recente.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Insulina de jejum + HOMA-IR</div><div class="carta-card-just">Ex-obesa: resistência insulínica pode persistir após a perda de peso. Glicemia isolada não detecta resistência compensada. HOMA-IR é o marcador adequado aqui.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Lipidograma completo</div><div class="carta-card-just">Rastreamento de risco cardiovascular e orientação do protocolo de suplementação lipídica (ômega-3). Relevante no contexto de ex-obesidade.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">IGF-1</div><div class="carta-card-just">Avalia se a resposta ao treino de força está sendo limitada pelo eixo GH-IGF-1, comprometido pelo histórico de restrição calórica prolongada.</div></div>
+        </div>
+
+        <div class="carta-secao-titulo">Micronutrientes complementares</div>
+
+        <table class="carta-tabela">
+          <thead>
+            <tr><th>Exame</th><th>Justificativa clínica</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Zinco sérico</td>
+              <td>O plano alimentar fornece 5,8 mg vs. RDA de 8 mg para mulheres. O zinco é cofator da síntese proteica, imunidade e testosterona. Deficiência subclínica compromete recuperação muscular e resposta ao treinamento.</td>
+            </tr>
+            <tr>
+              <td>Selênio sérico</td>
+              <td>O plano fornece 29,4 mcg vs. RDA de 55 mcg. Antioxidante essencial, cofator da glutationa peroxidase. Relevante no contexto de treino de alta intensidade com elevada produção de espécies reativas de oxigênio.</td>
+            </tr>
+            <tr>
+              <td>Vitamina B12 + Folato sérico</td>
+              <td>O plano fornece 1,3 mcg de B12 (RDA 2,4 mcg) e 355 mcg de folato (RDA 400 mcg). Ambos são essenciais para síntese de DNA, formação eritrocitária e função neurológica. A deficiência de B12 é comum em dietas com baixo consumo de proteína animal.</td>
+            </tr>
+            <tr>
+              <td>PCR ultrassensível</td>
+              <td>Rastreamento de inflamação crônica subclínica, frequente no histórico de obesidade. A PCR-us orienta a conduta anti-inflamatória (ômega-3, antioxidantes) e interpreta outros achados laboratoriais no contexto inflamatório.</td>
+            </tr>
+            <tr>
+              <td>Creatinina + TFG estimada + Ácido úrico</td>
+              <td>Baseline renal antes do início da suplementação de creatina. O ácido úrico avalia estado de purinas no contexto de treino intenso com alto giro proteico.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">Zinco sérico</div><div class="carta-card-just">5,8 mg/dia no plano vs. RDA de 8 mg. Cofator de síntese proteica e recuperação muscular. Deficiência subclínica compromete a resposta ao treinamento.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Selênio sérico</div><div class="carta-card-just">29,4 mcg/dia vs. RDA de 55 mcg. Antioxidante essencial no treino de alta intensidade, com elevada produção de radicais livres.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Vitamina B12 + Folato sérico</div><div class="carta-card-just">B12: 1,3 mcg (RDA 2,4) e folato: 355 mcg (RDA 400). Essenciais para síntese de DNA e eritropoiese. Deficiência de B12 é comum com baixo consumo de proteína animal.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">PCR ultrassensível</div><div class="carta-card-just">Rastreamento de inflamação crônica subclínica, frequente no histórico de obesidade. Orienta a conduta anti-inflamatória do protocolo.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Creatinina + TFG + Ácido úrico</div><div class="carta-card-just">Baseline renal antes do início da creatina. Ácido úrico avalia giro de purinas no contexto de treino intenso com alto consumo proteico.</div></div>
+        </div>
+
+        <p class="carta-p">Coloco-me à disposição para discutir qualquer aspecto da conduta nutricional ou complementar as informações aqui apresentadas. Agradeço a atenção dispensada à paciente e aguardo retorno dos resultados para os ajustes necessários no protocolo.</p>
+
+        <p class="carta-p">Atenciosamente,</p>
+
+        <div class="carta-assinatura">
+          <div class="carta-ass-nome">Ademir Ferreira Junior</div>
+          <div class="carta-ass-crn">Nutricionista — CRN-3 72295</div>
+          <div class="carta-ass-marca">contato@nutriademirferreira.com.br</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-medico-conteudo')">Baixar carta em PDF</button>
+  </div>
+
+</div><!-- /conteudo -->
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-txt"><strong>Adicione à sua tela inicial</strong><br>Acesse seu plano como um app, sem precisar do navegador.</div>
+  <div class="banner-acao">
+    <button class="banner-btn" onclick="document.getElementById('modal-instalar').classList.add('aberto')">Como instalar</button>
+    <button class="banner-fechar" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-overlay" id="modal-instalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Instalar no celular</div>
+    <div class="modal-sub">Adicione este plano à sua tela inicial para acesso rápido, como se fosse um app.</div>
+    <div class="instalar-tabs">
+      <div class="instalar-tab ativo" onclick="mudarTab('iphone',this)">iPhone</div>
+      <div class="instalar-tab" onclick="mudarTab('android',this)">Android</div>
+    </div>
+    <div class="instalar-painel ativo" id="instalar-iphone">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra este link no <strong>Safari</strong> (não no Chrome ou outro navegador)</div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque no ícone de <strong>compartilhar</strong> (quadrado com seta para cima) na barra inferior</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Role a lista e toque em <strong>"Adicionar à Tela de Início"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong> no canto superior direito</div></div>
+      <div class="instalar-dica">O ícone vai aparecer na sua tela inicial. Toque nele para abrir o plano como um app, sem barra do navegador.</div>
+    </div>
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra este link no <strong>Chrome</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque nos <strong>3 pontos</strong> no canto superior direito</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Toque em <strong>"Adicionar à tela inicial"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+      <div class="instalar-dica">Após instalar, o plano abre sem barra de navegador, como um app nativo.</div>
+    </div>
+    <button class="modal-fechar-btn" onclick="document.getElementById('modal-instalar').classList.remove('aberto')">Entendi</button>
+  </div>
+</div>
+
+<script>
+function mudarAba(id,btn){
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+}
+function mudarTab(id,btn){
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+function fecharBanner(){
+  localStorage.setItem('banner-instalar-fechado-stela','1');
+  document.getElementById('banner-instalar').style.display='none';
+}
+function imprimirCarta(idConteudo){
+  const conteudo=document.getElementById(idConteudo);
+  if(!conteudo)return;
+  const janela=window.open('','_blank','width=820,height=900');
+  janela.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Carta ao Médico — Stela Zeferino</title><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Jost',sans-serif;background:#fff;color:#272520;padding:24px}.carta-wrapper{max-width:720px;margin:0 auto;border:1px solid #EBE4D5;border-radius:12px;overflow:hidden}.carta-header{background:#536147;padding:20px 24px}.carta-nutri-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#FDFAF5}.carta-nutri-crn{font-size:10px;color:#B8956A;letter-spacing:.16em;text-transform:uppercase;margin-top:2px}.carta-linha-ouro{height:2px;background:#B8956A}.carta-corpo{padding:24px}.carta-data{font-size:12px;color:#706B63;text-align:right;margin-bottom:20px}.carta-dest{background:#F4EFE4;border-left:3px solid #B8956A;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px}.carta-dest-linha{font-size:13px;color:#272520;margin-bottom:4px}.carta-dest-linha strong{color:#536147}.carta-p{font-size:13px;line-height:1.85;color:#272520;margin-bottom:14px;text-align:justify}.carta-p strong{color:#536147;font-weight:600}.carta-secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#536147;margin:20px 0 8px}.carta-tabela{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:12px}.carta-tabela thead tr{background:#536147}.carta-tabela thead th{padding:8px 12px;text-align:left;color:#FDFAF5;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}.carta-tabela tbody tr:nth-child(odd){background:#FDFAF5}.carta-tabela tbody tr:nth-child(even){background:#F4EFE4}.carta-tabela tbody td{padding:8px 12px;border-bottom:1px solid #EBE4D5;color:#272520;vertical-align:top}.carta-tabela tbody td:first-child{font-weight:600;color:#536147;white-space:nowrap}.carta-tabela tbody tr:last-child td{border-bottom:none}.carta-assinatura{margin-top:24px;padding-top:16px;border-top:1px solid #EBE4D5}.carta-ass-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#536147}.carta-ass-crn{font-size:12px;color:#706B63;margin-top:2px}.carta-ass-marca{font-size:12px;color:#B8956A;margin-top:2px}.carta-cards,.btn-imprimir{display:none}</style></head><body>${conteudo.outerHTML}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close()}}<\/script></body></html>`);
+  janela.document.close();
+}
+const emStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+const jaFechou=localStorage.getItem('banner-instalar-fechado-stela')||emStandalone;
+if(jaFechou)document.getElementById('banner-instalar').style.display='none';
+</script>
+</body>
+</html>
