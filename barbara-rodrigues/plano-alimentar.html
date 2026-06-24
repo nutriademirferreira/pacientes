@@ -95,16 +95,36 @@ nav.nav::-webkit-scrollbar{display:none}
 .carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
 .carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cinza);margin-bottom:8px}
 
-/* banner instalar */
-.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;font-size:13px}
-.banner-instalar button{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:6px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
-.banner-fechar{background:none!important;color:rgba(255,255,255,.5)!important;padding:4px 8px!important}
+/* BANNER */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+.banner-txt{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-txt strong{color:var(--ouro)}
+.banner-acao{display:flex;gap:8px;flex-shrink:0}
+.banner-btn{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.banner-fechar{background:none;border:1px solid rgba(253,250,245,.3);color:var(--creme-suv);border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.aberto{display:flex}
+.modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto}
+.modal-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--verde);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5}
+.instalar-tabs{display:flex;gap:4px;margin-bottom:16px}
+.instalar-tab{flex:1;background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--cinza)}
+.instalar-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.instalar-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px}
+.instalar-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+.instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
+.modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
 
 @media(max-width:600px){
   .macros{grid-template-columns:repeat(3,1fr)}
   .macro-card:first-child{grid-column:span 3}
   .supl-grid{grid-template-columns:repeat(2,1fr)}
 }
+@media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}}
 </style>
 </head>
 <body>
@@ -560,12 +580,38 @@ nav.nav::-webkit-scrollbar{display:none}
 
 </div><!-- /conteudo -->
 
-<!-- Banner instalar -->
-<div class="banner-instalar" id="banner-instalar" style="display:none">
-  <span>Adicione à tela inicial para acesso rápido</span>
-  <div style="display:flex;gap:8px">
-    <button id="btn-instalar">Instalar</button>
+<!-- BANNER -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-txt"><strong>Adicione à sua tela inicial</strong><br>Acesse seu plano como um app, sem precisar do navegador.</div>
+  <div class="banner-acao">
+    <button class="banner-btn" onclick="document.getElementById('modal-instalar').classList.add('aberto')">Como instalar</button>
     <button class="banner-fechar" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-instalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Instalar no celular</div>
+    <div class="modal-sub">Adicione este plano à sua tela inicial para acesso rápido, como se fosse um app.</div>
+    <div class="instalar-tabs">
+      <div class="instalar-tab ativo" onclick="mudarTab('iphone',this)">iPhone</div>
+      <div class="instalar-tab" onclick="mudarTab('android',this)">Android</div>
+    </div>
+    <div class="instalar-painel ativo" id="instalar-iphone">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra este link no <strong>Safari</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque no ícone de <strong>compartilhar</strong> na barra inferior</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Role e toque em <strong>"Adicionar à Tela de Início"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+      <div class="instalar-dica">O ícone vai aparecer na sua tela inicial. Abre como um app, sem barra do navegador.</div>
+    </div>
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra no <strong>Chrome</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque nos <strong>3 pontos</strong> no canto superior direito</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Toque em <strong>"Adicionar à tela inicial"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+    </div>
+    <button class="modal-fechar-btn" onclick="document.getElementById('modal-instalar').classList.remove('aberto')">Entendi</button>
   </div>
 </div>
 
@@ -584,22 +630,19 @@ function toggleSubs(btn) {
   lista.classList.toggle('aberta');
   btn.textContent = lista.classList.contains('aberta') ? '↕ Fechar substituições' : '↕ Ver substituições';
 }
-function fecharBanner() {
-  document.getElementById('banner-instalar').style.display = 'none';
-  localStorage.setItem('banner-instalar-fechado-barbara', '1');
+function mudarTab(id,btn){
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
 }
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!localStorage.getItem('banner-instalar-fechado-barbara')) {
-    document.getElementById('banner-instalar').style.display = 'flex';
-  }
-});
-document.getElementById('btn-instalar').addEventListener('click', () => {
-  if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
-  fecharBanner();
-});
+function fecharBanner(){
+  localStorage.setItem('banner-instalar-fechado-barbara','1');
+  document.getElementById('banner-instalar').style.display='none';
+}
+const emStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+const jaFechou=localStorage.getItem('banner-instalar-fechado-barbara')||emStandalone;
+if(jaFechou)document.getElementById('banner-instalar').style.display='none';
 </script>
 </body>
 </html>

@@ -21,12 +21,13 @@
 body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);min-height:100vh;padding-bottom:80px}
 
 /* NAV */
-.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--creme);box-shadow:0 2px 8px rgba(39,37,32,.08)}
 .header{padding:16px 20px 10px}
-.header-nutri{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--creme-suv)}
-.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase;margin-top:1px}
-.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--creme-suv);margin-top:6px;line-height:1.2}
-.header-meta{font-size:11px;color:var(--ouro);margin-top:3px;letter-spacing:.04em}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+.header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+.header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+.header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
 .linha-ouro{height:2px;background:var(--ouro)}
 .nav{display:flex;overflow-x:auto;gap:0;padding:0 4px;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
@@ -163,10 +164,11 @@ table.prog td:first-child{font-weight:600;color:var(--verde)}
 
 <div class="nav-sticky">
   <div class="header">
+    <div class="header-paciente">Larisse Sousa</div>
     <div class="header-nutri">Ademir Ferreira Junior</div>
     <div class="header-crn">Nutricionista · CRN-3 72295</div>
-    <div class="header-paciente">Larisse Sousa</div>
     <div class="header-meta">Emagrecimento · Atualizado em 19/06/2026</div>
+    <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <div class="linha-ouro"></div>
   <nav class="nav">

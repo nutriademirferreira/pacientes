@@ -19,17 +19,17 @@
   --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
 }
 body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);min-height:100vh}
-.header{background:var(--verde);padding:20px 20px 0}
-.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.header-nutri{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--creme-suv)}
-.header-crn{font-size:10px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase}
-.header-paciente{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv);text-align:center;margin-bottom:4px}
-.header-meta{font-size:11px;color:rgba(253,250,245,.65);text-align:center;margin-bottom:16px}
-.nav{display:flex;overflow-x:auto;gap:2px;background:var(--verde);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--creme);box-shadow:0 2px 8px rgba(39,37,32,.08)}
+.header{padding:16px 20px 10px}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+.header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+.header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+.header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+.nav{display:flex;overflow-x:auto;gap:0;border-top:1px solid var(--bege);-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.65);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
-.nav-btn.ativo{color:var(--ouro);border-bottom-color:var(--ouro)}
-.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);box-shadow:0 2px 12px rgba(39,37,32,.15)}
+.nav-btn{flex-shrink:0;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--cinza);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;letter-spacing:.04em}
+.nav-btn.ativo{color:var(--verde);border-bottom-color:var(--verde)}
 .conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
 .aba{display:none}.aba.ativa{display:block}
 .secao-label{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza);padding-left:10px;border-left:3px solid var(--ouro);margin-bottom:16px}
@@ -161,33 +161,30 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 .td-pos{color:#3B6D11;font-weight:600}.td-neg{color:var(--alerta);font-weight:600}.td-neut{color:var(--cinza)}
 
 /* BANNER */
-.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--verde);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;box-shadow:0 -2px 16px rgba(39,37,32,.2)}
-.banner-instalar-texto{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
-.banner-instalar-texto strong{color:var(--ouro);display:block;font-size:13px;margin-bottom:2px}
-.banner-instalar-acoes{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.btn-instalar{background:var(--ouro);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-.btn-instalar-fechar{background:rgba(255,255,255,.15);color:var(--creme-suv);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.modal-instalar{display:none;position:fixed;inset:0;background:rgba(39,37,32,.6);z-index:1100;align-items:flex-end;justify-content:center}
-.modal-instalar.aberto{display:flex}
-.modal-instalar-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto}
-.modal-instalar-handle{width:40px;height:4px;background:var(--bege);border-radius:2px;margin:0 auto 20px}
-.modal-instalar-titulo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);margin-bottom:4px}
-.modal-instalar-sub{font-size:12px;color:var(--cinza);margin-bottom:24px}
-.instalar-tabs{display:flex;gap:8px;margin-bottom:20px}
-.instalar-tab{flex:1;padding:10px;border:2px solid var(--bege);border-radius:10px;background:transparent;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--cinza);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
-.instalar-tab.ativo{border-color:var(--verde);background:var(--verde);color:var(--creme-suv)}
-.instalar-painel{display:none}.instalar-painel.ativo{display:block}
-.instalar-passo{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bege)}
-.instalar-passo:last-child{border-bottom:none}
-.instalar-num{background:var(--ouro);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
-.instalar-passo-texto{flex:1}
-.instalar-passo-titulo{font-size:14px;font-weight:600;color:var(--carvao);margin-bottom:3px}
-.instalar-passo-desc{font-size:12px;color:var(--cinza);line-height:1.6}
-.instalar-passo-destaque{display:inline-flex;align-items:center;gap:4px;background:var(--creme);border:1px solid var(--bege);border-radius:6px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--verde);margin-top:4px}
-.instalar-dica{background:var(--creme);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--cinza);line-height:1.6}
-.instalar-dica strong{color:var(--verde)}
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+.banner-txt{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-txt strong{color:var(--ouro)}
+.banner-acao{display:flex;gap:8px;flex-shrink:0}
+.banner-btn{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.banner-fechar{background:none;border:1px solid rgba(253,250,245,.3);color:var(--creme-suv);border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer}
 
-@media print{.nav-sticky,.banner-instalar,.modal-instalar{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.aberto{display:flex}
+.modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto}
+.modal-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--verde);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5}
+.instalar-tabs{display:flex;gap:4px;margin-bottom:16px}
+.instalar-tab{flex:1;background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--cinza)}
+.instalar-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.instalar-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px}
+.instalar-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+.instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
+.modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
+
+@media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
 @media(max-width:400px){.macros{grid-template-columns:repeat(2,1fr)}.supl-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){
   .carta-corpo{padding:16px}
@@ -210,14 +207,11 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
 <div class="nav-sticky">
   <div class="header">
-    <div class="header-top">
-      <div>
-        <div class="header-nutri">Ademir Ferreira Junior</div>
-        <div class="header-crn">Nutricionista · CRN-3 72295</div>
-      </div>
-    </div>
     <div class="header-paciente">Carolina Cherry</div>
+    <div class="header-nutri">Ademir Ferreira Junior</div>
+    <div class="header-crn">Nutricionista · CRN-3 72295</div>
     <div class="header-meta">Recomposição corporal · Atualizado em 24/03/2026</div>
+    <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <nav class="nav" id="nav">
     <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
@@ -1129,39 +1123,38 @@ body{background:var(--creme);font-family:'Jost',sans-serif;color:var(--carvao);m
 
 </div>
 
-<!-- BANNER INSTALAR -->
+<!-- BANNER -->
 <div class="banner-instalar" id="banner-instalar">
-  <div class="banner-instalar-texto">
-    <strong>Salve no celular como app</strong>
-    Acesse seu plano sem abrir o navegador
-  </div>
-  <div class="banner-instalar-acoes">
-    <button class="btn-instalar" onclick="abrirModalInstalar()">Como fazer</button>
-    <button class="btn-instalar-fechar" onclick="fecharBannerInstalar()" aria-label="Fechar">×</button>
+  <div class="banner-txt"><strong>Adicione à sua tela inicial</strong><br>Acesse seu plano como um app, sem precisar do navegador.</div>
+  <div class="banner-acao">
+    <button class="banner-btn" onclick="document.getElementById('modal-instalar').classList.add('aberto')">Como instalar</button>
+    <button class="banner-fechar" onclick="fecharBanner()">✕</button>
   </div>
 </div>
 
-<!-- MODAL INSTALAR -->
-<div class="modal-instalar" id="modal-instalar" onclick="fecharModalInstalarFora(event)">
-  <div class="modal-instalar-box">
-    <div class="modal-instalar-handle"></div>
-    <div class="modal-instalar-titulo">Adicionar à tela inicial</div>
-    <div class="modal-instalar-sub">Seu plano vira um atalho direto no celular, sem precisar abrir o navegador</div>
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-instalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Instalar no celular</div>
+    <div class="modal-sub">Adicione este plano à sua tela inicial para acesso rápido, como se fosse um app.</div>
     <div class="instalar-tabs">
-      <button class="instalar-tab ativo" onclick="trocarTabInstalar('ios',this)">🍎 iPhone</button>
-      <button class="instalar-tab" onclick="trocarTabInstalar('android',this)">🤖 Android</button>
+      <div class="instalar-tab ativo" onclick="mudarTab('iphone',this)">iPhone</div>
+      <div class="instalar-tab" onclick="mudarTab('android',this)">Android</div>
     </div>
-    <div class="instalar-painel ativo" id="instalar-ios">
-      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Abra no Safari</div><div class="instalar-passo-desc">Essa função só funciona no Safari.</div></div></div>
-      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Toque em Compartilhar</div><div class="instalar-passo-destaque">⬆ Compartilhar</div></div></div>
-      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Adicionar à Tela de Início</div><div class="instalar-passo-destaque">+ Adicionar à Tela de Início</div></div></div>
-      <div class="instalar-dica">💡 <strong>Dica:</strong> O ícone abre em tela cheia, sem barra de endereço.</div>
+    <div class="instalar-painel ativo" id="instalar-iphone">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra este link no <strong>Safari</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque no ícone de <strong>compartilhar</strong> na barra inferior</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Role e toque em <strong>"Adicionar à Tela de Início"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+      <div class="instalar-dica">O ícone vai aparecer na sua tela inicial. Abre como um app, sem barra do navegador.</div>
     </div>
     <div class="instalar-painel" id="instalar-android">
-      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Abra no Chrome</div></div></div>
-      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Toque nos três pontinhos</div><div class="instalar-passo-destaque">⋮ Menu</div></div></div>
-      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-passo-texto"><div class="instalar-passo-titulo">Adicionar à tela inicial</div><div class="instalar-passo-destaque">+ Adicionar à tela inicial</div></div></div>
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra no <strong>Chrome</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque nos <strong>3 pontos</strong> no canto superior direito</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Toque em <strong>"Adicionar à tela inicial"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
     </div>
+    <button class="modal-fechar-btn" onclick="document.getElementById('modal-instalar').classList.remove('aberto')">Entendi</button>
   </div>
 </div>
 
@@ -1175,15 +1168,15 @@ function mudarAba(id,btn){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function toggleRefeicao(id){document.getElementById(id).classList.toggle('aberta')}
-function abrirModalInstalar(){document.getElementById('modal-instalar').classList.add('aberto');document.body.style.overflow='hidden'}
-function fecharModalInstalar(){document.getElementById('modal-instalar').classList.remove('aberto');document.body.style.overflow=''}
-function fecharModalInstalarFora(e){if(e.target===document.getElementById('modal-instalar'))fecharModalInstalar()}
-function fecharBannerInstalar(){document.getElementById('banner-instalar').style.display='none';localStorage.setItem('banner-instalar-fechado-carolina','1')}
-function trocarTabInstalar(id,btn){
+function mudarTab(id,btn){
   document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
   document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
   btn.classList.add('ativo');
   document.getElementById('instalar-'+id).classList.add('ativo');
+}
+function fecharBanner(){
+  localStorage.setItem('banner-instalar-fechado-carolina','1');
+  document.getElementById('banner-instalar').style.display='none';
 }
 function imprimirCarta(idConteudo){
   const conteudo=document.getElementById(idConteudo);

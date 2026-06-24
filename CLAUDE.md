@@ -574,6 +574,9 @@ Antes de salvar o arquivo gerado, verifique **cada item**. Não pular nenhum.
 - [ ] Nenhum dado nutricional foi estimado sem base — se há dúvida, há placeholder
 
 **🟡 ESTRUTURA E CONTEÚDO — corrigir antes de salvar**
+- [ ] Nenhum travessão (—) nos textos visíveis ao paciente — substituir por vírgula, ponto ou reescrever a frase
+
+
 - [ ] Nenhum `[PLACEHOLDER]` restante no arquivo
 - [ ] Deltas calculados corretamente vs consulta anterior do LEIAME.md
 - [ ] Classes `delta-pos` / `delta-neg` aplicadas corretamente
