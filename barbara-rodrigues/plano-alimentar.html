@@ -22,11 +22,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);min-height:100vh}
 .nav-sticky{position:sticky;top:0;z-index:100;background:var(--creme);box-shadow:0 2px 8px rgba(39,37,32,.08)}
-.header{padding:18px 20px 6px;text-align:center}
-.header-nutri{font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase}
+.header{padding:18px 20px 8px;text-align:center}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+.header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
 .header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
-.header-paciente{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--verde);line-height:1.2}
 .header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+.header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
 nav.nav{display:flex;overflow-x:auto;gap:0;border-top:1px solid var(--bege);scrollbar-width:none}
 nav.nav::-webkit-scrollbar{display:none}
 .nav-btn{flex:0 0 auto;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--cinza);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s}
@@ -110,10 +111,11 @@ nav.nav::-webkit-scrollbar{display:none}
 
 <div class="nav-sticky">
   <div class="header">
+    <div class="header-paciente">Bárbara Rodrigues da Silva</div>
     <div class="header-nutri">Ademir Ferreira Junior</div>
     <div class="header-crn">Nutricionista · CRN-3 72295</div>
-    <div class="header-paciente">Bárbara Rodrigues da Silva</div>
     <div class="header-meta">Emagrecimento · Atualizado em jun/26</div>
+    <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <nav class="nav">
     <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
