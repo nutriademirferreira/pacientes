@@ -128,6 +128,19 @@ nav.nav::-webkit-scrollbar{display:none}
   .carta-tabela{display:none}
   .carta-cards{display:block}
 }
+
+/* evolução */
+.evolucao-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.evolucao-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px}
+.evolucao-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--cinza);margin-bottom:4px}
+.evolucao-valor{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ouro);line-height:1}
+.evolucao-delta{font-size:11px;font-weight:600;margin-top:4px}
+.delta-pos{color:#3B6D11}.delta-neg{color:var(--alerta)}
+.delta-pos-sm{color:#3B6D11;font-weight:600}.delta-neg-sm{color:var(--alerta);font-weight:600}
+.secao-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+.leitura-box{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:16px;margin-top:20px;font-size:13px;color:var(--carvao);line-height:1.75}
+.carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cinza);margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -141,12 +154,134 @@ nav.nav::-webkit-scrollbar{display:none}
     <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <nav class="nav">
+    <button class="nav-btn" onclick="mudarAba('meu-plano',this)">Meu plano</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao personal</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
     <button class="nav-btn ativo" onclick="mudarAba('exames',this)">Exames</button>
     <button class="nav-btn" onclick="mudarAba('solicitacao',this)">Solicitação</button>
   </nav>
 </div>
 
 <div class="conteudo">
+
+  <!-- ABA: MEU PLANO -->
+  <div id="meu-plano" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Plano alimentar será adicionado após análise dos exames.</p>
+    </div>
+  </div>
+
+  <!-- ABA: SUPLEMENTOS -->
+  <div id="suplementos" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Protocolo de suplementação será definido após resultado dos exames.</p>
+    </div>
+  </div>
+
+  <!-- ABA: EVOLUÇÃO -->
+  <div id="evolucao" class="aba">
+    <div class="secao-label" style="margin-bottom:4px">Última avaliação — 29/05/2026</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:16px;line-height:1.6">Comparativo com avaliação anterior (20/03/2026).</div>
+
+    <div class="evolucao-grid">
+      <div class="evolucao-card">
+        <div class="evolucao-label">Peso</div>
+        <div class="evolucao-valor">68,9<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-neg">+0,4 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">IMC</div>
+        <div class="evolucao-valor">30,6</div>
+        <div class="evolucao-delta delta-neg">+0,2 vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">% Gordura</div>
+        <div class="evolucao-valor">33,6<span style="font-size:14px">%</span></div>
+        <div class="evolucao-delta delta-pos">−0,7% vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Massa Gorda</div>
+        <div class="evolucao-valor">23,2<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-pos">−0,3 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">MLG</div>
+        <div class="evolucao-valor">45,7<span style="font-size:14px">kg</span></div>
+        <div class="evolucao-delta delta-pos">+0,7 kg vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Cintura</div>
+        <div class="evolucao-valor">84<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta delta-neg">+0,5 cm vs. anterior</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">Quadril</div>
+        <div class="evolucao-valor">105<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta" style="color:var(--cinza)">= sem alteração</div>
+      </div>
+      <div class="evolucao-card">
+        <div class="evolucao-label">CMB</div>
+        <div class="evolucao-valor">22,7<span style="font-size:14px">cm</span></div>
+        <div class="evolucao-delta delta-pos">+0,4 cm vs. anterior</div>
+      </div>
+    </div>
+
+    <div class="secao-label" style="margin:20px 0 12px">Dobras cutâneas (mm)</div>
+    <table class="carta-tabela">
+      <thead>
+        <tr>
+          <th>Dobra</th>
+          <th>Mar/26</th>
+          <th>Mai/26</th>
+          <th>Delta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Tricipital</td><td>23,0</td><td>21,5</td><td class="delta-pos-sm">−1,5</td></tr>
+        <tr><td>Abdominal</td><td>38,0</td><td>36,5</td><td class="delta-pos-sm">−1,5</td></tr>
+        <tr><td>Subescapular</td><td>39,0</td><td>38,5</td><td class="delta-pos-sm">−0,5</td></tr>
+        <tr><td>Axilar Média</td><td>28,0</td><td>28,0</td><td style="color:var(--cinza)">0</td></tr>
+        <tr><td>Coxa</td><td>32,0</td><td>30,0</td><td class="delta-pos-sm">−2,0</td></tr>
+        <tr><td>Torácica</td><td>18,0</td><td>18,0</td><td style="color:var(--cinza)">0</td></tr>
+        <tr><td>Suprailíaca</td><td>31,0</td><td>29,5</td><td class="delta-pos-sm">−1,5</td></tr>
+        <tr><td style="font-weight:700;color:var(--carvao)">Somatório</td><td><strong>209</strong></td><td><strong>202</strong></td><td class="delta-pos-sm">−7 mm</td></tr>
+      </tbody>
+    </table>
+
+    <div class="leitura-box">
+      <strong style="color:var(--verde);font-family:'Cormorant Garamond',serif;font-size:16px;display:block;margin-bottom:8px">Leitura dos dados</strong>
+      Em maio/26, o somatório de dobras reduziu 7mm em relação a março, sinalizando perda de gordura localizada. O percentual de gordura caiu 0,7% e a massa livre de gordura aumentou 0,7kg — bom sinal de recomposição corporal. O peso subiu 0,4kg, provavelmente por retenção hídrica ou ganho muscular. A cintura aumentou 0,5cm: dado a monitorar, especialmente após resultado dos exames solicitados.
+    </div>
+  </div>
+
+  <!-- ABA: CARTA AO MÉDICO -->
+  <div id="carta-medico" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ABA: CARTA AO PERSONAL -->
+  <div id="carta-personal" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ABA: PROGRESSO -->
+  <div id="progresso" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
 
   <!-- ABA: EXAMES -->
   <div id="exames" class="aba ativa">

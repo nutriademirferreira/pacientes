@@ -130,6 +130,9 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
 
 @media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+
+.carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cinza);margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -144,13 +147,26 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
   </div>
   <div class="linha-ouro"></div>
   <nav class="nav">
+    <button class="nav-btn" onclick="mudarAba('meu-plano',this)">Meu plano</button>
     <button class="nav-btn ativo" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico-nut',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao personal</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
     <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
-    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Solicitacao</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Solicitação</button>
   </nav>
 </div>
 
 <div class="conteudo">
+
+  <!-- ═══ ABA: MEU PLANO ═══ -->
+  <div class="aba" id="aba-meu-plano">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Plano alimentar será elaborado na próxima consulta.</p>
+    </div>
+  </div>
 
   <!-- ═══ ABA: SUPLEMENTOS ═══ -->
   <div class="aba ativa" id="aba-suplementos">
@@ -287,6 +303,38 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         Ferro e cetoprofeno tambem nao devem ser tomados juntos — o AINE reduz absorcao do ferro e aumenta o risco de irritacao gastrica. Espaco de pelo menos 2 horas.<br><br>
         Suspender biotina 3 a 5 dias antes da coleta dos exames laboratoriais (interfere em TSH, T4 e outros hormônios).
       </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: EVOLUÇÃO ═══ -->
+  <div class="aba" id="aba-evolucao">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
+  <div class="aba" id="aba-carta-medico-nut">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: CARTA AO PERSONAL ═══ -->
+  <div class="aba" id="aba-carta-personal">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ABA: PROGRESSO ═══ -->
+  <div class="aba" id="aba-progresso">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
     </div>
   </div>
 
