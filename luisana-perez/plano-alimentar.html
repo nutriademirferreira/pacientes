@@ -286,6 +286,12 @@ nav.nav::-webkit-scrollbar{display:none}
   <!-- ABA: EXAMES -->
   <div id="exames" class="aba ativa">
 
+    <button class="btn-imprimir" onclick="imprimirCarta('exames-conteudo')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Gerar PDF dos Exames
+    </button>
+
+    <div id="exames-conteudo">
     <div class="alerta-box">
       <strong>Por que esses exames?</strong> Você treina todos os dias, segue a alimentação e o peso continua subindo. Isso não fecha apenas com dieta e treino. Precisamos investigar cortisol, hormônios do ciclo e tireoide antes de qualquer ajuste de protocolo.
     </div>
@@ -487,6 +493,7 @@ nav.nav::-webkit-scrollbar{display:none}
       Todos os demais exames: jejum de 8 a 12 horas.
     </div>
 
+    </div><!-- /exames-conteudo -->
   </div><!-- /exames -->
 
   <!-- ABA: SOLICITAÇÃO -->
