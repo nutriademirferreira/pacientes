@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Paula Magnoler — Protocolo Intestinal</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+    --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;
+    --alerta:#C2785A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);max-width:480px;margin:0 auto}
+
+  /* HEADER */
+  .header{padding:18px 20px 8px;text-align:center}
+  .header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+  .header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+  .header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+  .header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+  .header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+
+  /* NAV */
+  .nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);padding:0 12px;overflow-x:auto;white-space:nowrap;display:flex;gap:4px;scrollbar-width:none}
+  .nav-sticky::-webkit-scrollbar{display:none}
+  .nav-btn{display:inline-block;padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.7);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+  .nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+  /* ABAS */
+  .aba{display:none;padding:16px}
+  .aba.ativa{display:block}
+
+  /* CARDS DE CONDIÇÃO */
+  .condicao-card{background:var(--creme-suv);border:1px solid var(--bege);border-left:4px solid var(--alerta);border-radius:12px;padding:16px;margin-bottom:16px}
+  .condicao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--alerta);margin-bottom:6px}
+  .condicao-texto{font-size:13px;color:var(--cinza);line-height:1.6}
+
+  /* RESUMO */
+  .resumo-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:14px;margin-bottom:10px}
+  .resumo-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px}
+  .resumo-valor{font-size:13px;color:var(--carvao);line-height:1.5}
+
+  /* SEÇÃO TÍTULO */
+  .secao-titulo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--verde);margin:20px 0 12px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+
+  /* LISTAS DE ALIMENTOS */
+  .alimento-grupo{margin-bottom:16px}
+  .alimento-grupo-titulo{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);background:var(--bege);padding:6px 12px;border-radius:6px;margin-bottom:8px}
+  .alimento-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--bege);font-size:13px;line-height:1.4}
+  .alimento-item:last-child{border-bottom:none}
+  .alimento-item .dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}
+  .dot-proibido{background:var(--alerta)}
+  .dot-permitido{background:var(--sage)}
+  .dot-reduzir{background:var(--ouro)}
+
+  .tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
+  .tag-proibido{background:#FDEEE9;color:var(--alerta)}
+  .tag-reduzir{background:#FDF6EC;color:var(--ouro)}
+  .tag-obs{background:var(--bege);color:var(--cinza)}
+
+  /* ALERTA BOX */
+  .alerta-box{background:#FDEEE9;border:1px solid #F0C4B4;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:#8B3A22;line-height:1.5}
+  .alerta-box strong{display:block;margin-bottom:4px}
+
+  /* INFO BOX */
+  .info-box{background:#EEF2EA;border:1px solid #C8D4BE;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--verde);line-height:1.5}
+  .info-box strong{display:block;margin-bottom:4px}
+
+  /* BANNER INSTALAR */
+  .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+  .banner-txt{font-size:12px;color:var(--creme);line-height:1.4}
+  .banner-txt strong{color:var(--ouro);display:block}
+  .banner-btns{display:flex;gap:8px;flex-shrink:0}
+  .banner-btn-install{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+  .banner-btn-close{background:none;border:1px solid rgba(255,255,255,.3);color:var(--creme);border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+  .modal-overlay.aberto{display:flex}
+  .modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px}
+  .modal-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--verde);margin-bottom:4px}
+  .modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px}
+  .modal-tabs{display:flex;gap:8px;margin-bottom:16px}
+  .modal-tab{flex:1;padding:8px;text-align:center;border:1px solid var(--bege);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--cinza);background:var(--creme)}
+  .modal-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+  .modal-passo{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+  .modal-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .modal-passo-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+  .modal-os{display:none}
+  .modal-os.ativo{display:block}
+  .modal-fechar{width:100%;background:var(--ouro);color:var(--carvao);border:none;border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:16px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-paciente">Ana Paula Magnoler</div>
+  <div class="header-nutri">Ademir Ferreira Junior</div>
+  <div class="header-crn">Nutricionista · CRN-3 72295</div>
+  <div class="header-meta">Protocolo Intestinal · Jul/2026</div>
+  <div class="header-dossie">Dossiê de Saúde e Evolução</div>
+</div>
+
+<nav class="nav-sticky">
+  <button class="nav-btn ativo" onclick="mostrarAba('resumo',this)">Resumo</button>
+  <button class="nav-btn" onclick="mostrarAba('proibidos',this)">Proibidos</button>
+  <button class="nav-btn" onclick="mostrarAba('permitidos',this)">Permitidos</button>
+  <button class="nav-btn" onclick="mostrarAba('suplementos',this)">Suplementos</button>
+</nav>
+
+<!-- ABA: RESUMO -->
+<div id="resumo" class="aba ativa">
+
+  <div class="condicao-card">
+    <div class="condicao-titulo">SIBO com H₂S</div>
+    <div class="condicao-texto">Supercrescimento bacteriano com bactérias produtoras de gás sulfeto de hidrogênio. O exame respiratório não detectou hidrogênio nem metano, mas o microbioma identificou bactérias específicas (Bilophila e Fusobacterium) que produzem H₂S — um gás diferente, responsável pelos seus sintomas.</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Sintomas principais</div>
+    <div class="resumo-valor">Distensão abdominal, excesso de gases, desconforto gastrointestinal após refeições e constipação intestinal</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Por que você tem gases após o almoço</div>
+    <div class="resumo-valor">As bactérias que produzem H₂S se alimentam de enxofre presente nos alimentos. Quando você come alimentos ricos em enxofre, elas fermentam e liberam gás — causando distensão e desconforto em até 1-2h após a refeição</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Protocolo atual</div>
+    <div class="resumo-valor">Dieta de restrição de enxofre e sulfeto por 15 dias. Objetivo: reduzir o substrato das bactérias e observar melhora dos sintomas</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Antecedentes relevantes</div>
+    <div class="resumo-valor">SIBO tratada anteriormente com melhora parcial · Cesariana · Abdominoplastia · Hemorroida</div>
+  </div>
+
+  <div class="alerta-box">
+    <strong>Atenção com suplementos</strong>
+    Leia o rótulo de todo suplemento antes de tomar. Qualquer ingrediente com "sulfato", "sulfito", "enxofre", NAC, glutationa, MSM ou metionina deve ser suspenso durante os 15 dias.
+  </div>
+
+  <div class="info-box">
+    <strong>O que esperar</strong>
+    Para alguns pacientes os sintomas melhoram já nos primeiros dias. Para outros podem piorar ligeiramente na primeira semana — isso é esperado. Avalie a melhora após 7 dias completos antes de concluir se o enxofre é o culpado.
+  </div>
+
+</div>
+
+<!-- ABA: PROIBIDOS -->
+<div id="proibidos" class="aba">
+
+  <div class="alerta-box">
+    <strong>Evitar totalmente durante os 15 dias</strong>
+    Esses alimentos fornecem enxofre ou sulfato para as bactérias produtoras de H₂S. Quanto mais rigorosa a restrição, mais clara será a resposta.
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Proteínas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Carne vermelha e carne de porco</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Bacalhau, atum, frutos do mar</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Ovos</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Iogurte, leite e queijos em geral</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Whey protein</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Colágeno e gelatina</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Barras de proteína</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Coxa e sobrecoxa de frango <span class="tag tag-reduzir">máx 100g/refeição</span></div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Sardinha, salmão, anchovas <span class="tag tag-reduzir">máx 100g/refeição</span></div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Fígado e vísceras <span class="tag tag-reduzir">máx 100g/refeição</span></div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Vegetais</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Brócolis, couve-flor, couve de Bruxelas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Couve folha, couve kale, repolho</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Espinafre, acelga, agrião, rúcula</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Alho, cebola, alho-poró</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Aspargos, nabo, rabanete</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Vagem e ervilha fresca</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Chucrute</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Pepino <span class="tag tag-reduzir">reduzir</span></div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Cogumelos <span class="tag tag-reduzir">reduzir</span></div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Tomate <span class="tag tag-reduzir">reduzir</span></div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Frutas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Mamão e abacaxi</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Frutas secas em geral (contêm sulfito conservante)</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Bebidas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Café</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Chá preto e chá verde</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Álcool (especialmente cerveja e vinho)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Refrigerante</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Carboidratos e Leguminosas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Trigo e centeio (pão, massa, farinha)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Quinua e trigo sarraceno</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Feijão, grão-de-bico, lentilha</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Soja, tofu, edamame</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Amendoim</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Gorduras e Oleaginosas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Manteiga comum</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Gergelim e tahine</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Castanhas, amêndoas, nozes</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Chocolate e cacau</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Adoçantes</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Xilitol, eritritol, maltitol, sorbitol</div>
+  </div>
+
+</div>
+
+<!-- ABA: PERMITIDOS -->
+<div id="permitidos" class="aba">
+
+  <div class="info-box">
+    <strong>O que não está na lista de restrição pode ser consumido</strong>
+    Os alimentos abaixo podem ser consumidos à vontade. Não passe fome — a restrição é de enxofre, não de calorias.
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Proteínas</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Frango (peito e filé) — à vontade</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Proteína em pó de ervilha ou de arroz</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Ostras e mariscos (com moderação)</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Vegetais</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Cenoura, beterraba, abobrinha</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Pimentão, berinjela, aipo</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Alface, funcho, abóbora, batata doce</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Broto de bambu, pastinaca</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Frutas</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Todas as frutas frescas — exceto mamão e abacaxi</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Banana, laranja, mexerica, maçã, pera, uva, melão</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Frutas vermelhas: morango, mirtilo, framboesa</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Carboidratos</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Arroz branco, jasmim, basmati ou integral</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Batata inglesa, batata doce, mandioca, inhame</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Mandioquinha e bolachas de arroz</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Gorduras</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Azeite, óleo de abacate, óleo de coco</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Ghee (manteiga clarificada)</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Leite de coco natural</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Macadâmia, semente de abóbora, semente de girassol</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Chia e linhaça</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Bebidas</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Água — mínimo 2,5L por dia</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Chá de ervas (camomila, hortelã, gengibre)</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Água de coco natural</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Outros</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Mel</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Extrato de baunilha</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Geleia de frutas sem adoçante e sem frutose adicionada</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Limão (prefira ao vinagre)</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Molho inglês</div>
+  </div>
+
+</div>
+
+<!-- ABA: SUPLEMENTOS -->
+<div id="suplementos" class="aba">
+
+  <div class="alerta-box">
+    <strong>Leia o rótulo de TUDO que tomar</strong>
+    Qualquer suplemento com sulfato, sulfito, enxofre, NAC, glutationa, MSM, metionina, cisteína, taurina ou glicina deve ser suspenso durante os 15 dias.
+  </div>
+
+  <div class="secao-titulo">Suplementos de apoio (permitidos)</div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Psyllium</div>
+    <div class="resumo-valor">1 colher de sopa (10g) em 300ml de água · 30 min antes do almoço e jantar · Amolece as fezes e ajuda o intestino a funcionar sem esforço</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Magnésio Bisglicinato</div>
+    <div class="resumo-valor">300mg · À noite antes de dormir · Regulariza o trânsito intestinal de forma suave</div>
+  </div>
+
+  <div class="resumo-item">
+    <div class="resumo-label">Probiótico</div>
+    <div class="resumo-valor">10-30 bilhões UFC com Lactobacillus + Bifidobacterium · Pela manhã em jejum · Reequilibra a microbiota intestinal</div>
+  </div>
+
+  <div class="secao-titulo">Suplementos a suspender</div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-item"><span class="dot dot-proibido"></span>NAC (N-acetil-cisteína)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Glutationa</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>MSM (metilsulfonilmetano)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Ácido alfa-lipóico</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Metionina, cisteína, taurina, glicina</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Betaína HCl</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Sulfato de glucosamina / condroitina</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Clorella</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Whey protein (qualquer tipo)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Colágeno</div>
+  </div>
+
+</div>
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="bannerInstalar">
+  <div class="banner-txt">
+    <strong>Salvar no celular</strong>
+    Acesse seu protocolo offline, sem precisar do link
+  </div>
+  <div class="banner-btns">
+    <button class="banner-btn-install" onclick="abrirModal()">Instalar</button>
+    <button class="banner-btn-close" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-overlay" id="modalInstalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Salvar no celular</div>
+    <div class="modal-sub">Acesse seu protocolo como um app, sem precisar do link</div>
+    <div class="modal-tabs">
+      <button class="modal-tab ativo" onclick="trocarOs('iphone',this)">iPhone</button>
+      <button class="modal-tab" onclick="trocarOs('android',this)">Android</button>
+    </div>
+    <div class="modal-os ativo" id="os-iphone">
+      <div class="modal-passo"><div class="modal-num">1</div><div class="modal-passo-txt">Abra este link no Safari (não Chrome)</div></div>
+      <div class="modal-passo"><div class="modal-num">2</div><div class="modal-passo-txt">Toque no ícone de compartilhar (quadrado com seta)</div></div>
+      <div class="modal-passo"><div class="modal-num">3</div><div class="modal-passo-txt">Role para baixo e toque em "Adicionar à Tela de Início"</div></div>
+      <div class="modal-passo"><div class="modal-num">4</div><div class="modal-passo-txt">Toque em "Adicionar" no canto superior direito</div></div>
+    </div>
+    <div class="modal-os" id="os-android">
+      <div class="modal-passo"><div class="modal-num">1</div><div class="modal-passo-txt">Abra este link no Chrome</div></div>
+      <div class="modal-passo"><div class="modal-num">2</div><div class="modal-passo-txt">Toque nos três pontos no canto superior direito</div></div>
+      <div class="modal-passo"><div class="modal-num">3</div><div class="modal-passo-txt">Toque em "Adicionar à tela inicial"</div></div>
+      <div class="modal-passo"><div class="modal-num">4</div><div class="modal-passo-txt">Confirme tocando em "Adicionar"</div></div>
+    </div>
+    <button class="modal-fechar" onclick="fecharModal()">Entendido</button>
+  </div>
+</div>
+
+<script>
+  function mostrarAba(id, btn) {
+    document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+    document.getElementById(id).classList.add('ativa');
+    btn.classList.add('ativo');
+  }
+
+  function abrirModal() { document.getElementById('modalInstalar').classList.add('aberto'); }
+  function fecharModal() { document.getElementById('modalInstalar').classList.remove('aberto'); }
+  function fecharBanner() {
+    document.getElementById('bannerInstalar').style.display = 'none';
+    localStorage.setItem('banner-instalar-fechado-ana-paula', '1');
+  }
+  function trocarOs(os, btn) {
+    document.querySelectorAll('.modal-os').forEach(el => el.classList.remove('ativo'));
+    document.querySelectorAll('.modal-tab').forEach(el => el.classList.remove('ativo'));
+    document.getElementById('os-' + os).classList.add('ativo');
+    btn.classList.add('ativo');
+  }
+
+  if (localStorage.getItem('banner-instalar-fechado-ana-paula')) {
+    document.getElementById('bannerInstalar').style.display = 'none';
+  }
+</script>
+</body>
+</html>
