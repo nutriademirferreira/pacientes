@@ -134,6 +134,7 @@
   <button class="nav-btn" onclick="mostrarAba('suplementos',this)">Suplementos</button>
   <button class="nav-btn" onclick="mostrarAba('exames',this)">Exames</button>
   <button class="nav-btn" onclick="mostrarAba('evolucao',this)">Evolução</button>
+  <button class="nav-btn" onclick="mostrarAba('recomendacoes',this)">Gestacao</button>
   <button class="nav-btn" onclick="mostrarAba('progresso',this)">Progresso</button>
 </nav>
 
@@ -513,6 +514,120 @@
   <div class="card">
     <div class="card-label">Meta de ganho semanal (2º e 3º trimestre)</div>
     <div class="card-valor">Até 0,28 kg por semana. O protocolo alimentar vai ajudar a controlar esse ritmo sem comprometer o crescimento do bebê.</div>
+  </div>
+
+</div>
+
+<!-- ABA: RECOMENDAÇÕES GESTACIONAIS -->
+<div id="recomendacoes" class="aba">
+
+  <div class="alerta-box">
+    <strong>Gestação de risco — atenção redobrada</strong>
+    Essas recomendações são especialmente importantes para o seu caso. Em caso de dúvida, consulte sempre sua médica Dra. Melissa antes de qualquer mudança.
+  </div>
+
+  <div class="secao-titulo">Proibido na gestação</div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Alimentos</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Carne crua ou malpassada (carpaccio, ceviche, steak tartare)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Peixe cru (sushi, sashimi)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Frutos do mar crus ou mal cozidos</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Embutidos crus: salame, presunto cru, copa</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Ovos crus ou mal cozidos (maionese caseira, gemada)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Leite e queijos não pasteurizados (queijo minas artesanal, brie, camembert, gorgonzola)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Patê industrializado refrigerado</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Brotos crus (alfafa, feijão)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Acai de fonte desconhecida (risco de doenca de Chagas)</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Bebidas</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Alcool em qualquer quantidade</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Refrigerantes com cafeina acima do limite diario</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Cha de ervas sem orientacao medica (hortelã-pimenta em excesso, erva-doce em excesso, alcaçuz)</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Adoçantes contraindicados</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Ciclamato de sodio (presente em muitos adoçantes de mesa e refrigerantes diet)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Sacarina</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Steviosideo em doses elevadas (estevia pura em pequena quantidade e aceita)</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Suplementos e medicamentos</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Tirzepatida (Mounjaro) — ja suspensa, nao retomar</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Vitamina A em dose alta (acima de 10.000 UI/dia)</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Qualquer suplemento sem liberacao da medica</div>
+    <div class="alimento-item"><span class="dot dot-proibido"></span>Anti-inflamatorios (ibuprofeno, diclofenaco) sem orientacao medica</div>
+  </div>
+
+  <div class="secao-titulo">Evitar ou limitar</div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Cafeina — limite 200mg/dia</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Cafe: maximo 1 xcara pequena (100-150ml) por dia</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Coca Zero (tem cafeina): contar no total diario</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Cha preto e cha verde: evitar ou 1 xcara/dia no maximo</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Chocolate amargo: com moderacao</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Peixes com mercurio elevado</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Atum enlatado: maximo 2 latas por semana</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Cacao, tubarao, peixe-espada, cavalinha: evitar</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Salmon, sardinha, tilapia, pescada: seguros e recomendados</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Outros</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Alimentos ultraprocessados: embutidos, nuggets, salgadinhos</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Sodio em excesso: favorece retencao hidrica e pressao alta gestacional</div>
+    <div class="alimento-item"><span class="dot dot-reduzir"></span>Acucar refinado em excesso: risco de diabetes gestacional</div>
+  </div>
+
+  <div class="secao-titulo">Cuidados especiais — seu caso</div>
+
+  <div class="card card-alerta">
+    <div class="card-label">Tabagismo</div>
+    <div class="card-valor">O cigarro reduz o oxigenio que chega ao bebe, aumenta risco de parto prematuro, baixo peso ao nascer e morte subita infantil. A reducao ja ajuda. Converse com sua medica sobre apoio para parar.</div>
+  </div>
+
+  <div class="card card-alerta">
+    <div class="card-label">Toxoplasmose — voce nao tem imunidade</div>
+    <div class="card-valor">Higienize bem todas as frutas e verduras. Evite carne malpassada. Nao limpe caixa de areia de gato. Use luvas ao mexer com terra. Repita o exame a cada trimestre.</div>
+  </div>
+
+  <div class="card card-alerta">
+    <div class="card-label">Retirada do Donaren</div>
+    <div class="card-valor">A retirada abrupta pode causar insonia de rebote e ansiedade, que voce ja sente. Informe sua medica sobre como fez a retirada para que ela avalie se precisa de suporte.</div>
+  </div>
+
+  <div class="secao-titulo">O que e seguro e recomendado</div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Alimentos prioritarios na gestacao</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Frango, peixe, ovo cozido — proteina para o bebe crescer</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Feijao, lentilha, grao-de-bico — ferro + folato</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Folhas verde-escuras (couve, espinafre) — folato e calcio</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Aveia, batata doce, arroz integral — carboidrato com fibra</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Leite, iogurte, queijo pasteurizado — calcio</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Salmon e sardinha — DHA para o cerebro do bebe</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Frutas variadas — vitaminas e antioxidantes</div>
+  </div>
+
+  <div class="alimento-grupo">
+    <div class="alimento-grupo-titulo">Chas seguros na gestacao</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Camomila (com moderacao)</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Gengibre suave (auxilia nauseas)</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Erva-cidreira</div>
+    <div class="alimento-item"><span class="dot dot-permitido"></span>Agua de coco natural</div>
+  </div>
+
+  <div class="info-box" style="margin-top:16px">
+    <strong>Hidratacao na gestacao</strong>
+    Meta: 2,5 a 3 litros de agua por dia. A hidratacao adequada reduz risco de contraccoes prematuras, ajuda os rins e melhora a tontura durante o treino.
   </div>
 
 </div>
