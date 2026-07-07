@@ -516,6 +516,28 @@
     <div class="card-valor">Até 0,28 kg por semana. O protocolo alimentar vai ajudar a controlar esse ritmo sem comprometer o crescimento do bebê.</div>
   </div>
 
+  <div class="secao-titulo">Acompanhamento semanal de peso</div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <table id="tabela-peso" style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:var(--bege)">
+          <th style="padding:10px 8px;text-align:center;font-family:'Jost',sans-serif;font-weight:600;color:var(--carvao);font-size:11px;text-transform:uppercase;letter-spacing:.05em">Semana</th>
+          <th style="padding:10px 8px;text-align:center;font-family:'Jost',sans-serif;font-weight:600;color:var(--carvao);font-size:11px;text-transform:uppercase;letter-spacing:.05em">Meta (kg)</th>
+          <th style="padding:10px 8px;text-align:center;font-family:'Jost',sans-serif;font-weight:600;color:var(--carvao);font-size:11px;text-transform:uppercase;letter-spacing:.05em">Seu peso</th>
+          <th style="padding:10px 8px;text-align:center;font-family:'Jost',sans-serif;font-weight:600;color:var(--carvao);font-size:11px;text-transform:uppercase;letter-spacing:.05em">Dif.</th>
+        </tr>
+      </thead>
+      <tbody id="corpo-tabela-peso"></tbody>
+    </table>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button onclick="limparPesos()" style="flex:1;padding:10px;background:var(--bege);border:none;border-radius:8px;font-family:'Jost',sans-serif;font-size:12px;color:var(--cinza);cursor:pointer">Limpar tudo</button>
+    <button onclick="compartilharPesos()" style="flex:2;padding:10px;background:var(--verde);border:none;border-radius:8px;font-family:'Jost',sans-serif;font-size:12px;color:#fff;font-weight:600;cursor:pointer">📤 Enviar para Dra. Nutri (WhatsApp)</button>
+  </div>
+  <p style="font-size:10px;color:var(--cinza);text-align:center;margin-top:6px">Preencha seu peso toda semana e envie para acompanhamento</p>
+
 </div>
 
 <!-- ABA: RECOMENDAÇÕES GESTACIONAIS -->
@@ -706,6 +728,70 @@
   if (localStorage.getItem('banner-instalar-fechado-karla')) {
     document.getElementById('bannerInstalar').style.display = 'none';
   }
+
+  // Tabela de peso gestacional
+  const SEMANAS = [
+    {s:13,meta:71.7},{s:14,meta:72.0},{s:15,meta:72.2},{s:16,meta:72.5},
+    {s:17,meta:72.8},{s:18,meta:73.1},{s:19,meta:73.3},{s:20,meta:73.6},
+    {s:21,meta:73.9},{s:22,meta:74.2},{s:23,meta:74.4},{s:24,meta:74.7},
+    {s:25,meta:75.0},{s:26,meta:75.3},{s:27,meta:75.5},{s:28,meta:75.8},
+    {s:29,meta:76.1},{s:30,meta:76.4},{s:31,meta:76.6},{s:32,meta:76.9},
+    {s:33,meta:77.2},{s:34,meta:77.5},{s:35,meta:77.7},{s:36,meta:78.0},
+    {s:37,meta:78.3},{s:38,meta:78.8},{s:39,meta:79.3},{s:40,meta:79.8}
+  ];
+
+  function carregarPesos() {
+    return JSON.parse(localStorage.getItem('karla-pesos-gestacao') || '{}');
+  }
+  function salvarPeso(semana, valor) {
+    const dados = carregarPesos();
+    if (valor === '') delete dados[semana];
+    else dados[semana] = parseFloat(valor);
+    localStorage.setItem('karla-pesos-gestacao', JSON.stringify(dados));
+  }
+  function renderizarTabela() {
+    const dados = carregarPesos();
+    const tbody = document.getElementById('corpo-tabela-peso');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    SEMANAS.forEach(({s, meta}) => {
+      const real = dados[s];
+      const dif = real != null ? (real - meta).toFixed(1) : null;
+      const difColor = dif == null ? '' : (parseFloat(dif) > 0.3 ? 'color:#C2785A;font-weight:700' : parseFloat(dif) < -0.5 ? 'color:#8A9B78;font-weight:700' : 'color:var(--cinza)');
+      const bgRow = real != null ? 'background:var(--creme-suv)' : '';
+      tbody.innerHTML += `<tr style="border-top:1px solid var(--bege);${bgRow}">
+        <td style="padding:9px 8px;text-align:center;font-weight:600;color:var(--verde)">${s}ª</td>
+        <td style="padding:9px 8px;text-align:center;color:var(--cinza)">${meta.toFixed(1)}</td>
+        <td style="padding:6px 4px;text-align:center">
+          <input type="number" step="0.1" min="60" max="100" placeholder="—"
+            value="${real != null ? real : ''}"
+            onchange="salvarPeso(${s}, this.value); renderizarTabela()"
+            style="width:64px;padding:6px;border:1px solid var(--bege);border-radius:6px;text-align:center;font-family:'Jost',sans-serif;font-size:13px;background:var(--creme-suv);color:var(--carvao)">
+        </td>
+        <td style="padding:9px 8px;text-align:center;${difColor}">${dif != null ? (parseFloat(dif) > 0 ? '+' : '') + dif : '—'}</td>
+      </tr>`;
+    });
+  }
+  function limparPesos() {
+    if (confirm('Apagar todos os pesos registrados?')) {
+      localStorage.removeItem('karla-pesos-gestacao');
+      renderizarTabela();
+    }
+  }
+  function compartilharPesos() {
+    const dados = carregarPesos();
+    const linhas = SEMANAS
+      .filter(({s}) => dados[s] != null)
+      .map(({s, meta}) => {
+        const real = dados[s];
+        const dif = (real - meta).toFixed(1);
+        return `Sem. ${s}: ${real} kg (meta ${meta.toFixed(1)} kg, dif. ${parseFloat(dif)>0?'+':''}${dif})`;
+      });
+    if (linhas.length === 0) { alert('Nenhum peso registrado ainda.'); return; }
+    const msg = encodeURIComponent(`📊 *Registro de peso gestacional — Karla*\n\n${linhas.join('\n')}\n\n_Enviado pelo app Nutri Ademir Ferreira_`);
+    window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
+  }
+  renderizarTabela();
 </script>
 </body>
 </html>
