@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gislene Soares Leite — Protocolo de Suplementação</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+    --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;
+    --alerta:#C2785A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);max-width:480px;margin:0 auto}
+
+  .header{padding:18px 20px 8px;text-align:center}
+  .header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+  .header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+  .header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+  .header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+  .header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+
+  .nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);padding:0 12px;overflow-x:auto;white-space:nowrap;display:flex;gap:4px;scrollbar-width:none}
+  .nav-sticky::-webkit-scrollbar{display:none}
+  .nav-btn{display:inline-block;padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.7);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+  .nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+  .aba{display:none;padding:16px}
+  .aba.ativa{display:block}
+
+  .secao-titulo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--verde);margin:20px 0 12px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+  .secao-titulo:first-child{margin-top:4px}
+
+  .card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .card-destaque{border-left:3px solid var(--ouro)}
+  .card-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);margin-bottom:5px}
+  .card-valor{font-size:13px;color:var(--carvao);line-height:1.6}
+
+  .info-box{background:#EEF2EA;border:1px solid #C8D4BE;border-radius:10px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--verde);line-height:1.5}
+  .info-box strong{display:block;margin-bottom:4px;font-size:14px}
+
+  /* SUPLEMENTOS */
+  .supl-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .supl-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .supl-nome{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--verde);line-height:1.2}
+  .supl-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+  .badge-urgente{background:#536147;color:#FDFAF5}
+  .badge-importante{background:#EEF2EA;color:#536147}
+  .badge-complementar{background:var(--bege);color:var(--cinza)}
+  .badge-prescrito{background:var(--ouro);color:#fff}
+
+  .supl-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+  .supl-detalhe{background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px}
+  .supl-detalhe-label{font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
+  .supl-detalhe-val{font-size:12px;font-weight:600;color:var(--carvao)}
+
+  .supl-obj{font-size:12px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px;margin-top:2px}
+  .supl-alerta{font-size:11px;color:var(--alerta);margin-top:6px;font-weight:500}
+
+  .rotina-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bege);align-items:flex-start}
+  .rotina-item:last-child{border-bottom:none}
+  .rotina-hora{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--ouro);white-space:nowrap;min-width:52px}
+  .rotina-desc{font-size:13px;color:var(--carvao);line-height:1.5}
+  .rotina-desc span{display:block;font-size:11px;color:var(--cinza);margin-top:2px}
+
+  .aviso-card{background:#FDF6EC;border:1px solid #E8D5B5;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#7A5C2E;line-height:1.5}
+  .aviso-card strong{display:block;margin-bottom:3px;font-size:13px}
+
+  /* BANNER */
+  .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+  .banner-txt{font-size:12px;color:var(--creme);line-height:1.4}
+  .banner-txt strong{color:var(--ouro);display:block}
+  .banner-btns{display:flex;gap:8px;flex-shrink:0}
+  .banner-btn-install{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+  .banner-btn-close{background:none;border:1px solid rgba(255,255,255,.3);color:var(--creme);border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer}
+
+  .modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+  .modal-overlay.aberto{display:flex}
+  .modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:480px}
+  .modal-titulo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--verde);margin-bottom:4px}
+  .modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px}
+  .modal-tabs{display:flex;gap:8px;margin-bottom:16px}
+  .modal-tab{flex:1;padding:8px;text-align:center;border:1px solid var(--bege);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--cinza);background:var(--creme)}
+  .modal-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+  .modal-passo{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+  .modal-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+  .modal-passo-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+  .modal-os{display:none}
+  .modal-os.ativo{display:block}
+  .modal-fechar{width:100%;background:var(--ouro);color:var(--carvao);border:none;border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:16px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-paciente">Gislene Soares Leite</div>
+  <div class="header-nutri">Ademir Ferreira Junior</div>
+  <div class="header-crn">Nutricionista · CRN-3 72295</div>
+  <div class="header-meta">Protocolo de Vitalidade · Jul/2026</div>
+  <div class="header-dossie">Dossiê de Saúde e Evolução</div>
+</div>
+
+<nav class="nav-sticky">
+  <button class="nav-btn ativo" onclick="mostrarAba('resumo',this)">Resumo</button>
+  <button class="nav-btn" onclick="mostrarAba('suplementos',this)">Suplementos</button>
+  <button class="nav-btn" onclick="mostrarAba('rotina',this)">Rotina</button>
+</nav>
+
+<!-- ABA: RESUMO -->
+<div id="resumo" class="aba ativa">
+
+  <div class="secao-titulo">Perfil da paciente</div>
+
+  <div class="card card-destaque">
+    <div class="card-label">Histórico relevante</div>
+    <div class="card-valor">56 anos. Sem vesícula biliar (retirada há muitos anos). Histórico de cálculo renal no rim direito, tratado com litotripsia em fevereiro/2026. Trabalha em pé em um garden. Faz exercício em casa 5x/semana com mini bands e pesos.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Alimentação atual</div>
+    <div class="card-valor">Café da manhã às 7h30 com pão francês, margarina, chás e frutas. Almoço às 14h com arroz, carne e salada. Jantar quase nunca come, às vezes iogurte com fruta ou biscoitos. Dificuldade com carne vermelha. Não come peixe nem atum. Frango consegue comer bem (120g).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Pontos em acompanhamento</div>
+    <div class="card-valor">Gases com feijão. Episódio de mal-estar durante aula experimental na academia (30-40 min de treino). Inchaço nas pernas antes da internação. Consumo de frituras na rotina.</div>
+  </div>
+
+  <div class="secao-titulo">Por que suplementar?</div>
+
+  <div class="card">
+    <div class="card-label">Sem vesícula</div>
+    <div class="card-valor">A vesícula concentra a bile para liberar em dose certeira na digestão de gorduras. Sem ela, a bile goteja continuamente em quantidade menor, o que reduz a absorção de vitaminas lipossolúveis (D, E, K) e de ômega-3 pela alimentação. Por isso o protocolo usa formas farmacêuticas específicas e doses divididas nas refeições.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">56 anos e proteína baixa</div>
+    <div class="card-valor">A partir dos 50 anos, a absorção de alguns nutrientes cai naturalmente: B12 precisa de mais fator intrínseco, vitamina D é sintetizada menos pela pele, e a demanda muscular aumenta. Com pouca carne vermelha e sem peixe, a densidade de micronutrientes da dieta fica abaixo do ideal.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Cálculo renal</div>
+    <div class="card-valor">O magnésio citrato entra no protocolo não só para sono e músculo, mas também como proteção: o magnésio inibe a formação de cristais de oxalato de cálcio, que é o tipo mais comum de pedra no rim. É a suplementação mais estratégica do protocolo para o seu caso.</div>
+  </div>
+
+</div>
+
+<!-- ABA: SUPLEMENTOS -->
+<div id="suplementos" class="aba">
+
+  <div class="info-box">
+    <strong>Todos de venda livre</strong>
+    Nenhum suplemento desta lista exige prescrição médica. Foram escolhidos com base no seu histórico, na ausência da vesícula e no histórico de cálculo renal. Siga os horários para garantir melhor absorção.
+  </div>
+
+  <div class="secao-titulo">Prioridade 1 — Iniciar agora</div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Magnésio Citrato</div>
+      <span class="supl-badge badge-urgente">Prioritário</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose</div>
+        <div class="supl-detalhe-val">300 mg/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">À noite</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Forma</div>
+        <div class="supl-detalhe-val">Citrato</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Com água</div>
+      </div>
+    </div>
+    <div class="supl-obj">Protege contra a formação de novas pedras no rim (o citrato bloqueia a cristalização do oxalato). Também melhora a qualidade do sono, reduz câimbras e ajuda o músculo a se recuperar dos treinos. Use a forma citrato, não o óxido.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Vitamina B12 Metilcobalamina</div>
+      <span class="supl-badge badge-urgente">Prioritário</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose</div>
+        <div class="supl-detalhe-val">500 mcg/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">Manhã</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Forma</div>
+        <div class="supl-detalhe-val">Metilcobalamina</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Em jejum ou sublingual</div>
+      </div>
+    </div>
+    <div class="supl-obj">Após os 50 anos, o organismo absorve menos B12 dos alimentos. Como você come pouca carne vermelha e não come peixe, o risco de déficit é alto. A B12 é essencial para energia, raciocínio e proteção do sistema nervoso. Use a forma metilcobalamina, que é a mais biodisponível.</div>
+  </div>
+
+  <div class="secao-titulo">Prioridade 2 — Iniciar na semana 1</div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Ômega-3 (EPA + DHA)</div>
+      <span class="supl-badge badge-importante">Importante</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose</div>
+        <div class="supl-detalhe-val">2g EPA+DHA/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">Dividido: almoço + jantar</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Forma</div>
+        <div class="supl-detalhe-val">rTG (triglicerídeo)</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Com refeição gordurosa</div>
+      </div>
+    </div>
+    <div class="supl-obj">Como você não tem vesícula, precisa da forma rTG (triglicerídeo re-esterificado) que é absorvida melhor sem bile. Evite as marcas mais baratas com forma "ethyl ester". O ômega-3 reduz inflamação, cuida do coração e pode ajudar com o inchaço nas pernas. Divida 1 cápsula no almoço e 1 no jantar.</div>
+    <div class="supl-alerta">Leia o rótulo: procure "forma TG" ou "triglicerídeo" — não "ethyl ester"</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Vitamina D3 + K2 MK-7</div>
+      <span class="supl-badge badge-importante">Importante</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose D3</div>
+        <div class="supl-detalhe-val">3.000 UI/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose K2</div>
+        <div class="supl-detalhe-val">100 mcg/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">Almoço</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Com gordura na refeição</div>
+      </div>
+    </div>
+    <div class="supl-obj">Vitamina D é lipossolúvel e precisa de gordura para ser absorvida, por isso tome no almoço. A K2 acompanha a D3 para direcionar o cálcio para os ossos e não para os vasos. Essencial para saúde óssea, imunidade e função muscular. Prefira fórmulas que já venham D3 + K2 na mesma cápsula.</div>
+  </div>
+
+  <div class="secao-titulo">Prioridade 3 — Iniciar na semana 2</div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Coenzima Q10 (Ubiquinol)</div>
+      <span class="supl-badge badge-complementar">Complementar</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose</div>
+        <div class="supl-detalhe-val">100 mg/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">Almoço</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Forma</div>
+        <div class="supl-detalhe-val">Ubiquinol</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Com refeição</div>
+      </div>
+    </div>
+    <div class="supl-obj">A CoQ10 é o combustível das células para produção de energia. A partir dos 50 anos a produção natural cai. Pode explicar parte da fadiga e do mal-estar durante o treino. Use a forma ubiquinol, que é a mais biodisponível e não precisa de conversão pelo organismo.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Colágeno Hidrolisado Tipo 1</div>
+      <span class="supl-badge badge-complementar">Complementar</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Dose</div>
+        <div class="supl-detalhe-val">10 g/dia</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Horário</div>
+        <div class="supl-detalhe-val">Café da manhã</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Como tomar</div>
+        <div class="supl-detalhe-val">Com vitamina C (fruta)</div>
+      </div>
+      <div class="supl-detalhe">
+        <div class="supl-detalhe-label">Atenção</div>
+        <div class="supl-detalhe-val">Sem vitamina C alta dose</div>
+      </div>
+    </div>
+    <div class="supl-obj">Suporte para articulações (você trabalha em pé e treina 5x/semana), pele e tecido conjuntivo. A vitamina C da fruta que você já come no café da manhã é suficiente para potencializar a absorção. Dissolva em água, suco ou iogurte.</div>
+    <div class="supl-alerta">Não combine com suplemento de vitamina C em alta dose (acima de 500 mg) — risco de aumentar oxalato urinário</div>
+  </div>
+
+</div>
+
+<!-- ABA: ROTINA -->
+<div id="rotina" class="aba">
+
+  <div class="secao-titulo">Como encaixar na sua rotina</div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="rotina-item" style="padding:12px 14px">
+      <div class="rotina-hora">07h30</div>
+      <div class="rotina-desc">
+        Café da manhã
+        <span>Colágeno 10g dissolvido no iogurte ou suco + B12 500 mcg (sublingual ou comprimido)</span>
+      </div>
+    </div>
+    <div class="rotina-item" style="padding:12px 14px">
+      <div class="rotina-hora">14h</div>
+      <div class="rotina-desc">
+        Almoço
+        <span>Ômega-3 1 cápsula + Vitamina D3+K2 1 cápsula + CoQ10 1 cápsula — todos com a refeição</span>
+      </div>
+    </div>
+    <div class="rotina-item" style="padding:12px 14px;border-bottom:none">
+      <div class="rotina-hora">Noite</div>
+      <div class="rotina-desc">
+        Jantar ou antes de dormir
+        <span>Ômega-3 1 cápsula (com qualquer alimento) + Magnésio Citrato 300 mg com água</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao-titulo">O que evitar</div>
+
+  <div class="aviso-card">
+    <strong>Vitamina C em alta dose</strong>
+    Suplementos de vitamina C acima de 500 mg por dia aumentam o oxalato urinário, o que pode favorecer novos cálculos renais. A vitamina C das frutas que você já come é segura e suficiente.
+  </div>
+
+  <div class="aviso-card">
+    <strong>Cálcio isolado sem acompanhamento</strong>
+    Não inicie suplemento de cálcio isolado sem pedir para a médica dosar cálcio sérico e 25-OH-vitamina D antes. O K2 já no protocolo ajuda a direcionar o cálcio que você ingere na alimentação para os ossos.
+  </div>
+
+  <div class="aviso-card">
+    <strong>Ômega-3 forma Ethyl Ester (EE)</strong>
+    Sem vesícula, a absorção desta forma é muito reduzida. Sempre verifique no rótulo se consta "forma TG" ou "triglicerídeo re-esterificado (rTG)".
+  </div>
+
+  <div class="secao-titulo">Quando reavaliar</div>
+
+  <div class="card">
+    <div class="card-label">3 meses</div>
+    <div class="card-valor">Dosar 25-OH-vitamina D para ajustar dose da D3 se necessário. Avaliar se os sintomas (energia, sono, câimbras) melhoraram com o protocolo.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Próxima consulta médica</div>
+    <div class="card-valor">Solicitar: hemograma completo, ferritina, B12 sérica, 25-OH-vitamina D e exame de urina com oxalúria. Informar à médica sobre o episódio de mal-estar durante o treino para avaliação cardiovascular.</div>
+  </div>
+
+</div>
+
+<!-- BANNER INSTALAR -->
+<div id="bannerInstalar" class="banner-instalar">
+  <div class="banner-txt">
+    <strong>Salvar no celular</strong>
+    Acesse seu protocolo mesmo sem internet
+  </div>
+  <div class="banner-btns">
+    <button class="banner-btn-install" onclick="abrirModal()">Instalar</button>
+    <button class="banner-btn-close" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<!-- MODAL INSTALAR -->
+<div class="modal-overlay" id="modalInstalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Salvar no celular</div>
+    <div class="modal-sub">Acesse seu protocolo como um app, sem precisar de internet.</div>
+    <div class="modal-tabs">
+      <button class="modal-tab ativo" onclick="trocarOs('ios',this)">iPhone</button>
+      <button class="modal-tab" onclick="trocarOs('android',this)">Android</button>
+    </div>
+    <div id="os-ios" class="modal-os ativo">
+      <div class="modal-passo"><div class="modal-num">1</div><div class="modal-passo-txt">Toque no ícone de compartilhar (quadrado com seta) na barra do Safari</div></div>
+      <div class="modal-passo"><div class="modal-num">2</div><div class="modal-passo-txt">Role para baixo e toque em "Adicionar à Tela de Início"</div></div>
+      <div class="modal-passo"><div class="modal-num">3</div><div class="modal-passo-txt">Toque em "Adicionar" no canto superior direito</div></div>
+    </div>
+    <div id="os-android" class="modal-os">
+      <div class="modal-passo"><div class="modal-num">1</div><div class="modal-passo-txt">Toque nos 3 pontos no canto superior direito do Chrome</div></div>
+      <div class="modal-passo"><div class="modal-num">2</div><div class="modal-passo-txt">Toque em "Adicionar à tela inicial"</div></div>
+      <div class="modal-passo"><div class="modal-num">3</div><div class="modal-passo-txt">Confirme tocando em "Adicionar"</div></div>
+    </div>
+    <button class="modal-fechar" onclick="fecharModal()">Entendi</button>
+  </div>
+</div>
+
+<script>
+  function mostrarAba(id, btn) {
+    document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+    document.getElementById(id).classList.add('ativa');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+  }
+  function abrirModal() { document.getElementById('modalInstalar').classList.add('aberto'); }
+  function fecharModal() { document.getElementById('modalInstalar').classList.remove('aberto'); }
+  function fecharBanner() {
+    document.getElementById('bannerInstalar').style.display = 'none';
+    localStorage.setItem('banner-instalar-fechado-gislene', '1');
+  }
+  function trocarOs(os, btn) {
+    document.querySelectorAll('.modal-os').forEach(o => o.classList.remove('ativo'));
+    document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('ativo'));
+    document.getElementById('os-' + os).classList.add('ativo');
+    btn.classList.add('ativo');
+  }
+  if (localStorage.getItem('banner-instalar-fechado-gislene')) {
+    document.getElementById('bannerInstalar').style.display = 'none';
+  }
+</script>
+</body>
+</html>
