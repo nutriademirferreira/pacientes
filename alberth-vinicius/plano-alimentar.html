@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alberth Vinícius — Análise Cardiológica e TRT</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+    --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;
+    --alerta:#C2785A;--ok:#3B6D11;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);max-width:480px;margin:0 auto}
+
+  .header{padding:18px 20px 8px;text-align:center}
+  .header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+  .header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+  .header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+  .header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+  .header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+
+  .nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);padding:0 12px;overflow-x:auto;white-space:nowrap;display:flex;gap:4px;scrollbar-width:none}
+  .nav-sticky::-webkit-scrollbar{display:none}
+  .nav-btn{display:inline-block;padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.7);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+  .nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+  .aba{display:none;padding:16px}
+  .aba.ativa{display:block}
+
+  .secao-titulo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--verde);margin:20px 0 12px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+  .secao-titulo:first-child{margin-top:4px}
+
+  .card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .card-destaque{border-left:3px solid var(--ouro)}
+  .card-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);margin-bottom:5px}
+  .card-valor{font-size:13px;color:var(--carvao);line-height:1.6}
+
+  /* STATUS BADGES */
+  .status-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bege)}
+  .status-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+  .status-info{flex:1}
+  .status-nome{font-size:13px;font-weight:600;color:var(--carvao);line-height:1.3}
+  .status-val{font-size:12px;color:var(--cinza);margin-top:2px}
+  .status-ref{font-size:11px;color:var(--cinza);opacity:.8}
+  .badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+  .badge-ok{background:#EEF5E8;color:#3B6D11}
+  .badge-alto{background:#FDF0EB;color:var(--alerta)}
+  .badge-baixo{background:#FDF6EC;color:#7A5C2E}
+  .badge-atencao{background:#FFF8E6;color:#9B7B20}
+  .badge-excelente{background:#536147;color:#FDFAF5}
+
+  /* RISCO */
+  .risco-card{border-radius:12px;padding:14px;margin-bottom:12px}
+  .risco-card.grave{background:#FDF0EB;border:1px solid #E8C5B0}
+  .risco-card.atencao{background:#FFF8E6;border:1px solid #EDD9A0}
+  .risco-card.ok{background:#EEF5E8;border:1px solid #C1D9AC}
+  .risco-titulo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3}
+  .risco-titulo.grave{color:var(--alerta)}
+  .risco-titulo.atencao{color:#9B7B20}
+  .risco-titulo.ok{color:var(--ok)}
+  .risco-txt{font-size:12px;line-height:1.6;color:var(--carvao)}
+  .risco-emoji{font-size:16px;margin-right:4px}
+
+  /* TABELA EXAMES */
+  .tabela-exames{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px}
+  .tabela-exames thead th{background:var(--verde);color:var(--creme-suv);padding:7px 8px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .tabela-exames tbody tr:nth-child(odd){background:var(--creme-suv)}
+  .tabela-exames tbody tr:nth-child(even){background:var(--creme)}
+  .tabela-exames td{padding:7px 8px;border-bottom:1px solid var(--bege);line-height:1.4}
+  .tabela-exames .val-alto{color:var(--alerta);font-weight:600}
+  .tabela-exames .val-baixo{color:#9B7B20;font-weight:600}
+  .tabela-exames .val-ok{color:var(--ok)}
+
+  /* COMPOSIÇÃO */
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .comp-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:10px;text-align:center}
+  .comp-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ouro)}
+  .comp-label{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cinza);margin-top:2px}
+  .comp-delta{font-size:11px;margin-top:4px;font-weight:500}
+  .delta-pos{color:var(--ok)}
+  .delta-neg{color:var(--alerta)}
+
+  /* PLANO */
+  .plano-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bege);align-items:flex-start}
+  .plano-item:last-child{border-bottom:none}
+  .plano-num{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ouro);min-width:28px;line-height:1}
+  .plano-titulo{font-size:13px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+  .plano-desc{font-size:12px;color:var(--cinza);line-height:1.5}
+  .plano-prazo{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--alerta);margin-top:4px}
+
+  /* VERDICT */
+  .verdict-box{background:var(--verde);color:var(--creme-suv);border-radius:14px;padding:18px;margin-bottom:16px;text-align:center}
+  .verdict-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:6px}
+  .verdict-sub{font-size:12px;opacity:.85;line-height:1.5}
+
+  /* IMAGEM */
+  .img-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .img-card-titulo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--verde);margin-bottom:8px}
+  .img-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--bege)}
+  .img-row:last-child{border-bottom:none}
+  .img-param{font-size:12px;color:var(--carvao)}
+  .img-val{font-size:12px;font-weight:600;color:var(--verde)}
+  .img-val.alerta{color:var(--alerta)}
+
+  /* BANNER */
+  .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+  .banner-txt{font-size:12px;color:var(--creme);line-height:1.4}
+  .banner-txt strong{color:var(--ouro);display:block}
+  .banner-btns{display:flex;gap:8px;flex-shrink:0}
+  .banner-btn-install{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+  .banner-btn-close{background:none;border:1px solid rgba(255,255,255,.3);color:var(--creme);border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer}
+
+  .info-verde{background:#EEF2EA;border:1px solid #C8D4BE;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--verde);line-height:1.5}
+  .info-ouro{background:#FDF6EC;border:1px solid #E8D5B5;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#7A5C2E;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-nutri">Nutricionista Ademir Ferreira Junior · CRN-3 72295</div>
+  <div class="header-paciente">Alberth Vinícius</div>
+  <div class="header-meta">33 anos · Masculino · São Paulo, SP</div>
+  <div class="header-dossie">Análise Cardiológica e TRT</div>
+  <div class="header-meta" style="margin-top:4px">Exames: 03/03/2026</div>
+</div>
+
+<nav class="nav-sticky" id="nav">
+  <button class="nav-btn ativo" onclick="trocarAba('resumo',this)">Resumo</button>
+  <button class="nav-btn" onclick="trocarAba('historico',this)">Histórico Clínico</button>
+  <button class="nav-btn" onclick="trocarAba('imagens',this)">Imagens</button>
+  <button class="nav-btn" onclick="trocarAba('plano',this)">Plano de Ação</button>
+</nav>
+
+<!-- ABA RESUMO -->
+<div id="resumo" class="aba ativa">
+
+  <p class="secao-titulo">Composição corporal</p>
+  <div class="comp-grid">
+    <div class="comp-item">
+      <div class="comp-val">100 kg</div>
+      <div class="comp-label">Peso atual</div>
+      <div class="comp-delta delta-pos">−33 kg desde o pico</div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-val">32,8</div>
+      <div class="comp-label">IMC</div>
+      <div class="comp-delta delta-pos">Era 43,9 no início</div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-val">12,5%</div>
+      <div class="comp-label">Gordura corporal</div>
+      <div class="comp-delta delta-pos">Zona de atleta</div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-val">84,8 kg</div>
+      <div class="comp-label">Massa magra</div>
+      <div class="comp-delta delta-neg">−12,2 kg desde o pico</div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-val">34,0 cm</div>
+      <div class="comp-label">CMB (braço)</div>
+      <div class="comp-delta delta-neg">−1,7 cm recentemente</div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-val">−33 kg</div>
+      <div class="comp-label">Perda total</div>
+      <div class="comp-delta" style="color:var(--ouro)">Transformação real</div>
+    </div>
+  </div>
+
+  <p class="secao-titulo">O que está excelente</p>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok"><span class="risco-emoji">❤️</span>Coração estruturalmente saudável</div>
+    <div class="risco-txt">ECG 100% normal, fração de ejeção de 68% (acima do normal), sem hipertrofia ventricular, função diastólica conservada. Fígado limpo pelo ultrassom e pelas enzimas hepáticas.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok"><span class="risco-emoji">🩸</span>Metabolismo transformado</div>
+    <div class="risco-txt">Glicemia 95 mg/dL (era 103 em 2022). HbA1c 5,3%, sem pré-diabetes. HOMA-IR de 1,20, sem resistência insulínica. Triglicerídeos em 77 mg/dL, excelentes.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok"><span class="risco-emoji">🔬</span>Fígado que renasceu</div>
+    <div class="risco-txt">GGT era 61 em 2022 e hoje está em 22. Queda de 64%. TGP caiu de 26 para 16. O fígado está livre de esteatose, confirmado por ultrassom. Pode metabolizar qualquer substância, incluindo hormônios.</div>
+  </div>
+
+  <p class="secao-titulo">Pontos de atenção</p>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao"><span class="risco-emoji">🟡</span>Perda de massa magra</div>
+    <div class="risco-txt">A MLG caiu 12,2 kg desde o pico e a CMB caiu 1,7 cm recentemente. O músculo está sendo perdido junto com a gordura. Isso precisa ser monitorado de perto com a nutrição.</div>
+  </div>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao"><span class="risco-emoji">🟡</span>HDL e LDL — monitorar antes da TRT</div>
+    <div class="risco-txt">HDL está em 43,9 mg/dL, no limite inferior masculino. A testosterona de depósito tende a reduzir o HDL. LDL em 107, aceitável hoje, mas pode subir com a TRT.</div>
+  </div>
+
+  <p class="secao-titulo">Alerta principal</p>
+
+  <div class="risco-card grave">
+    <div class="risco-titulo grave"><span class="risco-emoji">🔴</span>TRT não pode ser iniciada agora</div>
+    <div class="risco-txt">Três condições precisam ser resolvidas antes: testosterona já está acima do limite (863 ng/dL), homocisteína elevada (15,72) indica processo aterogênico, e ferritina elevada (341) cria risco de policitemia com Deposteron. Veja o Plano de Ação para o que fazer agora.</div>
+  </div>
+
+</div>
+
+<!-- ABA HISTÓRICO CLÍNICO -->
+<div id="historico" class="aba">
+
+  <p class="secao-titulo">Exames laboratoriais — 03/03/2026</p>
+
+  <div class="info-verde">
+    <strong style="font-size:13px;display:block;margin-bottom:4px">Como ler essa aba</strong>
+    Os resultados estão organizados por eixo clínico. Cada resultado mostra o valor, a referência e um comentário do Nutri Ademir.
+  </div>
+
+  <!-- METABOLISMO GLICÍDICO -->
+  <div class="card card-destaque">
+    <div class="card-label">Metabolismo glicídico</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Glicemia de jejum</div>
+        <div class="status-val">95 mg/dL</div>
+        <div class="status-ref">Referência: 70–99 mg/dL · Era 103 em 2022</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Hemoglobina glicada (HbA1c)</div>
+        <div class="status-val">5,3%</div>
+        <div class="status-ref">Referência: menor que 5,7%</div>
+      </div>
+      <span class="badge badge-excelente">Excelente</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Insulina de jejum</div>
+        <div class="status-val">5,13 µUI/mL</div>
+        <div class="status-ref">Referência: 3,0–25,0</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">HOMA-IR (resistência insulínica)</div>
+        <div class="status-val">1,20</div>
+        <div class="status-ref">Abaixo de 2,5 = sem resistência</div>
+      </div>
+      <span class="badge badge-excelente">Excelente</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: A glicemia estava em 103 em 2022 — zona limítrofe de pré-diabetes. Hoje está em 95. Isso é o resultado direto da perda de peso. O metabolismo de açúcar está funcionando bem.
+    </div>
+  </div>
+
+  <!-- LIPÍDIOS -->
+  <div class="card card-destaque">
+    <div class="card-label">Perfil lipídico</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Colesterol Total</div>
+        <div class="status-val">166 mg/dL</div>
+        <div class="status-ref">Referência: menor que 190 mg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">HDL (colesterol "bom")</div>
+        <div class="status-val">43,9 mg/dL</div>
+        <div class="status-ref">Referência: maior que 40 mg/dL</div>
+      </div>
+      <span class="badge badge-atencao">Limítrofe</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">LDL (colesterol "ruim")</div>
+        <div class="status-val">107 mg/dL</div>
+        <div class="status-ref">Risco baixo: menor que 115 mg/dL</div>
+      </div>
+      <span class="badge badge-ok">Aceitável</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Triglicerídeos</div>
+        <div class="status-val">77 mg/dL</div>
+        <div class="status-ref">Referência: menor que 150 mg/dL</div>
+      </div>
+      <span class="badge badge-excelente">Excelente</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Lipoproteína(a)</div>
+        <div class="status-val">15,1 mg/dL</div>
+        <div class="status-ref">Fator de risco: acima de 50 mg/dL</div>
+      </div>
+      <span class="badge badge-excelente">Excelente</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: Lp(a) é um fator de risco cardiovascular genético que não depende de dieta. Estar em 15 é ótimo. O HDL em 43,9 é o ponto que merece atenção, pois a testosterona de depósito tende a reduzir o HDL.
+    </div>
+  </div>
+
+  <!-- FÍGADO -->
+  <div class="card card-destaque">
+    <div class="card-label">Função hepática</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">TGO (AST)</div>
+        <div class="status-val">19 U/L</div>
+        <div class="status-ref">Referência: 15–37 U/L</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">TGP (ALT)</div>
+        <div class="status-val">16 U/L</div>
+        <div class="status-ref">Referência: 16–63 U/L · Era 26 em 2022</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">GGT</div>
+        <div class="status-val">22 U/L</div>
+        <div class="status-ref">Referência: 15–85 U/L · Era 61 em 2022</div>
+      </div>
+      <span class="badge badge-excelente">Excelente</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: A GGT caiu 64% em 4 anos. Ela é um marcador sensível de gordura no fígado. Hoje está na zona normal. O fígado limpo é muito importante: ele metaboliza hormônios, medicamentos e suplementos. Está em condições ideais para suportar qualquer protocolo.
+    </div>
+  </div>
+
+  <!-- HORMÔNIOS -->
+  <div class="card card-destaque">
+    <div class="card-label">Eixo hormonal</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Testosterona Total</div>
+        <div class="status-val" style="color:var(--alerta)">863,39 ng/dL</div>
+        <div class="status-ref">Referência masculina: 165–753 ng/dL</div>
+      </div>
+      <span class="badge badge-alto">Acima</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">TSH (tireoide)</div>
+        <div class="status-val">0,67 µUI/mL</div>
+        <div class="status-ref">Referência adulto: 0,55–4,78 µUI/mL</div>
+      </div>
+      <span class="badge badge-atencao">Limite inferior</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">T4 Livre</div>
+        <div class="status-val">1,20 ng/dL</div>
+        <div class="status-ref">Referência: 0,89–1,76 ng/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">DHEA</div>
+        <div class="status-val">2,0 ng/mL</div>
+        <div class="status-ref">Referência masculina: 1,3–6,5 ng/mL</div>
+      </div>
+      <span class="badge badge-atencao">Terço inferior</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">PTH (paratormônio)</div>
+        <div class="status-val">16,7 pg/mL</div>
+        <div class="status-ref">Referência: 18,5–88,0 pg/mL</div>
+      </div>
+      <span class="badge badge-baixo">Abaixo</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: A testosterona em 863 ng/dL é o achado mais importante para a decisão de TRT. O valor está 15% acima do limite superior do laboratório. Isso pode ser efeito da perda de gordura (menos tecido que converte testosterona em estrogênio), mas precisamos dos valores de LH e FSH para entender se é produção própria do organismo ou algum outro fator. Sem esses exames, a decisão de usar Deposteron não pode ser tomada com segurança.
+    </div>
+  </div>
+
+  <!-- FERRO E VITAMINAS -->
+  <div class="card card-destaque">
+    <div class="card-label">Ferro, vitaminas e micronutrientes</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Ferritina</div>
+        <div class="status-val" style="color:var(--alerta)">341 ng/mL</div>
+        <div class="status-ref">Referência masculina: 22–322 ng/mL</div>
+      </div>
+      <span class="badge badge-alto">Acima</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Ferro sérico</div>
+        <div class="status-val">138 µg/dL</div>
+        <div class="status-ref">Referência: 65–175 µg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Vitamina D</div>
+        <div class="status-val">43,61 ng/mL</div>
+        <div class="status-ref">Adequado: 20–60 ng/mL</div>
+      </div>
+      <span class="badge badge-ok">Adequada</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Vitamina B12</div>
+        <div class="status-val">388 pg/mL</div>
+        <div class="status-ref">Referência: 211–911 pg/mL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Vitamina C</div>
+        <div class="status-val">36,70 µmol/L</div>
+        <div class="status-ref">Referência: 30–150 µmol/L</div>
+      </div>
+      <span class="badge badge-atencao">Baixo-normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Ácido fólico (folato)</div>
+        <div class="status-val">9,36 ng/mL</div>
+        <div class="status-ref">Normal: acima de 5,38 ng/mL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Zinco</div>
+        <div class="status-val">85,49 µg/dL</div>
+        <div class="status-ref">Referência: 70–120 µg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Magnésio</div>
+        <div class="status-val">1,8 mg/dL</div>
+        <div class="status-ref">Referência: 1,8–2,4 mg/dL</div>
+      </div>
+      <span class="badge badge-atencao">Limite inferior</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: A ferritina elevada (341) é o segundo problema para a TRT. A testosterona de depósito estimula a produção de glóbulos vermelhos. Com a ferritina já acima do limite, esse processo pode elevar o hematócrito demais, tornando o sangue mais espesso e aumentando o risco de coágulos. O magnésio no limite inferior é mais sutil, mas importa para músculo, sono e coração.
+    </div>
+  </div>
+
+  <!-- INFLAMAÇÃO E VASCULAR -->
+  <div class="card card-destaque">
+    <div class="card-label">Inflamação e risco vascular</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Homocisteína</div>
+        <div class="status-val" style="color:var(--alerta)">15,72 µmol/L</div>
+        <div class="status-ref">Referência: 3,7–13,9 µmol/L</div>
+      </div>
+      <span class="badge badge-alto">Elevada</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">PCR (Proteína C Reativa)</div>
+        <div class="status-val">1,0 mg/L</div>
+        <div class="status-ref">Referência: menor que 3,0 mg/L</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: A homocisteína elevada é o achado mais importante do painel inteiro do ponto de vista cardiovascular. Ela machuca a parede interna dos vasos sanguíneos e favorece o início da aterosclerose. Ela está elevada, e o doppler de carótidas mostrou um espessamento borderline na artéria esquerda — os dois juntos indicam que esse processo precisa ser tratado antes de qualquer hormônio adicional. A boa notícia: a homocisteína responde bem a vitaminas do complexo B.
+    </div>
+  </div>
+
+  <!-- HEMOGRAMA E RINS -->
+  <div class="card">
+    <div class="card-label">Hemograma, rins e eletrólitos</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Hemoglobina</div>
+        <div class="status-val">15,6 g/dL</div>
+        <div class="status-ref">Referência masculina: 12,5–16,0 g/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Hematócrito (Hct)</div>
+        <div class="status-val">43,9%</div>
+        <div class="status-ref">Referência masculina: 40–50%</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Leucócitos (glóbulos brancos)</div>
+        <div class="status-val">6.440/mm³</div>
+        <div class="status-ref">Referência: 4.000–10.000/mm³</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Creatinina</div>
+        <div class="status-val">0,89 mg/dL · TFG maior que 90</div>
+        <div class="status-ref">Referência: 0,70–1,30 mg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Sódio / Potássio</div>
+        <div class="status-val">140 mEq/L / 4,24 mEq/L</div>
+        <div class="status-ref">Referência: Na 135–145 · K 3,5–5,0</div>
+      </div>
+      <span class="badge badge-ok">Ambos normais</span>
+    </div>
+
+    <div class="card-valor" style="margin-top:8px;font-style:italic;color:var(--cinza)">
+      Comentário: O hematócrito de 43,9% é um valor de referência importante antes da TRT. Se for iniciada, esse número precisa ser monitorado mensalmente nos primeiros meses. Acima de 52–54% o sangue fica espesso demais.
+    </div>
+  </div>
+
+  <!-- OUTROS -->
+  <div class="card">
+    <div class="card-label">Outros exames</div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Proteínas totais / Albumina</div>
+        <div class="status-val">7,0 g/dL / 4,4 g/dL</div>
+        <div class="status-ref">Referência: 6,4–8,2 / 3,4–5,0</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Transferrina</div>
+        <div class="status-val">236 mg/dL</div>
+        <div class="status-ref">Referência: 202–364 mg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Ácido úrico</div>
+        <div class="status-val">4,9 mg/dL</div>
+        <div class="status-ref">Referência: 3,5–7,2 mg/dL</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">Cálcio iônico</div>
+        <div class="status-val">1,23 mmol/L</div>
+        <div class="status-ref">Referência adulto: 1,10–1,35</div>
+      </div>
+      <span class="badge badge-ok">Normal</span>
+    </div>
+
+    <div class="status-row">
+      <div class="status-info">
+        <div class="status-nome">HBsAg (Hepatite B) / Sífilis</div>
+        <div class="status-val">Não reagente / Não reagente</div>
+      </div>
+      <span class="badge badge-ok">Negativos</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ABA IMAGENS -->
+<div id="imagens" class="aba">
+
+  <p class="secao-titulo">Eletrocardiograma — 10/02/2026</p>
+
+  <div class="img-card">
+    <div class="img-card-titulo">ECG em Repouso</div>
+    <div class="img-row"><span class="img-param">Ritmo</span><span class="img-val">Sinusal regular</span></div>
+    <div class="img-row"><span class="img-param">Frequência cardíaca</span><span class="img-val">66 bpm</span></div>
+    <div class="img-row"><span class="img-param">Intervalo PR</span><span class="img-val">150 ms (normal)</span></div>
+    <div class="img-row"><span class="img-param">Duração QRS</span><span class="img-val">90 ms (normal)</span></div>
+    <div class="img-row"><span class="img-param">Eixo do QRS</span><span class="img-val">+60° (normal)</span></div>
+    <div class="img-row"><span class="img-param">Alterações</span><span class="img-val">Nenhuma</span></div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">ECG completamente normal</div>
+    <div class="risco-txt">Sem bloqueios, sem alterações de repolarização, sem arritmia. O coração conduz o impulso elétrico de forma perfeita. Do ponto de vista do ECG, não há nenhuma contraindicação para atividade física intensa nem para TRT.</div>
+  </div>
+
+  <p class="secao-titulo">Ecocardiograma — 10/02/2026</p>
+
+  <div class="img-card">
+    <div class="img-card-titulo">Ecocardiograma Transtorácico</div>
+    <div class="img-row"><span class="img-param">Fração de Ejeção (FE)</span><span class="img-val">68%</span></div>
+    <div class="img-row"><span class="img-param">Normal esperado</span><span class="img-val">Acima de 55%</span></div>
+    <div class="img-row"><span class="img-param">Septo interventricular</span><span class="img-val">9 mm (normal)</span></div>
+    <div class="img-row"><span class="img-param">Parede posterior VE</span><span class="img-val">9 mm (normal)</span></div>
+    <div class="img-row"><span class="img-param">Índice de massa VE</span><span class="img-val">63 g/m² (normal)</span></div>
+    <div class="img-row"><span class="img-param">Função diastólica</span><span class="img-val">Conservada</span></div>
+    <div class="img-row"><span class="img-param">Refluxo mitral</span><span class="img-val">Mínimo (sem significado)</span></div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">Coração funcionando acima do normal</div>
+    <div class="risco-txt">FE de 68% é o que se espera de um atleta. O coração bombeia mais sangue por batimento do que a média. Sem hipertrofia patológica — o músculo cardíaco não engrossou de forma doentia. O refluxo mínimo na válvula mitral é um achado comum, sem nenhuma relevância clínica.</div>
+  </div>
+
+  <p class="secao-titulo">Doppler de Carótidas — 19/02/2026</p>
+
+  <div class="img-card">
+    <div class="img-card-titulo">Espessura Íntima-Média (CMI)</div>
+    <div class="img-row"><span class="img-param">CMI artéria direita</span><span class="img-val">0,62 mm (normal)</span></div>
+    <div class="img-row"><span class="img-param">CMI artéria esquerda</span><span class="img-val alerta">0,73 mm (borderline)</span></div>
+    <div class="img-row"><span class="img-param">Normal esperado para 33 anos</span><span class="img-val">Menor que 0,70 mm</span></div>
+    <div class="img-row"><span class="img-param">Placas</span><span class="img-val">Nenhuma hemodinamicamente significativa</span></div>
+  </div>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao">Carótida esquerda ligeiramente espessada</div>
+    <div class="risco-txt">A parede interna da artéria esquerda está 0,73 mm — levemente acima do esperado para 33 anos. Não há placa formada. Não é doença instalada. Mas combinado com a homocisteína elevada, é um sinal de que o processo de aterosclerose pode estar em estágio muito precoce. Por isso a homocisteína precisa ser corrigida antes da TRT.</div>
+  </div>
+
+  <p class="secao-titulo">Ultrassons — 09/02/2026</p>
+
+  <div class="img-card">
+    <div class="img-card-titulo">Ultrassom de Tireoide</div>
+    <div class="img-row"><span class="img-param">Volume total</span><span class="img-val">11,6 cm³ (normal)</span></div>
+    <div class="img-row"><span class="img-param">Nódulos / Alterações</span><span class="img-val">Nenhum encontrado</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-card-titulo">Ultrassom de Abdome</div>
+    <div class="img-row"><span class="img-param">Fígado</span><span class="img-val">Normal, sem esteatose</span></div>
+    <div class="img-row"><span class="img-param">Vesícula biliar</span><span class="img-val">Normal</span></div>
+    <div class="img-row"><span class="img-param">Rins</span><span class="img-val">Normais</span></div>
+    <div class="img-row"><span class="img-param">Outros</span><span class="img-val">Sem alterações</span></div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">Órgãos internos saudáveis</div>
+    <div class="risco-txt">Fígado sem gordura, tireoide normal, rins sem lesão. Isso confirma que a perda de peso foi bem conduzida e não gerou dano a órgãos vitais. O fígado limpo é fundamental para metabolizar hormônios com segurança.</div>
+  </div>
+
+</div>
+
+<!-- ABA PLANO DE AÇÃO -->
+<div id="plano" class="aba">
+
+  <p class="secao-titulo">Veredicto — TRT agora?</p>
+
+  <div class="verdict-box">
+    <div class="verdict-titulo">Cardiovascular: liberado</div>
+    <div class="verdict-sub">ECG, ecocardiograma e função cardíaca não representam contraindicação. Seu coração está em ótimas condições.</div>
+  </div>
+
+  <div class="risco-card grave">
+    <div class="risco-titulo grave">TRT global: aguardar — 3 condições pendentes</div>
+    <div class="risco-txt">O problema não é o coração. São três sinais periféricos que precisam ser resolvidos primeiro para que o protocolo seja seguro e eficaz.</div>
+  </div>
+
+  <p class="secao-titulo">As 3 condições para liberar</p>
+
+  <div class="card card-destaque">
+    <div class="card-label" style="color:var(--alerta)">Condição 1 — Urgente</div>
+    <div class="status-nome" style="font-size:14px;font-weight:600;margin-bottom:6px">Entender por que a testosterona está em 863 ng/dL</div>
+    <div class="card-valor">Sua testosterona está acima do limite de referência. Adicionar Deposteron em cima disso pode ser suprafisiológico e trazer riscos. Precisamos dos exames de LH e FSH para entender se seu próprio organismo está produzindo essa testosterona sozinho. Esses exames são obrigatórios antes de qualquer decisão.</div>
+    <div style="margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--alerta)">Coletar imediatamente</div>
+  </div>
+
+  <div class="card card-destaque">
+    <div class="card-label" style="color:var(--alerta)">Condição 2 — 90 dias</div>
+    <div class="status-nome" style="font-size:14px;font-weight:600;margin-bottom:6px">Normalizar a homocisteína (hoje em 15,72)</div>
+    <div class="card-valor">A homocisteína elevada está agredindo a parede dos vasos sanguíneos — o espessamento da carótida esquerda é uma evidência disso. Ela responde bem a vitaminas do complexo B. Em 3 meses de suplementação, reavaliamos o nível. Se normalizar, essa condição estará cumprida.</div>
+    <div style="margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--alerta)">Prazo: 90 dias</div>
+  </div>
+
+  <div class="card card-destaque">
+    <div class="card-label" style="color:var(--alerta)">Condição 3 — Investigar</div>
+    <div class="status-nome" style="font-size:14px;font-weight:600;margin-bottom:6px">Entender e controlar a ferritina (hoje em 341)</div>
+    <div class="card-valor">A ferritina está acima do limite masculino. A testosterona de depósito estimula produção de glóbulos vermelhos, o que consome ferro e pode elevar demais a viscosidade do sangue. Precisamos entender por que está elevada antes de adicionar um estímulo de eritropoiese.</div>
+    <div style="margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--alerta)">Investigar e monitorar</div>
+  </div>
+
+  <p class="secao-titulo">O que fazer nas próximas semanas</p>
+
+  <div class="card">
+    <div class="plano-item">
+      <div class="plano-num">1</div>
+      <div>
+        <div class="plano-titulo">Colher LH, FSH, Testosterona livre e PSA</div>
+        <div class="plano-desc">Coleta em jejum, manhã (entre 7h e 10h). Esses quatro exames são a base para qualquer decisão sobre TRT. O PSA é obrigatório antes de qualquer protocolo com testosterona.</div>
+        <div class="plano-prazo">Semana 1 — imediato</div>
+      </div>
+    </div>
+
+    <div class="plano-item">
+      <div class="plano-num">2</div>
+      <div>
+        <div class="plano-titulo">Iniciar suplementação para homocisteína</div>
+        <div class="plano-desc">Metilfolato 800 mcg + Metilcobalamina (B12) 1.000 mcg + Vitamina B6 50 mg. Tomar pela manhã junto com a primeira refeição. Reavaliar homocisteína em 90 dias.</div>
+        <div class="plano-prazo">Semana 1 — iniciar agora</div>
+      </div>
+    </div>
+
+    <div class="plano-item">
+      <div class="plano-num">3</div>
+      <div>
+        <div class="plano-titulo">Colher vitamina B6 (piridoxal-5-fosfato)</div>
+        <div class="plano-desc">Para identificar se a deficiência de B6 é a causa principal da homocisteína elevada. Pedir junto com os outros exames.</div>
+        <div class="plano-prazo">Semana 1 — junto com os demais exames</div>
+      </div>
+    </div>
+
+    <div class="plano-item">
+      <div class="plano-num">4</div>
+      <div>
+        <div class="plano-titulo">Iniciar Magnésio Citrato 300 mg</div>
+        <div class="plano-desc">O magnésio estava no limite inferior. O citrato é a forma com melhor absorção. Tomar à noite antes de dormir. Beneficia o sono, a contração muscular e a saúde cardíaca.</div>
+        <div class="plano-prazo">Semana 1 — iniciar agora</div>
+      </div>
+    </div>
+
+    <div class="plano-item">
+      <div class="plano-num">5</div>
+      <div>
+        <div class="plano-titulo">Aumentar Vitamina C para 500 mg/dia</div>
+        <div class="plano-desc">Estava no piso da referência. A vitamina C protege o endotélio (parede interna dos vasos), algo especialmente importante enquanto a homocisteína está elevada.</div>
+        <div class="plano-prazo">Semana 1 — iniciar agora</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="secao-titulo">O que monitorar — mês 3</p>
+
+  <div class="card">
+    <div class="card-valor" style="line-height:1.8">
+      <strong>Homocisteína</strong> — meta abaixo de 13,9 µmol/L<br>
+      <strong>Ferritina</strong> — entender tendência, idealmente abaixo de 300<br>
+      <strong>LDL e HDL</strong> — baseline antes de qualquer TRT<br>
+      <strong>Hematócrito</strong> — medir antes e mensalmente se TRT iniciada<br>
+      <strong>Composição corporal</strong> — parar a queda de massa magra
+    </div>
+  </div>
+
+  <p class="secao-titulo">Nota importante</p>
+
+  <div class="info-ouro">
+    <strong style="font-size:13px;display:block;margin-bottom:4px">O que esta análise representa</strong>
+    Esta avaliação foi conduzida sob perspectiva cardiológica esportiva para subsidiar a conversa com seu médico. Ela não substitui consulta médica e não deve ser usada para iniciar ou alterar qualquer protocolo hormonal sem orientação do médico responsável. O Nutri Ademir atua de forma integrada com a equipe médica.
+  </div>
+
+  <div class="info-verde">
+    <strong style="font-size:13px;display:block;margin-bottom:4px">Em resumo</strong>
+    Você perdeu 33 kg e transformou sua saúde. O coração está ótimo. O metabolismo virou. Agora o próximo passo é resolvido em 3 meses com exames e suplementação específica. A TRT, se confirmada como indicada pelos exames de LH e FSH, pode ser iniciada com muito mais segurança depois disso.
+  </div>
+
+</div>
+
+<!-- BANNER PWA -->
+<div class="banner-instalar" id="banner-instalar" style="display:none">
+  <div class="banner-txt">
+    <strong>Adicionar à tela inicial</strong>
+    Acesse seu dossiê sem internet
+  </div>
+  <div class="banner-btns">
+    <button class="banner-btn-install" id="btn-instalar">Instalar</button>
+    <button class="banner-btn-close" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<div style="height:32px"></div>
+
+<script>
+function trocarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+  document.getElementById(id).classList.add('ativa');
+  btn.classList.add('ativo');
+  window.scrollTo(0, 0);
+}
+
+// PWA
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!localStorage.getItem('banner-instalar-fechado-alberth')) {
+    document.getElementById('banner-instalar').style.display = 'flex';
+  }
+});
+document.getElementById('btn-instalar').addEventListener('click', () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  }
+  fecharBanner();
+});
+function fecharBanner() {
+  document.getElementById('banner-instalar').style.display = 'none';
+  localStorage.setItem('banner-instalar-fechado-alberth', '1');
+}
+if (localStorage.getItem('banner-instalar-fechado-alberth')) {
+  document.getElementById('banner-instalar').style.display = 'none';
+}
+</script>
+</body>
+</html>
