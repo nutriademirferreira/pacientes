@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natasha Casarini Terzi — Dossiê Clínico</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+    --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;
+    --alerta:#C2785A;--ok:#3B6D11;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);max-width:480px;margin:0 auto}
+
+  .header{padding:18px 20px 8px;text-align:center}
+  .header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase}
+  .header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2;margin-top:4px}
+  .header-meta{font-size:11px;color:var(--cinza);margin-top:3px}
+  .header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+
+  .nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);padding:0 12px;overflow-x:auto;white-space:nowrap;display:flex;gap:4px;scrollbar-width:none}
+  .nav-sticky::-webkit-scrollbar{display:none}
+  .nav-btn{display:inline-block;padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.7);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+  .nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+  .aba{display:none;padding:16px}
+  .aba.ativa{display:block}
+
+  .secao-titulo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--verde);margin:20px 0 12px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+  .secao-titulo:first-child{margin-top:4px}
+
+  .card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .card-destaque{border-left:3px solid var(--ouro)}
+  .card-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);margin-bottom:5px}
+  .card-valor{font-size:13px;color:var(--carvao);line-height:1.6}
+
+  .status-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bege)}
+  .status-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+  .status-info{flex:1}
+  .status-nome{font-size:13px;font-weight:600;color:var(--carvao);line-height:1.3}
+  .status-val{font-size:12px;color:var(--cinza);margin-top:2px}
+  .status-ref{font-size:11px;color:var(--cinza);opacity:.8}
+  .badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+  .badge-ok{background:#EEF5E8;color:#3B6D11}
+  .badge-alto{background:#FDF0EB;color:var(--alerta)}
+  .badge-baixo{background:#FFF8E6;color:#7A5C2E}
+  .badge-atencao{background:#FFF8E6;color:#9B7B20}
+  .badge-excelente{background:#536147;color:#FDFAF5}
+
+  .risco-card{border-radius:12px;padding:14px;margin-bottom:12px}
+  .risco-card.grave{background:#FDF0EB;border:1px solid #E8C5B0}
+  .risco-card.atencao{background:#FFF8E6;border:1px solid #EDD9A0}
+  .risco-card.ok{background:#EEF5E8;border:1px solid #C1D9AC}
+  .risco-titulo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3}
+  .risco-titulo.grave{color:var(--alerta)}
+  .risco-titulo.atencao{color:#9B7B20}
+  .risco-titulo.ok{color:var(--ok)}
+  .risco-txt{font-size:12px;line-height:1.6;color:var(--carvao)}
+
+  .tabela-exames{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px}
+  .tabela-exames thead th{background:var(--verde);color:var(--creme-suv);padding:7px 8px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .tabela-exames tbody tr:nth-child(odd){background:var(--creme-suv)}
+  .tabela-exames tbody tr:nth-child(even){background:var(--creme)}
+  .tabela-exames td{padding:7px 8px;border-bottom:1px solid var(--bege);line-height:1.4}
+  .tabela-exames .val-alto{color:var(--alerta);font-weight:600}
+  .tabela-exames .val-baixo{color:#9B7B20;font-weight:600}
+  .tabela-exames .val-ok{color:var(--ok)}
+  .tabela-exames .val-excelente{color:var(--ok);font-weight:600}
+
+  .plano-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bege);align-items:flex-start}
+  .plano-item:last-child{border-bottom:none}
+  .plano-num{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ouro);min-width:28px;line-height:1}
+  .plano-titulo{font-size:13px;font-weight:600;color:var(--carvao);margin-bottom:3px}
+  .plano-desc{font-size:12px;color:var(--cinza);line-height:1.5}
+  .plano-prazo{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--alerta);margin-top:4px}
+  .plano-prazo.verde{color:var(--ok)}
+
+  .supl-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px;border-left:3px solid var(--ouro)}
+  .supl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .supl-nome{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--verde)}
+  .badge-urgente{background:var(--alerta);color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px}
+  .badge-importante{background:var(--verde);color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px}
+  .badge-complementar{background:var(--bege);color:var(--cinza);font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px}
+  .supl-row{display:flex;align-items:flex-start;gap:6px;margin-top:5px}
+  .supl-icone{font-size:13px;min-width:18px}
+  .supl-txt{font-size:12px;color:var(--cinza);line-height:1.5}
+  .supl-obj{font-size:12px;color:var(--carvao);line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px solid var(--bege)}
+
+  .alerta-card{background:#FDF0EB;border:1px solid #E8C5B0;border-radius:12px;padding:14px;margin-bottom:12px}
+  .alerta-titulo{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--alerta);margin-bottom:6px}
+  .alerta-txt{font-size:12px;line-height:1.6;color:var(--carvao)}
+
+  .info-verde{background:#EEF2EA;border:1px solid #C8D4BE;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--verde);line-height:1.5}
+  .info-ouro{background:#FDF6EC;border:1px solid #E8D5B5;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#7A5C2E;line-height:1.5}
+
+  .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+  .banner-txt{font-size:12px;color:var(--creme);line-height:1.4}
+  .banner-txt strong{color:var(--ouro);display:block}
+  .banner-btns{display:flex;gap:8px;flex-shrink:0}
+  .banner-btn-install{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+  .banner-btn-close{background:none;border:1px solid rgba(255,255,255,.3);color:var(--creme);border-radius:8px;padding:8px 10px;font-size:12px;cursor:pointer}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .chip{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--bege);color:var(--cinza);font-weight:500}
+  .chip.verde{background:#EEF2EA;color:var(--verde)}
+
+  .tendencia{font-size:11px;color:var(--cinza);margin-top:2px}
+  .tendencia .seta-cima{color:var(--alerta)}
+  .tendencia .seta-baixo{color:var(--ok)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-nutri">Nutricionista Ademir Ferreira Junior · CRN-3 72295</div>
+  <div class="header-paciente">Natasha Casarini Terzi</div>
+  <div class="header-meta">43 anos · Feminino · São Paulo, SP</div>
+  <div class="header-dossie">Dossiê Clínico</div>
+  <div class="header-meta" style="margin-top:4px">Exames: 22/06/2026 · Análise: 16/07/2026</div>
+</div>
+
+<nav class="nav-sticky">
+  <button class="nav-btn ativo" onclick="mostraAba('resumo',this)">Resumo</button>
+  <button class="nav-btn" onclick="mostraAba('historico',this)">Histórico Clínico</button>
+  <button class="nav-btn" onclick="mostraAba('suplementos',this)">Suplementação</button>
+  <button class="nav-btn" onclick="mostraAba('plano',this)">Plano de Ação</button>
+</nav>
+
+<!-- ===== ABA RESUMO ===== -->
+<div id="aba-resumo" class="aba ativa">
+
+  <p class="secao-titulo">Contexto Clínico</p>
+
+  <div class="chip-row">
+    <span class="chip">Pós-tireoidectomia total</span>
+    <span class="chip">Tirzepatida em uso</span>
+    <span class="chip">Implante de testosterona</span>
+    <span class="chip">Estradiol (HRT)</span>
+    <span class="chip verde">Treina regularmente</span>
+  </div>
+
+  <div class="card card-destaque">
+    <div class="card-label">Protocolo atual</div>
+    <div class="card-valor">
+      Levotiroxina (dose a confirmar) · Tirzepatida · Estradiol (HRT) · Implante de testosterona. Queixas principais: queda de cabelo, desejo de melhorar performance nos treinos.
+    </div>
+  </div>
+
+  <p class="secao-titulo">Achados Principais</p>
+
+  <div class="risco-card grave">
+    <div class="risco-titulo grave">TSH 0,35 — abaixo do limite</div>
+    <div class="risco-txt">TSH caiu de 1,76 (Set/25) para 0,35 (Jun/26) com T4L subindo para 1,41. A dose de levotiroxina pode estar alta demais — ou biotina em suplemento de cabelo está causando artefato no ensaio. Endocrinologista urgente antes de ajustar qualquer coisa.</div>
+  </div>
+
+  <div class="risco-card grave">
+    <div class="risco-titulo grave">Antiestreptolisina O: 269 UI/mL</div>
+    <div class="risco-txt">Acima do limite superior para adultos (200 UI/mL). Indica infecção estreptocócica recente ou em curso. Investigar com o médico — amigdalite ou piodermite não tratadas podem deixar o ASLO elevado por meses.</div>
+  </div>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao">Testosterona subindo rápido</div>
+    <div class="risco-txt">13 (Dez/24) → 27 (Mar/25) → 53 ng/dL (Jun/26). Já em 89% do teto feminino (59,46 ng/dL). DHT ainda dentro da faixa. O implante está ativo e ascendente — o médico que acompanha precisa monitorar para não ultrapassar o limite e piorar a queda de cabelo androgênica.</div>
+  </div>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao">FSH 12,7 — acima da fase folicular</div>
+    <div class="risco-txt">Referência folicular: 2,5-10,2 mUI/mL. Com estradiol exógeno de 107 pg/mL o FSH não fica totalmente suprimido. Em mulher de 43 anos, este FSH sinaliza reserva ovariana diminuída e início de perimenopausa. Informação relevante para o ginecologista.</div>
+  </div>
+
+  <div class="risco-card atencao">
+    <div class="risco-titulo atencao">Zinco e Magnésio no limite inferior</div>
+    <div class="risco-txt">Zinco 71,8 µg/dL (ref 70-120) e Magnésio 1,9 mg/dL (ref 1,9-2,6) — ambos no piso da faixa. Para queixa de queda de cabelo, zinco marginal é clinicamente relevante. Com tirzepatida reduzindo a ingestão alimentar, déficit de absorção é esperado em ambos.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">Metabolismo glicídico: excelente</div>
+    <div class="risco-txt">HbA1c 5,1% e HOMA-IR 1,03 — tirzepatida entregando resultado real. Sensibilidade insulínica notável para uma mulher de 43 anos.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">HDL saltou de 40 para 65 mg/dL</div>
+    <div class="risco-txt">Em 13 meses, HDL subiu 62,5%. Combinação de tirzepatida + estradiol + melhora alimentar. Lipídios em excelente estado: TG 75, CT 188, LDL 107.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">Cálcio ionizado normal — paratireoides preservadas</div>
+    <div class="risco-txt">Cálcio ionizado 1,13 mmol/L (ref 1,05-1,30). Em pós-tireoidectomia, este é o marcador crítico para hipoparatireoidismo. Está dentro da faixa — bom.</div>
+  </div>
+
+  <div class="risco-card ok">
+    <div class="risco-titulo ok">Ferritina 87,8 — adequada para cabelo</div>
+    <div class="risco-txt">O threshold clinicamente relevante para saúde capilar é acima de 50-70 ng/mL. A ferritina da Natasha está acima disso. A queda de cabelo tem outras causas (androgenética, tireoide, zinco) — déficit de ferro não é o motor principal aqui.</div>
+  </div>
+
+</div>
+
+<!-- ===== ABA HISTÓRICO CLÍNICO ===== -->
+<div id="aba-historico" class="aba">
+
+  <p class="secao-titulo">Eixo Tireoidiano</p>
+
+  <div class="info-ouro">
+    Pós-tireoidectomia total em uso de levotiroxina. Anticorpos tireoidanos negativos (Anti-TPO e Anti-TgII) — sem recidiva autoimune. O TSH está suprimido: investigar biotina em suplemento antes de qualquer ajuste de dose.
+  </div>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Ref</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>TSH</td><td class="val-alto">0,35 µUI/mL</td><td>0,40-4,30</td><td><span class="badge badge-alto">Baixo</span></td></tr>
+      <tr><td>T4 Livre</td><td>1,41 ng/dL</td><td>0,89-1,76</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Anti-TPO</td><td>&lt;10,4 U/mL</td><td>&lt;13,8</td><td><span class="badge badge-ok">Negativo</span></td></tr>
+      <tr><td>Anti-TgII</td><td>&lt;1,3 UI/mL</td><td>&lt;4,5</td><td><span class="badge badge-ok">Negativo</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-label">Tendência do TSH</div>
+    <div class="card-valor">
+      Out/24: 1,45 → Jan/25: 2,08 → Mar/25: 1,84 → Set/25: 1,76 → <strong style="color:var(--alerta)">Jun/26: 0,35</strong><br>
+      <span style="font-size:11px;color:var(--cinza);margin-top:4px;display:block">Queda abrupta no último intervalo. T4L subiu de 1,01 para 1,41 no mesmo período.</span>
+    </div>
+  </div>
+
+  <p class="secao-titulo">Eixo Hormonal Gonadal</p>
+
+  <div class="info-verde">
+    Em uso de estradiol (HRT) e implante de testosterona. A curva de testosterona está em ascensão acelerada — 4x em 6 meses. Estradiol 107 pg/mL é nível terapêutico adequado. Progesterona indetectável — sem progesterona no protocolo atual ou coletada na fase folicular.
+  </div>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Estradiol</td><td>107,1 pg/mL</td><td><span class="badge badge-ok">Terapêutico</span></td></tr>
+      <tr><td>Progesterona</td><td>&lt;0,21 ng/mL</td><td><span class="badge badge-atencao">Indetectável</span></td></tr>
+      <tr><td>FSH</td><td class="val-alto">12,7 mUI/mL</td><td><span class="badge badge-alto">Elevado</span></td></tr>
+      <tr><td>LH</td><td>4,1 mUI/mL</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Testosterona Total</td><td class="val-baixo">52,68 ng/dL</td><td><span class="badge badge-atencao">Ascendente</span></td></tr>
+      <tr><td>DHT</td><td>120,5 pg/mL</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Cortisol</td><td>8,3 µg/dL</td><td><span class="badge badge-atencao">Baixo-normal</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-label">Tendência da Testosterona Total</div>
+    <div class="card-valor">
+      Dez/24: 13,07 → Mar/25: 26,48 → <strong style="color:#9B7B20">Jun/26: 52,68 ng/dL</strong><br>
+      <span style="font-size:11px;color:var(--cinza);margin-top:4px;display:block">Limite superior feminino (pré-menopausa): 59,46 ng/dL. Já em 89% do teto.</span>
+    </div>
+  </div>
+
+  <p class="secao-titulo">Metabolismo Glicídico</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>HbA1c</td><td class="val-excelente">5,1%</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+      <tr><td>HOMA-IR</td><td class="val-excelente">1,03</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+    </tbody>
+  </table>
+
+  <p class="secao-titulo">Perfil Lipídico</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Colesterol Total</td><td>188 mg/dL</td><td><span class="badge badge-ok">Ótimo</span></td></tr>
+      <tr><td>HDL</td><td class="val-excelente">65 mg/dL</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+      <tr><td>LDL</td><td>107 mg/dL</td><td><span class="badge badge-ok">Adequado</span></td></tr>
+      <tr><td>Triglicerídeos</td><td class="val-excelente">75 mg/dL</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-label">Tendência do HDL</div>
+    <div class="card-valor">
+      Mai/25: 40 mg/dL → <strong style="color:var(--ok)">Jun/26: 65 mg/dL</strong> (+62,5% em 13 meses)<br>
+      <span style="font-size:11px;color:var(--cinza);margin-top:4px;display:block">Tirzepatida + estradiol + melhora alimentar combinados.</span>
+    </div>
+  </div>
+
+  <p class="secao-titulo">Função Hepática e Pancreática</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Ref</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>TGO</td><td>27 U/L</td><td>≤32</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>TGP</td><td>27 U/L</td><td>≤33</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Bilirrubina Total</td><td>0,46 mg/dL</td><td>≤1,20</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Amilase</td><td>57 U/L</td><td>28-100</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Lipase</td><td>32 U/L</td><td>13-60</td><td><span class="badge badge-ok">Normal</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-verde">
+    Sem hepatotoxicidade da tirzepatida. Função pancreática preservada.
+  </div>
+
+  <p class="secao-titulo">Proteínas e Função Renal</p>
+
+  <div class="info-ouro">
+    Ureia baixa (21 mg/dL) e creatinina em queda (0,82 → 0,70 mg/dL) são sinais de ingestão proteica insuficiente e possível perda gradual de massa muscular. A albumina está excelente (longa meia-vida), mas o déficit atual de proteína existe. Meta: mínimo 2,0 g/kg/dia com tirzepatida.
+  </div>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Proteínas Totais</td><td>6,9 g/dL</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Albumina</td><td class="val-excelente">4,6 g/dL</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+      <tr><td>Ureia</td><td class="val-baixo">21 mg/dL</td><td><span class="badge badge-atencao">Baixo-normal</span></td></tr>
+      <tr><td>Creatinina</td><td class="val-baixo">0,70 mg/dL</td><td><span class="badge badge-atencao">Em queda</span></td></tr>
+      <tr><td>Microalbuminúria</td><td>&lt;3 mg/L</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-label">Tendência da Creatinina</div>
+    <div class="card-valor">
+      Histórico: 0,82 → 0,70 mg/dL<br>
+      <span style="font-size:11px;color:var(--cinza);margin-top:4px;display:block">Queda discreta mas consistente — possível sinal de perda de massa muscular com tirzepatida. Justifica prioridade máxima na ingestão proteica.</span>
+    </div>
+  </div>
+
+  <p class="secao-titulo">Hematologia e Ferro</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Hemoglobina</td><td>13,6 g/dL</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Hematócrito</td><td>41,7%</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>Ferritina</td><td>87,8 ng/mL</td><td><span class="badge badge-ok">Adequada</span></td></tr>
+      <tr><td>Vitamina B12</td><td class="val-alto">1138 pg/mL</td><td><span class="badge badge-alto">Acima ref</span></td></tr>
+      <tr><td>Folato</td><td>9,14 ng/mL</td><td><span class="badge badge-ok">Normal</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-ouro">
+    Ferritina 87,8 está acima do threshold capilar (50-70 ng/mL) — déficit de ferro não é a causa da queda de cabelo. B12 em 1138 pg/mL: suplementação de B12 deve ser suspensa ou significativamente reduzida.
+  </div>
+
+  <p class="secao-titulo">Micronutrientes</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Ref</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Vitamina D</td><td>52 ng/mL</td><td>≥40-60</td><td><span class="badge badge-ok">Adequada</span></td></tr>
+      <tr><td>Magnésio</td><td class="val-baixo">1,9 mg/dL</td><td>1,9-2,6</td><td><span class="badge badge-atencao">Limite inf.</span></td></tr>
+      <tr><td>Zinco Sérico</td><td class="val-baixo">71,8 µg/dL</td><td>70-120</td><td><span class="badge badge-atencao">Limite inf.</span></td></tr>
+      <tr><td>Cálcio Ionizado</td><td>1,13 mmol/L</td><td>1,05-1,30</td><td><span class="badge badge-ok">Normal</span></td></tr>
+    </tbody>
+  </table>
+
+  <p class="secao-titulo">Inflamação e Imunologia</p>
+
+  <table class="tabela-exames">
+    <thead><tr><th>Exame</th><th>Resultado</th><th>Ref</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>PCR</td><td class="val-excelente">0,3 mg/dL</td><td>&lt;1,0</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+      <tr><td>VHS</td><td class="val-excelente">9 mm</td><td>—</td><td><span class="badge badge-excelente">Excelente</span></td></tr>
+      <tr><td>ASLO</td><td class="val-alto">269 UI/mL</td><td>≤200</td><td><span class="badge badge-alto">Elevado</span></td></tr>
+      <tr><td>IgE caseína</td><td>&lt;0,10 kU/L</td><td>&lt;0,10</td><td><span class="badge badge-ok">Negativo</span></td></tr>
+      <tr><td>IgE painel FX5</td><td>&lt;0,10 kU/L</td><td>&lt;0,10</td><td><span class="badge badge-ok">Negativo</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-label">Sobre o ASLO elevado</div>
+    <div class="card-valor">
+      Antiestreptolisina O acima de 200 indica infecção por Streptococcus pyogenes (beta-hemolítico grupo A) recente ou em curso. Pode permanecer elevada por 3-6 meses após a infecção. Não é perigoso em adultos saudáveis na maioria dos casos, mas precisa de avaliação médica para descartar complicações.
+    </div>
+  </div>
+
+  <p class="secao-titulo">CPK e Performance</p>
+
+  <div class="card">
+    <div class="card-label">Creatino-fosfoquinase (CPK)</div>
+    <div class="card-valor">
+      90 U/L — <strong>muito baixo</strong> comparado ao histórico (404 U/L em 2023). CPK baixo com tirzepatida sugere que a intensidade ou volume de treinamento reduziu junto com a ingestão calórica. Não é alarme — é dado: o treino está menos intenso do que antes. Faz sentido no contexto de menor ingestão alimentar.
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== ABA SUPLEMENTAÇÃO ===== -->
+<div id="aba-suplementos" class="aba">
+
+  <div class="info-ouro">
+    Protocolo baseado nos exames de 22/06/2026. B12 suspensa — já em 1138 pg/mL. Investigar biotina em uso antes de prescrevê-la em altas doses (pode falsificar o TSH).
+  </div>
+
+  <p class="secao-titulo">Prioritários</p>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Zinco Quelado</div>
+      <span class="badge-urgente">Urgente</span>
+    </div>
+    <div class="supl-row"><span class="supl-icone">💊</span><span class="supl-txt"><strong>Dose:</strong> 15 mg/dia</span></div>
+    <div class="supl-row"><span class="supl-icone">⏰</span><span class="supl-txt"><strong>Quando:</strong> No almoço, com alimento</span></div>
+    <div class="supl-row"><span class="supl-icone">📆</span><span class="supl-txt"><strong>Reavaliação:</strong> 90 dias com novo zinco sérico</span></div>
+    <div class="supl-obj">Para queda de cabelo, o zinco regula o ciclo folicular e inibe a ação da 5-alfa-redutase localmente. Com zinco no piso da faixa normal, qualquer suplementação de testosterona amplifica o risco capilar. Zinco adequado é proteção.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Magnésio Glicinato</div>
+      <span class="badge-urgente">Urgente</span>
+    </div>
+    <div class="supl-row"><span class="supl-icone">💊</span><span class="supl-txt"><strong>Dose:</strong> 300-400 mg/dia</span></div>
+    <div class="supl-row"><span class="supl-icone">⏰</span><span class="supl-txt"><strong>Quando:</strong> À noite, antes de dormir</span></div>
+    <div class="supl-row"><span class="supl-icone">📆</span><span class="supl-txt"><strong>Reavaliação:</strong> Próxima consulta</span></div>
+    <div class="supl-obj">Magnésio no limite inferior com tirzepatida que reduz a ingestão alimentar. Impacto direto em qualidade de sono (recuperação muscular), função muscular nos treinos e modulação do cortisol.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Proteína em Pó</div>
+      <span class="badge-urgente">Urgente</span>
+    </div>
+    <div class="supl-row"><span class="supl-icone">💊</span><span class="supl-txt"><strong>Dose:</strong> 20-30 g/dia (1 scoop)</span></div>
+    <div class="supl-row"><span class="supl-icone">⏰</span><span class="supl-txt"><strong>Quando:</strong> Pós-treino ou no lanche</span></div>
+    <div class="supl-row"><span class="supl-icone">💡</span><span class="supl-txt">Whey isolado ou concentrado — IgE caseína negativa, laticínios liberados</span></div>
+    <div class="supl-obj">Ureia 21 mg/dL e creatinina caindo confirmam que a tirzepatida está reduzindo a ingestão proteica junto com tudo mais. Meta de 2,0 g/kg/dia é obrigatória para não perder massa muscular. A suplementação fecha esse gap.</div>
+  </div>
+
+  <p class="secao-titulo">Manutenção</p>
+
+  <div class="supl-card">
+    <div class="supl-header">
+      <div class="supl-nome">Vitamina D</div>
+      <span class="badge-complementar">Manutenção</span>
+    </div>
+    <div class="supl-row"><span class="supl-icone">💊</span><span class="supl-txt"><strong>Dose:</strong> Manter dose atual</span></div>
+    <div class="supl-row"><span class="supl-icone">⏰</span><span class="supl-txt"><strong>Quando:</strong> Com a refeição maior (almoço ou jantar)</span></div>
+    <div class="supl-obj">Vitamina D em 52 ng/mL — adequada. Não aumentar. Manter a dose que chegou aqui.</div>
+  </div>
+
+  <p class="secao-titulo">Suspender</p>
+
+  <div class="alerta-card">
+    <div class="alerta-titulo">Vitamina B12 — Suspender</div>
+    <div class="alerta-txt">B12 em 1138 pg/mL — acima do limite superior (223-672). Qualquer suplemento com B12 deve ser suspenso ou substituído por formulação sem B12. Hipervitaminose B12 crônica tem impacto neurológico em estudos recentes.</div>
+  </div>
+
+  <div class="alerta-card">
+    <div class="alerta-titulo">Biotina em altas doses — Investigar antes de usar</div>
+    <div class="alerta-txt">Biotina acima de 5 mg/dia causa artefato laboratorial em ensaios de quimioluminescência — simula TSH baixo e T4L elevado. Se ela usa suplemento de cabelo com biotina, o TSH 0,35 pode ser falso. Checar o rótulo do suplemento atual e comunicar ao endocrinologista antes da consulta.</div>
+  </div>
+
+</div>
+
+<!-- ===== ABA PLANO DE AÇÃO ===== -->
+<div id="aba-plano" class="aba">
+
+  <p class="secao-titulo">Ações Imediatas</p>
+
+  <div class="card card-destaque">
+    <div class="plano-item">
+      <div class="plano-num">1</div>
+      <div>
+        <div class="plano-titulo">Endocrinologista — TSH 0,35</div>
+        <div class="plano-desc">Levar o gráfico de tendência do TSH e informar todos os suplementos em uso (especialmente biotina). O médico vai decidir se ajusta a dose de levotiroxina ou repete o TSH com biotina suspensa por 48h antes da coleta.</div>
+        <div class="plano-prazo">Urgente — antes da próxima coleta</div>
+      </div>
+    </div>
+    <div class="plano-item">
+      <div class="plano-num">2</div>
+      <div>
+        <div class="plano-titulo">Médico — ASLO 269</div>
+        <div class="plano-desc">Investigar infecção estreptocócica recente (amigdalite, faringite, piodermite). Caso não haja episódio identificado, o médico avalia necessidade de antibiótico ou apenas acompanhamento com novo ASLO em 4-6 semanas.</div>
+        <div class="plano-prazo">Urgente — dentro de 1-2 semanas</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="secao-titulo">Monitoramento Contínuo</p>
+
+  <div class="card card-destaque">
+    <div class="plano-item">
+      <div class="plano-num">3</div>
+      <div>
+        <div class="plano-titulo">Testosterona — monitorar na próxima bateria</div>
+        <div class="plano-desc">Já em 89% do teto feminino. Informar o médico do implante sobre a curva de ascensão. Se ultrapassar 60 ng/dL, o risco de queda de cabelo androgênica aumenta significativamente. DHT precisa ser monitorada junto.</div>
+        <div class="plano-prazo">Próxima bateria de exames</div>
+      </div>
+    </div>
+    <div class="plano-item">
+      <div class="plano-num">4</div>
+      <div>
+        <div class="plano-titulo">Zinco e Magnésio — recolher em 90 dias</div>
+        <div class="plano-desc">Iniciar suplementação agora e recolher zinco sérico em 90 dias para confirmar correção. Magnésio sérico pode normalizar em 30-60 dias com glicinato.</div>
+        <div class="plano-prazo">Reavaliação em 90 dias</div>
+      </div>
+    </div>
+    <div class="plano-item">
+      <div class="plano-num">5</div>
+      <div>
+        <div class="plano-titulo">Proteína — meta diária inegociável</div>
+        <div class="plano-desc">Com tirzepatida em uso, mínimo 2,0 g/kg/dia de proteína. A queda da creatinina é sinal precoce — não esperar piorar para agir. Monitorar ureia e creatinina na próxima bateria.</div>
+        <div class="plano-prazo">Imediato e contínuo</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="secao-titulo">O que está bem</p>
+
+  <div class="info-verde">
+    Metabolismo glicídico em estado excelente (HbA1c 5,1%, HOMA-IR 1,03). HDL em ascensão notável (+62,5%). Função hepática e pancreática sem impacto da tirzepatida. Cálcio ionizado normal — paratireoides preservadas pós-tireoidectomia. Anticorpos tireoidanos negativos. Sem alergias alimentares — dieta sem restrições.
+  </div>
+
+  <p class="secao-titulo">Próxima Bateria Sugerida</p>
+
+  <div class="card">
+    <div class="card-label">Em 90 dias — exames prioritários</div>
+    <div class="card-valor">
+      TSH + T4L (com biotina suspensa 48h antes) · Testosterona Total + DHT · Zinco Sérico · Magnésio · Ureia + Creatinina · ASLO (para confirmar resolução) · Albumina
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:80px">
+    <div class="card-label">Observação sobre queda de cabelo</div>
+    <div class="card-valor">
+      A queda de cabelo da Natasha é multifatorial: componente androgênico (testosterona subindo), TSH possivelmente suprimido, zinco marginal e possível impacto do estresse metabólico da tirzepatida (telógena effluvium). Ferritina e B12 não são os vilões aqui — estão adequados. Tratar o que está desregulado (zinco, TSH, controle da testosterona) antes de adicionar mais tratamentos capilares.
+    </div>
+  </div>
+
+</div>
+
+<!-- Banner PWA -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-txt">
+    <strong>Salvar na tela inicial</strong>
+    Acesse seu dossiê sem internet
+  </div>
+  <div class="banner-btns">
+    <button class="banner-btn-install" id="btn-install">Instalar</button>
+    <button class="banner-btn-close" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<script>
+function mostraAba(id,btn){
+  document.querySelectorAll('.aba').forEach(a=>a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+  window.scrollTo(0,0);
+}
+
+// PWA Banner
+const BANNER_KEY = 'banner-instalar-fechado-natasha';
+let deferredPrompt;
+if(localStorage.getItem(BANNER_KEY)){
+  document.getElementById('banner-instalar').style.display='none';
+}
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+});
+document.getElementById('btn-install').addEventListener('click',()=>{
+  if(deferredPrompt){deferredPrompt.prompt();}
+  fecharBanner();
+});
+function fecharBanner(){
+  document.getElementById('banner-instalar').style.display='none';
+  localStorage.setItem(BANNER_KEY,'1');
+}
+</script>
+</body>
+</html>
