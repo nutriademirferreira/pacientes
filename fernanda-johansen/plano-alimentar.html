@@ -31,8 +31,8 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .linha-ouro{height:2px;background:var(--ouro)}
 .nav{display:flex;overflow-x:auto;gap:0;padding:0 4px;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
-.nav-btn{flex-shrink:0;background:none;border:none;color:rgba(253,250,245,.65);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.04em;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
-.nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+.nav-btn{flex-shrink:0;background:none;border:none;color:var(--cinza);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.04em;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+.nav-btn.ativo{color:var(--verde);border-bottom-color:var(--verde)}
 
 /* CONTEUDO */
 .conteudo{max-width:520px;margin:0 auto;padding:20px 16px}
@@ -340,7 +340,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <div style="background:var(--creme-suv);border:1px solid var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:16px">
       <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px">O que mudou com os resultados de julho/2026</div>
       <div style="font-size:12px;color:var(--carvao);line-height:1.75">
-        Os exames do Grupo Seta (09/07/2026) confirmaram tres achados que exigem ajuste imediato no protocolo: <strong>magnesio abaixo do limite inferior</strong> (1,80 mg/dL), <strong>vitamina D insuficiente apesar da suplementacao com 4000 UI</strong> (resultado 36 ng/mL), e <strong>tireoidite de Hashimoto confirmada</strong> (TSH 5,27 + Anti-TPO 22,7), com indicacao de selênio. Alem disso, a <strong>prolactina de 199 ng/mL</strong> muda o contexto clinico inteiro — o encaminhamento ao endocrinologista ja foi feito (ver aba Carta ao medico).
+        Os exames do Grupo Seta (09/07/2026) trouxeram tres achados que exigem ajuste imediato no protocolo: <strong>magnesio abaixo do limite inferior</strong> (1,80 mg/dL), <strong>vitamina D insuficiente apesar da suplementacao com 4000 UI</strong> (resultado 36 ng/mL), e <strong>padrao laboratorial sugestivo de tireoidite autoimune</strong> (TSH 5,27 + Anti-TPO 22,7 — em avaliacao pelo endocrinologista), com indicacao de selênio. Alem disso, a <strong>prolactina de 199 ng/mL</strong> muda o contexto clinico inteiro — o encaminhamento ao endocrinologista ja foi feito (ver aba Carta ao medico).
       </div>
     </div>
 
@@ -380,7 +380,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manha</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Com agua ou refeicao</div></div>
       </div>
-      <div class="supl-just">Indicado pela confirmacao de Hashimoto (TSH 5,27 + Anti-TPO 22,7). O selenio e cofator essencial das deiodinases (enzimas que convertem T4 em T3 ativo) e tem acao antioxidante direta na tireoide, reduzindo o ataque autoimune. Evidencia forte: meta-analises mostram reducao significativa de Anti-TPO com suplementacao de 200 mcg/dia por 3 a 6 meses. Usar selenometionina (organica) — nao usar selenito de sodio (menor absorcao). Nao exceder 200 mcg/dia (toxicidade acima de 400 mcg). Reavaliar Anti-TPO em 3 meses.</div>
+      <div class="supl-just">Indicado pelo padrao laboratorial sugestivo de tireoidite autoimune (TSH 5,27 + Anti-TPO 22,7 — em avaliacao pelo endocrinologista). O selenio e cofator essencial das deiodinases (enzimas que convertem T4 em T3 ativo) e tem acao antioxidante direta na tireoide, reduzindo o ataque autoimune. Evidencia forte: meta-analises mostram reducao significativa de Anti-TPO com suplementacao de 200 mcg/dia por 3 a 6 meses. Usar selenometionina (organica) — nao usar selenito de sodio (menor absorcao). Nao exceder 200 mcg/dia (toxicidade acima de 400 mcg). Reavaliar Anti-TPO em 3 meses.</div>
     </div>
 
   </div>
@@ -433,13 +433,13 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
         <p class="carta-p">Do ponto de vista capilar, esse bloqueio hormonal contribui diretamente para a queda por ao menos tres mecanismos: hipoestrogenismo funcional, zeragem da testosterona livre (que em mulheres e anabolica para o foliculo capilar) e efeito direto da prolactina elevada no ciclo capilar. Solicito avaliacao para prolactinoma com ressonancia magnetica de hipofise com contraste e dosagem de macroprolactina para diferenciar prolactinemia biologicamente inativa de adenoma secretor.</p>
 
-        <div class="carta-secao-titulo">Achado 2 — Tireoidite de Hashimoto confirmada</div>
+        <div class="carta-secao-titulo">Achado 2 — Padrao laboratorial sugestivo de tireoidite autoimune (provavel Hashimoto)</div>
 
-        <p class="carta-p"><strong>TSH: 5,27 mUI/mL</strong> (referencia: 0,55 a 4,78) · <strong>Anti-TPO: 22,7 UI/mL</strong> (referencia ate 9,0). T4 livre 0,83 ng/dL (limite inferior da referencia). O conjunto TSH elevado + Anti-TPO positivo configura tireoidite de Hashimoto com hipotireoidismo subclínico em fase de disfuncao inicial.</p>
+        <p class="carta-p"><strong>TSH: 5,27 mUI/mL</strong> (referencia: 0,55 a 4,78) · <strong>Anti-TPO: 22,7 UI/mL</strong> (referencia ate 9,0) · T4 livre 0,83 ng/dL (abaixo do limite inferior). Nao ha relato de diagnostico previo de doenca tireoidiana — este e o primeiro painel com avaliacao completa de tireoide registrado no acompanhamento desta paciente. O conjunto TSH elevado + Anti-TPO positivo + T4L no limite inferior e altamente sugestivo de tireoidite de Hashimoto com hipotireoidismo subclínico, mas o diagnostico formal — incluindo ultrassonografia da tireoide e avaliacao clinica — e competencia do especialista.</p>
 
-        <p class="carta-p">O hipotireoidismo subclínico e a causa isolada mais comum de queda de cabelo em mulheres acima dos 40 anos. Neste caso, atua em sinergia com a ferropenia confirmada (ferritina 6,8 ng/mL), com o hipoestrogenismo secundario a hiperprolactinemia e com a deficiencia de vitamina D (36 ng/mL apesar de suplementacao com 4000 UI/dia), formando um quadro multifatorial grave para os foliculos capilares.</p>
+        <p class="carta-p">O hipotireoidismo subclínico e a causa isolada mais comum de queda de cabelo em mulheres acima dos 40 anos. Neste caso, atua em sinergia com a ferropenia grave (ferritina 6,8 ng/mL), com o hipoestrogenismo secundario a hiperprolactinemia e com a deficiencia de vitamina D (36 ng/mL apesar de suplementacao com 4000 UI/dia), formando um quadro multifatorial grave para os foliculos capilares.</p>
 
-        <p class="carta-p">Ja iniciei conduta nutricional para Hashimoto: selênio 200 mcg/dia (selenometionina) com evidencia de reducao de Anti-TPO, aumento da vitamina D3 para 7000–10000 UI/dia (meta 60–80 ng/mL para modulacao imune na doenca autoimune tireoidiana) e correcao das demais deficiencias pos-bariatrica. Deixo a criterio do especialista a indicacao de levotiroxina para o hipotireoidismo subclínico.</p>
+        <p class="carta-p">Ja iniciei suporte nutricional compativel com o quadro sugestivo: selenio 200 mcg/dia (selenometionina — evidencia de reducao de Anti-TPO em tireoidite autoimune) e aumento da vitamina D3 para 7000–10000 UI/dia (meta 60–80 ng/mL para modulacao imune). Deixo a criterio do especialista o diagnostico formal (solicitacao de ultrassonografia tireoidiana e Anti-TG) e a indicacao de levotiroxina.</p>
 
         <div class="carta-secao-titulo">Outros achados laboratoriais relevantes para o contexto</div>
 
@@ -471,7 +471,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
         <p class="carta-p"><strong>1. Provavel prolactinoma:</strong> prolactina 199 ng/mL → solicito RM de hipofise com contraste e dosagem de macroprolactina para confirmar etiologia e definir conduta (cabergolina como primeira linha nos adenomas secretores).</p>
 
-        <p class="carta-p"><strong>2. Hashimoto com hipotireoidismo subclínico:</strong> TSH 5,27 + Anti-TPO 22,7 → solicito avaliacao da indicacao de levotiroxina e acompanhamento da funcao tireoidiana.</p>
+        <p class="carta-p"><strong>2. Padrao sugestivo de tireoidite autoimune (provavel Hashimoto):</strong> TSH 5,27 + Anti-TPO 22,7 + T4L 0,83 (limite inferior) — primeiro registro laboratorial de tireoide desta paciente, sem historico previo de diagnostico tireoidiano documentado. Solicito ultrassonografia da tireoide, dosagem de Anti-TG e avaliacao da indicacao de levotiroxina.</p>
 
         <p class="carta-p">Mantenho o suporte nutricional com correcao das deficiencias confirmadas e fico a disposicao para integrar as condutas e compartilhar os exames completos na medida em que forem evoluindo.</p>
 
@@ -553,7 +553,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
     <!-- EIXO TIREOIDE -->
     <div class="exame-grupo">
-      <span class="exame-grupo-titulo">Tireoide — Hashimoto confirmado</span>
+      <span class="exame-grupo-titulo">Tireoide — padrao sugestivo de tireoidite autoimune</span>
 
       <div class="result-item result-alterado">
         <div class="result-top">
@@ -568,7 +568,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">5,27</div></div>
         </div>
-        <div class="result-conduta">Encaminhada ao endocrinologista. Hashimoto confirmado com Anti-TPO positivo. Avaliacao de levotiroxina a criterio do especialista.</div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Padrao sugestivo de Hashimoto — diagnostico formal (ultrassonografia + Anti-TG) a cargo do especialista. Avaliacao de levotiroxina a criterio do especialista.</div>
       </div>
 
       <div class="result-item result-alterado">
@@ -584,7 +584,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">0,83</div></div>
         </div>
-        <div class="result-conduta">Combinado com TSH elevado e Anti-TPO positivo confirma hipotireoidismo por Hashimoto. Reavaliar apos conduta endocrinologica.</div>
+        <div class="result-conduta">Combinado com TSH elevado e Anti-TPO positivo forma padrao sugestivo de hipotireoidismo por tireoidite autoimune. Diagnostico formal a cargo do endocrinologista. Reavaliar apos conduta especializada.</div>
       </div>
 
       <div class="result-item result-critico">
@@ -595,7 +595,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
             <span class="result-status status-critico">Positivo</span>
           </div>
         </div>
-        <div class="result-ref">Ref: ate 9,0 UI/mL · Hashimoto confirmado</div>
+        <div class="result-ref">Ref: ate 9,0 UI/mL · Positivo — sugestivo de tireoidite autoimune</div>
         <div class="result-hist">
           <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">22,7</div></div>
