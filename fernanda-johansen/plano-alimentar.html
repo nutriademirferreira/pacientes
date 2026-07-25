@@ -47,6 +47,11 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .badge-urgente{background:#FAE8E4;color:#993C1D}
 .badge-importante{background:#FFF3E0;color:#854F0B}
 .badge-complementar{background:var(--creme);color:var(--cinza);border:1px solid var(--bege)}
+.badge-novo{background:#E8F4EA;color:#2D6A35;border:1px solid #B8DDBB}
+.badge-ajustado{background:#EEF3FF;color:#3553A4;border:1px solid #C0CDED}
+.update-tag{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ouro);color:var(--carvao);border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
+.supl-item.atualizado{border-color:var(--ouro);border-left:3px solid var(--ouro)}
+.fase-label-update{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--carvao);background:var(--ouro);border-radius:8px;padding:8px 14px;margin:24px 0 12px;display:block}
 .supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
 .supl-campo{background:var(--creme);border-radius:8px;padding:8px 10px}
 .supl-campo-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
@@ -142,7 +147,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <div class="header-paciente">Fernanda Johansen</div>
     <div class="header-nutri">Ademir Ferreira Junior</div>
     <div class="header-crn">Nutricionista · CRN-3 72295</div>
-    <div class="header-meta">Emagrecimento · Pos-bariatrica · Atualizado em 22/06/2026</div>
+    <div class="header-meta">Emagrecimento · Pos-bariatrica · Atualizado em 25/07/2026</div>
     <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <div class="linha-ouro"></div>
@@ -304,6 +309,56 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         Suspender biotina 3 a 5 dias antes da coleta dos exames laboratoriais (interfere em TSH, T4 e outros hormônios).
       </div>
     </div>
+
+    <!-- ═══ ATUALIZAÇÃO PÓS-EXAMES ═══ -->
+    <span class="fase-label-update">Atualizacao pos-exames · Julho 2026</span>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px">O que mudou com os resultados de julho/2026</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.75">
+        Os exames do Grupo Seta (09/07/2026) confirmaram tres achados que exigem ajuste imediato no protocolo: <strong>magnesio abaixo do limite inferior</strong> (1,80 mg/dL), <strong>vitamina D insuficiente apesar da suplementacao com 4000 UI</strong> (resultado 36 ng/mL), e <strong>tireoidite de Hashimoto confirmada</strong> (TSH 5,27 + Anti-TPO 22,7), com indicacao de selênio. Alem disso, a <strong>prolactina de 199 ng/mL</strong> muda o contexto clinico inteiro — o encaminhamento ao endocrinologista ja foi feito (ver aba Carta ao medico).
+      </div>
+    </div>
+
+    <div class="supl-item atualizado">
+      <div class="supl-top">
+        <div class="supl-nome">Magnesio Bisglicinato <span class="update-tag">URGENTE · jul/26</span></div>
+        <span class="badge badge-urgente">Urgente</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">300–400 mg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">21h</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Agua, longe de calcio</div></div>
+      </div>
+      <div class="supl-just">Exame confirmou magnesio serico 1,80 mg/dL — abaixo do limite inferior do laboratorio (1,9 mg/dL). Status atualizado de <em>Importante</em> para <em>Urgente</em>. O cetoprofeno cronico, a dieta irregular e o quadro hormonal agravado pela hiperprolactinemia aumentam o consumo de magnesio. Magnesio e cofator da enzima conversora de T4 em T3 ativo — sua deficiencia agrava o hipotireoidismo subclínico do Hashimoto. Priorizar agora sem esperar nova semana.</div>
+    </div>
+
+    <div class="supl-item atualizado">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D3 + K2 <span class="update-tag">AJUSTE · jul/26</span></div>
+        <span class="badge badge-urgente">Prioritario</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose ajustada</div><div class="supl-campo-valor">7.000–10.000 UI D3 + 100 mcg K2</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Almoco</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeicao com gordura</div></div>
+      </div>
+      <div class="supl-just">Resultado: 25-OH Vitamina D = 36 ng/mL apos suplementacao com 4000 UI/dia — ainda em zona de insuficiencia para o contexto de Hashimoto (meta clinica: 60–80 ng/mL). A tireoidite autoimune aumenta o consumo de vitamina D e exige nivel mais elevado para modular a resposta imune. O tecido adiposo sequestra parte da D3, comum em pos-bariatrica com peso elevado. Dose aumentada para 7000–10000 UI. Reavaliar em 90 dias.</div>
+    </div>
+
+    <div class="supl-item atualizado">
+      <div class="supl-top">
+        <div class="supl-nome">Selenio (Selenometionina) <span class="update-tag">NOVO · jul/26</span></div>
+        <span class="badge badge-novo">Novo</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">200 mcg</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manha</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Com agua ou refeicao</div></div>
+      </div>
+      <div class="supl-just">Indicado pela confirmacao de Hashimoto (TSH 5,27 + Anti-TPO 22,7). O selenio e cofator essencial das deiodinases (enzimas que convertem T4 em T3 ativo) e tem acao antioxidante direta na tireoide, reduzindo o ataque autoimune. Evidencia forte: meta-analises mostram reducao significativa de Anti-TPO com suplementacao de 200 mcg/dia por 3 a 6 meses. Usar selenometionina (organica) — nao usar selenito de sodio (menor absorcao). Nao exceder 200 mcg/dia (toxicidade acima de 400 mcg). Reavaliar Anti-TPO em 3 meses.</div>
+    </div>
+
   </div>
 
   <!-- ═══ ABA: EVOLUÇÃO ═══ -->
@@ -316,9 +371,92 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
   <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
   <div class="aba" id="aba-carta-medico-nut">
-    <div class="carta-vazia">
-      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
-      <p>Esta seção será preenchida em breve pelo nutri.</p>
+
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-encaminhamento-conteudo')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Imprimir / Salvar PDF
+    </button>
+
+    <div class="carta-wrapper" id="carta-encaminhamento-conteudo">
+      <div class="carta-header">
+        <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
+        <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
+      </div>
+      <div class="carta-linha-ouro"></div>
+      <div class="carta-corpo">
+        <div class="carta-data">Sao Paulo, 25 de julho de 2026</div>
+
+        <div class="carta-titulo-doc">Encaminhamento para Endocrinologia</div>
+        <div class="carta-subtitulo">Nutricionista Clinico — Acompanhamento Pos-Bariatrico e Investigacao Hormonal</div>
+
+        <div class="carta-paciente-box">
+          <div class="carta-paciente-linha"><strong>Paciente:</strong> Fernanda Johansen Silva</div>
+          <div class="carta-paciente-linha"><strong>Data de nascimento:</strong> 26/11/1973 · 52 anos</div>
+          <div class="carta-paciente-linha"><strong>Peso atual:</strong> ~100 kg · Pos-operatorio de cirurgia bariatrica (gastroplastia)</div>
+          <div class="carta-paciente-linha"><strong>Medicamentos em uso:</strong> Anticoncepcional oral, Cetoprofeno (uso cronico), Canabidiol sem THC</div>
+          <div class="carta-paciente-linha"><strong>Exames de referencia:</strong> Grupo Seta, coleta em 09/07/2026</div>
+        </div>
+
+        <p class="carta-p">Prezado(a) colega endocrinologista,</p>
+
+        <p class="carta-p">Encaminho a paciente Fernanda Johansen Silva, 52 anos, pos-bariatrica, que acompanho nutricionalmente com queixa principal de queda intensa de cabelo iniciada ha aproximadamente dois meses, com progressao rapida — a propria paciente relata que esta "ficando sem cabelo". A analise dos exames laboratoriais recentes revelou dois achados de competencia endocrinologica que ultrapassam o escopo nutricional e exigem avaliacao e conduta especializada com urgencia.</p>
+
+        <div class="carta-secao-titulo">Achado 1 — Hiperprolactinemia acentuada: provavel prolactinoma</div>
+
+        <p class="carta-p"><strong>Prolactina: 199 ng/mL</strong> (valor de referencia do laboratorio: 4,0 a 29,7 ng/mL). Elevacao de 6,7 vezes o limite superior. A coleta foi realizada pela manha, em condicoes padrao de laboratorio.</p>
+
+        <p class="carta-p">A prolactina neste nivel suprime de forma direta o eixo hipotalamo-hipofisario-gonadal: inibe o GnRH, reduz FSH e LH, e instala hipoestrogenismo funcional. Nos exames da paciente, esse mecanismo esta objetivado: FSH 5,7 mUI/mL e LH 1,3 mUI/mL — valores improvavelmente baixos para uma mulher de 52 anos, mesmo considerando o uso de anticoncepcional oral, sugerindo supressao hiperprolactinemica sobreposta. O SHBG de 286 nmol/L (extremamente elevado) e a testosterona livre de apenas 0,04 ng/dL completam o quadro de bloqueio hormonal por excesso de prolactina.</p>
+
+        <p class="carta-p">Do ponto de vista capilar, esse bloqueio hormonal contribui diretamente para a queda por ao menos tres mecanismos: hipoestrogenismo funcional, zeragem da testosterona livre (que em mulheres e anabolica para o foliculo capilar) e efeito direto da prolactina elevada no ciclo capilar. Solicito avaliacao para prolactinoma com ressonancia magnetica de hipofise com contraste e dosagem de macroprolactina para diferenciar prolactinemia biologicamente inativa de adenoma secretor.</p>
+
+        <div class="carta-secao-titulo">Achado 2 — Tireoidite de Hashimoto confirmada</div>
+
+        <p class="carta-p"><strong>TSH: 5,27 mUI/mL</strong> (referencia: 0,55 a 4,78) · <strong>Anti-TPO: 22,7 UI/mL</strong> (referencia ate 9,0). T4 livre 0,83 ng/dL (limite inferior da referencia). O conjunto TSH elevado + Anti-TPO positivo configura tireoidite de Hashimoto com hipotireoidismo subclínico em fase de disfuncao inicial.</p>
+
+        <p class="carta-p">O hipotireoidismo subclínico e a causa isolada mais comum de queda de cabelo em mulheres acima dos 40 anos. Neste caso, atua em sinergia com a ferropenia confirmada (ferritina 6,8 ng/mL), com o hipoestrogenismo secundario a hiperprolactinemia e com a deficiencia de vitamina D (36 ng/mL apesar de suplementacao com 4000 UI/dia), formando um quadro multifatorial grave para os foliculos capilares.</p>
+
+        <p class="carta-p">Ja iniciei conduta nutricional para Hashimoto: selênio 200 mcg/dia (selenometionina) com evidencia de reducao de Anti-TPO, aumento da vitamina D3 para 7000–10000 UI/dia (meta 60–80 ng/mL para modulacao imune na doenca autoimune tireoidiana) e correcao das demais deficiencias pos-bariatrica. Deixo a criterio do especialista a indicacao de levotiroxina para o hipotireoidismo subclínico.</p>
+
+        <div class="carta-secao-titulo">Outros achados laboratoriais relevantes para o contexto</div>
+
+        <div class="carta-tabela" style="display:table">
+          <table class="carta-tabela">
+            <thead><tr><th>Exame</th><th>Resultado</th><th>Referencia</th><th>Observacao</th></tr></thead>
+            <tbody>
+              <tr><td>Ferritina</td><td>6,8 ng/mL</td><td>15–150 ng/mL</td><td>Ferropenia grave. Ja em reposicao nutricional com ferro bisglicinato 30 mg/dia</td></tr>
+              <tr><td>Magnesio serico</td><td>1,80 mg/dL</td><td>1,9–2,5 mg/dL</td><td>Abaixo do limite. Cofator das deiodinases — agrava hipotireoidismo. Em reposicao</td></tr>
+              <tr><td>Vitamina D 25-OH</td><td>36 ng/mL</td><td>30–100 ng/mL</td><td>Insuficiente para doenca autoimune. Dose aumentada para 7000 UI/dia</td></tr>
+              <tr><td>Vitamina B12</td><td>1.479 pg/mL</td><td>211–911 pg/mL</td><td>Elevada — suplementacao adequada com metilcobalamina sublingual</td></tr>
+              <tr><td>SHBG</td><td>286 nmol/L</td><td>17–124 nmol/L</td><td>Muito elevada. Consistente com bloqueio hiperprolactinêmico do eixo gonadal</td></tr>
+              <tr><td>Testosterona livre</td><td>0,04 ng/dL</td><td>0,06–0,82 ng/dL</td><td>Abaixo do limite. Consequencia direta da hiperprolactinemia via SHBG</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="carta-cards">
+          <div class="carta-card"><div class="carta-card-exame">Ferritina 6,8 ng/mL</div><div class="carta-card-just">Ferropenia grave. Em reposicao com ferro bisglicinato 30 mg/dia.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Magnesio 1,80 mg/dL</div><div class="carta-card-just">Abaixo do limite. Cofator das deiodinases — agrava hipotireoidismo. Em reposicao.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Vitamina D 36 ng/mL</div><div class="carta-card-just">Insuficiente para Hashimoto. Dose aumentada para 7000 UI/dia.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">SHBG 286 nmol/L</div><div class="carta-card-just">Muito elevada. Consistente com bloqueio hiperprolactinêmico do eixo gonadal.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">Testosterona livre 0,04 ng/dL</div><div class="carta-card-just">Abaixo do limite. Consequencia direta da hiperprolactinemia.</div></div>
+        </div>
+
+        <div class="carta-secao-titulo">Resumo do encaminhamento</div>
+
+        <p class="carta-p">Encaminho a Fernanda para avaliacao endocrinologica com duas hipoteses principais que, juntas, explicam o quadro clinico completo de queda capilar intensa, perfil hormonal inconsistente para a faixa etaria e ausencia de resposta aos tratamentos anteriores:</p>
+
+        <p class="carta-p"><strong>1. Provavel prolactinoma:</strong> prolactina 199 ng/mL → solicito RM de hipofise com contraste e dosagem de macroprolactina para confirmar etiologia e definir conduta (cabergolina como primeira linha nos adenomas secretores).</p>
+
+        <p class="carta-p"><strong>2. Hashimoto com hipotireoidismo subclínico:</strong> TSH 5,27 + Anti-TPO 22,7 → solicito avaliacao da indicacao de levotiroxina e acompanhamento da funcao tireoidiana.</p>
+
+        <p class="carta-p">Mantenho o suporte nutricional com correcao das deficiencias confirmadas e fico a disposicao para integrar as condutas e compartilhar os exames completos na medida em que forem evoluindo.</p>
+
+        <div class="carta-assinatura">
+          <div class="carta-ass-nome">Ademir Ferreira Junior</div>
+          <div class="carta-ass-crn">Nutricionista · CRN-3 72295</div>
+          <div class="carta-ass-marca">Nutri Ademir Ferreira · contato@nutriademirferreira.com.br</div>
+        </div>
+      </div>
     </div>
   </div>
 
