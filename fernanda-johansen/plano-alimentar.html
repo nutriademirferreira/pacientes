@@ -504,14 +504,451 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
   <div class="aba" id="aba-exames">
 
     <!-- RESULTADOS JULHO 2026 -->
-    <div class="seção-label" style="margin-bottom:4px">Resultados — Grupo Seta · 09/07/2026</div>
-    <div style="font-size:12px;color:var(--cinza);margin-bottom:16px;line-height:1.6">Primeiro painel laboratorial registrado no sistema. Comparativo histórico sera alimentado nas próximas coletas.</div>
+    <div class="secao-label" style="margin-bottom:4px">Resultados — Grupo Seta · 09/07/2026</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:16px;line-height:1.6">Primeiro painel laboratorial registrado no sistema. Comparativo histórico será alimentado nas próximas coletas.</div>
 
     <!-- legenda -->
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#993C1D;display:inline-block"></span>Crítico</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#854F0B;display:inline-block"></span>Alterado</div>
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#2D6A35;display:inline-block"></span>Normal</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#706B63;display:inline-block"></span>Não interpretável</div>
+    </div>
+
+    <!-- HEMOGRAMA -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Hemograma</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Hemoglobina</div>
+          <div class="result-badges"><span class="result-val">11,5 g/dL</span><span class="result-status status-alterado">Abaixo</span></div>
+        </div>
+        <div class="result-ref">Ref: 12–15 g/dL · Anemia leve — hematócrito 35,8% (ref 36–46%)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Anemia crônica relatada desde a bariátrica</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">11,5</div></div>
+        </div>
+        <div class="result-conduta">VCM 84,5 fL (normal) e RDW 14,7% (elevado) + anisocitose no laudo: padrão de anemia mista (ferropriva + possível megaloblástica coexistindo). MPV 14,3 fL elevado. Ferro e B12 em reposição.</div>
+      </div>
+    </div>
+
+    <!-- FERRO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Ferro — eixo completo</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Ferritina</div>
+          <div class="result-badges"><span class="result-val">6,8 ng/mL</span><span class="result-status status-critico">Crítico</span></div>
+        </div>
+        <div class="result-ref">Ref feminino adulta: 13–150 ng/mL · Meta capilar: &gt; 70 ng/mL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Anemia crônica desde a bariátrica — sem valores anteriores</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">6,8</div></div>
+        </div>
+        <div class="result-conduta">Em reposição: Ferro bisglicinato 30 mg/dia, manhã, longe do cetoprofeno. Meta: &gt; 70 ng/mL para controle da queda capilar. Reavaliar em 90 dias.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">TIBC — Capacidade de ligação do ferro</div>
+          <div class="result-badges"><span class="result-val">599 µg/dL</span><span class="result-status status-critico">Muito elevada</span></div>
+        </div>
+        <div class="result-ref">Ref: 250–450 µg/dL · TIBC alta confirma ferropenia — o organismo aumenta a capacidade de captura porque falta ferro</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">599</div></div>
+        </div>
+        <div class="result-conduta">Junto com ferritina 6,8 e transferrina elevada, confirma ferropenia grave. Ferro sérico 44,2 µg/dL (dentro da referência mas baixo-normal nesse contexto).</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Transferrina</div>
+          <div class="result-badges"><span class="result-val">455 mg/dL</span><span class="result-status status-alterado">Elevada</span></div>
+        </div>
+        <div class="result-ref">Ref: 200–360 mg/dL · Sobe na deficiência de ferro como resposta compensatória</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">455</div></div>
+        </div>
+        <div class="result-conduta">Tríade ferritina baixa + TIBC alta + transferrina alta = ferropenia grave sem dúvida. Mantém protocolo de reposição.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Vitamina B12</div>
+          <div class="result-badges"><span class="result-val">582 pg/mL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref adultos: 245–985 pg/mL · Nível adequado com suplementação ativa</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Deficiência clássica pós-bariátrica — sem valores anteriores</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">582</div></div>
+        </div>
+        <div class="result-conduta">Metilcobalamina sublingual 1000 mcg/dia mantendo nível adequado. Manter protocolo. Homocisteína 5,4 µmol/L (normal) confirma função adequada de B12 e folato.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Ácido Fólico</div>
+          <div class="result-badges"><span class="result-val">20,38 ng/mL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: &gt; 3,37 ng/mL · Nível adequado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">20,38</div></div>
+        </div>
+        <div class="result-conduta">Normal. Sem ação necessária. Álcool 2x/semana não depletor o suficiente neste caso para comprometer o folato.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Homocisteína</div>
+          <div class="result-badges"><span class="result-val">5,4 µmol/L</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref feminino: 4,4–13,6 µmol/L · Marcador funcional de B12 e folato</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">5,4</div></div>
+        </div>
+        <div class="result-conduta">Homocisteína normal confirma que B12 e folato estão funcionalmente adequados. Sem risco de metilação comprometida no momento.</div>
+      </div>
+    </div>
+
+    <!-- TIREOIDE -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Tireoide — padrão sugestivo de tireoidite autoimune</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">TSH</div>
+          <div class="result-badges"><span class="result-val">5,27 mUI/mL</span><span class="result-status status-alterado">Elevado</span></div>
+        </div>
+        <div class="result-ref">Ref adulta 19–61 anos: 0,40–4,30 mUI/mL · Hipotireoidismo subclínico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">5,27</div></div>
+        </div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Diagnóstico formal (USG tireoide + Anti-TG) a cargo do especialista. Avaliação de levotiroxina pendente.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">T4 Livre</div>
+          <div class="result-badges"><span class="result-val">1,24 ng/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref 19–60 anos: 0,70–1,90 ng/dL · Tireoide ainda compensando</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">1,24</div></div>
+        </div>
+        <div class="result-conduta">T4L normal com TSH elevado = hipotireoidismo subclínico compensado. A tireoide ainda mantém a produção de T4, mas com custo (TSH alto). Tendência de deterioração se não tratado.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">T3 Livre</div>
+          <div class="result-badges"><span class="result-val">2,86 pg/mL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref feminino adulta: 2,00–4,40 pg/mL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">2,86</div></div>
+        </div>
+        <div class="result-conduta">T3L normal. Conversão de T4 em T3 ainda preservada. Magnésio abaixo do limite pode comprometer as deiodinases — mais uma razão para priorizar a reposição.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Anti-TPO</div>
+          <div class="result-badges"><span class="result-val">22,7 UI/mL</span><span class="result-status status-alterado">Positivo</span></div>
+        </div>
+        <div class="result-ref">Ref: &lt; 13,8 UI/mL · 1,6x acima do limite — sugestivo de tireoidite autoimune</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores — primeiro registro</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">22,7</div></div>
+        </div>
+        <div class="result-conduta">Selênio 200 mcg/dia iniciado. Reavaliar Anti-TPO em 90 dias. Vitamina D alvo 60–80 ng/mL para modulação imune.</div>
+      </div>
+    </div>
+
+    <!-- HORMONAL -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Hormonal — hiperprolactinemia e cascata gonadal</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Prolactina</div>
+          <div class="result-badges"><span class="result-val">199,0 ng/mL</span><span class="result-status status-critico">Crítico</span></div>
+        </div>
+        <div class="result-ref">Ref mulheres não grávidas: 4,8–23,3 ng/mL · 8,5x acima do limite · Laudo: repetido e confirmado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">199,0</div></div>
+        </div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Solicitar RM hipófise com contraste + macroprolactina. Cascata: prolactina alta → suprime GnRH → FSH/LH indetectáveis → hipoestrogenismo → SHBG 286 → testosterona livre zerada.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">FSH</div>
+          <div class="result-badges"><span class="result-val">&lt; 0,3 mUI/mL</span><span class="result-status status-critico">Indetectável</span></div>
+        </div>
+        <div class="result-ref">Ref pós-menopausa: 25,8–134,8 mUI/mL · Suprimido pela hiperprolactinemia · Laudo: repetido e confirmado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">&lt; 0,3</div></div>
+        </div>
+        <div class="result-conduta">Praticamente indetectável numa mulher de 52 anos. Supressão hiperprolactinêmica total do eixo gonadal. Reavaliar após normalização da prolactina.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">LH</div>
+          <div class="result-badges"><span class="result-val">0,30 mUI/mL</span><span class="result-status status-critico">Indetectável</span></div>
+        </div>
+        <div class="result-ref">Ref pós-menopausa: 7,7–59,0 mUI/mL · Supressão total pelo excesso de prolactina</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">0,30</div></div>
+        </div>
+        <div class="result-conduta">Junto com FSH &lt; 0,3, confirma bloqueio central completo do eixo gonadal. Reavaliar após tratamento do prolactinoma.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Estradiol E2</div>
+          <div class="result-badges"><span class="result-val">20,3 pg/mL</span><span class="result-status status-alterado">Baixo</span></div>
+        </div>
+        <div class="result-ref">Ref fase folicular: 30,9–90,4 pg/mL · Abaixo da fase folicular — hipoestrogenismo funcional</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">20,3</div></div>
+        </div>
+        <div class="result-conduta">Estradiol baixo apesar do anticoncepcional oral em uso. Hipoestrogenismo secundário à supressão do eixo pela hiperprolactinemia. Reavaliar após normalização da prolactina.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">SHBG</div>
+          <div class="result-badges"><span class="result-val">286,0 nmol/L</span><span class="result-status status-critico">Muito elevada</span></div>
+        </div>
+        <div class="result-ref">Ref mulher pós-menopausa: 23,2–159,1 nmol/L · 1,8x acima — sequestra testosterona livre</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">286,0</div></div>
+        </div>
+        <div class="result-conduta">SHBG muito elevada = testosterona total sequestrada → testosterona livre praticamente zero. Efeito combinado do hipoestrogenismo + anticoncepcional oral (que também eleva SHBG).</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Testosterona Total</div>
+          <div class="result-badges"><span class="result-val">13,0 ng/dL</span><span class="result-status status-ok">Normal baixo</span></div>
+        </div>
+        <div class="result-ref">Ref mulher adulta: 12–60 ng/dL · Dentro da referência mas no limite inferior</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">13,0</div></div>
+        </div>
+        <div class="result-conduta">Total tecnicamente normal, mas SHBG de 286 sequestra quase tudo — daí a testosterona livre zerada. O problema não é a produção total, é a fração livre disponível.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Testosterona Livre</div>
+          <div class="result-badges"><span class="result-val">0,04 ng/dL</span><span class="result-status status-critico">Abaixo do limite</span></div>
+        </div>
+        <div class="result-ref">Ref mulher 45–87 anos: 0,05–0,88 ng/dL · Zerada pelo sequestro da SHBG</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">0,04</div></div>
+        </div>
+        <div class="result-conduta">Folículos capilares sem suporte androgênico. Mecanismo: prolactina 199 → suprime GnRH → FSH/LH zerados → testosterona total 13 + SHBG 286 = testosterona livre 0,04.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">DHEA</div>
+          <div class="result-badges"><span class="result-val">0,95 ng/mL</span><span class="result-status status-alterado">Abaixo do limite</span></div>
+        </div>
+        <div class="result-ref">Ref feminino 18–63 anos: 1,00–5,86 ng/mL · Deficiência adrenal de androgênios</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">0,95</div></div>
+        </div>
+        <div class="result-conduta">DHEA abaixo do limite inferior complementa o quadro de depleção androgênica total. Conduta a cargo do endocrinologista.</div>
+      </div>
+
+      <div class="result-item" style="border-left:3px solid var(--cinza)">
+        <div class="result-top">
+          <div class="result-nome">Cortisol</div>
+          <div class="result-badges"><span class="result-val">24,7 mcg/dL</span><span class="result-status" style="background:var(--creme);color:var(--cinza);border:1px solid var(--bege)">Não interpretável</span></div>
+        </div>
+        <div class="result-ref">Ref matutino (7–9h): 5,3–22,5 mcg/dL · Coleta registrada às 00:00 — horário inválido para cortisol</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val" style="color:var(--cinza)">24,7*</div></div>
+        </div>
+        <div class="result-conduta">Valor não pode ser interpretado pois o cortisol segue ritmo circadiano estrito — coleta fora da janela das 7–9h invalida o resultado. Solicitar nova coleta com horário correto, se indicado pelo endocrinologista.</div>
+      </div>
+    </div>
+
+    <!-- LIPIDOGRAMA -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Lipidograma — risco cardiovascular</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Colesterol Total</div>
+          <div class="result-badges"><span class="result-val">234 mg/dL</span><span class="result-status status-alterado">Elevado</span></div>
+        </div>
+        <div class="result-ref">Meta adultos: &lt; 190 mg/dL · Causa mais provável: hipotireoidismo subclínico (TSH 5,27)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">234</div></div>
+        </div>
+        <div class="result-conduta">Hipotireoidismo reduz a expressão dos receptores hepáticos de LDL → menos clearance → LDL e CT sobem. Tratar a tireoide é a primeira conduta, antes de qualquer intervenção lipídica.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">LDL Calculado</div>
+          <div class="result-badges"><span class="result-val">144 mg/dL</span><span class="result-status status-alterado">Elevado</span></div>
+        </div>
+        <div class="result-ref">Meta risco intermediário: &lt; 130 mg/dL · Colesterol não-HDL: 169 mg/dL (ref &lt; 160)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">144</div></div>
+        </div>
+        <div class="result-conduta">LDL 144 com PCR 6,82 mg/L eleva o risco cardiovascular combinado. Reavaliação após normalização do TSH — espera-se queda do LDL com tratamento tireoidiano.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HDL</div>
+          <div class="result-badges"><span class="result-val">65 mg/dL</span><span class="result-status status-ok">Bom</span></div>
+        </div>
+        <div class="result-ref">Meta: &gt; 45 mg/dL · Fator protetor cardiovascular adequado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">65</div></div>
+        </div>
+        <div class="result-conduta">HDL adequado — achado positivo. Manter ômega-3 2g/dia que contribui para perfil lipídico favorável.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Triglicerídeos</div>
+          <div class="result-badges"><span class="result-val">125,6 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Meta sem jejum: &lt; 175 mg/dL · Normal apesar do álcool 2x/semana</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">125,6</div></div>
+        </div>
+        <div class="result-conduta">Normal. Vigilância com o álcool regular — triglicerídeos são sensíveis ao consumo de álcool e podem elevar se o consumo aumentar.</div>
+      </div>
+    </div>
+
+    <!-- METABÓLICO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Metabólico — glicemia e resistência insulínica</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Glicemia de Jejum</div>
+          <div class="result-badges"><span class="result-val">92,0 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 70–99 mg/dL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">92,0</div></div>
+        </div>
+        <div class="result-conduta">Normal. Sem alteração glicídica em jejum.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HbA1c</div>
+          <div class="result-badges"><span class="result-val">5,5%</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Normal: &lt; 5,7% · Glicose média estimada: 111 mg/dL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">5,5%</div></div>
+        </div>
+        <div class="result-conduta">Controle glicêmico dos últimos 90 dias adequado. Sem risco de diabetes no momento.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HOMA-IR</div>
+          <div class="result-badges"><span class="result-val">2,43</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Insulina: 10,7 µUI/mL · Sem resistência insulínica (critério IMC &gt; 27,5: HOMA &lt; 3,60)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">2,43</div></div>
+        </div>
+        <div class="result-conduta">Sensibilidade à insulina preservada — benefício metabólico da cirurgia bariátrica mantido. Achado positivo relevante.</div>
+      </div>
+    </div>
+
+    <!-- INFLAMATÓRIO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Inflamação sistêmica</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">PCR Ultrassensível</div>
+          <div class="result-badges"><span class="result-val">6,82 mg/L</span><span class="result-status status-critico">Muito elevada</span></div>
+        </div>
+        <div class="result-ref">Risco cardiovascular alto: &gt; 0,30 mg/L · Processo inflamatório ativo: &gt; 0,50 mg/L</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">6,82</div></div>
+        </div>
+        <div class="result-conduta">PCR 6,82 indica inflamação sistêmica significativa — amplifica o risco cardiovascular do LDL 144. Possíveis contribuintes: processo autoimune tireoidiano, hiperprolactinemia, estado nutricional deficiente. Reavaliar após normalização hormonal e correção das deficiências. Ômega-3 2g/dia tem efeito anti-inflamatório relevante.</div>
+      </div>
+    </div>
+
+    <!-- MICRONUTRIENTES -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Micronutrientes</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Vitamina D (25-OH)</div>
+          <div class="result-badges"><span class="result-val">36 ng/mL</span><span class="result-status status-alterado">Insuficiente</span></div>
+        </div>
+        <div class="result-ref">Meta para tireoidite autoimune: 60–80 ng/mL · Em suplementação com 4000 UI/dia (insuficiente)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Em suplementação com 4000 UI/dia — sem valor anterior registrado</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">36</div></div>
+        </div>
+        <div class="result-conduta">Dose aumentada para 7000–10000 UI/dia. Tecido adiposo sequestra D3 em pós-bariátrica. Reavaliar em 90 dias.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Magnésio Sérico</div>
+          <div class="result-badges"><span class="result-val">1,80 mg/dL</span><span class="result-status status-critico">Abaixo do limite</span></div>
+        </div>
+        <div class="result-ref">Ref adultos (&gt; 12 anos): 1,9–2,6 mg/dL · Deficiência confirmada</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">1,80</div></div>
+        </div>
+        <div class="result-conduta">Protocolo atualizado para URGENTE: magnésio bisglicinato 300–400 mg às 21h. Cofator das deiodinases — deficiência agrava a conversão de T4 em T3.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Zinco</div>
+          <div class="result-badges"><span class="result-val">77,4 mcg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 70–120 mcg/dL · Dentro da referência</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">77,4</div></div>
+        </div>
+        <div class="result-conduta">Normal. Manter zinco bisglicinato 30 mg no jantar como suporte preventivo — pós-bariátrica e álcool regular são fatores de risco contínuos.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Vitamina A</div>
+          <div class="result-badges"><span class="result-val">0,65 mg/L</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 0,30–0,70 mg/L · Próximo do limite superior — sem toxicidade</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">0,65</div></div>
+        </div>
+        <div class="result-conduta">Normal. Não há deficiência nem excesso. Sem necessidade de suplementação adicional de vitamina A.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:6px">Próxima coleta — outubro/2026</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.75">Ferritina · Vitamina D · Magnésio · TSH + T4 livre + T3 livre · Anti-TPO · Prolactina · FSH + LH · Lipidograma · PCR ultrassensível · Cortisol matutino (coleta 7–9h). O comparativo histórico será alimentado nesta aba.</div>
     </div>
 
     <!-- EIXO FERRO -->
