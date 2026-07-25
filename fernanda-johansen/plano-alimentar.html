@@ -52,6 +52,30 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .update-tag{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--ouro);color:var(--carvao);border-radius:4px;padding:2px 6px;margin-left:6px;vertical-align:middle}
 .supl-item.atualizado{border-color:var(--ouro);border-left:3px solid var(--ouro)}
 .fase-label-update{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--carvao);background:var(--ouro);border-radius:8px;padding:8px 14px;margin:24px 0 12px;display:block}
+
+/* RESULTADOS */
+.result-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:10px}
+.result-item.result-critico{border-left:3px solid #993C1D}
+.result-item.result-alterado{border-left:3px solid #854F0B}
+.result-item.result-ok{border-left:3px solid #2D6A35}
+.result-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.result-nome{font-size:14px;font-weight:600;color:var(--verde)}
+.result-badges{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.result-val{font-size:12px;font-weight:700;color:var(--carvao)}
+.result-status{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:3px 9px;white-space:nowrap}
+.status-critico{background:#FAE8E4;color:#993C1D}
+.status-alterado{background:#FFF3E0;color:#854F0B}
+.status-ok{background:#E8F4EA;color:#2D6A35}
+.result-ref{font-size:11px;color:var(--cinza);margin-bottom:10px;line-height:1.5}
+.result-hist{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.result-hist-item{background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px 10px;flex:1;min-width:100px}
+.result-hist-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
+.result-hist-val{font-size:13px;font-weight:700}
+.hist-critico{color:#993C1D}
+.hist-alterado{color:#854F0B}
+.hist-ok{color:#2D6A35}
+.hist-narrativo{font-size:11px;font-weight:400;color:var(--cinza);line-height:1.4}
+.result-conduta{font-size:11px;color:var(--cinza);line-height:1.6;background:var(--creme);border-radius:8px;padding:8px 10px;border-left:2px solid var(--ouro)}
 .supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
 .supl-campo{background:var(--creme);border-radius:8px;padding:8px 10px}
 .supl-campo-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza);margin-bottom:3px}
@@ -478,8 +502,237 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
   <!-- ═══ ABA: EXAMES ═══ -->
   <div class="aba" id="aba-exames">
-    <div class="secao-label" style="margin-bottom:4px">Linha de investigacao laboratorial</div>
-    <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">Painel para investigar queda de cabelo intensa, deficiencias pos-bariatrica e contexto metabolico. Exames organizados por prioridade de investigacao.</div>
+
+    <!-- RESULTADOS JULHO 2026 -->
+    <div class="secao-label" style="margin-bottom:4px">Resultados — Grupo Seta · 09/07/2026</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:16px;line-height:1.6">Primeiro painel laboratorial registrado no sistema. Comparativo historico sera alimentado nas proximas coletas.</div>
+
+    <!-- legenda -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#993C1D;display:inline-block"></span>Critico</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#854F0B;display:inline-block"></span>Alterado</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#2D6A35;display:inline-block"></span>Normal</div>
+    </div>
+
+    <!-- EIXO FERRO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Ferro e hematologia</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Ferritina</div>
+          <div class="result-badges">
+            <span class="result-val">6,8 ng/mL</span>
+            <span class="result-status status-critico">Critico</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 15–150 ng/mL · Meta capilar: &gt; 70 ng/mL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Anemia cronica relatada desde a bariatrica — sem valores anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">6,8</div></div>
+        </div>
+        <div class="result-conduta">Em reposicao: Ferro bisglicinato 30 mg/dia, manha, longe do cetoprofeno. Meta: ferritina &gt; 70 ng/mL. Reavaliar em 90 dias.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Vitamina B12</div>
+          <div class="result-badges">
+            <span class="result-val">1.479 pg/mL</span>
+            <span class="result-status status-ok">Suplementando</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 211–911 pg/mL · Acima da referencia (suplementacao ativa)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Deficiencia pos-bariatrica relatada — sem valores anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-ok">1.479</div></div>
+        </div>
+        <div class="result-conduta">Metilcobalamina sublingual 1000 mcg/dia. Nivel elevado esperado com suplementacao adequada. Manter protocolo.</div>
+      </div>
+    </div>
+
+    <!-- EIXO TIREOIDE -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Tireoide — Hashimoto confirmado</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">TSH</div>
+          <div class="result-badges">
+            <span class="result-val">5,27 mUI/mL</span>
+            <span class="result-status status-alterado">Elevado</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 0,55–4,78 mUI/mL · Hipotireoidismo subclínico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">5,27</div></div>
+        </div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Hashimoto confirmado com Anti-TPO positivo. Avaliacao de levotiroxina a criterio do especialista.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">T4 Livre</div>
+          <div class="result-badges">
+            <span class="result-val">0,83 ng/dL</span>
+            <span class="result-status status-alterado">Limite inf.</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 0,89–1,76 ng/dL · Abaixo do limite inferior</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">0,83</div></div>
+        </div>
+        <div class="result-conduta">Combinado com TSH elevado e Anti-TPO positivo confirma hipotireoidismo por Hashimoto. Reavaliar apos conduta endocrinologica.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Anti-TPO</div>
+          <div class="result-badges">
+            <span class="result-val">22,7 UI/mL</span>
+            <span class="result-status status-critico">Positivo</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: ate 9,0 UI/mL · Hashimoto confirmado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">22,7</div></div>
+        </div>
+        <div class="result-conduta">Selênio 200 mcg/dia iniciado (evidencia de reducao de Anti-TPO). Reavaliar em 90 dias. Vitamina D alvo: 60–80 ng/mL para modulacao imune.</div>
+      </div>
+    </div>
+
+    <!-- EIXO HORMONAL -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Hormonal — hiperprolactinemia e cascata gonadal</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Prolactina</div>
+          <div class="result-badges">
+            <span class="result-val">199 ng/mL</span>
+            <span class="result-status status-critico">Critico</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 4,0–29,7 ng/mL · 6,7x acima do limite — provavel prolactinoma</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">199</div></div>
+        </div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Solicitar RM hipofise com contraste + macroprolactina. Cascata: prolactina alta → suprime GnRH → FSH/LH baixos → hipoestrogenismo → SHBG alta → testosterona livre zerada.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">FSH</div>
+          <div class="result-badges">
+            <span class="result-val">5,7 mUI/mL</span>
+            <span class="result-status status-alterado">Inesperadamente baixo</span>
+          </div>
+        </div>
+        <div class="result-ref">Esperado pos-menopausa: &gt; 25–40 mUI/mL · Suprimido pela hiperprolactinemia</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">5,7</div></div>
+        </div>
+        <div class="result-conduta">Valor inconsistente para 52 anos. Supressao hiperprolactinemica do eixo gonadal. Reavaliar apos normalizacao da prolactina.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">LH</div>
+          <div class="result-badges">
+            <span class="result-val">1,3 mUI/mL</span>
+            <span class="result-status status-alterado">Suprimido</span>
+          </div>
+        </div>
+        <div class="result-ref">Esperado pos-menopausa: &gt; 10–15 mUI/mL · Supressao hiperprolactinemica</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">1,3</div></div>
+        </div>
+        <div class="result-conduta">Confirma supressao central do eixo gonadal pela hiperprolactinemia. Reavaliar apos tratamento do prolactinoma.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">SHBG</div>
+          <div class="result-badges">
+            <span class="result-val">286 nmol/L</span>
+            <span class="result-status status-critico">Muito elevada</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 17–124 nmol/L · 2,3x acima do limite — sequestra testosterona livre</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">286</div></div>
+        </div>
+        <div class="result-conduta">Consequencia direta do hipoestrogenismo por hiperprolactinemia. SHBG elevada sequestra testosterona e agrava queda capilar. Reavaliar apos normalizacao hormonal.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Testosterona Livre</div>
+          <div class="result-badges">
+            <span class="result-val">0,04 ng/dL</span>
+            <span class="result-status status-critico">Abaixo do limite</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 0,06–0,82 ng/dL · Efeito direto da SHBG elevada</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">0,04</div></div>
+        </div>
+        <div class="result-conduta">Testosterona livre zerada = foliculos capilares sem suporte anabolico. Mecanismo: prolactina → suprime GnRH → menos testosterona total + SHBG muito alta = testosterona livre proximo de zero.</div>
+      </div>
+    </div>
+
+    <!-- EIXO MICRONUTRIENTES -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Micronutrientes criticos pos-bariatrica</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Vitamina D (25-OH)</div>
+          <div class="result-badges">
+            <span class="result-val">36 ng/mL</span>
+            <span class="result-status status-alterado">Insuficiente</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 30–100 ng/mL · Meta para Hashimoto: 60–80 ng/mL</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Em suplementacao com 4000 UI/dia ha tempo nao informado</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">36</div></div>
+        </div>
+        <div class="result-conduta">Dose aumentada para 7000–10000 UI/dia. Tecido adiposo sequestra D3 em pos-bariatrica. Para Hashimoto, meta clinica e 60–80 ng/mL. Reavaliar em 90 dias.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Magnesio Serico</div>
+          <div class="result-badges">
+            <span class="result-val">1,80 mg/dL</span>
+            <span class="result-status status-critico">Abaixo do limite</span>
+          </div>
+        </div>
+        <div class="result-ref">Ref: 1,9–2,5 mg/dL · Deficiencia confirmada</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Historico</div><div class="result-hist-val hist-narrativo">Uso cronico de cetoprofeno depleta magnesio — sem valores anteriores</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-critico">1,80</div></div>
+        </div>
+        <div class="result-conduta">Protocolo atualizado para URGENTE. Magnesio bisglicinato 300–400 mg as 21h. Cofator das deiodinases — sua deficiencia agrava o hipotireoidismo do Hashimoto.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:6px">Proxima coleta programada</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.75">Reavaliar em 90 dias (outubro/2026): ferritina, vitamina D, magnesio, TSH + T4 livre, Anti-TPO, prolactina. O comparativo historico sera alimentado automaticamente nesta aba.</div>
+    </div>
+
+    <div class="secao-label" style="margin-bottom:4px">Painel de investigacao — Junho 2026</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">Exames solicitados em junho/2026 para investigacao de queda de cabelo intensa, deficiencias pos-bariatrica e contexto metabolico. Organizados por prioridade de investigacao.</div>
 
     <div class="exame-grupo">
       <span class="exame-grupo-titulo">Eixo do ferro e hematologia — prioridade maxima</span>
