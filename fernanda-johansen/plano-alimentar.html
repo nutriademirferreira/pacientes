@@ -122,7 +122,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .btn-imprimir:hover{background:#3d4a34}
 
 /* CARTA MOBILE */
-@media(max-width:600px){
+@média(max-width:600px){
   .carta-corpo{padding:14px}
   .carta-header{padding:14px}
   .carta-p{font-size:12px}
@@ -132,7 +132,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
   .carta-card-exame{background:var(--verde);padding:8px 12px;font-size:12px;font-weight:600;color:var(--creme-suv)}
   .carta-card-just{padding:10px 12px;font-size:12px;line-height:1.65;color:var(--carvao)}
 }
-@media(min-width:601px){.carta-cards{display:none}}
+@média(min-width:601px){.carta-cards{display:none}}
 
 /* BANNER */
 .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
@@ -158,7 +158,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 .instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
 .modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
 
-@media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
+@média print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}.aba{display:none!important}.aba.print-ativa{display:block!important}}
 
 .carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
 .carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cinza);margin-bottom:8px}
@@ -179,11 +179,11 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <button class="nav-btn" onclick="mudarAba('meu-plano',this)">Meu plano</button>
     <button class="nav-btn ativo" onclick="mudarAba('suplementos',this)">Suplementos</button>
     <button class="nav-btn" onclick="mudarAba('evolução',this)">Evolução</button>
-    <button class="nav-btn" onclick="mudarAba('carta-medico-nut',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('carta-médico-nut',this)">Carta ao médico</button>
     <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao personal</button>
     <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
     <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
-    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Solicitação</button>
+    <button class="nav-btn" onclick="mudarAba('carta-médico',this)">Solicitação</button>
   </nav>
 </div>
 
@@ -211,10 +211,10 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
       </div>
       <div class="supl-grid">
         <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">1.000 mcg</div></div>
-        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Manha, em jejum</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Manhã, em jejum</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Sublingual (dissolver sob a lingua)</div></div>
       </div>
-      <div class="supl-just">Deficiência clássica e progressiva após cirurgia bariátrica — o estomago reduzido produz menos fator intrinseco, essencial para absorver B12 pela via oral comum. A forma sublingual bypassa esse problema. B12 é essencial para a formação dos folículos capilares é a divisão célular. Cabelo que cai em tufos com histórico de anemia crônica e sinal direto de B12 insuficiente. O cetoprofeno crônico também depleta essa vitamina.</div>
+      <div class="supl-just">Deficiência clássica e progressiva após cirurgia bariátrica — o estomago reduzido produz menos fator intrínseco, essencial para absorver B12 pela via oral comum. A forma sublingual bypassa esse problema. B12 é essencial para a formação dos folículos capilares é a divisão célular. Cabelo que cai em tufos com histórico de anemia crônica e sinal direto de B12 insuficiente. O cetoprofeno crônico também depleta essa vitamina.</div>
     </div>
 
     <div class="supl-item">
@@ -224,7 +224,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
       </div>
       <div class="supl-grid">
         <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">30 mg ferro elementar</div></div>
-        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Manha, longe das refeições</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Manhã, longe das refeições</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Espacamento</div><div class="supl-campo-valor">2h de distancia do cetoprofeno</div></div>
       </div>
       <div class="supl-just">Ferritina baixa é a causa mais frequente de queda de cabelo em mulheres, mesmo quando o hemograma não mostra anemia. A ferritina precisa estar acima de 40 ng/mL para os folículos funcionarem bem; abaixo disso, o corpo prioriza outros orgaos. O bisglicinato tem melhor absorção e menos irritação gastrica, importante dado o refluxo silencioso. Aguardar o resultado da ferritina para ajustar a dose. Não tomar junto com cetoprofeno (AINEs reduzem absorção de ferro e aumentam risco de sangramento gastrico).</div>
@@ -291,10 +291,10 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
       </div>
       <div class="supl-grid">
         <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">10g</div></div>
-        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manha</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manhã</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Vitamina C (limao ou suplemento)</div></div>
       </div>
-      <div class="supl-just">Fornece aminoácidos específicos (glicina, prolina, hidroxiprolina) que são matéria prima para o cabelo, pele e unhas. A vitamina C e cofator essencial para a síntese de colágeno; sempre combinar. Dado que ela não está seguindo o plano alimentar, o aporte proteico provavelmente está baixo, é o colágeno complementa essa lacuna para os tecidos de alto turnover como o cabelo.</div>
+      <div class="supl-just">Fornece aminoácidos específicos (glicina, prolina, hidroxiprolina) que são matéria prima para o cabelo, pele e unhas. A vitamina C e cofator essencial para a síntese de colágeno; sempre combinar. Dado que ela não está seguindo o plano alimentar, o aporte proteico provávelmente está baixo, é o colágeno complementa essa lacuna para os tecidos de alto turnover como o cabelo.</div>
     </div>
 
     <span class="fase-label">Complementar — aguardar exames para confirmar</span>
@@ -306,7 +306,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
       </div>
       <div class="supl-grid">
         <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">5.000 mcg</div></div>
-        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manha</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manhã</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Agua</div></div>
       </div>
       <div class="supl-just">A biotina so tem evidência real de beneficio para o cabelo quando há deficiência comprovada. Em pós-bariátrica com dieta restrita e uso crônico de cetoprofeno, a deficiência é possível. Aguardar resultado para confirmar necessidade. Aténção: doses altas de biotina interferem em varios exames laboratoriais (especialmente TSH e hormônios) — suspender 3 a 5 dias antes da coleta dos exames.</div>
@@ -328,7 +328,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--alerta);border-radius:0 10px 10px 0;padding:14px 16px;margin-top:8px">
       <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--alerta);margin-bottom:8px">Aténção — espacamento entre suplementos</div>
       <div style="font-size:13px;color:var(--carvao);line-height:1.75">
-        Ferro e Zinco não devem ser tomados juntos (competem pela absorção). Espaco minimo de 2 horas entre os dois. Sugestão: ferro de manha, zinco a noite.<br><br>
+        Ferro e Zinco não devem ser tomados juntos (competem pela absorção). Espaco mínimo de 2 horas entre os dois. Sugestão: ferro de manhã, zinco a noite.<br><br>
         Ferro e cetoprofeno também não devem ser tomados juntos — o AINE reduz absorção do ferro e aumenta o risco de irritação gastrica. Espaco de pelo menos 2 horas.<br><br>
         Suspender biotina 3 a 5 dias antes da coleta dos exames laboratoriais (interfere em TSH, T4 e outros hormônios).
       </div>
@@ -340,7 +340,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <div style="background:var(--creme-suv);border:1px solid var(--ouro);border-radius:12px;padding:14px 16px;margin-bottom:16px">
       <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px">O que mudou com os resultados de julho/2026</div>
       <div style="font-size:12px;color:var(--carvao);line-height:1.75">
-        Os exames do Grupo Seta (09/07/2026) trouxeram tres achados que exigem ajuste imediato no protocolo: <strong>magnésio abaixo do limite inferior</strong> (1,80 mg/dL), <strong>vitamina D insuficiente apesar da suplementação com 4000 UI</strong> (resultado 36 ng/mL), e <strong>padrao laboratorial sugestivo de tireoidite autoimune</strong> (TSH 5,27 + Anti-TPO 22,7 — em avaliação pelo endocrinologista), com indicação de selênio. Alem disso, a <strong>prolactina de 199 ng/mL</strong> muda o contexto clinico inteiro — o encaminhamento ao endocrinologista já foi feito (ver aba Carta ao medico).
+        Os exames do Grupo Seta (09/07/2026) trouxeram tres achados que exigem ajuste imédiato no protocolo: <strong>magnésio abaixo do limite inferior</strong> (1,80 mg/dL), <strong>vitamina D insuficiente apesar da suplementação com 4000 UI</strong> (resultado 36 ng/mL), e <strong>padrão laboratorial sugestivo de tireoidite autoimune</strong> (TSH 5,27 + Anti-TPO 22,7 — em avaliação pelo endocrinologista), com indicação de selênio. Alem disso, a <strong>prolactina de 199 ng/mL</strong> muda o contexto clínico inteiro — o encaminhamento ao endocrinologista já foi feito (ver aba Carta ao médico).
       </div>
     </div>
 
@@ -367,7 +367,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Almoco</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Com</div><div class="supl-campo-valor">Refeição com gordura</div></div>
       </div>
-      <div class="supl-just">Resultado: 25-OH Vitamina D = 36 ng/mL após suplementação com 4000 UI/dia — ainda em zona de insuficiência para o contexto de Hashimoto (meta clinica: 60–80 ng/mL). A tireoidite autoimune aumenta o consumo de vitamina D e exige nível mais elevado para modular a resposta imune. O tecido adiposo sequestra parte da D3, comum em pós-bariátrica com peso elevado. Dose aumentada para 7000–10000 UI. Reavaliar em 90 dias.</div>
+      <div class="supl-just">Resultado: 25-OH Vitamina D = 36 ng/mL após suplementação com 4000 UI/dia — ainda em zona de insuficiência para o contexto de Hashimoto (meta clínica: 60–80 ng/mL). A tireoidite autoimune aumenta o consumo de vitamina D e exige nível mais elevado para modular a resposta imune. O tecido adiposo sequestra parte da D3, comum em pós-bariátrica com peso elevado. Dose aumentada para 7000–10000 UI. Reavaliar em 90 dias.</div>
     </div>
 
     <div class="supl-item atualizado">
@@ -377,10 +377,10 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
       </div>
       <div class="supl-grid">
         <div class="supl-campo"><div class="supl-campo-label">Dose</div><div class="supl-campo-valor">200 mcg</div></div>
-        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manha</div></div>
+        <div class="supl-campo"><div class="supl-campo-label">Horario</div><div class="supl-campo-valor">Cafe da manhã</div></div>
         <div class="supl-campo"><div class="supl-campo-label">Como</div><div class="supl-campo-valor">Com agua ou refeição</div></div>
       </div>
-      <div class="supl-just">Indicado pelo padrao laboratorial sugestivo de tireoidite autoimune (TSH 5,27 + Anti-TPO 22,7 — em avaliação pelo endocrinologista). O selênio e cofator essencial das deiodinases (enzimas que convertem T4 em T3 ativo) e tem acao antioxidante direta na tireoide, reduzindo o ataque autoimune. Evidência forte: meta-análises mostram redução significativa de Anti-TPO com suplementação de 200 mcg/dia por 3 a 6 meses. Usar selenometionina (orgânica) — não usar selenito de sódio (menor absorção). Não exceder 200 mcg/dia (toxicidade acima de 400 mcg). Reavaliar Anti-TPO em 3 meses.</div>
+      <div class="supl-just">Indicado pelo padrão laboratorial sugestivo de tireoidite autoimune (TSH 5,27 + Anti-TPO 22,7 — em avaliação pelo endocrinologista). O selênio e cofator essencial das deiodinases (enzimas que convertem T4 em T3 ativo) e tem acao antioxidante direta na tireoide, reduzindo o ataque autoimune. Evidência forte: meta-análises mostram redução significativa de Anti-TPO com suplementação de 200 mcg/dia por 3 a 6 meses. Usar selenometionina (orgânica) — não usar selenito de sódio (menor absorção). Não exceder 200 mcg/dia (toxicidade acima de 400 mcg). Reavaliar Anti-TPO em 3 meses.</div>
     </div>
 
   </div>
@@ -394,7 +394,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
   </div>
 
   <!-- ═══ ABA: CARTA AO MÉDICO ═══ -->
-  <div class="aba" id="aba-carta-medico-nut">
+  <div class="aba" id="aba-carta-médico-nut">
 
     <button class="btn-imprimir" onclick="imprimirCarta('carta-encaminhamento-conteudo')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -411,13 +411,13 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         <div class="carta-data">São Paulo, 25 de julho de 2026</div>
 
         <div class="carta-titulo-doc">Encaminhamento para Endocrinologia</div>
-        <div class="carta-subtitulo">Nutricionista Clinico — Acompanhamento Pos-Bariátrico e Investigação Hormonal</div>
+        <div class="carta-subtitulo">Nutricionista Clínico — Acompanhamento Pos-Bariátrico e Investigação Hormonal</div>
 
         <div class="carta-paciente-box">
           <div class="carta-paciente-linha"><strong>Paciente:</strong> Fernanda Johansen Silva</div>
           <div class="carta-paciente-linha"><strong>Data de nascimento:</strong> 26/11/1973 · 52 anos</div>
           <div class="carta-paciente-linha"><strong>Peso atual:</strong> ~100 kg · ~100 kg · Cirurgia bariátrica (gastroplastia)</div>
-          <div class="carta-paciente-linha"><strong>Medicamentos em uso:</strong> Anticoncepcional oral, Cetoprofeno (uso crônico), Canabidiol sem THC</div>
+          <div class="carta-paciente-linha"><strong>Médicamentos em uso:</strong> Anticoncepcional oral, Cetoprofeno (uso crônico), Canabidiol sem THC</div>
           <div class="carta-paciente-linha"><strong>Exames de referência:</strong> Grupo Seta, coleta em 09/07/2026</div>
         </div>
 
@@ -425,17 +425,17 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
         <p class="carta-p">Encaminho a paciente Fernanda Johansen Silva, 52 anos, em acompanhamento nutricional com queixa de alopecia difusa de progressão rápida com inicio há apróximadamente dois meses. A avaliação laboratorial solicitada (Grupo Seta, 09/07/2026) identificou dois achados de competência endocrinológica que indicam avaliação especializada.</p>
 
-        <div class="carta-seção-titulo">Achado 1 — Hiperprolactinemia acentuada: provavel prolactinoma</div>
+        <div class="carta-seção-titulo">Achado 1 — Hiperprolactinemia acentuada: provável prolactinoma</div>
 
-        <p class="carta-p"><strong>Prolactina: 199 ng/mL</strong> (valor de referência do laboratório: 4,0 a 29,7 ng/mL). Elevação de 6,7 vezes o limite superior. A coleta foi realizada pela manha, em condições padrao de laboratório.</p>
+        <p class="carta-p"><strong>Prolactina: 199 ng/mL</strong> (valor de referência do laboratório: 4,0 a 29,7 ng/mL). Elevação de 6,7 vezes o limite superior. A coleta foi realizada pela manhã, em condições padrão de laboratório.</p>
 
-        <p class="carta-p">A prolactina neste nível suprime de forma direta o eixo hipotálamo-hipofisário-gonadal: inibé o GnRH, reduz FSH e LH, e instala hipoestrogenismo funcional. Nos exames da paciente, esse mecanismo está objetivado: FSH 5,7 mUI/mL e LH 1,3 mUI/mL — valores improvavelmente baixos para uma mulher de 52 anos, mesmo considerando o uso de anticoncepcional oral, sugerindo supressão hiperprolactinêmica sobreposta. O SHBG de 286 nmol/L (extremamente elevado) é a testosterona livre de apenas 0,04 ng/dL completam o quadro de bloqueio hormonal por excesso de prolactina.</p>
+        <p class="carta-p">A prolactina neste nível suprime de forma direta o eixo hipotálamo-hipofisário-gonadal: inibé o GnRH, reduz FSH e LH, e instala hipoestrogenismo funcional. Nos exames da paciente, esse mecanismo está objetivado: FSH 5,7 mUI/mL e LH 1,3 mUI/mL — valores improvávelmente baixos para uma mulher de 52 anos, mesmo considerando o uso de anticoncepcional oral, sugerindo supressão hiperprolactinêmica sobreposta. O SHBG de 286 nmol/L (extremamente elevado) é a testosterona livre de apenas 0,04 ng/dL completam o quadro de bloqueio hormonal por excesso de prolactina.</p>
 
         <p class="carta-p">Do ponto de vista capilar, esse bloqueio hormonal contribui diretamente para a queda por ao menos tres mecanismos: hipoestrogenismo funcional, zeragem da testosterona livre (que em mulheres e anabolica para o folículo capilar) e efeito direto da prolactina elevada no ciclo capilar. Solicito avaliação para prolactinoma com ressonancia magnetica de hipófise com contraste e dosagem de macroprolactina para diferenciar prolactinemia biológicamente inativa de adenoma secretor.</p>
 
-        <div class="carta-seção-titulo">Achado 2 — Padrao laboratorial sugestivo de tireoidite autoimune (provavel Hashimoto)</div>
+        <div class="carta-seção-titulo">Achado 2 — Padrão laboratorial sugestivo de tireoidite autoimune (provável Hashimoto)</div>
 
-        <p class="carta-p"><strong>TSH: 5,27 mUI/mL</strong> (referência: 0,55 a 4,78) · <strong>Anti-TPO: 22,7 UI/mL</strong> (referência até 9,0) · T4 livre 0,83 ng/dL (abaixo do limite inferior). Não há relato de diagnóstico previo de doenca tireoidiana — este é o primeiro painel com avaliação completa de tireoide registrado no acompanhamento destá paciente. O conjunto TSH elevado + Anti-TPO positivo + T4L no limite inferior e altamente sugestivo de tireoidite de Hashimoto com hipotireoidismo subclínico, mas o diagnóstico formal — incluindo ultrassonografia da tireoide e avaliação clinica — e competência do especialista.</p>
+        <p class="carta-p"><strong>TSH: 5,27 mUI/mL</strong> (referência: 0,55 a 4,78) · <strong>Anti-TPO: 22,7 UI/mL</strong> (referência até 9,0) · T4 livre 0,83 ng/dL (abaixo do limite inferior). Não há relato de diagnóstico previo de doenca tireoidiana — este é o primeiro painel com avaliação completa de tireoide registrado no acompanhamento destá paciente. O conjunto TSH elevado + Anti-TPO positivo + T4L no limite inferior e altamente sugestivo de tireoidite de Hashimoto com hipotireoidismo subclínico, mas o diagnóstico formal — incluindo ultrassonografia da tireoide e avaliação clínica — e competência do especialista.</p>
 
         <p class="carta-p">O hipotireoidismo subclínico é a causa isolada mais comum de queda de cabelo em mulheres acima dos 40 anos. Neste caso, atua em sinergia com a ferropenia grave (ferritina 6,8 ng/mL), com o hipoestrogenismo secundario a hiperprolactinemia e com a deficiência de vitamina D (36 ng/mL apesar de suplementação com 4000 UI/dia), formando um quadro multifatorial grave para os folículos capilares.</p>
 
@@ -467,11 +467,11 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
         <div class="carta-seção-titulo">Resumo do encaminhamento</div>
 
-        <p class="carta-p">Encaminho a Fernanda para avaliação endocrinológica com duas hipóteses principais que, juntas, explicam o quadro clinico completo de queda capilar intensa, perfil hormonal inconsistente para a faixa etaria e ausencia de resposta aos tratamentos anteriores:</p>
+        <p class="carta-p">Encaminho a Fernanda para avaliação endocrinológica com duas hipóteses principais que, juntas, explicam o quadro clínico completo de queda capilar intensa, perfil hormonal inconsistente para a faixa etaria e ausencia de resposta aos tratamentos anteriores:</p>
 
-        <p class="carta-p"><strong>1. Provavel prolactinoma:</strong> prolactina 199 ng/mL → solicito RM de hipófise com contraste e dosagem de macroprolactina para confirmar etiologia e definir conduta (cabergolina como primeira linhá nos adenomas secretores).</p>
+        <p class="carta-p"><strong>1. Provável prolactinoma:</strong> prolactina 199 ng/mL → solicito RM de hipófise com contraste e dosagem de macroprolactina para confirmar etiologia e definir conduta (cabergolina como primeira linhá nos adenomas secretores).</p>
 
-        <p class="carta-p"><strong>2. Padrao sugestivo de tireoidite autoimune (provavel Hashimoto):</strong> TSH 5,27 + Anti-TPO 22,7 + T4L 0,83 (limite inferior) — primeiro registro laboratorial de tireoide destá paciente, sem histórico previo de diagnóstico tireoidiano documentado. Solicito ultrassonografia da tireoide, dosagem de Anti-TG e avaliação da indicação de levotiroxina.</p>
+        <p class="carta-p"><strong>2. Padrão sugestivo de tireoidite autoimune (provável Hashimoto):</strong> TSH 5,27 + Anti-TPO 22,7 + T4L 0,83 (limite inferior) — primeiro registro laboratorial de tireoide destá paciente, sem histórico previo de diagnóstico tireoidiano documentado. Solicito ultrassonografia da tireoide, dosagem de Anti-TG e avaliação da indicação de levotiroxina.</p>
 
         <p class="carta-p">Mantenho o suporte nutricional com correcao das deficiências confirmadas e fico a disposição para integrar as condutas e compartilhar os exames completos na medida em que forem evoluindo.</p>
 
@@ -531,7 +531,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Anemia crônica relatada desdé a bariátrica — sem valores anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-crítico">6,8</div></div>
         </div>
-        <div class="result-conduta">Em reposição: Ferro bisglicinato 30 mg/dia, manha, longe do cetoprofeno. Meta: ferritina &gt; 70 ng/mL. Reavaliar em 90 dias.</div>
+        <div class="result-conduta">Em reposição: Ferro bisglicinato 30 mg/dia, manhã, longe do cetoprofeno. Meta: ferritina &gt; 70 ng/mL. Reavaliar em 90 dias.</div>
       </div>
 
       <div class="result-item result-alterado">
@@ -553,7 +553,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
 
     <!-- EIXO TIREOIDE -->
     <div class="exame-grupo">
-      <span class="exame-grupo-titulo">Tireoide — padrao sugestivo de tireoidite autoimune</span>
+      <span class="exame-grupo-titulo">Tireoide — padrão sugestivo de tireoidite autoimune</span>
 
       <div class="result-item result-alterado">
         <div class="result-top">
@@ -568,7 +568,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">5,27</div></div>
         </div>
-        <div class="result-conduta">Encaminhada ao endocrinologista. Padrao sugestivo de Hashimoto — diagnóstico formal (ultrassonografia + Anti-TG) a cargo do especialista. Avaliação de levotiroxina a criterio do especialista.</div>
+        <div class="result-conduta">Encaminhada ao endocrinologista. Padrão sugestivo de Hashimoto — diagnóstico formal (ultrassonografia + Anti-TG) a cargo do especialista. Avaliação de levotiroxina a criterio do especialista.</div>
       </div>
 
       <div class="result-item result-alterado">
@@ -584,7 +584,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">0,83</div></div>
         </div>
-        <div class="result-conduta">Combinado com TSH elevado e Anti-TPO positivo forma padrao sugestivo de hipotireoidismo por tireoidite autoimune. Diagnóstico formal a cargo do endocrinologista. Reavaliar após conduta especializada.</div>
+        <div class="result-conduta">Combinado com TSH elevado e Anti-TPO positivo forma padrão sugestivo de hipotireoidismo por tireoidite autoimune. Diagnóstico formal a cargo do endocrinologista. Reavaliar após conduta especializada.</div>
       </div>
 
       <div class="result-item result-crítico">
@@ -616,7 +616,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
             <span class="result-status status-crítico">Crítico</span>
           </div>
         </div>
-        <div class="result-ref">Ref: 4,0–29,7 ng/mL · 6,7x acima do limite — provavel prolactinoma</div>
+        <div class="result-ref">Ref: 4,0–29,7 ng/mL · 6,7x acima do limite — provável prolactinoma</div>
         <div class="result-hist">
           <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores registrados</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-crítico">199</div></div>
@@ -706,7 +706,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Em suplementação com 4000 UI/dia há tempo não informado</div></div>
           <div class="result-hist-item"><div class="result-hist-label">Jul/2026</div><div class="result-hist-val hist-alterado">36</div></div>
         </div>
-        <div class="result-conduta">Dose aumentada para 7000–10000 UI/dia. Tecido adiposo sequestra D3 em pós-bariátrica. Para Hashimoto, meta clinica e 60–80 ng/mL. Reavaliar em 90 dias.</div>
+        <div class="result-conduta">Dose aumentada para 7000–10000 UI/dia. Tecido adiposo sequestra D3 em pós-bariátrica. Para Hashimoto, meta clínica e 60–80 ng/mL. Reavaliar em 90 dias.</div>
       </div>
 
       <div class="result-item result-crítico">
@@ -735,14 +735,14 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
     <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;line-height:1.6">Exames solicitados em junho/2026 para investigação de queda de cabelo intensa, deficiências pós-bariátrica e contexto metabólico. Organizados por prioridade de investigação.</div>
 
     <div class="exame-grupo">
-      <span class="exame-grupo-titulo">Eixo do ferro e hematologia — prioridade maxima</span>
+      <span class="exame-grupo-titulo">Eixo do ferro e hematologia — prioridade máxima</span>
 
       <div class="exame-item">
         <div class="exame-top">
           <div class="exame-nome">Ferritina</div>
           <span class="exame-prioridade prioridade-1">Urgente</span>
         </div>
-        <div class="exame-just">Principal marcador para queda de cabelo por deficiência de ferro. Ferritina abaixo de 30 ng/mL causa queda mesmo com hemograma normal. O ideal para controle da queda e acima de 70 ng/mL. Histórico de anemia crônica pós-bariátrica torna esse achado muito provavel.</div>
+        <div class="exame-just">Principal marcador para queda de cabelo por deficiência de ferro. Ferritina abaixo de 30 ng/mL causa queda mesmo com hemograma normal. O ideal para controle da queda e acima de 70 ng/mL. Histórico de anemia crônica pós-bariátrica torna esse achado muito provável.</div>
       </div>
 
       <div class="exame-item">
@@ -766,7 +766,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="exame-nome">Vitamina B12 sérica</div>
           <span class="exame-prioridade prioridade-1">Urgente</span>
         </div>
-        <div class="exame-just">Deficiência clássica e progressiva pós-bariátrica por redução do fator intrinseco. B12 baixa causa queda de cabelo, fadiga, formigamentos e deficit cognitivo. O valor sérico pode estar artificialmente normal mesmo com deficiência funcional; exame complementar com homocisteina e recomendavel.</div>
+        <div class="exame-just">Deficiência clássica e progressiva pós-bariátrica por redução do fator intrínseco. B12 baixa causa queda de cabelo, fadiga, formigamentos e deficit cognitivo. O valor sérico pode estar artificialmente normal mesmo com deficiência funcional; exame complementar com homocisteina e recomendavel.</div>
       </div>
 
       <div class="exame-item">
@@ -834,7 +834,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="exame-nome">FSH + LH + Estradiol (D2 ou D3 do ciclo)</div>
           <span class="exame-prioridade prioridade-2">Importante</span>
         </div>
-        <div class="exame-just">52 anos com uso de anticoncepcional, que mascara os sinais da perimenopausa. O anticoncepcional bloqueia o FSH é o LH, impedindo a avaliação do status ovariano real. O medico precisara orientar sobré a melhor janela de coleta ou pausa temporaria do anticoncepcional para avaliação fidedigna.</div>
+        <div class="exame-just">52 anos com uso de anticoncepcional, que mascara os sinais da perimenopausa. O anticoncepcional bloqueia o FSH é o LH, impedindo a avaliação do status ovariano real. O médico precisara orientar sobré a melhor janela de coleta ou pausa temporaria do anticoncepcional para avaliação fidedigna.</div>
       </div>
 
       <div class="exame-item">
@@ -850,7 +850,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="exame-nome">Prolactina</div>
           <span class="exame-prioridade prioridade-2">Importante</span>
         </div>
-        <div class="exame-just">Hiperprolactinemia pode causar queda de cabelo e irregularidade hormonal. Deve ser coletada de manha, em repouso, sem estresse na coleta.</div>
+        <div class="exame-just">Hiperprolactinemia pode causar queda de cabelo e irregularidade hormonal. Deve ser coletada de manhã, em repouso, sem estresse na coleta.</div>
       </div>
 
       <div class="exame-item">
@@ -878,7 +878,7 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="exame-nome">HbA1c</div>
           <span class="exame-prioridade prioridade-2">Importante</span>
         </div>
-        <div class="exame-just">Avalia a media glicemica dos últimos 90 dias, independente do jejum do dia da coleta. Captura oscilacoes qué a glicemia de jejum isolada não detecta.</div>
+        <div class="exame-just">Avalia a média glicemica dos últimos 90 dias, independente do jejum do dia da coleta. Captura oscilacoes qué a glicemia de jejum isolada não detecta.</div>
       </div>
 
       <div class="exame-item">
@@ -900,15 +900,15 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
   </div>
 
   <!-- ═══ ABA: SOLICITACAO DE EXAMES ═══ -->
-  <div class="aba" id="aba-carta-medico">
+  <div class="aba" id="aba-carta-médico">
     <div class="seção-label" style="margin-bottom:16px">Solicitação de exames laboratoriais</div>
 
-    <button class="btn-imprimir" onclick="imprimirCarta('carta-medico-conteudo')">
+    <button class="btn-imprimir" onclick="imprimirCarta('carta-médico-conteudo')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       Imprimir / Salvar PDF
     </button>
 
-    <div class="carta-wrapper" id="carta-medico-conteudo">
+    <div class="carta-wrapper" id="carta-médico-conteudo">
       <div class="carta-header">
         <div class="carta-nutri-nome">Ademir Ferreira Junior</div>
         <div class="carta-nutri-crn">Nutricionista · CRN-3 72295</div>
@@ -918,28 +918,28 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
         <div class="carta-data">São Paulo, 22 de junho de 2026</div>
 
         <div class="carta-titulo-doc">Solicitação de Exames Laboratoriais</div>
-        <div class="carta-subtitulo">Nutricionista Clinico — Acompanhamento Pos-Bariátrico e Investigação de Queda Capilar</div>
+        <div class="carta-subtitulo">Nutricionista Clínico — Acompanhamento Pos-Bariátrico e Investigação de Queda Capilar</div>
 
         <div class="carta-paciente-box">
           <div class="carta-paciente-linha"><strong>Paciente:</strong> Fernanda Johansen Silva</div>
           <div class="carta-paciente-linha"><strong>Data de nascimento:</strong> 26/11/1973 · 52 anos</div>
           <div class="carta-paciente-linha"><strong>Peso atual:</strong> ~100 kg · Cirurgia bariátrica</div>
-          <div class="carta-paciente-linha"><strong>Medicamentos em uso:</strong> Anticoncepcional oral, Cetoprofeno (uso crônico), Canabidiol sem THC</div>
+          <div class="carta-paciente-linha"><strong>Médicamentos em uso:</strong> Anticoncepcional oral, Cetoprofeno (uso crônico), Canabidiol sem THC</div>
         </div>
 
-        <p class="carta-p">Paciente em acompanhamento nutricional pós-bariátrico, com queixa atual de queda intensa de cabelo iniciada há apróximadamente 1 mes, com progressão rápida. Relata histórico de anemia crônica desdé a cirurgia bariátrica, com melhora nos últimos exames, mas não realiza avaliação laboratorial há mais de 2 anos. Atualmente não está seguindo o plano alimentar prescrito, sem atividade fisica regular e com consumo de alcool 2 vezes por semana.</p>
+        <p class="carta-p">Paciente em acompanhamento nutricional pós-bariátrico, com queixa atual de queda intensa de cabelo iniciada há apróximadamente 1 mes, com progressão rápida. Relata histórico de anemia crônica desdé a cirurgia bariátrica, com melhora nos últimos exames, mas não realiza avaliação laboratorial há mais de 2 anos. Atualmente não está seguindo o plano alimentar prescrito, sem atividade física regular e com consumo de alcool 2 vezes por semana.</p>
 
-        <p class="carta-p">O contexto clinico justifica investigação laboratorial ampla: pós-bariátrica há anos com dieta irregular cria risco cumulativo de múltiplas deficiências simultâneas, é o uso crônico de cetoprofeno depleta ferro e magnésio. O alcool regular depleta zinco, B12 e folato. Com 52 anos e anticoncepcional em uso, o status perimenopausal está mascarado e deve ser avaliado. Solicito os seguintes exames para orientar a conduta nutricional:</p>
+        <p class="carta-p">O contexto clínico justifica investigação laboratorial ampla: pós-bariátrica há anos com dieta irregular cria risco cumulativo de múltiplas deficiências simultâneas, é o uso crônico de cetoprofeno depleta ferro e magnésio. O alcool regular depleta zinco, B12 e folato. Com 52 anos e anticoncepcional em uso, o status perimenopausal está mascarado e deve ser avaliado. Solicito os seguintes exames para orientar a conduta nutricional:</p>
 
         <div class="carta-seção-titulo">Hematologia e ferro</div>
 
         <table class="carta-tabela">
           <thead><tr><th>Exame</th><th>Justificativa</th></tr></thead>
           <tbody>
-            <tr><td>Ferritina</td><td>Principal marcador de queda capilar por deficiência de ferro. Ferritina abaixo de 30 ng/mL causa queda mesmo sem anemia. Histórico de anemia crônica pós-bariátrica torna esse achado muito provavel. Meta terapêutica acima de 70 ng/mL para controle da queda.</td></tr>
+            <tr><td>Ferritina</td><td>Principal marcador de queda capilar por deficiência de ferro. Ferritina abaixo de 30 ng/mL causa queda mesmo sem anemia. Histórico de anemia crônica pós-bariátrica torna esse achado muito provável. Meta terapêutica acima de 70 ng/mL para controle da queda.</td></tr>
             <tr><td>Ferro sérico + TIBC + Saturação de transferrina</td><td>Avaliação do estoque e transporte de ferro. Saturação abaixo de 16% confirma deficiência funcional e orienta a dose de reposição.</td></tr>
             <tr><td>Hemograma completo + VCM + HCM</td><td>Rastreamento de anemia ferropriva (VCM baixo) e megaloblastica (VCM alto por B12 ou folato deficientes).</td></tr>
-            <tr><td>Vitamina B12 sérica</td><td>Deficiência clássica e progressiva pós-bariátrica por redução do fator intrinseco. Cetoprofeno crônico agrava o quadro.</td></tr>
+            <tr><td>Vitamina B12 sérica</td><td>Deficiência clássica e progressiva pós-bariátrica por redução do fator intrínseco. Cetoprofeno crônico agrava o quadro.</td></tr>
             <tr><td>Folato sérico</td><td>Alcool regular depleta folato. Deficiência prejudica a divisão célular dos folículos capilares.</td></tr>
             <tr><td>Homocisteina</td><td>Marcador funcional de deficiência de B12 e folato, mais sensivel que os níveis séricos isolados.</td></tr>
           </tbody>
@@ -1003,9 +1003,9 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <tbody>
             <tr><td>Testosterona total e livre</td><td>Alopecia androgênetica feminina por sensibilidade folicular aumentada aos androgênios. Em obesidade abdominal, androgenismo relativo é frequente.</td></tr>
             <tr><td>DHEA-S</td><td>Avalia produção adrenal de androgênios, não suprimida pelo anticoncepcional. Relevante para investigação de alopecia androgênetica.</td></tr>
-            <tr><td>Prolactina</td><td>Hiperprolactinemia causa queda de cabelo e irregularidade hormonal. Coletar pela manha, em repouso.</td></tr>
+            <tr><td>Prolactina</td><td>Hiperprolactinemia causa queda de cabelo e irregularidade hormonal. Coletar pela manhã, em repouso.</td></tr>
             <tr><td>Cortisol basal (coleta as 8h)</td><td>Estresse crônico intenso relatado como gatilho de crises anteriores. Cortisol crônicamente elevado causa telogen effluvium e resistência ao emagrecimento.</td></tr>
-            <tr><td>FSH + LH + Estradiol</td><td>Anticoncepcional oral mascara o status perimenopausal. Avaliar janela de coleta adequada com o medico assistente (possível pausa ou coleta na janela do placebo).</td></tr>
+            <tr><td>FSH + LH + Estradiol</td><td>Anticoncepcional oral mascara o status perimenopausal. Avaliar janela de coleta adequada com o médico assistente (possível pausa ou coleta na janela do placebo).</td></tr>
           </tbody>
         </table>
 
@@ -1014,12 +1014,12 @@ body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);m
           <div class="carta-card"><div class="carta-card-exame">DHEA-S</div><div class="carta-card-just">Androgênios adrenais não suprimidos pelo anticoncepcional. Relevante para alopecia androgênetica.</div></div>
           <div class="carta-card"><div class="carta-card-exame">Prolactina</div><div class="carta-card-just">Hiperprolactinemia causa queda capilar. Coletar pela manhá em repouso.</div></div>
           <div class="carta-card"><div class="carta-card-exame">Cortisol basal (8h)</div><div class="carta-card-just">Estresse crônico relatado como gatilho. Cortisol elevado causa telogen effluvium.</div></div>
-          <div class="carta-card"><div class="carta-card-exame">FSH + LH + Estradiol</div><div class="carta-card-just">Anticoncepcional mascara status perimenopausal. Avaliar janela de coleta com o medico.</div></div>
+          <div class="carta-card"><div class="carta-card-exame">FSH + LH + Estradiol</div><div class="carta-card-just">Anticoncepcional mascara status perimenopausal. Avaliar janela de coleta com o médico.</div></div>
         </div>
 
         <div style="background:var(--creme);border:1px solid var(--bege);border-left:3px solid var(--sage);border-radius:0 10px 10px 0;padding:14px 16px;margin:16px 0">
           <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:6px">Observacao importante para a coleta</div>
-          <div style="font-size:12px;color:var(--carvao);line-height:1.75">Suspender biotina (vitamina B7) por 3 a 5 dias antes da coleta, caso estejá em uso. Doses altas de biotina interferem nos ensaios de TSH, T4 livre, hormônios e outros marcadores por competição no metodo imunoenzimatico (ECLIA/CLIA), podendo gerar resultados falsos. Informar ao laboratório todos os suplementos e medicamentos em uso no momento da coleta.</div>
+          <div style="font-size:12px;color:var(--carvao);line-height:1.75">Suspender biotina (vitamina B7) por 3 a 5 dias antes da coleta, caso estejá em uso. Doses altas de biotina interferem nos ensaios de TSH, T4 livre, hormônios e outros marcadores por competição no metodo imunoenzimatico (ECLIA/CLIA), podendo gerar resultados falsos. Informar ao laboratório todos os suplementos e médicamentos em uso no momento da coleta.</div>
         </div>
 
         <div class="carta-assinatura">
