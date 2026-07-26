@@ -90,6 +90,37 @@ nav.nav::-webkit-scrollbar{display:none}
 .supl-campo-valor{font-size:13px;font-weight:500;color:var(--carvao)}
 .supl-just{font-size:12px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:10px}
 .fase-label{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--cinza);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+.fase-label-update{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--carvao);background:var(--ouro);padding:4px 12px;border-radius:20px;display:inline-block;margin:20px 0 8px}
+.badge-novo{background:#E8F4EA;color:#2D6A35;border:1px solid #B8DDBB}
+.badge-ajustado{background:#EEF3FF;color:#3553A4;border:1px solid #C0CDED}
+.supl-item.atualizado{border-color:var(--ouro);border-left:3px solid var(--ouro)}
+.update-tag{display:inline-block;font-size:8px;letter-spacing:.08em;text-transform:uppercase;background:var(--ouro);color:var(--carvao);padding:2px 7px;border-radius:10px;font-weight:700;vertical-align:middle;margin-left:6px}
+
+/* exames */
+.exame-grupo{margin-bottom:24px}
+.exame-grupo-titulo{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--cinza);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:8px;border-bottom:1px solid var(--bege);padding-bottom:4px}
+.result-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:8px}
+.result-item.result-critico{border-left:3px solid #993C1D}
+.result-item.result-alterado{border-left:3px solid #854F0B}
+.result-item.result-ok{border-left:3px solid #2D6A35}
+.result-item.result-atencao{border-left:3px solid var(--ouro)}
+.result-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.result-nome{font-size:13px;font-weight:600;color:var(--carvao)}
+.result-badges{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.result-val{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--carvao)}
+.result-status{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.04em}
+.status-critico{background:#FAE8E4;color:#993C1D}
+.status-alterado{background:#FFF3E0;color:#854F0B}
+.status-ok{background:#E8F4EA;color:#2D6A35}
+.status-atencao{background:#FEF3E2;color:#8A5C00}
+.result-ref{font-size:11px;color:var(--cinza);margin-bottom:8px;line-height:1.4}
+.result-hist{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.result-hist-item{background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:6px 10px;min-width:80px}
+.result-hist-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--cinza);margin-bottom:2px}
+.result-hist-val{font-size:13px;font-weight:600}
+.hist-critico{color:#993C1D}.hist-alterado{color:#854F0B}.hist-ok{color:#2D6A35}.hist-neutro{color:var(--cinza)}
+.result-hist-val.hist-narrativo{font-size:11px;font-weight:400;color:var(--cinza)}
+.result-conduta{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
 
 /* carta */
 .carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
@@ -134,14 +165,15 @@ nav.nav::-webkit-scrollbar{display:none}
     <div class="header-paciente">Bárbara Rodrigues da Silva</div>
     <div class="header-nutri">Ademir Ferreira Junior</div>
     <div class="header-crn">Nutricionista · CRN-3 72295</div>
-    <div class="header-meta">Emagrecimento · Atualizado em jun/26</div>
+    <div class="header-meta">Emagrecimento · Atualizado em jul/26</div>
     <div class="header-dossie">Dossiê de Saúde e Evolução</div>
   </div>
   <nav class="nav">
     <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
     <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
-    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
     <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
     <button class="nav-btn" onclick="mudarAba('carta-personal',this)">Carta ao personal</button>
     <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
   </nav>
@@ -457,17 +489,23 @@ nav.nav::-webkit-scrollbar{display:none}
       <strong>Atenção com a tirzepatida:</strong> não foi prescrito berberina ou cromo neste protocolo. A tirzepatida já age sobre a resistência insulínica (HOMA-IR 3,8) e combinar com sensibilizadores adicionais pode causar hipoglicemia. Siga apenas os suplementos listados abaixo.
     </div>
 
+    <!-- ATUALIZAÇÃO JUN/2026 -->
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:16px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px">Atualização pós-exames · Junho 2026</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.6">Vitamina D com dose ajustada · Vitamina C com dose dobrada · Zinco adicionado ao protocolo. Os demais suplementos foram mantidos — os exames confirmam que a conduta está no caminho certo.</div>
+    </div>
+
     <div class="fase-label">Prioritário</div>
 
-    <div class="supl-item">
+    <div class="supl-item atualizado">
       <div class="supl-top">
-        <div class="supl-nome">Vitamina D3 + K2</div>
+        <div class="supl-nome">Vitamina D3 + K2 <span class="update-tag">ajuste</span></div>
         <span class="badge badge-urgente">Prioritário</span>
       </div>
       <div class="supl-grid">
         <div class="supl-campo">
           <div class="supl-campo-label">Dose</div>
-          <div class="supl-campo-valor">5000 UI D3 + 100mcg K2</div>
+          <div class="supl-campo-valor">7000 UI D3 + 100mcg K2</div>
         </div>
         <div class="supl-campo">
           <div class="supl-campo-label">Horário</div>
@@ -478,29 +516,29 @@ nav.nav::-webkit-scrollbar{display:none}
           <div class="supl-campo-valor">Refeição com gordura</div>
         </div>
       </div>
-      <div class="supl-just">Exame jun/26: Vitamina D 25,37 ng/mL (insuficiência confirmada; ideal acima de 40 ng/mL). D3 participa da sensibilidade insulínica, imunidade e regulação do humor. K2 direciona o cálcio para ossos e dentes.</div>
+      <div class="supl-just"><strong>Por que ajustei a dose:</strong> o exame de jun/26 mostrou Vitamina D em 25,37 ng/mL — insuficiente mesmo com 5000 UI/dia. A meta é chegar entre 40 e 60 ng/mL para otimizar sensibilidade insulínica, imunidade e humor. Dose aumentada para 7000 UI/dia. Reavaliar em setembro. K2 continua no protocolo para direcionar o cálcio para os ossos.</div>
     </div>
 
-    <div class="supl-item">
+    <div class="supl-item atualizado">
       <div class="supl-top">
-        <div class="supl-nome">Vitamina C</div>
+        <div class="supl-nome">Vitamina C <span class="update-tag">ajuste</span></div>
         <span class="badge badge-urgente">Prioritário</span>
       </div>
       <div class="supl-grid">
         <div class="supl-campo">
           <div class="supl-campo-label">Dose</div>
-          <div class="supl-campo-valor">500mg</div>
+          <div class="supl-campo-valor">1000mg/dia</div>
         </div>
         <div class="supl-campo">
           <div class="supl-campo-label">Horário</div>
-          <div class="supl-campo-valor">Café da manhã</div>
+          <div class="supl-campo-valor">500mg manhã + 500mg almoço</div>
         </div>
         <div class="supl-campo">
           <div class="supl-campo-label">Com</div>
           <div class="supl-campo-valor">Água ou suco</div>
         </div>
       </div>
-      <div class="supl-just">Exame jun/26: Vitamina C 1,1 mg/L (deficiência real; referência 4,6 a 15,0 mg/L). Antioxidante essencial, contribui para síntese de colágeno, imunidade e absorção de ferro não heme.</div>
+      <div class="supl-just"><strong>Por que dobramos a dose:</strong> o exame revelou Vitamina C em 1,1 mg/L — referência começa em 4,6. É uma deficiência severa, 76% abaixo do mínimo. Vitamina C é essencial para colágeno (pele, articulações, cicatrização), imunidade e absorção de ferro. Com o metabolismo acelerado pela tirzepatida, a demanda é ainda maior. Dose dividida para melhor absorção ao longo do dia.</div>
     </div>
 
     <div class="supl-item">
@@ -522,7 +560,7 @@ nav.nav::-webkit-scrollbar{display:none}
           <div class="supl-campo-valor">Refeição principal</div>
         </div>
       </div>
-      <div class="supl-just">PCR 3,40 mg/dL (inflamação subclínica; referência abaixo de 1,0) + LDL 134 mg/dL + TG 109 mg/dL. Ômega-3 tem ação anti-inflamatória comprovada e contribui para melhora do perfil lipídico.</div>
+      <div class="supl-just">Mantido e confirmado pelos exames. PCR 3,40 mg/dL indica inflamação sistêmica ativa — ômega-3 é o principal agente anti-inflamatório nutricional com evidência forte. Também contribui para o perfil lipídico: LDL 134 e HDL que caiu de 64 para 57 em 3 meses.</div>
     </div>
 
     <div class="fase-label">Importante</div>
@@ -546,7 +584,7 @@ nav.nav::-webkit-scrollbar{display:none}
           <div class="supl-campo-valor">Água, sem cálcio</div>
         </div>
       </div>
-      <div class="supl-just">Treino de 5 a 6x por semana gera alta demanda de magnésio. A forma bisglicinato tem melhor absorção e menor efeito laxativo. Contribui também para qualidade do sono e controle de ansiedade.</div>
+      <div class="supl-just">Mantido. Exame confirma magnésio sérico estável em 2,00 mg/dL com suplementação. Treino intenso aumenta a perda de magnésio pelo suor. Contribui para sensibilidade à insulina, qualidade do sono e recuperação muscular.</div>
     </div>
 
     <div class="supl-item">
@@ -568,10 +606,414 @@ nav.nav::-webkit-scrollbar{display:none}
           <div class="supl-campo-valor">Água ou shake</div>
         </div>
       </div>
-      <div class="supl-just">Suporte à recomposição corporal com musculação de força. Melhora performance, recuperação e preservação de massa muscular no contexto de restrição calórica. Não interfere na tirzepatida.</div>
+      <div class="supl-just">Mantida. Creatinina sérica 0,80 mg/dL — estável e dentro da referência, confirmando que 3g/dia não impacta a função renal. Suporte à preservação de massa muscular durante o emagrecimento com tirzepatida. Melhora performance e recuperação.</div>
+    </div>
+
+    <div class="fase-label">Novo · Junho 2026</div>
+
+    <div class="supl-item atualizado">
+      <div class="supl-top">
+        <div class="supl-nome">Zinco Bisglicinato <span class="update-tag">novo</span></div>
+        <span class="badge badge-novo">Novo</span>
+      </div>
+      <div class="supl-grid">
+        <div class="supl-campo">
+          <div class="supl-campo-label">Dose</div>
+          <div class="supl-campo-valor">15mg</div>
+        </div>
+        <div class="supl-campo">
+          <div class="supl-campo-label">Horário</div>
+          <div class="supl-campo-valor">Jantar</div>
+        </div>
+        <div class="supl-campo">
+          <div class="supl-campo-label">Com</div>
+          <div class="supl-campo-valor">Refeição — longe do cálcio</div>
+        </div>
+      </div>
+      <div class="supl-just"><strong>Por que entrou no protocolo:</strong> o zinco participa diretamente da sensibilidade à insulina, da síntese de proteínas musculares e da função imune. No contexto de HOMA-IR 3,8, PCR elevada, TGP em progressão e déficit de vitamina C, o zinco atua como suporte metabólico e hepatoprotetor. A forma bisglicinato tem absorção superior às formas inorgânicas (sulfato, óxido) e não causa desconforto gástrico. Reavaliar em 90 dias.</div>
     </div>
 
   </div><!-- /suplementos -->
+
+  <!-- ABA: EXAMES -->
+  <div id="exames" class="aba">
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px">Laudo mais recente</div>
+      <div style="font-size:13px;color:var(--carvao);font-weight:500">Hospital Villa Lobos · Rede D'Or · Coleta 17/06/2026</div>
+      <div style="font-size:11px;color:var(--cinza);margin-top:2px">Comparativo histórico: jan/2025 · fev-mar/2026 · jun/2026</div>
+    </div>
+
+    <!-- legenda -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#993C1D;display:inline-block"></span>Crítico</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#854F0B;display:inline-block"></span>Alterado</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:var(--ouro);display:inline-block"></span>Atenção</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#2D6A35;display:inline-block"></span>Normal</div>
+    </div>
+
+    <!-- INFLAMATÓRIO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Inflamação e risco cardiovascular</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">PCR Quantitativa</div>
+          <div class="result-badges"><span class="result-val">3,40 mg/dL</span><span class="result-status status-critico">Muito elevada</span></div>
+        </div>
+        <div class="result-ref">Ref: &lt; 1,00 mg/dL · 3,4x acima do limite · Inflamação sistêmica ativa</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-critico">3,40</div></div>
+        </div>
+        <div class="result-conduta">PCR elevada combinada com LDL 134 e HOMA-IR 3,8 eleva o risco cardiovascular real acima do que o lipidograma isolado sugere. Ômega-3 2g EPA+DHA/dia e redução de gorduras saturadas são a primeira linha nutricional.</div>
+      </div>
+    </div>
+
+    <!-- METABÓLICO GLICÍDICO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Metabolismo glicídico e insulínico</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Glicemia de Jejum</div>
+          <div class="result-badges"><span class="result-val">80 mg/dL</span><span class="result-status status-ok">Melhora</span></div>
+        </div>
+        <div class="result-ref">Ref: 70–99 mg/dL · Tendência excelente ao longo de 18 meses</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-alterado">92</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-atencao" style="color:#854F0B">86</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">80</div></div>
+        </div>
+        <div class="result-conduta">Queda de 92 para 80 em 18 meses. Resultado direto da combinação de tirzepatida + restrição calórica + musculação.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HbA1c</div>
+          <div class="result-badges"><span class="result-val">5,4%</span><span class="result-status status-ok">Melhora</span></div>
+        </div>
+        <div class="result-ref">Normal: &lt; 5,7% · Controle glicêmico dos últimos 90 dias excelente</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-alterado">5,8%</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">5,4%</div></div>
+        </div>
+        <div class="result-conduta">Era 5,8% (pré-diabetes) e normalizou para 5,4%. Manter o protocolo.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">HOMA-IR</div>
+          <div class="result-badges"><span class="result-val">3,8</span><span class="result-status status-atencao">Monitorar</span></div>
+        </div>
+        <div class="result-ref">Insulina: 19,34 mU/mL · Ref HOMA com IMC elevado: &lt; 4,5 · Resistência insulínica persistente</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">Insulina 17,10</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">3,8 / Ins 19,34</div></div>
+        </div>
+        <div class="result-conduta">A glicemia melhorou, mas a insulina subiu levemente. A tirzepatida controla a glicose, mas a resistência insulínica de base ainda existe. Magnésio, ômega-3 e musculação são os aliados nutricionais para isso.</div>
+      </div>
+    </div>
+
+    <!-- LIPIDOGRAMA -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Lipidograma</span>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Colesterol Total</div>
+          <div class="result-badges"><span class="result-val">213 mg/dL</span><span class="result-status status-alterado">Elevado</span></div>
+        </div>
+        <div class="result-ref">Meta: &lt; 190 mg/dL · Sem histórico anterior disponível</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">213</div></div>
+        </div>
+        <div class="result-conduta">Contexto de PCR 3,40 eleva o risco combinado. Ômega-3 + redução de gorduras saturadas + aumento de fibras solúveis (aveia, leguminosas) são as condutas nutricionais prioritárias.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">LDL</div>
+          <div class="result-badges"><span class="result-val">134 mg/dL</span><span class="result-status status-alterado">Elevado</span></div>
+        </div>
+        <div class="result-ref">Meta risco baixo: &lt; 130 mg/dL · Persistentemente elevado ao longo do histórico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-alterado">130</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">130</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">134</div></div>
+        </div>
+        <div class="result-conduta">Três coletas consecutivas com LDL ≥ 130. Não reduziu com a perda de peso. O médico precisa ser informado. Não-HDL: 156 mg/dL (LDL + VLDL — marcador mais completo).</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HDL</div>
+          <div class="result-badges"><span class="result-val">57 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Meta: &gt; 40 mg/dL · Atenção: caiu de 64 (mar/26) para 57 (jun/26)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-ok">53</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">64</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">57</div></div>
+        </div>
+        <div class="result-conduta">HDL está normal, mas caiu 7 pontos em 3 meses. Atividade física regular e ômega-3 ajudam a manter. Monitorar na próxima coleta.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Triglicerídeos</div>
+          <div class="result-badges"><span class="result-val">109 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Meta: &lt; 150 mg/dL · Bom controle</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">109</div></div>
+        </div>
+        <div class="result-conduta">Normal. Glicemia e carboidratos sob controle — reflete isso diretamente.</div>
+      </div>
+    </div>
+
+    <!-- HEPÁTICO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Função hepática</span>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">TGP / ALT</div>
+          <div class="result-badges"><span class="result-val">39 U/L</span><span class="result-status status-atencao">Atenção</span></div>
+        </div>
+        <div class="result-ref">Ref: 14–41 U/L · Dentro do limite, mas com progressão preocupante ao longo do histórico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-ok">17</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">21</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">39</div></div>
+        </div>
+        <div class="result-conduta">TGP quase triplicou em 18 meses (17→39), ainda dentro da referência mas no limite. Em uso de tirzepatida, essa progressão deve ser comunicada ao médico. Se ultrapassar 41 na próxima coleta, avaliação hepática necessária.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">TGO / AST</div>
+          <div class="result-badges"><span class="result-val">23 U/L</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 14–36 U/L · Estável no histórico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-ok">19</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">26</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">23</div></div>
+        </div>
+        <div class="result-conduta">TGO estável e normal. Contrasta com o TGP — o padrão TGP > TGO é inespecífico, mas típico de lesão hepática gordurosa leve.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">GGT</div>
+          <div class="result-badges"><span class="result-val">23 U/L</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 12–43 U/L · Sem histórico anterior</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">23</div></div>
+        </div>
+        <div class="result-conduta">Normal. GGT sensível a álcool e obstrução biliar — valor tranquilizador neste contexto.</div>
+      </div>
+    </div>
+
+    <!-- TIREOIDE -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Tireoide</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">TSH</div>
+          <div class="result-badges"><span class="result-val">2,45 µIU/mL</span><span class="result-status status-ok">Normalização</span></div>
+        </div>
+        <div class="result-ref">Ref adultos: 0,55–4,78 µIU/mL · Era 4,71 em jan/2025 — queda expressiva</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-alterado">4,71</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">2,54</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">2,45</div></div>
+        </div>
+        <div class="result-conduta">TSH caiu quase 50% em 18 meses e se estabilizou numa zona ótima. Hipotireoidismo subclínico anterior foi revertido — possível contribuição da melhora do peso e nutrição.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">T4 Livre</div>
+          <div class="result-badges"><span class="result-val">1,26 ng/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref adultos: 0,89–1,76 ng/dL · Melhora progressiva</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-atencao" style="color:#854F0B">1,06</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">1,29</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">1,26</div></div>
+        </div>
+        <div class="result-conduta">T4L normalizou e se mantém estável. Sem necessidade de intervenção tireoidiana no momento.</div>
+      </div>
+    </div>
+
+    <!-- MICRONUTRIENTES -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Micronutrientes e vitaminas</span>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Vitamina C</div>
+          <div class="result-badges"><span class="result-val">1,1 mg/L</span><span class="result-status status-critico">Deficiência severa</span></div>
+        </div>
+        <div class="result-ref">Ref: 4,6–15,0 mg/L · Primeira medição — 76% abaixo do limite inferior</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores — primeira medição</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-critico">1,1</div></div>
+        </div>
+        <div class="result-conduta">Deficiência severa. Vitamina C é essencial para colágeno, imunidade e absorção de ferro não-heme. Com tirzepatida, o turnover metabólico é maior. Protocolo ajustado para 1000mg/dia (dividido em 2 doses).</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Vitamina D 25-OH</div>
+          <div class="result-badges"><span class="result-val">25,37 ng/mL</span><span class="result-status status-alterado">Insuficiente</span></div>
+        </div>
+        <div class="result-ref">Desejável: &gt; 30 ng/mL · Meta terapêutica: 40–60 ng/mL · Em suplementação com 5000 UI/dia — ainda insuficiente</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Histórico</div><div class="result-hist-val hist-narrativo">Sem dados anteriores</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">25,37</div></div>
+        </div>
+        <div class="result-conduta">Apesar de 5000 UI/dia, o resultado ainda está insuficiente. Dose ajustada para 7000 UI/dia. Vitamina D influencia sensibilidade insulínica, imunidade e humor. Reavaliar em 90 dias.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Vitamina B12</div>
+          <div class="result-badges"><span class="result-val">504 pg/mL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref adultos: 211–911 pg/mL · Nível adequado</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">504</div></div>
+        </div>
+        <div class="result-conduta">Normal. Sem necessidade de suplementação de B12 no momento.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Ácido Fólico</div>
+          <div class="result-badges"><span class="result-val">9,2 ng/mL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Normal: &gt; 5,38 ng/mL · Atenção: caiu de 17,3 (mar/26) para 9,2 (jun/26)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">17,3</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">9,2</div></div>
+        </div>
+        <div class="result-conduta">Ainda normal, mas caiu pela metade em 3 meses. Folato está relacionado com a homocisteína — monitorar nas próximas coletas. Aumentar consumo de folhas verde-escuras (espinafre, rúcula, couve).</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">Homocisteína</div>
+          <div class="result-badges"><span class="result-val">11,69 µmol/L</span><span class="result-status status-atencao">Limite superior</span></div>
+        </div>
+        <div class="result-ref">Ref feminino 18–29 anos: 4,8–12,5 µmol/L · Próxima do limite — relação com queda do folato</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">11,69</div></div>
+        </div>
+        <div class="result-conduta">No limite superior para a faixa etária. Se o folato continuar caindo, a homocisteína pode subir para zona de risco. Monitorar juntos na próxima coleta.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Magnésio</div>
+          <div class="result-badges"><span class="result-val">2,00 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 1,6–2,3 mg/dL · Estável · Em suplementação ativa</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">2,00</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">2,00</div></div>
+        </div>
+        <div class="result-conduta">Estável com suplementação de 300mg bisglicinato. Manter protocolo — contribui para HOMA-IR, qualidade do sono e recuperação muscular.</div>
+      </div>
+    </div>
+
+    <!-- FERRO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Ferro e hemograma</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Ferritina</div>
+          <div class="result-badges"><span class="result-val">82,9 ng/mL</span><span class="result-status status-ok">Boa melhora</span></div>
+        </div>
+        <div class="result-ref">Ref: 10–291 ng/mL · Evolução expressiva — quase dobrou em relação ao histórico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-alterado">54,2</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">54,0</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">82,9</div></div>
+        </div>
+        <div class="result-conduta">Melhora expressiva. Manteve estagnada por 15 meses e subiu de forma relevante nos últimos 3. Resultado positivo de alimentação e suplementação.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Hemoglobina</div>
+          <div class="result-badges"><span class="result-val">13,9 g/dL</span><span class="result-status status-ok">Melhora</span></div>
+        </div>
+        <div class="result-ref">Ref: 12,3–16 g/dL · Evolução positiva desde jan/2025</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-ok">12,8</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">12,8</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">13,9</div></div>
+        </div>
+        <div class="result-conduta">Subiu de 12,8 para 13,9 — reflete a melhora da ferritina. Sem anemia.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">Ferro Sérico</div>
+          <div class="result-badges"><span class="result-val">51 µg/dL</span><span class="result-status status-atencao">Limite inferior</span></div>
+        </div>
+        <div class="result-ref">Ref adultas &gt; 18 anos: 50–170 µg/dL · No exato piso da referência · Melhora vs jan/2025</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-critico">37</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-atencao" style="color:#854F0B">51</div></div>
+        </div>
+        <div class="result-conduta">Saiu de 37 (abaixo da referência) para 51 (limite inferior). Melhora real, mas ainda no limite — manter proteínas animais em todas as refeições principais e consumo de vitamina C para potencializar absorção de ferro não-heme.</div>
+      </div>
+    </div>
+
+    <!-- RENAL E OUTROS -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Função renal e eletrólitos</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Creatinina</div>
+          <div class="result-badges"><span class="result-val">0,80 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 0,52–1,04 mg/dL · TFG &gt; 90 mL/min · Função renal preservada</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jan/2025</div><div class="result-hist-val hist-ok">0,70</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-ok">0,58</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-ok">0,80</div></div>
+        </div>
+        <div class="result-conduta">Normal em todas as coletas. Suplementação de creatina não impactou o resultado — como esperado com 3g/dia.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">PTH (Paratormônio)</div>
+          <div class="result-badges"><span class="result-val">18,4 pg/mL</span><span class="result-status status-atencao">Limite inferior</span></div>
+        </div>
+        <div class="result-ref">Ref: 18,4–80,1 pg/mL · No exato piso · Cálcio iônico 1,31 mmol/L (piso da ref: 1,16–1,32)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2026</div><div class="result-hist-val hist-alterado">18,4</div></div>
+        </div>
+        <div class="result-conduta">Com vitamina D insuficiente, o PTH deveria estar alto (compensatório). PTH baixo + cálcio no limite superior é um padrão a ser avaliado pelo médico. Aguardar resposta da dose ajustada de vitamina D antes de qualquer conclusão.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:6px">Próxima coleta — setembro/2026</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.75">Vitamina D · Vitamina C · PCR · Lipidograma completo · TGP + TGO · Ferritina · Insulina + HOMA-IR · Ácido Fólico + Homocisteína · PTH. O comparativo histórico será atualizado nesta aba.</div>
+    </div>
+
+  </div><!-- /exames -->
 
   <!-- ABA: EVOLUÇÃO -->
   <div id="evolucao" class="aba">
@@ -583,10 +1025,79 @@ nav.nav::-webkit-scrollbar{display:none}
 
   <!-- ABA: CARTA AO MÉDICO -->
   <div id="carta-medico" class="aba">
-    <div class="carta-vazia">
-      <div class="carta-vazia-titulo">Nenhuma carta disponível</div>
-      <p>O nutri ainda não escreveu uma carta para o seu médico. Ela aparecerá aqui quando estiver pronta.</p>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:16px;margin-bottom:20px;font-size:11px;color:var(--cinza);line-height:1.6">
+      <strong style="color:var(--verde)">Como usar esta carta:</strong> encaminhe ao médico que acompanha o uso da tirzepatida (endocrinologista ou clínico geral). Você pode copiar o texto, imprimir ou mostrar a tela diretamente na consulta.
     </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:20px;line-height:1.8;font-size:13px;color:var(--carvao)">
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--verde);margin-bottom:4px">Atualização de Caso Clínico</div>
+      <div style="font-size:11px;color:var(--cinza);margin-bottom:20px;border-bottom:1px solid var(--bege);padding-bottom:12px">Nutricionista Ademir Ferreira Junior · CRN-3 72295 · São Paulo, SP · Julho de 2026</div>
+
+      <p><strong>Ao Dr./Dra. responsável pelo acompanhamento médico de Bárbara Rodrigues da Silva,</strong></p>
+      <br>
+      <p>Encaminho esta correspondência com o objetivo de compartilhar os achados laboratoriais mais recentes da paciente <strong>Bárbara Rodrigues da Silva</strong>, 26 anos, feminino, nascida em 04/11/1999, atualmente em acompanhamento nutricional sob minha supervisão com objetivo de emagrecimento saudável e recomposição corporal.</p>
+      <br>
+      <p>A paciente faz uso de <strong>tirzepatida</strong> (dose prescrita pelo médico assistente) e realiza musculação de 4 a 6 vezes por semana. Está sob protocolo alimentar de 1252 kcal/dia, com ênfase em proteínas e controle de carboidratos refinados.</p>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">Achados positivos — evolução favorável</div>
+
+      <p>Os exames de junho de 2026 (Hospital Villa Lobos — Rede D'Or, pedido 45728803) evidenciam melhora expressiva em múltiplos marcadores quando comparados ao histórico de janeiro de 2025:</p>
+      <br>
+      <ul style="padding-left:18px;line-height:2">
+        <li>Glicemia de jejum: 92 → 86 → <strong>80 mg/dL</strong> (normalização progressiva)</li>
+        <li>HbA1c: 5,8% → <strong>5,4%</strong> (saiu da zona de pré-diabetes)</li>
+        <li>TSH: 4,71 → 2,54 → <strong>2,45 µIU/mL</strong> (normalização da função tireoidiana)</li>
+        <li>T4 Livre: 1,06 → 1,29 → <strong>1,26 ng/dL</strong> (dentro da faixa eutireoidiana)</li>
+        <li>Ferritina: 54,2 → 54,0 → <strong>82,9 ng/mL</strong> (melhora expressiva após longo período de estagnação)</li>
+        <li>Hemoglobina: 12,8 → <strong>13,9 g/dL</strong> (melhora do quadro anêmico)</li>
+      </ul>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--alerta);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">Achados que solicito avaliação médica</div>
+
+      <p><strong>1. Progressão da TGP/ALT</strong><br>
+      A alanina aminotransferase apresenta elevação progressiva ao longo do histórico: 17 U/L (jan/2025) → 21 U/L (mar/2026) → <strong>39 U/L</strong> (jun/2026), próxima do limite superior da referência (41 U/L). Em paciente com obesidade e em uso de tirzepatida, esse padrão merece monitoramento hepatológico. TGO permanece estável (23 U/L) e GGT normal (23 U/L), porém o padrão de TGP crescente em relação a TGO é compatível com lesão hepática metabólica leve. Solicito avaliação e, se pertinente, inclusão de ultrassonografia hepática no próximo acompanhamento.</p>
+      <br>
+      <p><strong>2. PCR quantitativa elevada</strong><br>
+      Proteína C reativa em <strong>3,40 mg/dL</strong> (referência &lt; 1,00 mg/dL), indicando inflamação sistêmica ativa. Trata-se da primeira medição desse marcador para esta paciente. Combinada ao LDL persistentemente elevado (134 mg/dL em três coletas consecutivas desde jan/2025) e à resistência insulínica (HOMA-IR 3,8), configura-se um perfil de risco cardiovascular que supera o que o lipidograma isolado sugeriria. Solicito estratificação do risco cardiovascular e avaliação da necessidade de intervenção farmacológica para o perfil lipídico.</p>
+      <br>
+      <p><strong>3. PTH no limite inferior com vitamina D insuficiente</strong><br>
+      PTH de <strong>18,4 pg/mL</strong> (exato piso da referência: 18,4–80,1) associado a vitamina D 25-OH de 25,37 ng/mL (insuficiente) e cálcio iônico de 1,31 mmol/L (limite superior da referência: 1,16–1,32). O padrão esperado com vitamina D insuficiente seria PTH compensatório elevado — não baixo. Essa inversão merece avaliação clínica para exclusão de hipoparatireoidismo ou hipercalcemia relativa. Do ponto de vista nutricional, já ajustei a dose de vitamina D3 para 7000 UI/dia e incluí K2 100 mcg para melhor direcionamento do cálcio. Solicito reavaliação após novo exame em setembro.</p>
+      <br>
+      <p><strong>4. Déficit severo de Vitamina C</strong><br>
+      Vitamina C sérica de <strong>1,1 mg/L</strong> (referência 4,6–15,0 mg/L). Trata-se de deficiência expressiva, possivelmente relacionada a baixo consumo de frutas e vegetais frescos. Já iniciei suplementação com 1000 mg/dia (500 mg manhã + 500 mg almoço) e reforço dietético. Comunico para ciência e controle, sem necessidade de conduta médica adicional neste momento.</p>
+      <br>
+      <p><strong>5. Homocisteína no limite superior e queda do folato</strong><br>
+      Homocisteína sérica de 11,69 µmol/L (referência 18–29 anos: 4,8–12,5 µmol/L) associada à queda do ácido fólico de 17,3 ng/mL (mar/2026) para 9,2 ng/mL (jun/2026). Ainda dentro dos limites normais, mas a tendência merece acompanhamento. Reforço alimentar de folhas verde-escuras já orientado. Solicito avaliação conjunta na próxima consulta.</p>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">Protocolo nutricional e de suplementação em curso</div>
+
+      <p>A paciente segue protocolo alimentar de 1252 kcal/dia com distribuição de macronutrientes de 129g proteína, 140g carboidratos e 23g gorduras. O protocolo de suplementação foi atualizado em julho de 2026 e inclui:</p>
+      <br>
+      <ul style="padding-left:18px;line-height:2">
+        <li>Vitamina D3 7000 UI + K2 100 mcg — almoço</li>
+        <li>Vitamina C 1000 mg/dia (500 mg manhã + 500 mg almoço)</li>
+        <li>Ômega-3 2g EPA+DHA — almoço</li>
+        <li>Magnésio bisglicinato 300 mg — 21h</li>
+        <li>Creatina monohidratada 3g — pós-treino</li>
+        <li>Zinco bisglicinato 15 mg — jantar</li>
+      </ul>
+      <br>
+      <p>Não foram prescritos sensibilizadores de insulina (berberina, cromo) dado o uso concomitante de tirzepatida e risco de hipoglicemia.</p>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">Próxima coleta sugerida — setembro/2026</div>
+
+      <p>Sugiro repetição dos seguintes marcadores em setembro de 2026: TGP, TGO, GGT · PCR ultrassensível · Lipidograma completo · Vitamina D 25-OH · Vitamina C · PTH · Insulina + HOMA-IR · Ácido Fólico + Homocisteína · Ferritina.</p>
+      <br>
+      <p>Coloco-me à disposição para esclarecimentos ou alinhamento de conduta sempre que necessário.</p>
+      <br>
+      <p>Atenciosamente,</p>
+      <br>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde)">Ademir Ferreira Junior</div>
+      <div style="font-size:12px;color:var(--cinza)">Nutricionista · CRN-3 72295<br>São Paulo, SP · contato@nutriademirferreira.com.br<br>nutriademirferreira.com.br</div>
+    </div>
+
   </div>
 
   <!-- ABA: CARTA AO PERSONAL -->
