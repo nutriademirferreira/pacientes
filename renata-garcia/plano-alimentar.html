@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="Dossiê de Saúde — Renata Garcia Almeida">
+<meta property="og:description" content="Acompanhamento nutricional personalizado com Ademir Ferreira Junior, Nutricionista CRN-3 72295.">
+<meta property="og:image" content="https://nutriademirferreira.github.io/pacientes/_assets/og-image.jpg">
+<meta property="og:type" content="website">
+<title>Renata Garcia Almeida — Dossiê de Saúde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;
+  --creme:#F4EFE4;--creme-suv:#FDFAF5;--bege:#EBE4D5;
+  --cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);min-height:100vh}
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--creme);box-shadow:0 2px 8px rgba(39,37,32,.08)}
+.header{padding:18px 20px 8px;text-align:center}
+.header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+.header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+.header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+.header-dossie{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ouro);letter-spacing:.04em;margin-top:8px;padding-top:8px;border-top:1px solid var(--bege)}
+nav.nav{display:flex;overflow-x:auto;gap:0;border-top:1px solid var(--bege);scrollbar-width:none}
+nav.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;padding:10px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--cinza);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s}
+.nav-btn.ativo{color:var(--verde);border-bottom-color:var(--verde)}
+.conteudo{max-width:680px;margin:0 auto;padding:24px 16px 100px}
+.aba{display:none}.aba.ativa{display:block}
+
+/* alerta */
+.alerta-box{background:#FEF3EE;border:1px solid #E8C4B0;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13px;color:#7A4A30;line-height:1.5}
+.alerta-box strong{color:#C2785A}
+.info-box{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:16px;font-size:12px;color:var(--carvao);line-height:1.6}
+
+/* composição corporal */
+.corpo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.corpo-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px 12px;text-align:center}
+.corpo-card.alerta-card{border-left:3px solid var(--alerta)}
+.corpo-card.ok-card{border-left:3px solid #2D6A35}
+.corpo-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--cinza);margin-bottom:4px}
+.corpo-valor{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ouro);line-height:1}
+.corpo-ref{font-size:10px;color:var(--cinza);margin-top:3px}
+.corpo-delta{font-size:11px;font-weight:600;margin-top:3px}
+.delta-neg{color:#993C1D}.delta-pos{color:#2D6A35}.delta-neu{color:var(--cinza)}
+
+/* macros */
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.macro-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:12px 8px;text-align:center}
+.macro-card.destaque{background:var(--verde);border-color:var(--verde)}
+.macro-card.destaque .macro-label,.macro-card.destaque .macro-unidade{color:rgba(255,255,255,.75)}
+.macro-card.destaque .macro-valor{color:#fff}
+.macro-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--cinza);margin-bottom:4px}
+.macro-valor{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ouro);line-height:1}
+.macro-unidade{font-size:10px;color:var(--cinza);margin-top:2px}
+
+/* refeição proteica */
+.ref-proteica{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.ref-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none}
+.ref-hora{font-size:11px;color:var(--cinza);min-width:42px;font-weight:500}
+.ref-nome{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);flex:1}
+.ref-meta{font-size:11px;color:var(--cinza);text-align:right;line-height:1.4}
+.ref-chevron{font-size:16px;color:var(--cinza);transition:transform .25s;display:inline-block}
+.ref-proteica.aberta .ref-chevron{transform:rotate(180deg)}
+.ref-corpo{display:none;padding:0 16px 16px;border-top:1px solid var(--bege)}
+.ref-proteica.aberta .ref-corpo{display:block}
+.obs-box{margin-top:10px;background:var(--bege);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--cinza);line-height:1.5}
+
+/* suplementos */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:16px;margin-bottom:12px}
+.supl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.supl-nome{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--carvao)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.badge-urgente{background:#FAE8E4;color:#993C1D}
+.badge-importante{background:#FFF3E0;color:#854F0B}
+.badge-complementar{background:var(--creme);color:var(--cinza)}
+.badge-novo{background:#E8F4EA;color:#2D6A35;border:1px solid #B8DDBB}
+.supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.supl-campo{background:var(--creme);border-radius:8px;padding:8px 10px}
+.supl-campo-label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--cinza);margin-bottom:2px}
+.supl-campo-valor{font-size:13px;font-weight:500;color:var(--carvao)}
+.supl-just{font-size:12px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:10px}
+.fase-label{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--cinza);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+
+/* exames */
+.exame-grupo{margin-bottom:24px}
+.exame-grupo-titulo{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--cinza);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:8px;border-bottom:1px solid var(--bege);padding-bottom:4px}
+.result-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:8px}
+.result-item.result-critico{border-left:3px solid #993C1D}
+.result-item.result-alterado{border-left:3px solid #854F0B}
+.result-item.result-ok{border-left:3px solid #2D6A35}
+.result-item.result-atencao{border-left:3px solid var(--ouro)}
+.result-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.result-nome{font-size:13px;font-weight:600;color:var(--carvao)}
+.result-badges{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.result-val{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--carvao)}
+.result-status{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.04em}
+.status-critico{background:#FAE8E4;color:#993C1D}
+.status-alterado{background:#FFF3E0;color:#854F0B}
+.status-ok{background:#E8F4EA;color:#2D6A35}
+.status-atencao{background:#FEF3E2;color:#8A5C00}
+.result-ref{font-size:11px;color:var(--cinza);margin-bottom:8px;line-height:1.4}
+.result-hist{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.result-hist-item{background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:6px 10px;min-width:80px}
+.result-hist-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--cinza);margin-bottom:2px}
+.result-hist-val{font-size:13px;font-weight:600}
+.hist-critico{color:#993C1D}.hist-alterado{color:#854F0B}.hist-ok{color:#2D6A35}.hist-neutro{color:var(--cinza)}
+.result-hist-val.hist-narrativo{font-size:11px;font-weight:400;color:var(--cinza)}
+.result-conduta{font-size:11px;color:var(--cinza);line-height:1.5;border-top:1px solid var(--bege);padding-top:8px}
+
+/* carta */
+.carta-vazia{text-align:center;padding:40px 20px;color:var(--cinza)}
+.carta-vazia-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cinza);margin-bottom:8px}
+
+/* banner */
+.banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+.banner-txt{font-size:12px;color:var(--creme-suv);line-height:1.4;flex:1}
+.banner-txt strong{color:var(--ouro)}
+.banner-acao{display:flex;gap:8px;flex-shrink:0}
+.banner-btn{background:var(--ouro);color:var(--carvao);border:none;border-radius:8px;padding:8px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.banner-fechar{background:none;border:1px solid rgba(253,250,245,.3);color:var(--creme-suv);border-radius:8px;padding:8px 10px;font-size:11px;cursor:pointer}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(39,37,32,.7);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.aberto{display:flex}
+.modal-box{background:var(--creme-suv);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto}
+.modal-titulo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--verde);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--cinza);margin-bottom:20px;line-height:1.5}
+.instalar-tabs{display:flex;gap:4px;margin-bottom:16px}
+.instalar-tab{flex:1;background:var(--creme);border:1px solid var(--bege);border-radius:8px;padding:8px;font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--cinza)}
+.instalar-tab.ativo{background:var(--verde);color:var(--creme-suv);border-color:var(--verde)}
+.instalar-painel{display:none}.instalar-painel.ativo{display:block}
+.instalar-passo{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.instalar-num{background:var(--verde);color:var(--creme-suv);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;margin-top:1px}
+.instalar-txt{font-size:13px;color:var(--carvao);line-height:1.5}
+.instalar-dica{background:var(--creme);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--cinza);line-height:1.6;margin-top:8px}
+.modal-fechar-btn{width:100%;background:var(--verde);color:var(--creme-suv);border:none;border-radius:10px;padding:13px;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px}
+
+@media(max-width:600px){
+  .corpo-grid{grid-template-columns:repeat(2,1fr)}
+  .macros{grid-template-columns:repeat(2,1fr)}
+  .supl-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media print{.nav-sticky,.banner-instalar,.modal-overlay{display:none!important}}
+</style>
+</head>
+<body>
+
+<div class="nav-sticky">
+  <div class="header">
+    <div class="header-paciente">Renata Garcia Almeida</div>
+    <div class="header-nutri">Ademir Ferreira Junior</div>
+    <div class="header-crn">Nutricionista · CRN-3 72295</div>
+    <div class="header-meta">Emagrecimento · Menopausa · Mounjaro · Atualizado em jun/26</div>
+    <div class="header-dossie">Dossiê de Saúde e Evolução</div>
+  </div>
+  <nav class="nav">
+    <button class="nav-btn ativo" onclick="mudarAba('meu-plano',this)">Meu plano</button>
+    <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+    <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
+    <button class="nav-btn" onclick="mudarAba('carta-medico',this)">Carta ao médico</button>
+    <button class="nav-btn" onclick="mudarAba('evolucao',this)">Evolução</button>
+    <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+  </nav>
+</div>
+
+<div class="conteudo">
+
+  <!-- ABA: MEU PLANO -->
+  <div id="meu-plano" class="aba ativa">
+
+    <div class="alerta-box">
+      <strong>Mounjaro em uso.</strong> Nos dias com efeito mais forte, não force o volume das refeições. A prioridade sempre é a proteína — se precisar reduzir, reduza o carboidrato, nunca a proteína. Preservar músculo é o objetivo número 1 desta fase.
+    </div>
+
+    <!-- composição corporal -->
+    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin-bottom:10px">Composição Corporal · Mai/2026</div>
+
+    <div class="corpo-grid">
+      <div class="corpo-card ok-card">
+        <div class="corpo-label">Peso</div>
+        <div class="corpo-valor">62,3</div>
+        <div class="corpo-ref">kg · meta 60–62</div>
+        <div class="corpo-delta delta-pos">−1,2 kg vs mar/26</div>
+      </div>
+      <div class="corpo-card ok-card">
+        <div class="corpo-label">IMC</div>
+        <div class="corpo-valor">25,9</div>
+        <div class="corpo-ref">kg/m² · sobrepeso leve</div>
+        <div class="corpo-delta delta-pos">era 31,1 em jul/25</div>
+      </div>
+      <div class="corpo-card alerta-card">
+        <div class="corpo-label">% Gordura</div>
+        <div class="corpo-valor">28,2</div>
+        <div class="corpo-ref">% · elevada (ref &lt;27%)</div>
+        <div class="corpo-delta delta-neg">+1,3% vs mar/26</div>
+      </div>
+      <div class="corpo-card alerta-card">
+        <div class="corpo-label">Massa Magra</div>
+        <div class="corpo-valor">44,7</div>
+        <div class="corpo-ref">kg · preservação essencial</div>
+        <div class="corpo-delta delta-neg">−1,7 kg vs mar/26</div>
+      </div>
+      <div class="corpo-card alerta-card">
+        <div class="corpo-label">Dobras</div>
+        <div class="corpo-valor">148,5</div>
+        <div class="corpo-ref">mm · somatório</div>
+        <div class="corpo-delta delta-neg">+9,5 mm vs mar/26</div>
+      </div>
+      <div class="corpo-card">
+        <div class="corpo-label">Perda total</div>
+        <div class="corpo-valor">12,3</div>
+        <div class="corpo-ref">kg desde jul/2025</div>
+        <div class="corpo-delta delta-pos">74,6 → 62,3 kg</div>
+      </div>
+    </div>
+
+    <div class="alerta-box">
+      <strong>Atenção: perda de massa magra.</strong> O peso está caindo, mas parte dessa perda vem do músculo. Desde o início do Mounjaro, perdemos 2,9 kg de massa livre de gordura (47,6 → 44,7 kg). Essa é a prioridade nutricional do momento: proteger o músculo com proteína distribuída e treino de força.
+    </div>
+
+    <!-- meta proteica -->
+    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin-bottom:6px">Meta proteica diária</div>
+    <div style="font-size:12px;color:var(--cinza);margin-bottom:14px;line-height:1.6">A estratégia é distribuir <strong style="color:var(--carvao)">100 a 120g de proteína por dia</strong> ao longo das refeições — nunca concentrar tudo em uma só. Cada refeição principal precisa ter pelo menos 25g de proteína para estimular a síntese muscular.</div>
+
+    <div class="macros">
+      <div class="macro-card destaque">
+        <div class="macro-label">Proteína</div>
+        <div class="macro-valor">100–120</div>
+        <div class="macro-unidade">g/dia</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Pós-treino</div>
+        <div class="macro-valor">25–30</div>
+        <div class="macro-unidade">g PTN</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Almoço</div>
+        <div class="macro-valor">30–35</div>
+        <div class="macro-unidade">g PTN</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-label">Jantar</div>
+        <div class="macro-valor">25–30</div>
+        <div class="macro-unidade">g PTN</div>
+      </div>
+    </div>
+
+    <div class="ref-proteica" id="ref-0">
+      <div class="ref-header" onclick="toggleRef('ref-0')">
+        <div class="ref-hora">09h30</div>
+        <div class="ref-nome">Pós-treino</div>
+        <div class="ref-meta">25–30g PTN</div>
+        <span class="ref-chevron">⌄</span>
+      </div>
+      <div class="ref-corpo">
+        <div class="obs-box">
+          Shake de proteína hidrolisada + colágeno — já está fazendo bem. Essa refeição é crítica: é a janela de maior síntese proteica. Não pule mesmo nos dias com efeito mais forte do Mounjaro. Se não conseguir tomar o shake completo, tome ao menos metade.
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-proteica" id="ref-1">
+      <div class="ref-header" onclick="toggleRef('ref-1')">
+        <div class="ref-hora">13h</div>
+        <div class="ref-nome">Almoço</div>
+        <div class="ref-meta">30–35g PTN</div>
+        <span class="ref-chevron">⌄</span>
+      </div>
+      <div class="ref-corpo">
+        <div class="obs-box">
+          Frango, peixe ou carne + ovo quando possível. Legumes e batata ou arroz para o carboidrato. Esta é a refeição com maior meta proteica do dia — 30 a 35g. Use a regra do prato: metade legumes, um quarto proteína, um quarto carboidrato.
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-proteica" id="ref-2">
+      <div class="ref-header" onclick="toggleRef('ref-2')">
+        <div class="ref-hora">Tarde</div>
+        <div class="ref-nome">Lanche da tarde</div>
+        <div class="ref-meta">15–20g PTN</div>
+        <span class="ref-chevron">⌄</span>
+      </div>
+      <div class="ref-corpo">
+        <div class="obs-box">
+          Iogurte grego natural ou cottage com frutas. Evite petiscos ultraprocessados — eles têm baixo valor proteico e alta densidade calórica. O iogurte grego integral tem em média 15g de proteína por pote de 170g.
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-proteica" id="ref-3">
+      <div class="ref-header" onclick="toggleRef('ref-3')">
+        <div class="ref-hora">20h30</div>
+        <div class="ref-nome">Jantar</div>
+        <div class="ref-meta">25–30g PTN</div>
+        <span class="ref-chevron">⌄</span>
+      </div>
+      <div class="ref-corpo">
+        <div class="obs-box">
+          Mesmo perfil do almoço — proteína magra com vegetais e carboidrato moderado. Garantir proteína suficiente no jantar reduz significativamente o desejo de beliscar depois. Nos dias com Mounjaro mais forte, priorize ao menos a proteína mesmo que em porção menor.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin-bottom:10px">Estratégias complementares</div>
+
+    <div class="supl-item" style="border-left:3px solid var(--ouro)">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--carvao);margin-bottom:8px">Fins de semana e ocasiões sociais</div>
+      <div style="font-size:12px;color:var(--cinza);line-height:1.6">O fim de semana ainda é o maior desafio. A estratégia que funciona: garantir que as refeições da semana sejam suficientemente satisfatórias — com proteína e carboidrato adequados — para chegar no fim de semana sem sensação de compensação. Não se trata de proibir o vinho ou a pizza de sexta, mas de criar uma base sólida que permita essas escolhas sem culpa e sem excesso.</div>
+    </div>
+
+    <div class="supl-item" style="border-left:3px solid var(--alerta)">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--carvao);margin-bottom:8px">Controle noturno</div>
+      <div style="font-size:12px;color:var(--cinza);line-height:1.6">A noite é o momento mais difícil relatado. Três estratégias que ajudam:<br><br>
+      1. Garantir proteína suficiente no jantar — isso reduz o desejo de beliscar depois<br>
+      2. Ter uma opção planejada para depois do jantar, se precisar: iogurte, castanhas (pequena porção) ou fruta — em vez de ficar sem opção e partir para algo mais calórico<br>
+      3. Nos dias com Mounjaro mais forte, respeitar a saciedade e priorizar a proteína mesmo que em porção menor</div>
+    </div>
+
+    <div class="supl-item" style="border-left:3px solid #854F0B">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--carvao);margin-bottom:8px">Álcool e triglicerídeos</div>
+      <div style="font-size:12px;color:var(--cinza);line-height:1.6">Os triglicerídeos subiram de 105 para 155 mg/dL na última coleta — acima do desejável. Uma das causas mais comuns dessa oscilação é o consumo de álcool nos fins de semana associado a refeições mais calóricas. Reduzir de 2 taças para 1 taça, ou espaçar as ocasiões, já tende a trazer melhora nesse marcador na próxima coleta.</div>
+    </div>
+
+  </div><!-- /meu-plano -->
+
+  <!-- ABA: SUPLEMENTOS -->
+  <div id="suplementos" class="aba">
+
+    <div style="background:#E8F4EA;border:1px solid #B8DDBB;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13px;color:#2D6A35;line-height:1.5">
+      <strong>Exames de mai/2026: micronutrientes em dia.</strong> Com base nos exames, não foi elaborado um protocolo de suplementação neste momento. Seu organismo está bem nutrido nos principais micronutrientes avaliados.
+    </div>
+
+    <div class="info-box">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px">Por que não há suplementos agora</div>
+      Vitamina D, Vitamina B12, ácido fólico, zinco, selênio, magnésio, cobre e homocisteína estão em níveis adequados ou acima do necessário. A introdução de suplementos sem necessidade pode gerar custos desnecessários e, em alguns casos, desequilíbrios. A equipe médica já acompanha os demais aspectos do tratamento hormonal e metabólico.
+    </div>
+
+    <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin-bottom:10px">O que os exames confirmam</div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina D · 34 ng/mL</div>
+        <span class="badge badge-complementar">Adequado</span>
+      </div>
+      <div class="supl-just">Estável e idêntico ao exame de fev/26. Dentro da faixa desejável (20–60 ng/mL). Sem necessidade de suplementação adicional no momento. Manter exposição solar e monitorar na próxima coleta.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Vitamina B12 · 1.315 ng/L</div>
+        <span class="badge badge-complementar">Elevada — monitorar</span>
+      </div>
+      <div class="supl-just">Muito elevada em relação ao exame anterior (499 ng/L em fev/26). Isso pode refletir mudança de metodologia do laboratório Fleury a partir de mai/26, ou suplementação em curso. Confirmar com a médica se há suplementação de B12 sendo feita. Sem indicação de suplementação adicional.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Ácido Fólico · &gt;20 ng/mL</div>
+        <span class="badge badge-complementar">Excelente</span>
+      </div>
+      <div class="supl-just">Subiu expressivamente de 5,6 ng/mL (fev/26) para mais de 20 ng/mL. Confirmar se há suplementação de folato em curso. Homocisteína em &lt;5 µmol/L confirma boa metilação. Sem necessidade de intervenção.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Magnésio · 2,3 mg/dL</div>
+        <span class="badge badge-complementar">Normal</span>
+      </div>
+      <div class="supl-just">Normal e com leve melhora vs fev/26 (2,1). Sem necessidade de suplementação no momento.</div>
+    </div>
+
+    <div class="supl-item">
+      <div class="supl-top">
+        <div class="supl-nome">Zinco, Selênio e Cobre</div>
+        <span class="badge badge-complementar">Todos normais</span>
+      </div>
+      <div class="supl-just">Zinco 0,9 µg/mL · Selênio 84 µg/L · Cobre 98 µg/dL — todos dentro das faixas de referência. Sem déficits a corrigir.</div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-top:20px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px">Próxima reavaliação</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.6">Este protocolo será reavaliado na próxima coleta de exames. Se houver mudança no quadro clínico — como queda de ferro sérico, piora dos triglicerídeos ou alteração hormonal — o protocolo de suplementação poderá ser iniciado ou ajustado.</div>
+    </div>
+
+  </div><!-- /suplementos -->
+
+  <!-- ABA: EXAMES -->
+  <div id="exames" class="aba">
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px">Laudo mais recente</div>
+      <div style="font-size:13px;color:var(--carvao);font-weight:500">Coleta 27/05/2026 · 6ª coleta da série histórica</div>
+      <div style="font-size:11px;color:var(--cinza);margin-top:2px">Histórico desde março/2025 · Comparativo fev/2026 vs mai/2026</div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#993C1D;display:inline-block"></span>Crítico</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#854F0B;display:inline-block"></span>Alterado</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:var(--ouro);display:inline-block"></span>Atenção</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--cinza)"><span style="width:10px;height:10px;border-radius:50%;background:#2D6A35;display:inline-block"></span>Normal</div>
+    </div>
+
+    <!-- COMPOSIÇÃO CORPORAL -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Composição Corporal</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Peso</div>
+          <div class="result-badges"><span class="result-val">62,3 kg</span><span class="result-status status-ok">Na meta</span></div>
+        </div>
+        <div class="result-ref">Meta: 60–62 kg · Perda total de 12,3 kg desde jul/2025</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2025</div><div class="result-hist-val hist-alterado">74,6</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">63,5</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">62,3</div></div>
+        </div>
+        <div class="result-conduta">Progresso consistente. Peso chegou à faixa da meta. A partir daqui, o foco muda: não é mais emagrecer mais, é manter o peso e recuperar a massa muscular perdida.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Massa Livre de Gordura (MLG)</div>
+          <div class="result-badges"><span class="result-val">44,7 kg</span><span class="result-status status-critico">Queda</span></div>
+        </div>
+        <div class="result-ref">Perda de 2,9 kg de MLG desde o início · Queda de 1,7 kg só nos últimos 3 meses</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jul/2025</div><div class="result-hist-val hist-ok">47,6</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">46,4</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-critico">44,7</div></div>
+        </div>
+        <div class="result-conduta">Perda de massa muscular progressiva — fenômeno esperado em mulheres na menopausa com GLP-1, mas que pode e deve ser minimizado. Estratégia nutricional direcionada para aporte proteico de 100–120g/dia distribuído.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">% Gordura Corporal</div>
+          <div class="result-badges"><span class="result-val">28,2%</span><span class="result-status status-alterado">Elevada</span></div>
+        </div>
+        <div class="result-ref">Referência mulher 51 anos: &lt;27% · Subiu apesar da queda de peso — sinal de perda de MLG</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2026</div><div class="result-hist-val hist-alterado">26,9%</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-critico">28,2%</div></div>
+        </div>
+        <div class="result-conduta">O percentual de gordura subiu mesmo com o peso caindo — confirmação clínica de que a perda está vindo do músculo, não da gordura. O somatório de dobras +9,5 mm confirma o mesmo padrão.</div>
+      </div>
+    </div>
+
+    <!-- HORMÔNIOS -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Hormônios</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">FSH</div>
+          <div class="result-badges"><span class="result-val">83,6 UI/L</span><span class="result-status status-ok">Menopausa</span></div>
+        </div>
+        <div class="result-ref">Menopausa: &gt;30 UI/L · Sob acompanhamento médico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-neutro">80,0</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-neutro">83,6</div></div>
+        </div>
+        <div class="result-conduta">Confirma menopausa instalada. Estável. Sob avaliação e conduta da Dra. Rafaela.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">DHEA-S</div>
+          <div class="result-badges"><span class="result-val">65 µg/dL</span><span class="result-status status-critico">Queda expressiva</span></div>
+        </div>
+        <div class="result-ref">Ref 45–64 anos: 19–256 µg/dL · Queda de 82% em 4 meses</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">365</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">65</div></div>
+        </div>
+        <div class="result-conduta">Ainda dentro da referência, mas a variação de 365 para 65 em 4 meses é muito expressiva. DHEA-S pode oscilar em resposta à restrição calórica e ao estresse metabólico. ACTH normal (17 pg/mL) afasta insuficiência adrenal primária. Informado à Dra. Rafaela para avaliação no contexto da reposição hormonal.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">SHBG</div>
+          <div class="result-badges"><span class="result-val">78 nmol/L</span><span class="result-status status-atencao">Aumento</span></div>
+        </div>
+        <div class="result-ref">Ref até 49 anos: 32–128 nmol/L · Aumento expressivo vs fev/26 — reduz biodisponibilidade hormonal</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">45</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">78</div></div>
+        </div>
+        <div class="result-conduta">SHBG elevado liga-se aos hormônios livres e reduz sua biodisponibilidade — afeta testosterona e estradiol livre principalmente. Acompanhar com a médica no contexto da reposição hormonal.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">Testosterona</div>
+          <div class="result-badges"><span class="result-val">21 ng/dL</span><span class="result-status status-atencao">Queda</span></div>
+        </div>
+        <div class="result-ref">Ref mulheres: até 63 ng/dL · Dentro do range, mas com tendência de redução</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">37</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">21</div></div>
+        </div>
+        <div class="result-conduta">Queda de 37 para 21 em 3 meses. Ainda dentro da referência, mas com SHBG elevado a testosterona livre pode estar ainda mais comprometida. Impacta diretamente a síntese muscular. Acompanhar com a médica.</div>
+      </div>
+
+      <div class="result-item result-critico">
+        <div class="result-top">
+          <div class="result-nome">Estrona (E1)</div>
+          <div class="result-badges"><span class="result-val">&lt;3,0 ng/dL</span><span class="result-status status-critico">Indetectável</span></div>
+        </div>
+        <div class="result-ref">Ref 18–50 anos: até 20,8 ng/dL · Queda de 6,8 para indetectável em 3 meses</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-alterado">6,8</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-critico">&lt;3,0</div></div>
+        </div>
+        <div class="result-conduta">Queda expressiva — informado à Dra. Rafaela para avaliação clínica no contexto da reposição hormonal em curso.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Cortisol (8h40)</div>
+          <div class="result-badges"><span class="result-val">10,3 µg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref 7–9h: 6,0–18,4 µg/dL · Normal, leve redução vs fev/26</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">12,5</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">10,3</div></div>
+        </div>
+        <div class="result-conduta">Normal. ACTH 17 pg/mL também normal — afasta insuficiência adrenal primária.</div>
+      </div>
+    </div>
+
+    <!-- METABÓLICO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Metabolismo glicídico</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Glicemia de Jejum</div>
+          <div class="result-badges"><span class="result-val">76 mg/dL</span><span class="result-status status-ok">Excelente</span></div>
+        </div>
+        <div class="result-ref">Ref: 70–99 mg/dL · Melhor resultado da série histórica</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">78</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">76</div></div>
+        </div>
+        <div class="result-conduta">Excelente resposta ao Mounjaro e à alimentação. Glicemia perfeita.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HbA1c</div>
+          <div class="result-badges"><span class="result-val">4,6%</span><span class="result-status status-ok">Excelente</span></div>
+        </div>
+        <div class="result-ref">Normal: &lt;5,7% · Queda consistente ao longo de todo o tratamento</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Jun/2025</div><div class="result-hist-val hist-alterado">5,2%</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">5,1%</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">4,6%</div></div>
+        </div>
+        <div class="result-conduta">Melhor resultado da série histórica. Controle glicêmico dos últimos 90 dias impecável.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">HOMA-IR</div>
+          <div class="result-badges"><span class="result-val">0,6</span><span class="result-status status-ok">Excelente</span></div>
+        </div>
+        <div class="result-ref">Insulina: 3 mU/L · Ref HOMA: &lt;2,71 · Sem resistência insulínica</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">0,4</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">0,6</div></div>
+        </div>
+        <div class="result-conduta">Sensibilidade à insulina ótima. O organismo está respondendo muito bem ao tratamento.</div>
+      </div>
+    </div>
+
+    <!-- LIPIDOGRAMA -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Lipidograma</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Colesterol Total</div>
+          <div class="result-badges"><span class="result-val">172 mg/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Meta: &lt;190 mg/dL · Melhora vs fev/26</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-alterado">191</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">172</div></div>
+        </div>
+        <div class="result-conduta">Normalizou. Melhora consistente desde o início do tratamento (estava ainda mais alto antes).</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">LDL</div>
+          <div class="result-badges"><span class="result-val">101 mg/dL</span><span class="result-status status-ok">Próximo ao ótimo</span></div>
+        </div>
+        <div class="result-ref">Ótimo: &lt;100 mg/dL · Melhora consistente desde mar/2025 (127 mg/dL)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mar/2025</div><div class="result-hist-val hist-alterado">127</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-alterado">109</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">101</div></div>
+        </div>
+        <div class="result-conduta">Queda de 26 mg/dL em 14 meses. Praticamente no ótimo — 1 ponto acima da meta. Manter.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">HDL</div>
+          <div class="result-badges"><span class="result-val">46 mg/dL</span><span class="result-status status-atencao">Queda</span></div>
+        </div>
+        <div class="result-ref">Meta: &gt;40 mg/dL · Queda expressiva de 61 para 46 em 3 meses — monitorar</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">61</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">46</div></div>
+        </div>
+        <div class="result-conduta">Ainda acima do mínimo (40 mg/dL), mas a queda de 15 pontos em 3 meses é relevante. Atividade física aeróbica e redução do álcool são os principais aliados para recuperar o HDL. Monitorar na próxima coleta.</div>
+      </div>
+
+      <div class="result-item result-alterado">
+        <div class="result-top">
+          <div class="result-nome">Triglicerídeos</div>
+          <div class="result-badges"><span class="result-val">155 mg/dL</span><span class="result-status status-alterado">Acima</span></div>
+        </div>
+        <div class="result-ref">Meta: &lt;150 mg/dL · Subiu de 105 para 155 em 3 meses</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">105</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">155</div></div>
+        </div>
+        <div class="result-conduta">Oscilação relacionada ao consumo de álcool nos fins de semana + refeições mais calóricas nesses dias. Reduzir de 2 para 1 taça ou espaçar as ocasiões já tende a trazer melhora na próxima coleta.</div>
+      </div>
+    </div>
+
+    <!-- FERRO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Metabolismo do Ferro</span>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">Ferro Sérico</div>
+          <div class="result-badges"><span class="result-val">54 µg/dL</span><span class="result-status status-atencao">Limite inferior</span></div>
+        </div>
+        <div class="result-ref">Ref: 50–170 µg/dL · Queda expressiva vs fev/26 · Saturação de transferrina: 22% (era 40%)</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">108</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">54</div></div>
+        </div>
+        <div class="result-conduta">O ferro sérico caiu pela metade em 3 meses, mas a hemoglobina está normal (14,0 g/dL). A ferritina elevada (168 µg/L — acima da ref feminina) pode ser relacionada ao contexto hormonal da menopausa, não a sobrecarga real de ferro. Não há indicação de restrição alimentar de ferro nem suplementação. Monitorar na próxima coleta.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">Hemoglobina</div>
+          <div class="result-badges"><span class="result-val">14,0 g/dL</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 11,7–14,9 g/dL · Estável vs fev/26 · Sem anemia</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">14,3</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">14,0</div></div>
+        </div>
+        <div class="result-conduta">Normal e estável. Sem anemia. RDW 12,3% melhorou vs fev/26 (13,5%).</div>
+      </div>
+    </div>
+
+    <!-- TIREOIDE -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Tireoide</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">TSH</div>
+          <div class="result-badges"><span class="result-val">2,9 mUI/L</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">Ref: 0,45–4,5 mUI/L · Melhora — estava limítrofe em fev/26</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-alterado">4,0</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">2,9</div></div>
+        </div>
+        <div class="result-conduta">Normalizou. Era 4,0 em fev/26, próximo do limite. Agora em zona ótima.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">T3 Livre</div>
+          <div class="result-badges"><span class="result-val">0,27 ng/dL</span><span class="result-status status-atencao">Limite inferior</span></div>
+        </div>
+        <div class="result-ref">Ref: 0,23–0,42 ng/dL · Normal mas próximo do mínimo — pode indicar conversão periférica reduzida</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">0,23</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-atencao" style="color:#854F0B">0,27</div></div>
+        </div>
+        <div class="result-conduta">T3 total melhorou (61→83 ng/dL) e T3 livre subiu levemente. Ainda no limite inferior — pode refletir conversão periférica reduzida de T4 em T3, comum em restrição calórica. Acompanhar com a médica.</div>
+      </div>
+    </div>
+
+    <!-- INFLAMAÇÃO -->
+    <div class="exame-grupo">
+      <span class="exame-grupo-titulo">Inflamação e função orgânica</span>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">PCR Ultrassensível</div>
+          <div class="result-badges"><span class="result-val">0,05 mg/dL</span><span class="result-status status-ok">Excelente</span></div>
+        </div>
+        <div class="result-ref">Ref: &lt;1,00 mg/dL · Praticamente zerada — sem inflamação sistêmica ativa</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Fev/2026</div><div class="result-hist-val hist-ok">0,03</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">0,05</div></div>
+        </div>
+        <div class="result-conduta">Inflamação controlada. Marcador que costuma melhorar com a perda de peso saudável — e no seu caso evoluiu muito bem.</div>
+      </div>
+
+      <div class="result-item result-ok">
+        <div class="result-top">
+          <div class="result-nome">TGO / TGP / GGT</div>
+          <div class="result-badges"><span class="result-val">25 / 25 / 9</span><span class="result-status status-ok">Normal</span></div>
+        </div>
+        <div class="result-ref">TGO ref ≤32 · TGP ref ≤33 · GGT ref 8–41 · Função hepática preservada</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">TGO fev/26</div><div class="result-hist-val hist-ok">18</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">TGP fev/26</div><div class="result-hist-val hist-ok">12</div></div>
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-ok">normais</div></div>
+        </div>
+        <div class="result-conduta">Função hepática perfeita. GGT 9 é particularmente tranquilizador no contexto do consumo de álcool relatado.</div>
+      </div>
+
+      <div class="result-item result-atencao">
+        <div class="result-top">
+          <div class="result-nome">Calprotectina Fecal</div>
+          <div class="result-badges"><span class="result-val">90 µg/g</span><span class="result-status status-atencao">Zona duvidosa</span></div>
+        </div>
+        <div class="result-ref">Normal: 0–50 µg/g · Zona duvidosa: 50–200 µg/g · Primeiro exame — sem histórico</div>
+        <div class="result-hist">
+          <div class="result-hist-item"><div class="result-hist-label">Mai/2026</div><div class="result-hist-val hist-alterado">90</div></div>
+        </div>
+        <div class="result-conduta">Não é um resultado alterado, mas merece atenção no contexto do histórico de refluxo e do consumo intermitente de álcool. Repetir em 3 meses. Gordura fecal normal e sangue oculto negativo são tranquilizadores.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:24px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);margin-bottom:6px">Próxima coleta sugerida</div>
+      <div style="font-size:12px;color:var(--carvao);line-height:1.75">Ferro sérico + Saturação de transferrina · Triglicerídeos + HDL · Calprotectina fecal · DHEA-S · Testosterona · Composição corporal (bioimpedância + dobras). Esta aba será atualizada com os novos resultados.</div>
+    </div>
+
+  </div><!-- /exames -->
+
+  <!-- ABA: CARTA AO MÉDICO -->
+  <div id="carta-medico" class="aba">
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:16px;margin-bottom:20px;font-size:11px;color:var(--cinza);line-height:1.6">
+      <strong style="color:var(--verde)">Como usar esta carta:</strong> encaminhe à Dra. Rafaela Braz da Silva no próximo retorno. Você pode mostrar a tela diretamente ou enviar por mensagem.
+    </div>
+
+    <div style="background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:20px;line-height:1.8;font-size:13px;color:var(--carvao)">
+
+      <div style="font-size:11px;color:var(--cinza);margin-bottom:4px">São Paulo, 10 de junho de 2026</div>
+      <div style="font-size:13px;font-weight:600;color:var(--carvao);margin-bottom:2px">À Dra. Rafaela Braz da Silva</div>
+      <div style="font-size:12px;color:var(--cinza);margin-bottom:20px;border-bottom:1px solid var(--bege);padding-bottom:12px">CRM-SP 140813</div>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--verde);margin-bottom:4px">Atualização de Caso e Alinhamento Nutricional</div>
+      <div style="font-size:11px;color:var(--cinza);margin-bottom:20px">Paciente: Renata Garcia Almeida · 51 anos · Mounjaro desde 22/07/2025 · Reposição hormonal em curso</div>
+
+      <p><strong>Prezada Dra. Rafaela,</strong></p>
+      <br>
+      <p>Escrevo para compartilhar os achados da avaliação nutricional e de composição corporal de 03/06/2026, com base também nos exames laboratoriais de 27/05/2026. O objetivo é alinhar a conduta nutricional ao tratamento em curso e trazer algumas observações que podem ser úteis para a sua avaliação clínica.</p>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">1. Evolução de Composição Corporal</div>
+
+      <p>A resposta ao Mounjaro tem sido positiva em termos de perda ponderal total:</p>
+      <br>
+      <ul style="padding-left:18px;line-height:2">
+        <li>Perda de 12,3 kg desde julho de 2025 (74,6 → 62,3 kg), atingindo a faixa da meta estabelecida de 60–62 kg</li>
+        <li>Melhora expressiva no perfil glicêmico — HbA1c reduziu de 5,2% (jun/25) para 4,6% (mai/26), melhor resultado da série histórica</li>
+        <li>PCR praticamente zerada (0,05 mg/dL), indicando ausência de inflamação sistêmica ativa</li>
+      </ul>
+      <br>
+      <div style="background:#FEF3EE;border:1px solid #E8C4B0;border-radius:8px;padding:12px 14px;font-size:12px;color:#7A4A30;line-height:1.6;margin-bottom:4px">
+        <strong>Perda de massa magra progressiva — ponto de atenção nutricional</strong><br><br>
+        Identificamos perda de 2,9 kg de massa livre de gordura desde o início do tratamento (47,6 → 44,7 kg). Na última avaliação, o somatório de dobras aumentou (+9,5 mm) enquanto o peso caiu, padrão que indica perda desproporcional de massa muscular em relação à gordura. Em mulheres na menopausa com uso de GLP-1, esse fenômeno é esperado mas pode ser minimizado com aporte proteico adequado e estímulo de força. A conduta nutricional atual está sendo direcionada para aumentar a ingestão proteica e preservar a massa magra.
+      </div>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">2. Achados Laboratoriais Relevantes para Alinhamento</div>
+
+      <div style="background:#FEF3EE;border:1px solid #E8C4B0;border-radius:8px;padding:12px 14px;font-size:12px;color:#7A4A30;line-height:1.6;margin-bottom:10px">
+        <strong>Ferritina 168 µg/L (acima da ref. feminina: 15–149 µg/L)</strong><br><br>
+        Com ferro sérico em 54 µg/dL (próximo ao limite inferior) e saturação de transferrina em 22%, o padrão sugere que a ferritina elevada pode estar relacionada ao contexto hormonal da menopausa ou a um marcador de fase aguda, e não a sobrecarga de ferro funcional. Do ponto de vista nutricional, não há indicação de restrição de ferro alimentar nem de suplementação. Compartilhamos para sua avaliação clínica integrada.
+      </div>
+
+      <div style="background:#FEF3EE;border:1px solid #E8C4B0;border-radius:8px;padding:12px 14px;font-size:12px;color:#7A4A30;line-height:1.6;margin-bottom:10px">
+        <strong>DHEA-S: variação de 365 (fev/26) para 65 µg/dL (mai/26)</strong><br><br>
+        A variação de 82% em 4 meses chamou atenção na análise evolutiva. Sabemos que o DHEA-S pode oscilar em resposta a restrição calórica, estresse metabólico e fase do ciclo de tratamento. O ACTH está normal (17 pg/mL), o que é tranquilizador. Compartilhamos a observação para que possa ser avaliada no contexto da reposição hormonal em curso.
+      </div>
+
+      <div style="background:#FEF3EE;border:1px solid #E8C4B0;border-radius:8px;padding:12px 14px;font-size:12px;color:#7A4A30;line-height:1.6;margin-bottom:10px">
+        <strong>Triglicerídeos: 105 → 155 mg/dL (fev/26 → mai/26)</strong><br><br>
+        Aumento de 50 mg/dL na última coleta. A paciente relata consumo de vinho aos fins de semana (2 taças na sexta ou sábado) e maior ingestão de carboidratos refinados nesses dias. A conduta nutricional está sendo direcionada para reduzir essas oscilações. Informamos caso seja relevante para o monitoramento cardiovascular.
+      </div>
+
+      <div style="background:#FEF3EE;border:1px solid #E8C4B0;border-radius:8px;padding:12px 14px;font-size:12px;color:#7A4A30;line-height:1.6;margin-bottom:10px">
+        <strong>Calprotectina fecal: 90 µg/g (zona duvidosa: 50–200)</strong><br><br>
+        Não é um resultado alterado, mas merece atenção no contexto do histórico de refluxo e do uso intermitente de álcool. Sugerimos repetição em 3 meses para acompanhamento.
+      </div>
+
+      <div style="background:#E8F4EA;border:1px solid #B8DDBB;border-radius:8px;padding:12px 14px;font-size:12px;color:#2D6A35;line-height:1.6;margin-bottom:4px">
+        <strong>Vitaminas e minerais: perfil excelente</strong><br><br>
+        Vitamina D estável (34 ng/mL), B12 muito elevada (1.315 ng/L — possível efeito da nova metodologia do Fleury desde mai/26 ou suplementação em curso), folato &gt;20 ng/mL, homocisteína &lt;5 µmol/L, zinco, selênio, magnésio e cobre todos normais. Não há indicação de suplementação de micronutrientes no momento.
+      </div>
+
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde);margin:20px 0 8px;border-bottom:1px solid var(--bege);padding-bottom:4px">3. Conduta Nutricional em Andamento</div>
+
+      <ul style="padding-left:18px;line-height:2;font-size:13px">
+        <li>Aumento do aporte proteico para ≥100–120 g/dia, distribuídos nas refeições principais — foco em preservação de massa magra</li>
+        <li>Orientação para estratégias de controle nos fins de semana e período noturno, que são os momentos de maior vulnerabilidade relatados pela paciente</li>
+        <li>Redução gradual do álcool nos fins de semana como estratégia para controle dos triglicerídeos</li>
+        <li>Não foi elaborado protocolo de suplementação neste momento — exames nutricionais estão adequados</li>
+      </ul>
+      <br>
+      <p>Fico à disposição para qualquer alinhamento. Caso decida investigar ou ajustar algum aspecto do tratamento hormonal com base nessas observações, terei prazer em adaptar o plano nutricional de acordo.</p>
+      <br>
+      <p>Atenciosamente,</p>
+      <br>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--verde)">Ademir Ferreira Junior</div>
+      <div style="font-size:12px;color:var(--cinza)">Nutricionista · CRN-3 72295<br>São Paulo, SP · contato@nutriademirferreira.com.br<br>nutriademirferreira.com.br</div>
+    </div>
+
+  </div><!-- /carta-medico -->
+
+  <!-- ABA: EVOLUÇÃO -->
+  <div id="evolucao" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+  <!-- ABA: PROGRESSO -->
+  <div id="progresso" class="aba">
+    <div class="carta-vazia">
+      <div class="carta-vazia-titulo">Nenhum conteúdo disponível</div>
+      <p>Esta seção será preenchida em breve pelo nutri.</p>
+    </div>
+  </div>
+
+</div><!-- /conteudo -->
+
+<!-- BANNER -->
+<div class="banner-instalar" id="banner-instalar">
+  <div class="banner-txt"><strong>Adicione à sua tela inicial</strong><br>Acesse seu dossiê como um app, sem precisar do navegador.</div>
+  <div class="banner-acao">
+    <button class="banner-btn" onclick="document.getElementById('modal-instalar').classList.add('aberto')">Como instalar</button>
+    <button class="banner-fechar" onclick="fecharBanner()">✕</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-instalar">
+  <div class="modal-box">
+    <div class="modal-titulo">Instalar no celular</div>
+    <div class="modal-sub">Adicione este dossiê à sua tela inicial para acesso rápido, como se fosse um app.</div>
+    <div class="instalar-tabs">
+      <div class="instalar-tab ativo" onclick="mudarTab('iphone',this)">iPhone</div>
+      <div class="instalar-tab" onclick="mudarTab('android',this)">Android</div>
+    </div>
+    <div class="instalar-painel ativo" id="instalar-iphone">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra este link no <strong>Safari</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque no ícone de <strong>compartilhar</strong> na barra inferior</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Role e toque em <strong>"Adicionar à Tela de Início"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+      <div class="instalar-dica">O ícone vai aparecer na sua tela inicial. Abre como um app, sem barra do navegador.</div>
+    </div>
+    <div class="instalar-painel" id="instalar-android">
+      <div class="instalar-passo"><div class="instalar-num">1</div><div class="instalar-txt">Abra no <strong>Chrome</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">2</div><div class="instalar-txt">Toque nos <strong>3 pontos</strong> no canto superior direito</div></div>
+      <div class="instalar-passo"><div class="instalar-num">3</div><div class="instalar-txt">Toque em <strong>"Adicionar à tela inicial"</strong></div></div>
+      <div class="instalar-passo"><div class="instalar-num">4</div><div class="instalar-txt">Confirme tocando em <strong>Adicionar</strong></div></div>
+    </div>
+    <button class="modal-fechar-btn" onclick="document.getElementById('modal-instalar').classList.remove('aberto')">Entendi</button>
+  </div>
+</div>
+
+<script>
+function mudarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+  document.getElementById(id).classList.add('ativa');
+  btn.classList.add('ativo');
+}
+function toggleRef(id) {
+  document.getElementById(id).classList.toggle('aberta');
+}
+function mudarTab(id,btn){
+  document.querySelectorAll('.instalar-tab').forEach(t=>t.classList.remove('ativo'));
+  document.querySelectorAll('.instalar-painel').forEach(p=>p.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  document.getElementById('instalar-'+id).classList.add('ativo');
+}
+function fecharBanner(){
+  localStorage.setItem('banner-instalar-fechado-renata','1');
+  document.getElementById('banner-instalar').style.display='none';
+}
+const emStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+const jaFechou=localStorage.getItem('banner-instalar-fechado-renata')||emStandalone;
+if(jaFechou)document.getElementById('banner-instalar').style.display='none';
+</script>
+</body>
+</html>
