@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruna Bunemer — Nutri Ademir Ferreira</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+  --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;--alerta:#C2785A;
+}
+body{background:var(--creme);color:var(--carvao);font-family:'Jost',sans-serif;font-size:14px;line-height:1.6}
+.header{background:var(--verde);padding:20px 24px}
+.header-nome{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--creme-suv)}
+.header-crn{font-size:11px;color:var(--ouro);letter-spacing:.18em;text-transform:uppercase;font-family:'Jost',sans-serif}
+.header-line{height:3px;background:var(--ouro)}
+.paciente-banner{background:var(--creme-suv);border-bottom:1px solid var(--bege);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.paciente-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--verde)}
+.paciente-meta{font-size:12px;color:var(--cinza)}
+.paciente-data{font-size:11px;color:var(--cinza);text-align:right}
+
+.nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);border-bottom:3px solid var(--ouro);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.nav-btn{padding:12px 20px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;color:rgba(253,250,245,.65);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nav-btn:hover{color:var(--creme-suv)}
+.nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+.aba{display:none;padding:24px;max-width:860px;margin:0 auto}
+.aba.ativa{display:block}
+
+/* Seção */
+.secao{margin-bottom:28px}
+.secao-titulo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--verde);margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--bege)}
+
+/* Cards de evolução */
+.metricas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.metrica-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:8px;padding:14px 12px;text-align:center;border-bottom:3px solid var(--ouro)}
+.metrica-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ouro)}
+.metrica-label{font-size:10px;color:var(--cinza);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.metrica-delta{font-size:11px;font-weight:600;margin-top:4px}
+.delta-pos{color:#3B6D11}
+.delta-neg{color:var(--alerta)}
+
+/* Tabela evolução */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead tr{background:var(--verde);color:var(--creme-suv)}
+th{padding:9px 10px;text-align:left;font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+td{padding:9px 10px;border-bottom:1px solid var(--bege)}
+tr:nth-child(even) td{background:var(--creme-suv)}
+tr:nth-child(odd) td{background:var(--creme)}
+.td-label{font-weight:500;color:var(--cinza);border-left:3px solid var(--ouro)}
+
+/* Exames */
+.exame-grupo{margin-bottom:22px}
+.exame-grupo-titulo{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--ouro);margin-bottom:10px;padding-left:10px;border-left:3px solid var(--ouro)}
+.result-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:6px}
+.result-critico .result-status{color:#B83232;font-weight:600}
+.result-alterado .result-status{color:var(--alerta);font-weight:600}
+.result-ok .result-status{color:#3B6D11;font-weight:500}
+.result-atencao .result-status{color:#967B32;font-weight:500}
+.result-top{display:flex;justify-content:space-between;align-items:center}
+.result-nome{font-weight:500;font-size:13px;color:var(--carvao)}
+.result-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--verde);text-align:right}
+.result-status{font-size:11px;text-align:right}
+.result-ref{font-size:11px;color:var(--cinza);grid-column:1/-1;margin-top:2px}
+.result-conduta{font-size:12px;color:var(--carvao);background:rgba(184,149,106,.08);border-left:3px solid var(--ouro);padding:8px 10px;border-radius:0 6px 6px 0;margin-top:6px;grid-column:1/-1;line-height:1.5}
+
+/* Alertas */
+.alert-box{border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.6}
+.alert-critico{background:#FDF0F0;border-left:4px solid #B83232;color:#5A1A1A}
+.alert-atencao{background:#FDF6EC;border-left:4px solid var(--ouro);color:#5A3A1A}
+.alert-info{background:rgba(83,97,71,.06);border-left:4px solid var(--verde);color:var(--carvao)}
+.alert-titulo{font-weight:600;margin-bottom:4px}
+
+/* Suplementos */
+.supl-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.supl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.supl-nome{font-weight:600;font-size:14px;color:var(--carvao)}
+.badge-urgente{background:#B83232;color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-family:'Jost',sans-serif;letter-spacing:.06em}
+.badge-importante{background:var(--verde);color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-family:'Jost',sans-serif;letter-spacing:.06em}
+.badge-complementar{background:var(--sage);color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-family:'Jost',sans-serif;letter-spacing:.06em}
+.badge-monitorar{background:var(--cinza);color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;font-family:'Jost',sans-serif;letter-spacing:.06em}
+.supl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.supl-campo{background:var(--creme);border-radius:6px;padding:8px 10px}
+.supl-campo-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--cinza);margin-bottom:2px}
+.supl-campo-valor{font-size:12px;font-weight:500;color:var(--carvao)}
+.supl-just{font-size:12px;color:var(--cinza);border-top:1px solid var(--bege);padding-top:8px;margin-top:4px;line-height:1.5}
+
+/* Solicitar exames */
+.solicitar-item{background:var(--creme-suv);border:1px solid var(--bege);border-left:3px solid var(--ouro);border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:8px}
+.solicitar-nome{font-weight:600;font-size:13px;color:var(--carvao);margin-bottom:4px}
+.solicitar-just{font-size:12px;color:var(--cinza);line-height:1.5}
+.solicitar-urgencia-alta{border-left-color:#B83232}
+.solicitar-urgencia-media{border-left-color:var(--ouro)}
+.solicitar-urgencia-baixa{border-left-color:var(--sage)}
+
+/* Progresso */
+.progresso-linha{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start}
+.progresso-dot{width:12px;height:12px;border-radius:50%;background:var(--ouro);flex-shrink:0;margin-top:4px}
+.progresso-dot.destaque{background:var(--verde);width:16px;height:16px;margin-top:2px}
+.progresso-conteudo{flex:1}
+.progresso-data{font-size:11px;color:var(--cinza);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.progresso-titulo{font-weight:600;font-size:13px;margin-bottom:4px}
+.progresso-desc{font-size:12px;color:var(--cinza);line-height:1.5}
+.linha-vertical{width:1px;background:var(--bege);margin-left:5px;flex-shrink:0;min-height:30px}
+
+footer{background:var(--verde);color:rgba(253,250,245,.6);text-align:center;font-size:11px;padding:16px;letter-spacing:.04em;margin-top:40px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-nome">Ademir Ferreira Junior</div>
+  <div class="header-crn">Nutricionista · CRN-3 72295</div>
+</div>
+<div class="header-line"></div>
+
+<div class="paciente-banner">
+  <div>
+    <div class="paciente-nome">Bruna Bunemer de Oliveira</div>
+    <div class="paciente-meta">Emagrecimento · Controle de resistência insulínica · Meta: 70 kg em dez/2026</div>
+  </div>
+  <div class="paciente-data">Atualizado em 10/08/2026<br><span style="color:var(--ouro)">Exames jul/2026</span></div>
+</div>
+
+<nav class="nav-sticky">
+  <button class="nav-btn ativo" onclick="mudarAba('evolucao',this)">Evolução</button>
+  <button class="nav-btn" onclick="mudarAba('exames',this)">Exames</button>
+  <button class="nav-btn" onclick="mudarAba('suplementos',this)">Suplementos</button>
+  <button class="nav-btn" onclick="mudarAba('solicitar',this)">Solicitar</button>
+  <button class="nav-btn" onclick="mudarAba('progresso',this)">Progresso</button>
+</nav>
+
+<!-- ABA EVOLUÇÃO -->
+<div class="aba ativa" id="aba-evolucao">
+
+  <div class="secao">
+    <div class="secao-titulo">Composição corporal — mai/2026</div>
+
+    <div class="metricas-grid">
+      <div class="metrica-card">
+        <div class="metrica-val">81,4 kg</div>
+        <div class="metrica-label">Peso</div>
+        <div class="metrica-delta delta-pos">▼ 8,9 kg vs início</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-val">30,3</div>
+        <div class="metrica-label">IMC</div>
+        <div class="metrica-delta delta-pos">▼ 3,3 vs início</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-val">31,8%</div>
+        <div class="metrica-label">% Gordura</div>
+        <div class="metrica-delta delta-pos">▼ 6,3 pp vs início</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-val">55,5 kg</div>
+        <div class="metrica-label">Massa Muscular</div>
+        <div class="metrica-delta delta-neg">▼ 0,8 kg vs melhor</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-val">25,9 kg</div>
+        <div class="metrica-label">Massa Gorda</div>
+        <div class="metrica-delta delta-neg">▲ 4,1 kg vs melhor</div>
+      </div>
+      <div class="metrica-card">
+        <div class="metrica-val">89 cm</div>
+        <div class="metrica-label">Cintura</div>
+        <div class="metrica-delta delta-pos">▼ 3 cm vs início</div>
+      </div>
+    </div>
+
+    <div class="alert-box alert-info" style="margin-bottom:16px">
+      <div class="alert-titulo">Leitura da evolução</div>
+      A maior conquista deste processo foi a perda de 12,2 kg entre fev/2025 e set/2025, preservando praticamente toda a massa muscular (55,9 → 56,3 kg). Isso é tecnicamente difícil e representa um trabalho de emagrecimento de qualidade. O desafio atual é o platô desde set/2025: o peso recuperou 3,3 kg em 8 meses, sendo quase tudo gordura. A meta de 70 kg requer retomar a perda de forma consistente.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parâmetro</th>
+            <th>fev/2025</th>
+            <th>set/2025</th>
+            <th>nov/2025</th>
+            <th>jan/2026</th>
+            <th>mai/2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-label">Peso (kg)</td><td>90,3</td><td>78,1</td><td>79,8</td><td>81,3</td><td>81,4</td></tr>
+          <tr><td class="td-label">IMC</td><td>33,6</td><td>29,0</td><td>29,7</td><td>30,2</td><td>30,3</td></tr>
+          <tr><td class="td-label">% Gordura</td><td>38,1%</td><td>27,9%</td><td>29,5%</td><td>32,1%</td><td>31,8%</td></tr>
+          <tr><td class="td-label">Massa Gorda (kg)</td><td>34,4</td><td>21,8</td><td>23,6</td><td>26,1</td><td>25,9</td></tr>
+          <tr><td class="td-label">MLG (kg)</td><td>55,9</td><td>56,3</td><td>56,2</td><td>55,2</td><td>55,5</td></tr>
+          <tr><td class="td-label">Cintura (cm)</td><td>92</td><td>85,5</td><td>86,5</td><td>89</td><td>89</td></tr>
+          <tr><td class="td-label">Quadril (cm)</td><td>120,5</td><td>109</td><td>111</td><td>114</td><td>114</td></tr>
+          <tr><td class="td-label">Somatório dobras (mm)</td><td>252</td><td>156</td><td>169</td><td>190,5</td><td>188</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">Dobras cutâneas — comparativo</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Dobra</th><th>fev/2025</th><th>set/2025 (melhor)</th><th>mai/2026</th><th>Variação total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-label">Tricipital (mm)</td><td>31</td><td>19</td><td>23,5</td><td class="delta-pos">▼ 7,5</td></tr>
+          <tr><td class="td-label">Abdominal (mm)</td><td>46</td><td>26,5</td><td>32</td><td class="delta-pos">▼ 14</td></tr>
+          <tr><td class="td-label">Subescapular (mm)</td><td>40</td><td>26</td><td>35</td><td class="delta-pos">▼ 5</td></tr>
+          <tr><td class="td-label">Axilar média (mm)</td><td>26</td><td>19,5</td><td>25</td><td class="delta-pos">▼ 1</td></tr>
+          <tr><td class="td-label">Coxa (mm)</td><td>39</td><td>22</td><td>25</td><td class="delta-pos">▼ 14</td></tr>
+          <tr><td class="td-label">Torácica (mm)</td><td>35</td><td>21,5</td><td>22,5</td><td class="delta-pos">▼ 12,5</td></tr>
+          <tr><td class="td-label">Suprailíaca (mm)</td><td>35</td><td>21,5</td><td>25</td><td class="delta-pos">▼ 10</td></tr>
+          <tr><td class="td-label"><strong>Somatório</strong></td><td><strong>252</strong></td><td><strong>156</strong></td><td><strong>188</strong></td><td class="delta-pos"><strong>▼ 64</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ABA EXAMES -->
+<div class="aba" id="aba-exames">
+
+  <div class="alert-box alert-critico">
+    <div class="alert-titulo">Achados que exigem atenção imediata</div>
+    Resistência insulínica confirmada (HOMA-IR 6,3 — referência &lt;2,71) com insulina de jejum 27 mU/L. Triglicerídeos elevados (225 mg/dL). SHBG muito acima do esperado (246 nmol/L vs ref 32–128). Estes três achados juntos formam um padrão que precisa de intervenção nutricional e investigação adicional.
+  </div>
+
+  <!-- Glicídico -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Metabolismo glicídico e resistência insulínica</div>
+
+    <div class="result-item result-critico">
+      <div class="result-top">
+        <div class="result-nome">Insulina de Jejum</div>
+        <div>
+          <div class="result-val">27 mU/L</div>
+          <div class="result-status">ELEVADA</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 2 a 13 mU/L</div>
+      <div class="result-conduta">Insulina mais que o dobro do limite superior. Indica hiperinsulinemia de jejum, que é o sinal mais precoce e concreto de resistência insulínica.</div>
+    </div>
+
+    <div class="result-item result-critico">
+      <div class="result-top">
+        <div class="result-nome">HOMA-IR</div>
+        <div>
+          <div class="result-val">6,3</div>
+          <div class="result-status">RESISTÊNCIA INSULÍNICA</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: abaixo de 2,71 (população brasileira)</div>
+      <div class="result-conduta">HOMA-IR 6,3 confirma resistência insulínica significativa. Este índice relaciona glicemia e insulina — quanto maior, menos eficiente está sendo a sinalização do hormônio. Isso cria um ciclo: mais insulina circulante facilita acúmulo de gordura, especialmente abdominal, e dificulta perda de peso mesmo com dieta adequada.</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Glicose de Jejum</div>
+        <div>
+          <div class="result-val">95 mg/dL</div>
+          <div class="result-status">Adequada</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 70 a 99 mg/dL</div>
+      <div class="result-conduta">Glicemia ainda dentro da faixa normal, mas próxima do limite. O pâncreas está compensando a resistência produzindo mais insulina. Sem intervenção, a tendência é progressão para pré-diabetes.</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Hemoglobina Glicada (A1c)</div>
+        <div>
+          <div class="result-val">5,3%</div>
+          <div class="result-status">Ótima</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: abaixo de 5,7% (baixo risco)</div>
+    </div>
+  </div>
+
+  <!-- Lipídios -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Perfil lipídico</div>
+
+    <div class="alert-box alert-atencao">
+      <div class="alert-titulo">Coleta sem jejum</div>
+      O laudo indica que a coleta foi realizada sem jejum adequado. TG e VLDL são os mais impactados por isso. Mesmo considerando essa condição, o TG de 225 mg/dL está acima do limite sem jejum (175 mg/dL), o que confirma hipertrigliceridemia real. Recomendo repetir o lipidograma em jejum de 12h para avaliação completa.
+    </div>
+
+    <div class="result-item result-critico">
+      <div class="result-top">
+        <div class="result-nome">Triglicerídeos</div>
+        <div>
+          <div class="result-val">225 mg/dL</div>
+          <div class="result-status">ELEVADO</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável sem jejum: &lt; 175 mg/dL | Com jejum: &lt; 150 mg/dL</div>
+      <div class="result-conduta">TG elevado mesmo sem jejum é sinal real. Hipertrigliceridemia é fortemente associada à resistência insulínica — o fígado converte o excesso de glicose não captada pelos tecidos em triglicerídeos. Dieta com restrição de açúcares simples, álcool e carboidratos refinados, associada a ômega-3 de alta dose, é a intervenção nutricional com maior evidência.</div>
+    </div>
+
+    <div class="result-item result-alterado">
+      <div class="result-top">
+        <div class="result-nome">Colesterol Total</div>
+        <div>
+          <div class="result-val">217 mg/dL</div>
+          <div class="result-status">Acima do desejável</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável: abaixo de 190 mg/dL</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">LDL-Colesterol</div>
+        <div>
+          <div class="result-val">121 mg/dL</div>
+          <div class="result-status">Desejável</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável: 100 a 129 mg/dL (baixo risco: &lt; 115)</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">HDL-Colesterol</div>
+        <div>
+          <div class="result-val">62 mg/dL</div>
+          <div class="result-status">Bom</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável: acima de 40 mg/dL</div>
+    </div>
+
+    <div class="result-item result-alterado">
+      <div class="result-top">
+        <div class="result-nome">VLDL</div>
+        <div>
+          <div class="result-val">34 mg/dL</div>
+          <div class="result-status">Limítrofe</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável sem jejum: &lt; 35 mg/dL</div>
+    </div>
+
+    <div class="result-item result-alterado">
+      <div class="result-top">
+        <div class="result-nome">Não-HDL Colesterol</div>
+        <div>
+          <div class="result-val">155 mg/dL</div>
+          <div class="result-status">Desejável (limítrofe)</div>
+        </div>
+      </div>
+      <div class="result-ref">Desejável: 130 a 159 mg/dL | Ótimo: &lt; 130 mg/dL</div>
+    </div>
+  </div>
+
+  <!-- Hormonal -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Eixo hormonal — gonadal e SHBG</div>
+
+    <div class="alert-box alert-critico">
+      <div class="alert-titulo">SHBG 246 nmol/L — investigação necessária</div>
+      O SHBG (globulina carreadora de hormônios sexuais) está quase 2 vezes acima do limite superior de referência (32–128 nmol/L). A causa mais comum de SHBG tão elevado em mulheres jovens é o uso de anticoncepcional oral com etinilestradiol, que pode elevar o SHBG em 3 a 10 vezes. O cobre também está discretamente elevado (203 µg/dL vs ref &lt;198), o que é outro marcador indireto de uso de ACO. Importante confirmar na consulta se Bruna usa ACO e, se sim, discutir com a Dra. Erica a relação com o perfil hormonal atual.
+    </div>
+
+    <div class="result-item result-critico">
+      <div class="result-top">
+        <div class="result-nome">SHBG</div>
+        <div>
+          <div class="result-val">246 nmol/L</div>
+          <div class="result-status">MUITO ELEVADO</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino até 49 anos: 32 a 128 nmol/L</div>
+      <div class="result-conduta">SHBG alto "sequestra" a testosterona livre — mesmo que a testosterona total esteja normal (22 ng/dL), a fração livre disponível para os tecidos cai. Testosterona livre: 2,8 pmol/L (normal baixa, ref 2,4–37,0). Isso pode contribuir para menor energia, dificuldade de composição muscular e libido reduzida.</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Testosterona Total</div>
+        <div>
+          <div class="result-val">22 ng/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino: até 63 ng/dL</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Testosterona Livre</div>
+        <div>
+          <div class="result-val">2,8 pmol/L</div>
+          <div class="result-status">Normal (limite inferior)</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino: 2,4 a 37,0 pmol/L</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Estradiol</div>
+        <div>
+          <div class="result-val">1,8 ng/dL</div>
+          <div class="result-status">Baixo para a fase</div>
+        </div>
+      </div>
+      <div class="result-ref">Fase folicular: 1,2–23,3 ng/dL | Fase lútea: 2,2–34,1 ng/dL</div>
+      <div class="result-conduta">E2 de 18 pg/mL (= 1,8 ng/dL) está no limite inferior da fase folicular. Necessário saber o dia do ciclo na coleta para interpretar com precisão. Se coletado no D2–D5, pode ser esperado. Se coletado fora do início do ciclo, indica hipoestrogenismo relativo — relevante para saúde óssea, humor e composição corporal.</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Progesterona</div>
+        <div>
+          <div class="result-val">38 ng/dL</div>
+          <div class="result-status">Fase folicular</div>
+        </div>
+      </div>
+      <div class="result-ref">Fase folicular: até 89 ng/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Estrona (E1)</div>
+        <div>
+          <div class="result-val">6,2 ng/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Mulheres 18–50 anos: até 20,8 ng/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Androstenediona</div>
+        <div>
+          <div class="result-val">157 ng/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Feminino 20–29 anos: 39 a 165 ng/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">DHT</div>
+        <div>
+          <div class="result-val">9 ng/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Feminino: 5 a 46 ng/dL</div>
+    </div>
+  </div>
+
+  <!-- Hemograma e ferro -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Hemograma e metabolismo do ferro</div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Hemoglobina</div>
+        <div>
+          <div class="result-val">13,3 g/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino: 11,7 a 14,9 g/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Ferritina</div>
+        <div>
+          <div class="result-val">118 µg/L</div>
+          <div class="result-status">Boa</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino: 15 a 149 µg/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Ferro Sérico</div>
+        <div>
+          <div class="result-val">82 µg/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 50 a 170 µg/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Saturação da Transferrina</div>
+        <div>
+          <div class="result-val">19%</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 15 a 50%</div>
+    </div>
+  </div>
+
+  <!-- Vitaminas e minerais -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Vitaminas e minerais</div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Vitamina D (25-OH)</div>
+        <div>
+          <div class="result-val">34 ng/mL</div>
+          <div class="result-status">Suficiente (abaixo do ideal)</div>
+        </div>
+      </div>
+      <div class="result-ref">Suficiente: acima de 20 ng/mL | Ideal funcional: 40–60 ng/mL</div>
+      <div class="result-conduta">34 ng/mL é tecnicamente suficiente, mas abaixo do alvo funcional de 40–60 ng/mL. Para pacientes com resistência insulínica, a vitamina D tem papel na sensibilidade insulínica — atingir ao menos 50 ng/mL é clinicamente desejável. Suplementação com dose maior está indicada.</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Vitamina A (Retinol)</div>
+        <div>
+          <div class="result-val">0,8 mg/L</div>
+          <div class="result-status">Acima do esperado</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 0,3 a 0,7 mg/L</div>
+      <div class="result-conduta">Vitamina A discreta acima do ref. Provavelmente por suplementação. Verificar se Bruna usa multivitamínico ou suplemento contendo retinol. Não é urgente, mas o consumo habitual deve ser avaliado para evitar acúmulo.</div>
+    </div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">Cobre</div>
+        <div>
+          <div class="result-val">203 µg/dL</div>
+          <div class="result-status">Discretamente elevado</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência feminino: 70 a 198 µg/dL</div>
+      <div class="result-conduta">Cobre elevado em mulheres jovens é um marcador indireto de uso de anticoncepcional oral (estrógenos elevam a ceruloplasmina, que carrega cobre). Reforça a hipótese de uso de ACO, que explicaria também o SHBG 246.</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Zinco</div>
+        <div>
+          <div class="result-val">0,82 µg/mL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 0,70 a 1,20 µg/mL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Magnésio</div>
+        <div>
+          <div class="result-val">2,3 mg/dL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 1,6 a 2,6 mg/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Vitamina E (Tocoferol)</div>
+        <div>
+          <div class="result-val">14,7 mg/L</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Normal: 5,0 a 20,0 mg/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Vitamina B12</div>
+        <div>
+          <div class="result-val">460 ng/L</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Normal: acima de 300 ng/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Ácido Fólico</div>
+        <div>
+          <div class="result-val">9,6 ng/mL</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Normal: superior a 3,9 ng/mL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Homocisteína</div>
+        <div>
+          <div class="result-val">6,3 µmol/L</div>
+          <div class="result-status">Ótima</div>
+        </div>
+      </div>
+      <div class="result-ref">Normal: 5,0 a 15,0 µmol/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Selênio</div>
+        <div>
+          <div class="result-val">89 µg/L</div>
+          <div class="result-status">Normal</div>
+        </div>
+      </div>
+      <div class="result-ref">Referência: 63 a 160 µg/L</div>
+    </div>
+  </div>
+
+  <!-- Inflamatório -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Inflamatório e risco cardiovascular</div>
+
+    <div class="result-item result-atencao">
+      <div class="result-top">
+        <div class="result-nome">PCR Ultrassensível</div>
+        <div>
+          <div class="result-val">2,40 mg/L</div>
+          <div class="result-status">Limítrofe para risco CV</div>
+        </div>
+      </div>
+      <div class="result-ref">Risco cardiovascular: ≥ 2,0 mg/L | Ideal: &lt; 1,0 mg/L</div>
+      <div class="result-conduta">PCR-us 2,40 mg/L está acima do limiar de risco cardiovascular (2,0 mg/L). Confirma inflamação crônica de baixo grau — esperada dado o contexto de resistência insulínica, consumo habitual de delivery ultraprocessado e estresse crônico. A dieta anti-inflamatória e a redução do consumo de ultraprocessados são as intervenções mais efetivas.</div>
+    </div>
+  </div>
+
+  <!-- Função renal e hepática -->
+  <div class="exame-grupo">
+    <div class="exame-grupo-titulo">Função renal e hepática</div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">TGO / TGP</div>
+        <div>
+          <div class="result-val">18 / 18</div>
+          <div class="result-status">Normais</div>
+        </div>
+      </div>
+      <div class="result-ref">TGO: até 32 U/L | TGP: até 33 U/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">GGT / Fosfatase Alcalina</div>
+        <div>
+          <div class="result-val">25 / 46</div>
+          <div class="result-status">Normais</div>
+        </div>
+      </div>
+      <div class="result-ref">GGT feminino: 8–41 U/L | FA: 35–104 U/L</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Creatinina / TFG</div>
+        <div>
+          <div class="result-val">0,80 / 102</div>
+          <div class="result-status">Normais</div>
+        </div>
+      </div>
+      <div class="result-ref">Creatinina: 0,60–1,10 mg/dL | TFG: acima de 60</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Albumina / Proteína Total</div>
+        <div>
+          <div class="result-val">4,5 / 7,3</div>
+          <div class="result-status">Normais</div>
+        </div>
+      </div>
+      <div class="result-ref">Albumina: 3,5–5,2 g/dL | Proteína total: 6,5–8,1 g/dL</div>
+    </div>
+
+    <div class="result-item result-ok">
+      <div class="result-top">
+        <div class="result-nome">Potássio / Sódio</div>
+        <div>
+          <div class="result-val">4,1 / 139</div>
+          <div class="result-status">Normais</div>
+        </div>
+      </div>
+      <div class="result-ref">K: 3,5–5,1 mEq/L | Na: 136–145 mEq/L</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ABA SUPLEMENTOS -->
+<div class="aba" id="aba-suplementos">
+
+  <div class="alert-box alert-info" style="margin-bottom:20px">
+    <div class="alert-titulo">Protocolo baseado nos exames de jul/2026</div>
+    Prioridade absoluta: resistência insulínica (HOMA-IR 6,3), hipertrigliceridemia e vitamina D subótima. Os demais suplementos têm papel de suporte ao processo inflamatório e ao controle glicêmico noturno.
+  </div>
+
+  <div class="supl-item">
+    <div class="supl-top">
+      <div class="supl-nome">Ômega-3 (EPA + DHA)</div>
+      <span class="badge-urgente">Urgente</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-campo">
+        <div class="supl-campo-label">Dose</div>
+        <div class="supl-campo-valor">3–4g de EPA+DHA/dia</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Horário</div>
+        <div class="supl-campo-valor">Almoço ou jantar</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Com alimento?</div>
+        <div class="supl-campo-valor">Sim, junto à refeição</div>
+      </div>
+    </div>
+    <div class="supl-just">TG 225 mg/dL e PCR-us 2,40 mg/L. Ômega-3 em dose terapêutica (3–4g EPA+DHA) reduz triglicerídeos em até 30% (forte evidência — múltiplos RCTs) e tem efeito anti-inflamatório independente. Prioridade máxima neste caso.</div>
+  </div>
+
+  <div class="supl-item">
+    <div class="supl-top">
+      <div class="supl-nome">Vitamina D3 + K2</div>
+      <span class="badge-urgente">Urgente</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-campo">
+        <div class="supl-campo-label">Dose</div>
+        <div class="supl-campo-valor">5.000 UI de D3 + 100µg de K2</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Horário</div>
+        <div class="supl-campo-valor">Almoço</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Com alimento?</div>
+        <div class="supl-campo-valor">Sim, com gordura</div>
+      </div>
+    </div>
+    <div class="supl-just">Vitamina D atual: 34 ng/mL. Alvo funcional para paciente com resistência insulínica: 50–60 ng/mL. A vitamina D atua nos receptores das células beta pancreáticas e melhora a sensibilidade insulínica. K2 redireciona o cálcio para os ossos, prevenindo calcificação vascular.</div>
+  </div>
+
+  <div class="supl-item">
+    <div class="supl-top">
+      <div class="supl-nome">Inositol (Mio-inositol)</div>
+      <span class="badge-importante">Importante</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-campo">
+        <div class="supl-campo-label">Dose</div>
+        <div class="supl-campo-valor">2g 2x/dia (4g/dia total)</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Horário</div>
+        <div class="supl-campo-valor">Manhã em jejum + antes de dormir</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Forma</div>
+        <div class="supl-campo-valor">Pó dissolvido em água</div>
+      </div>
+    </div>
+    <div class="supl-just">O mio-inositol é um segundo mensageiro da insulina — atua diretamente na sinalização intracelular e melhora a sensibilidade insulínica. É especialmente eficaz em pacientes com HOMA-IR elevado. Evidência moderada a forte em estudos com resistência insulínica e SOP.</div>
+  </div>
+
+  <div class="supl-item">
+    <div class="supl-top">
+      <div class="supl-nome">Magnésio Bisglicinato</div>
+      <span class="badge-importante">Importante</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-campo">
+        <div class="supl-campo-label">Dose</div>
+        <div class="supl-campo-valor">400mg/dia</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Horário</div>
+        <div class="supl-campo-valor">Jantar ou antes de dormir</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Com alimento?</div>
+        <div class="supl-campo-valor">Preferencialmente com</div>
+      </div>
+    </div>
+    <div class="supl-just">Magnésio participa de mais de 300 reações enzimáticas, incluindo a sinalização da insulina. Pacientes com resistência insulínica frequentemente têm magnésio intracelular reduzido mesmo com sérico normal. O bisglicinato tem melhor absorção e não causa desconforto intestinal. Também melhora qualidade do sono — relevante dado que Bruna dorme após 1h da manhã.</div>
+  </div>
+
+  <div class="supl-item">
+    <div class="supl-top">
+      <div class="supl-nome">Cromo Picolinato</div>
+      <span class="badge-complementar">Complementar</span>
+    </div>
+    <div class="supl-grid">
+      <div class="supl-campo">
+        <div class="supl-campo-label">Dose</div>
+        <div class="supl-campo-valor">200–400 µg/dia</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Horário</div>
+        <div class="supl-campo-valor">Almoço</div>
+      </div>
+      <div class="supl-campo">
+        <div class="supl-campo-label">Com alimento?</div>
+        <div class="supl-campo-valor">Sim</div>
+      </div>
+    </div>
+    <div class="supl-just">O cromo potencializa a ação da insulina e pode ajudar no controle da compulsão por carboidratos e doces, queixa comum em pacientes com resistência insulínica. Embasamento fisiológico + evidência moderada para controle glicêmico.</div>
+  </div>
+
+</div>
+
+<!-- ABA SOLICITAR -->
+<div class="aba" id="aba-solicitar">
+
+  <div class="alert-box alert-atencao" style="margin-bottom:20px">
+    <div class="alert-titulo">Exames pendentes para investigação completa</div>
+    A resistência insulínica confirmada pelos exames atuais exige investigação adicional de outros eixos. TSH e cortisol não foram avaliados e são fundamentais para entender se há fator tireoidiano ou adrenal contribuindo para o quadro.
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-alta">
+    <div class="solicitar-nome">TSH + T4 Livre + T3 Livre</div>
+    <div class="solicitar-just">A tireoide não foi avaliada em nenhum momento. Hipotireoidismo subclínico causa SHBG elevado, resistência ao emagrecimento, acúmulo de gordura abdominal e dislipidemia — todos presentes neste caso. Com HOMA-IR 6,3 e SHBG 246, excluir tireoideopatia é obrigatório antes de qualquer ajuste de protocolo.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-alta">
+    <div class="solicitar-nome">Cortisol Matinal (8h) + DHEA-S</div>
+    <div class="solicitar-just">Cortisol cronicamente elevado é uma das principais causas de resistência insulínica, acúmulo de gordura visceral e dificuldade de emagrecimento. Bruna relata estresse crônico, sono tardio (acorda tarde e dorme após 1h), ansiedade (em terapia) e períodos de compulsão alimentar — todos sinais de eixo HPA em hiperatividade.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-alta">
+    <div class="solicitar-nome">LH + FSH</div>
+    <div class="solicitar-just">Com SHBG muito elevado, estradiol baixo e perfil lipídico alterado, é importante avaliar o eixo gonadotrófico. LH e FSH não foram dosados. Se houver relação LH/FSH alterada, pode indicar SOP (síndrome dos ovários policísticos), que cursa com resistência insulínica — e mudaria completamente a conduta nutricional.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-media">
+    <div class="solicitar-nome">Lipidograma completo em jejum de 12h</div>
+    <div class="solicitar-just">O lipidograma atual foi coletado sem jejum. Para TG e VLDL, o jejum é fundamental para interpretação correta. Mesmo sabendo que o TG 225 sem jejum já está alterado, é necessário o lipidograma em jejum para avaliar a extensão real da dislipidemia e monitorar a resposta ao tratamento.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-media">
+    <div class="solicitar-nome">Insulina de jejum (repetir após 90 dias)</div>
+    <div class="solicitar-just">Reavaliação obrigatória do HOMA-IR após 3 meses de protocolo nutricional e suplementação. É o marcador principal de resposta ao tratamento da resistência insulínica.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-baixa">
+    <div class="solicitar-nome">Vitamina D (25-OH) — repetir após 90 dias</div>
+    <div class="solicitar-just">Reavaliação após início da suplementação com dose maior (5.000 UI/dia). Alvo: 50–60 ng/mL.</div>
+  </div>
+
+  <div class="solicitar-item solicitar-urgencia-baixa">
+    <div class="solicitar-nome">Confirmação uso de anticoncepcional oral</div>
+    <div class="solicitar-just">Não é exame laboratorial, mas questão clínica prioritária: confirmar com a paciente se usa ACO com etinilestradiol. Se sim, discutir com a Dra. Erica a relação SHBG altíssimo + cobre elevado + estradiol baixo. O ACO pode estar bloqueando o eixo gonadal e elevando o SHBG de forma farmacológica.</div>
+  </div>
+
+</div>
+
+<!-- ABA PROGRESSO -->
+<div class="aba" id="aba-progresso">
+
+  <div class="secao">
+    <div class="secao-titulo">Linha do tempo — consultas e avaliações</div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot destaque"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Agosto 2026</div>
+        <div class="progresso-titulo">Webapp criado — Exames jul/2026</div>
+        <div class="progresso-desc">Resistência insulínica confirmada (HOMA-IR 6,3). Protocolo de suplementação iniciado. Investigação adicional indicada (TSH, cortisol, LH/FSH).</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Julho 2026</div>
+        <div class="progresso-titulo">Exames laboratoriais — A+ Medicina Diagnóstica</div>
+        <div class="progresso-desc">Painel completo: hemograma, glicídico, lipídico, hormonal, vitaminas, minerais, função renal e hepática. Coleta em 30/07/2026.</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Maio 2026</div>
+        <div class="progresso-titulo">5ª avaliação física — 81,4 kg / 31,8% gordura</div>
+        <div class="progresso-desc">Peso estabilizado próximo ao de jan/2026. MLG 55,5 kg. Somatório de dobras 188 mm. Cintura 89 cm. Platô de 8 meses sem perda significativa de gordura.</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Janeiro 2026</div>
+        <div class="progresso-titulo">4ª avaliação física — 81,3 kg / 32,1% gordura</div>
+        <div class="progresso-desc">Recuperação de 3,2 kg vs melhor resultado (set/2025). Gordura voltou a 26,1 kg. Período pós-cirurgia ortognática da irmã (nov/2025) foi disruptivo.</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Novembro 2025</div>
+        <div class="progresso-titulo">3ª avaliação física — 79,8 kg / 29,5% gordura</div>
+        <div class="progresso-desc">Leve recuperação de 1,7 kg vs set/2025. Início de período difícil: irmã em cirurgia ortognática, reorganização da rotina familiar.</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot destaque"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Setembro 2025</div>
+        <div class="progresso-titulo">Melhor resultado — 78,1 kg / 27,9% gordura</div>
+        <div class="progresso-desc">Menor peso e menor % de gordura do processo. Massa gorda: 21,8 kg. MLG preservada: 56,3 kg (melhor que o início). Somatório de dobras: 156 mm.</div>
+      </div>
+    </div>
+
+    <div class="progresso-linha">
+      <div>
+        <div class="progresso-dot"></div>
+        <div class="linha-vertical" style="height:50px"></div>
+      </div>
+      <div class="progresso-conteudo">
+        <div class="progresso-data">Fevereiro 2025</div>
+        <div class="progresso-titulo">1ª avaliação — Início do acompanhamento</div>
+        <div class="progresso-desc">Peso inicial: 90,3 kg / 38,1% gordura / 55,9 kg MLG. IMC 33,6 (Obesidade grau 1). Cintura 92 cm. Somatório de dobras 252 mm.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao">
+    <div class="secao-titulo">Meta e projeção</div>
+    <div class="alert-box alert-info">
+      <div class="alert-titulo">Meta: 70 kg em dezembro 2026</div>
+      Partindo de 81,4 kg (mai/2026), a meta exige perda de 11,4 kg em aproximadamente 7 meses (ago–dez/2026), o que equivale a uma perda média de 1,6 kg/mês ou 0,4 kg/semana. É uma meta realista e saudável se o protocolo for seguido com consistência e os fatores metabólicos (resistência insulínica) forem tratados. A chave é controlar o HOMA-IR: com insulina cronicamente elevada, perder gordura é fisiologicamente mais difícil — tratar a resistência insulínica é o prerequisito para destravar o emagrecimento.
+    </div>
+  </div>
+
+</div>
+
+<footer>Nutri Ademir Ferreira · São Paulo, SP · nutriademirferreira.com.br</footer>
+
+<script>
+function mudarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+  document.getElementById('aba-'+id).classList.add('ativa');
+  btn.classList.add('ativo');
+}
+</script>
+</body>
+</html>
