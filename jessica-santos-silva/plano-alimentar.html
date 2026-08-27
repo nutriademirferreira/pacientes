@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jessica Santos Silva — Nutri Ademir Ferreira</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#536147;--ouro:#B8956A;--carvao:#272520;--creme:#F4EFE4;
+    --creme-suv:#FDFAF5;--bege:#EBE4D5;--cinza:#706B63;--sage:#8A9B78;
+    --alerta:#C2785A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Jost',sans-serif;background:var(--creme);color:var(--carvao);max-width:480px;margin:0 auto;padding-bottom:80px}
+
+  .header{padding:18px 20px 8px;text-align:center}
+  .header-paciente{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--verde);line-height:1.2}
+  .header-nutri{font-size:11px;color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+  .header-crn{font-size:11px;color:var(--cinza);margin-bottom:4px}
+  .header-meta{font-size:11px;color:var(--cinza);margin-top:2px}
+
+  .nav-sticky{position:sticky;top:0;z-index:100;background:var(--verde);padding:0 12px;overflow-x:auto;white-space:nowrap;display:flex;gap:4px;scrollbar-width:none}
+  .nav-sticky::-webkit-scrollbar{display:none}
+  .nav-btn{display:inline-block;padding:10px 14px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:rgba(253,250,245,.7);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+  .nav-btn.ativo{color:var(--creme-suv);border-bottom-color:var(--ouro)}
+
+  .aba{display:none;padding:16px}
+  .aba.ativa{display:block}
+
+  .secao-titulo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--verde);margin:20px 0 12px;border-bottom:1px solid var(--bege);padding-bottom:6px}
+  .secao-titulo:first-child{margin-top:0}
+
+  .card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:12px}
+  .card-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);margin-bottom:4px}
+  .card-valor{font-size:13px;color:var(--carvao);line-height:1.6}
+  .card-destaque{border-left:4px solid var(--verde)}
+  .card-alerta{border-left:4px solid var(--alerta)}
+
+  .alerta-box{background:#FDEEE9;border:1px solid #F0C4B4;border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;color:#8B3A22;line-height:1.5}
+  .alerta-box strong{display:block;margin-bottom:4px;font-size:14px}
+  .info-box{background:#EEF2EA;border:1px solid #C8D4BE;border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;color:var(--verde);line-height:1.5}
+  .info-box strong{display:block;margin-bottom:4px}
+
+  /* EXAMES */
+  .exame-grupo{margin-bottom:20px}
+  .exame-grupo-titulo{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro);display:block;margin-bottom:8px}
+  .exame-item{background:var(--creme-suv);border:1px solid var(--bege);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start}
+  .exame-esq{flex:1}
+  .exame-nome{font-size:13px;font-weight:500;color:var(--carvao)}
+  .exame-ref{font-size:10px;color:var(--cinza);margin-top:2px}
+  .exame-conduta{font-size:11px;color:var(--cinza);margin-top:6px;line-height:1.5;font-style:italic}
+  .exame-dir{text-align:right;flex-shrink:0;margin-left:10px}
+  .exame-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700}
+  .exame-val.ok{color:var(--sage)}
+  .exame-val.atencao{color:var(--ouro)}
+  .exame-val.alerta{color:var(--alerta)}
+  .exame-val.critico{color:#C0392B}
+
+  /* SUPLEMENTOS */
+  .supl-card{background:var(--creme-suv);border:1px solid var(--bege);border-radius:12px;padding:14px;margin-bottom:10px}
+  .supl-nome{font-size:14px;font-weight:600;color:var(--verde);margin-bottom:6px}
+  .supl-info{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .supl-tag{font-size:11px;padding:3px 8px;border-radius:8px;background:var(--bege);color:var(--cinza)}
+  .supl-tag.urgente{background:#FDEEE9;color:var(--alerta)}
+  .supl-tag.importante{background:#EEF2EA;color:var(--verde)}
+  .supl-horario{font-size:11px;color:var(--ouro);font-weight:600;margin-bottom:6px;letter-spacing:.02em}
+  .supl-obj{font-size:12px;color:var(--cinza);line-height:1.5}
+
+  /* BANNER */
+  .banner-instalar{position:fixed;bottom:0;left:0;right:0;background:var(--carvao);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:200;border-top:2px solid var(--ouro)}
+  .banner-txt{font-size:12px;color:var(--creme);line-height:1.4}
+  .banner-btn{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--carvao);background:var(--ouro);border:none;border-radius:8px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .banner-fechar{background:none;border:none;color:var(--cinza);font-size:18px;cursor:pointer;padding:0 4px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-nutri">Nutri Ademir Ferreira</div>
+  <div class="header-crn">CRN-3 72295</div>
+  <div class="header-paciente">Jessica Santos Silva</div>
+  <div class="header-meta">Protocolo Intestinal + Exames · Ago/2026</div>
+</div>
+
+<nav class="nav-sticky">
+  <button class="nav-btn ativo" onclick="mostrarAba('suplementos', this)">Suplementos</button>
+  <button class="nav-btn" onclick="mostrarAba('exames', this)">Exames</button>
+  <button class="nav-btn" onclick="mostrarAba('atencao', this)">Atencao</button>
+</nav>
+
+<!-- ABA: SUPLEMENTOS -->
+<div id="suplementos" class="aba ativa">
+
+  <div class="alerta-box">
+    <strong>Protocolo intestinal + antiinflamatorio</strong>
+    A sua inflamacao sistemica (PCR muito elevada) e a deficiencia de folato sao as prioridades clinicas do momento. O protocolo abaixo atua em duas frentes ao mesmo tempo: melhora o transito intestinal e reduz a permeabilidade do intestino, o que ajuda a baixar a inflamacao ao longo do tempo.
+  </div>
+
+  <div class="secao-titulo">Protocolo intestinal — ago/2026</div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Glutamina</div>
+    <div class="supl-info">
+      <span class="supl-tag urgente">Prioritario</span>
+    </div>
+    <div class="supl-horario">🕐 Manha em jejum · dissolver em agua fria</div>
+    <div class="supl-obj">Principal combustivel das celulas do intestino. Com a sua inflamacao elevada, a barreira intestinal provavelmente esta comprometida — a glutamina restaura essa barreira, reduz a permeabilidade e ajuda a diminuir a inflamacao sistemica. Nao usar agua quente (destroi a glutamina).</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Probiotico — Purabiotics (Puravida)</div>
+    <div class="supl-info">
+      <span class="supl-tag urgente">Prioritario</span>
+    </div>
+    <div class="supl-horario">🕐 Manha em jejum · junto com a glutamina</div>
+    <div class="supl-obj">Reequilibra as bacterias beneficas do intestino. Com inflamacao cronica, a microbiota tende a estar desregulada — o probiotico ajuda a restaurar esse equilibrio e melhora a absorcao de nutrientes como o folato, que esta deficiente nos seus exames.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Yakult</div>
+    <div class="supl-info">
+      <span class="supl-tag importante">Complementar</span>
+    </div>
+    <div class="supl-horario">🕐 Lanche da tarde · pelo menos 2h depois do probiotico</div>
+    <div class="supl-obj">Contem Lactobacillus casei Shirota, cepa com forte evidencia para melhora do transito intestinal e modulacao imune. Age de forma complementar ao probiotico em capsula — cepas diferentes, nichos diferentes no intestino. Tomar separado para nao haver competicao entre as bacterias.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Fibra Solavel — Psyllium ou Inulina</div>
+    <div class="supl-info">
+      <span class="supl-tag importante">Importante</span>
+    </div>
+    <div class="supl-horario">🕐 Meio da tarde · misturado em agua ou iogurte</div>
+    <div class="supl-obj">Alimenta as bacterias beneficas que o probiotico esta instalando — sem fibra, o probiotico e menos eficiente. Tambem aumenta o volume e a consistencia do bolo fecal de forma natural, melhorando o transito sem efeito laxativo agressivo. Comece com 5g e ajuste conforme tolerancia.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Magnesio Quelato — Bio Mag (Puravida)</div>
+    <div class="supl-info">
+      <span class="supl-tag importante">Importante</span>
+    </div>
+    <div class="supl-horario">🕐 Noite antes de dormir · com ou sem alimento</div>
+    <div class="supl-obj">O magnesio atrai agua para o intestino, amolece o bolo fecal e estimula o peristaltismo de forma suave. O seu magnesio serico esta normal, mas isso nao impede o uso para transito intestinal — o mecanismo e local, nao de reposicao. Tambem melhora a qualidade do sono.</div>
+  </div>
+
+  <div class="supl-card">
+    <div class="supl-nome">Zinco Carnosina</div>
+    <div class="supl-info">
+      <span class="supl-tag importante">Importante</span>
+    </div>
+    <div class="supl-horario">🕐 Almoco ou jantar · com alimento</div>
+    <div class="supl-obj">Combinacao especifica para reparo da mucosa intestinal — age diretamente no tecido do intestino, nao como reposicao de zinco. Potencializa a acao da glutamina no fechamento da barreira intestinal. Com 75mg ao dia, o efeito e local e seguro.</div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-label">Ordem de tomada no dia</div>
+    <div class="card-valor">
+      Manha jejum: Glutamina + Probiotico<br>
+      Almoco ou jantar: Zinco Carnosina<br>
+      Lanche da tarde: Yakult<br>
+      Meio da tarde: Psyllium ou Inulina<br>
+      Noite: Magnesio Quelato
+    </div>
+  </div>
+
+</div>
+
+<!-- ABA: EXAMES -->
+<div id="exames" class="aba">
+
+  <div class="card card-alerta" style="margin-bottom:16px">
+    <div class="card-label">Coleta · Delboni 25/07/2026</div>
+    <div class="card-valor">27 exames + USG abdome superior. Os achados abaixo sao os que guiam o protocolo atual.</div>
+  </div>
+
+  <div class="exame-grupo">
+    <span class="exame-grupo-titulo">Inflamacao sistemica</span>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">PCR Ultrassensivel</div>
+        <div class="exame-ref">Ref: menor que 1,0 mg/L ideal · Assay saturado no limite</div>
+        <div class="exame-conduta">Valor real acima de 20 mg/L — o aparelho nao conseguiu medir mais alto. Solicitar PCR convencional para quantificar. Causa da inflamacao ainda em investigacao.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val critico">> 20</div>
+        <div class="exame-ref">mg/L</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Transferrina</div>
+        <div class="exame-ref">Ref: 200-360 mg/dL · em queda (193 → 172)</div>
+        <div class="exame-conduta">Proteina que cai quando ha inflamacao ativa — reforça o quadro inflamatorio da PCR elevada.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val alerta">172</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exame-grupo">
+    <span class="exame-grupo-titulo">Homocisteina e folato</span>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Homocisteina</div>
+        <div class="exame-ref">Ref: 4,4-13,6 µmol/L · quase o dobro do limite</div>
+        <div class="exame-conduta">Risco cardiovascular e trombótico elevado. Causa principal: deficiencia de folato confirmada. Melhora com suplementacao de folato + B6 + B12.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val critico">26,4</div>
+        <div class="exame-ref">µmol/L</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Acido Folico</div>
+        <div class="exame-ref">Ref: acima de 5,38 ng/mL · deficiencia persistente</div>
+        <div class="exame-conduta">Historico: 2,67 → 3,37 ng/mL. Subindo, mas ainda deficiente. Explica diretamente a homocisteina elevada. Suplementacao a definir.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val alerta">3,37</div>
+        <div class="exame-ref">ng/mL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exame-grupo">
+    <span class="exame-grupo-titulo">Glicemia</span>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Glicose jejum</div>
+        <div class="exame-ref">Ref: 70-99 mg/dL · tendencia de queda historica</div>
+        <div class="exame-conduta">Historico: 71 → 80 → 83 → 76 → 61. Hipoglicemia de jejum. Insulina baixo-normal (4,0). Nao e hiperinsulinica. Investigar jejum prolongado ou hipoglicemia funcional.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val alerta">61</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">HbA1c</div>
+        <div class="exame-ref">Ref: menor que 5,7% normal</div>
+        <div class="exame-conduta">Normal. Sem disglicemia cronica. Tranquilizador dado o contexto.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">5,3%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exame-grupo">
+    <span class="exame-grupo-titulo">Lipidograma — melhora expressiva</span>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Colesterol Total</div>
+        <div class="exame-ref">Historico: 236 → 172 mg/dL</div>
+        <div class="exame-conduta">Reducao de 64 pontos — resultado excelente do protocolo nutricional.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">172</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">LDL</div>
+        <div class="exame-ref">Historico: 126 → 95 mg/dL</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">95</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Triglicerideos</div>
+        <div class="exame-ref">Historico: 106 → 59 mg/dL</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">59</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">HDL</div>
+        <div class="exame-ref">Historico: 89 → 99 → 60 → 99 → 45 · tendencia de queda</div>
+        <div class="exame-conduta">Ainda acima de 40, mas a oscilacao historica e preocupante. Monitorar.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val atencao">45</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exame-grupo">
+    <span class="exame-grupo-titulo">Tireoide e micronutrientes</span>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">TSH</div>
+        <div class="exame-ref">Ref: 0,4-4,0 mUI/mL · historico estavel</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">1,58</div>
+        <div class="exame-ref">mUI/mL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Vitamina D</div>
+        <div class="exame-ref">Ref: alvo funcional maior que 50 ng/mL · Historico: 11 → 38 → 43</div>
+        <div class="exame-conduta">Boa evolucao, mas ainda abaixo do alvo funcional. Manter suplementacao. Repetir em 90 dias.</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val atencao">43</div>
+        <div class="exame-ref">ng/mL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Vitamina B12</div>
+        <div class="exame-ref">Ref: 211-911 pg/mL</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">529</div>
+        <div class="exame-ref">pg/mL</div>
+      </div>
+    </div>
+
+    <div class="exame-item">
+      <div class="exame-esq">
+        <div class="exame-nome">Magnesio</div>
+        <div class="exame-ref">Ref: 1,9-2,5 mg/dL</div>
+      </div>
+      <div class="exame-dir">
+        <div class="exame-val ok">2,3</div>
+        <div class="exame-ref">mg/dL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>USG Abdome Superior — 25/07/2026</strong>
+    Normal. Figado, pancreas, baco, vias biliares e veia porta sem alteracoes. Resultado tranquilizador dado o quadro inflamatorio.
+  </div>
+
+</div>
+
+<!-- ABA: ATENCAO -->
+<div id="atencao" class="aba">
+
+  <div class="secao-titulo">Exames pendentes</div>
+
+  <div class="card card-alerta">
+    <div class="card-label">Solicitar com a Dra. Gabriella</div>
+    <div class="card-valor">
+      PCR convencional — para medir o valor real (o PCR-us saturou acima de 20 mg/L)<br><br>
+      Investigacao da inflamacao — VHS, proteinograma, ANA, anti-TPO<br><br>
+      MTHFR — polimorfismo genetico que explica homocisteina muito elevada com folato deficiente<br><br>
+      Vitamina B6 (piridoxina) — terceiro cofator da via da homocisteina<br><br>
+      Glicemia pos-prandial ou curva glicemica — para investigar a hipoglicemia de jejum<br><br>
+      Repetir ferro + ferritina + TIBC em 60 dias — tendencia de queda<br><br>
+      Repetir vitamina D em 90 dias
+    </div>
+  </div>
+
+  <div class="secao-titulo">Sinais para reportar ao nutricionista</div>
+
+  <div class="card">
+    <div class="card-label">Fique atenta a</div>
+    <div class="card-valor">
+      Tontura ou fraqueza em jejum — pode ser a glicemia caindo<br><br>
+      Formigamentos ou dormencias — relacionados a homocisteina elevada<br><br>
+      Piora do cansaco — monitorar evolucao com o protocolo<br><br>
+      Alteracoes no transito intestinal — relatar na proxima consulta
+    </div>
+  </div>
+
+  <div class="card card-destaque">
+    <div class="card-label">Medica assistente</div>
+    <div class="card-valor">Dra. Gabriella Freitas Francisco da Silva<br>Nutricionista: Ademir Ferreira Junior · CRN-3 72295</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Proxima consulta</div>
+    <div class="card-valor">A agendar. Trazer resultados dos exames pendentes para ajuste do protocolo.</div>
+  </div>
+
+</div>
+
+<!-- BANNER INSTALAR -->
+<div class="banner-instalar" id="banner">
+  <div class="banner-txt">Adicione ao seu celular para acesso rapido</div>
+  <button class="banner-btn" id="btnInstalar">Instalar</button>
+  <button class="banner-fechar" onclick="document.getElementById('banner').style.display='none'">×</button>
+</div>
+
+<script>
+function mostrarAba(id, btn) {
+  document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('ativo'));
+  document.getElementById(id).classList.add('ativa');
+  btn.classList.add('ativo');
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+document.getElementById('btnInstalar').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') document.getElementById('banner').style.display = 'none';
+    deferredPrompt = null;
+  }
+});
+</script>
+</body>
+</html>
