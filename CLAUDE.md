@@ -36,7 +36,7 @@ nutri-consultorio/
 ├── _scripts/
 │   ├── novo-paciente.sh               ← cria pasta + subpastas de novo paciente
 │   └── publicar.sh                    ← git add + commit + push
-├── pacientes/                         ← pasta vazia — mantida apenas para referência
+├── _assets/                           ← og-image.jpg, icon-192.png, icon-512.png
 └── [nome-sobrenome]/                  ← pasta do paciente fica na RAIZ do repo
         ├── LEIAME.md                  ← ficha clínica + histórico de consultas
         ├── index.html                 ← redireciona para plano fixo ou pontual ativo
@@ -233,12 +233,14 @@ Quando o Nutri disser "consulta da [paciente]" ou equivalente:
 ## 7. FLUXO — NOVO PACIENTE
 
 ```
-1. Rodar: ./_scripts/novo-paciente.sh nome-sobrenome
-2. Copiar _templates/index-paciente.html para pacientes/[nome]/index.html
-3. Preencher LEIAME.md com dados clínicos iniciais
-4. Gerar plano-alimentar.html a partir do template-plano-fixo.html
-5. Publicar: ./_scripts/publicar.sh "novo paciente [nome]"
-6. Confirmar link: https://nutriademirferreira.github.io/pacientes/[nome]/
+1. Rodar: bash _scripts/novo-paciente.sh nome-sobrenome "Nome Completo"
+   (cria pasta na RAIZ com subpastas, index.html canônico e LEIAME.md)
+2. Ler _templates/SPEC.md (não o template completo)
+3. Criar [nome]/plano-alimentar.html seguindo o SPEC (referências vivas: kelly-christianne, camila-conceicao-pereira)
+4. Preencher LEIAME.md com dados clínicos + histórico
+5. Arquivar PDFs recebidos em exames/ ou avaliacao-fisica/
+6. Publicar: bash _scripts/publicar.sh "novo paciente [nome]"
+7. Confirmar link: https://nutriademirferreira.github.io/pacientes/[nome]/
 ```
 
 ---
@@ -247,8 +249,8 @@ Quando o Nutri disser "consulta da [paciente]" ou equivalente:
 
 ```
 1. Gerar HTML a partir de _templates/template-pontual.html
-2. Salvar em pacientes/[nome]/pontuais/[evento-mes-ano].html
-3. Atualizar pacientes/[nome]/index.html:
+2. Salvar em [nome]/pontuais/[evento-mes-ano].html
+3. Atualizar [nome]/index.html:
    - PONTUAL_ATIVO = true
    - PONTUAL_ARQUIVO = 'pontuais/[arquivo].html'
    - PONTUAL_LABEL = '[Label do evento]'

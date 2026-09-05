@@ -2,11 +2,20 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=plano-alimentar.html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gislene Soares Leite — Nutri Ademir Ferreira</title>
+<link rel="manifest" href="../_config/pwa-manifest.json">
 <meta name="theme-color" content="#536147">
-<title>Nutri Ademir Ferreira</title>
-<script>window.location.replace('plano-alimentar.html');</script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nutri Gislene">
+<script>
+  // CONFIGURAÇÃO — editar a cada protocolo pontual
+  const PONTUAL_ATIVO = false;           // true quando houver protocolo pontual ativo
+  const PONTUAL_ARQUIVO = '';            // ex: 'pontuais/casamento-jul2025.html'
+  const PONTUAL_LABEL = '';              // ex: 'Casamento 11/07'
+  window.location.replace((PONTUAL_ATIVO && PONTUAL_ARQUIVO) ? PONTUAL_ARQUIVO : 'plano-alimentar.html');
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=plano-alimentar.html"></noscript>
 </head>
 <body style="background:#F4EFE4;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
 <p style="color:#536147">Redirecionando...</p>

@@ -44,9 +44,38 @@
 ## Meta proteica
 1,8–2,2g/kg/dia = 127–155g/dia para 70,5 kg
 
+## Abas existentes na página
+Evolução / Exames / Suplementos / Solicitar / Progresso
+
+## Arquivos principais
+- `plano-alimentar.html` → dossiê/plano fixo (sempre atualizado)
+- `pontuais/` → protocolos especiais
+- `index.html` → redireciona automaticamente
+
+## Para ativar protocolo pontual
+No index.html, alterar:
+- PONTUAL_ATIVO = true
+- PONTUAL_ARQUIVO = 'pontuais/[nome-evento].html'
+- PONTUAL_LABEL = '[Label do evento]'
+
+## Pendências
+- [ ] Arquivar PDFs de exames em `exames/` e avaliações em `avaliacao-fisica/` (nenhum arquivado)
+- [ ] Repetir lipidograma com 12h de jejum e 72h de abstinência alcoólica (queda suspeita de HDL 55→43 e subida de TG 90→140 entre mai/26 e jun/26)
+- [ ] Solicitar painel de exames faltantes: ferritina + ferro sérico + saturação de transferrina, vitamina D (25-OH), TSH + T4 livre, insulina de jejum + HOMA-IR, zinco sérico, magnésio sérico
+- [ ] Monitorar dobra suprailíaca (única que subiu, +1,0mm) na próxima avaliação
+- [ ] Monitorar circunferência abdominal (+3,1cm apesar da dobra abdominal ter caído — possível hipertrofia muscular local, mas acompanhar)
+- [ ] Ajustar dose de Vitamina D3+K2 assim que sair a dosagem de 25-OH-vitamina D (atualmente sem valor de referência)
+- [ ] Página não possui abas de Carta ao médico, Carta ao personal ou Meu plano
+
 ## Histórico de consultas
 
 | Data | Peso | Arquivo | Notas |
 |---|---|---|---|
-| Jun/2026 | 68,8 kg | plano-alimentar.html | Baseline composição corporal. Exames Fleury. |
-| Ago/2026 | 70,5 kg | plano-alimentar.html | Segunda avaliação. Recomposição confirmada. Webapp criado. Suplementação prescrita. |
+| Set/2020 | a confirmar | plano-alimentar.html | Exame laboratorial: TGO 21 U/L, TGP 20 U/L (função hepática normal) |
+| Fev/2022 | a confirmar | plano-alimentar.html | Exame laboratorial: hemoglobina 13,8 g/dL |
+| Nov/2022 | a confirmar | plano-alimentar.html | Exame laboratorial: CT 223 mg/dL (elevado), HDL 49, TG 132, TGO 22, TGP 20, CK 181 e 123 U/L (duas coletas), hemoglobina 13,7 g/dL |
+| Dez/2024 | a confirmar | plano-alimentar.html | Processo de emagrecimento: perdeu 10 kg. Exame: CT 166 mg/dL (mínimo histórico), HDL 40, TG 79, TGO 16, TGP 13, hemoglobina 13,7 g/dL. Início do crossfit como modalidade principal |
+| Fev/2026 | a confirmar | plano-alimentar.html | Exame laboratorial: CT 198 mg/dL, HDL 48, TG 132, TGO 19, TGP 16, CK 145, hemoglobina 14,0 g/dL |
+| Mai/2026 | a confirmar | plano-alimentar.html | Exame laboratorial: CT 197 mg/dL, HDL 55 (meta de atleta atingida), TG 90 — padrão compatível com atleta de crossfit saudável |
+| Jun/2026 | 68,8 kg | plano-alimentar.html | Baseline composição corporal (avaliação 13/06/2026). Exames Fleury/Weinmann coletados 10/06/2026: CT 211 (elevado), HDL 43 (queda suspeita), TG 140 (subida suspeita), TGO 17, TGP 14, GGT 12, CK 86, hemoglobina 14,1, hemograma e hepatograma normais, HCG indetectável — suspeita de coleta sem jejum ideal, recomendado repetir |
+| Ago/2026 | 70,5 kg | plano-alimentar.html | Segunda avaliação (03/08/2026), 51 dias após baseline. Recomposição confirmada: +2,3 kg músculo, -0,9 kg gordura, somatório de dobras -13,3mm. Webapp criado. Suplementação prescrita. |
