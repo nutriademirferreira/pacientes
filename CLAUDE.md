@@ -342,6 +342,9 @@ Ao gerar um `plano-alimentar.html` ou `template-pontual.html`, substitua todos o
 | Placeholder | O que é | Fonte |
 |---|---|---|
 | `[NOME_PACIENTE]` | Nome completo | LEIAME.md |
+| `[PRIMEIRO_NOME]` | Primeiro nome (script de envio de exames, `data-nome`) | LEIAME.md |
+| `[nome-sobrenome]` | Slug da pasta do paciente (script de envio de exames, `data-slug`) | Nome da pasta |
+| `[PACIENTE_ID]` | UUID do paciente na plataforma (`pacientes_ativos.id`). Alimenta o card "Enviar para o Ademir" (`_assets/upload-exames.js`, linha `<script>` antes de `</body>`). Sem UUID válido o card não aparece | Plataforma → abrir o paciente → `?paciente=` na URL |
 | `[META_PACIENTE]` | Objetivo + contexto resumido (ex: "Emagrecimento · Pós-gestacional") | LEIAME.md |
 | `[DATA_ATUALIZACAO]` | Data da consulta atual (dd/mm/aaaa) | Informado pelo Nutri |
 | `[CIDADE]` | São Paulo | Fixo |
