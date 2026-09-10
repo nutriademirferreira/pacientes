@@ -7,7 +7,8 @@
 
 ## Dados clínicos
 32 anos (nascimento 16/05/1994) · 169 cm · Plano VIP Platinum até 30/12/2026
-Peso atual: não aferido. Referências relatadas: peso em que se sente bem 62 a 63 kg · máximo 73 kg · 58 kg na cetogênica · 45 kg na adolescência durante a anorexia
+Peso: 68 a 69 kg (relatado, registrado nas observações da plataforma; **sem avaliação física aferida**) · IMC aproximado 24
+Referências relatadas: peso em que se sente bem 62 a 63 kg · máximo 73 kg · 58 kg na cetogênica · 45 kg na adolescência durante a anorexia · objetivo declarado voltar a 62 kg
 
 - **Histórico de anorexia entre os 13 e 14 anos.** Determina a conduta: nenhum laxante estimulante entra no protocolo (risco de comportamento purgativo e dependência colônica) e o enquadramento evita "desinchar", "esvaziar" e "limpar o intestino".
 - **Constipação crônica desde a infância.** Evacua a cada 3 ou 4 dias, com distensão e dor.
