@@ -74,3 +74,4 @@ A fosfatase alcalina elevada e a transferrina caindo são prováveis reflexos da
 | Data | Peso | Arquivo | Notas |
 |---|---|---|---|
 | 13/08/2026 | — | — | Entrada no sistema. Exames Delboni 25/07/2026 analisados. PCR >20 mg/L + Hcy 26,4 + folato deficiente = achados prioritários. |
+| 08/10/2026 | — | plano-alimentar.html | Constipação de 4 a 5 dias em episódios nas últimas 6 semanas, com gases; sem sinais de alarme. Acrescentados 2 kiwis/dia, ameixa seca (50 g, alternando com o kiwi) e rotina de banheiro após o café com banquinho (até 10 min, sem força). Em uso: Serazeti, Somalgin Cardio e manipulado da Dra. Gabriella (B12, P5P, metilfolato, folínico, cobre, zinco 15 mg, selênio, riboflavina; 1 cáps. almoço e jantar por 4 meses). |
